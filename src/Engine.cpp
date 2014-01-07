@@ -18,6 +18,8 @@ Engine::~Engine() {
 void Engine::run() {
     vector<string> input;
     
+    printIntro();
+    
     while(true) {
         std::cout << INPUT_INDICATOR;
         
@@ -53,4 +55,8 @@ vector<string> Engine::getInput() {
     }
     
     return words;
+}
+
+void Engine::printIntro() {
+    std::cout << GAME_INTRO << std::endl;
 }
