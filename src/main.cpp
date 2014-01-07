@@ -1,9 +1,13 @@
 #include <iostream>
+#include "Engine.h"
+
+using namespace game;
 
 int main(int argc, const char * argv[])
 {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    Engine engine;
+    
+    engine.run();
+    
     return 0;
 }
-
