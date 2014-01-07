@@ -36,7 +36,7 @@ void Engine::run() {
     printOutro();
 }
 
-vector<string> Engine::getInput() {
+vector<string> Engine::getInput() const {
     vector<string> words;
     size_t delimeterLength = sizeof(INPUT_WORD_DELIMETER)-1;
     
@@ -77,10 +77,10 @@ bool Engine::performCommand(const vector<string> & input) {
     return true;
 }
 
-void Engine::printIntro() {
+void Engine::printIntro() const {
     std::cout << GAME_INTRO << std::endl;
 }
 
-void Engine::printOutro() {
+void Engine::printOutro() const {
     std::cout << GAME_OUTRO << std::endl;
 }

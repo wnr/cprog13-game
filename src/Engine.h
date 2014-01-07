@@ -23,10 +23,10 @@ namespace game {
         void run();
         
     private:
-        std::vector<std::string> getInput();
+        std::vector<std::string> getInput() const;
         bool performCommand(const std::vector<std::string> & inputs);
-        void printIntro();
-        void printOutro();
+        void printIntro() const;
+        void printOutro() const;
     };
 }
 
