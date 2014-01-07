@@ -8,7 +8,11 @@ using std::vector;
 using std::string;
 
 Engine::Engine() {
+    running = true;
     
+    commands["exit"] = [](Engine *engine){
+        engine->running = false;
+    };
 }
 
 Engine::~Engine() {
@@ -16,21 +20,20 @@ Engine::~Engine() {
 }
 
 void Engine::run() {
-    vector<string> input;
-    
     printIntro();
     
-    while(true) {
+    while(running) {
         std::cout << INPUT_INDICATOR;
         
-        input = getInput();
-        
-        for_each(input.begin(), input.end(), [] (string word) {
-            std::cout << word << "-";
-        });
+        if(!performCommand(getInput())) {
+            std::cout << INPUT_INVALID_COMMAND;
+            std::cout << std::endl;
+        }
         
         std::cout << std::endl;
     }
+    
+    printOutro();
 }
 
 vector<string> Engine::getInput() {
@@ -57,6 +60,27 @@ vector<string> Engine::getInput() {
     return words;
 }
 
+bool Engine::performCommand(const vector<string> & input) {
+    if(input.empty()) {
+        return false;
+    }
+    
+    string key = input[0];
+    
+    if(commands.count(key) == 0) {
+        return false;
+    }
+    
+    std::function<void(Engine*)> command = commands[key];
+    command(this);
+    
+    return true;
+}
+
 void Engine::printIntro() {
     std::cout << GAME_INTRO << std::endl;
+}
+
+void Engine::printOutro() {
+    std::cout << GAME_OUTRO << std::endl;
 }
