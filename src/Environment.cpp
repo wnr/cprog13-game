@@ -1,11 +1,8 @@
 #include "Environment.h"
 
 using namespace game;
-using std::string;
-using std::map;
-using std::weak_ptr;
 
-Environment::Environment(string desc) : description(desc) {
+Environment::Environment(std::string desc) : description(desc) {
     
 }
 
@@ -21,13 +18,13 @@ Environment::~Environment() {
     
 }
 
-void Environment::setNeightbor(string direction, weak_ptr<Environment> env) {
+void Environment::setNeightbor(std::string direction, std::weak_ptr<Environment> env) {
     neighbors[direction] = env;
 }
 
-weak_ptr<Environment> Environment::getNeighbor(const std::string & direction) {
+std::weak_ptr<Environment> Environment::getNeighbor(const std::string & direction) {
     if(neighbors.count(direction) == 0) {
-        throw std::invalid_argument("No environment found in that direction.");
+        return std::weak_ptr<Environment>();
     }
     
     return neighbors[direction];
@@ -35,4 +32,13 @@ weak_ptr<Environment> Environment::getNeighbor(const std::string & direction) {
 
 std::string Environment::getDescription() const {
     return description;
+}
+
+std::vector<std::string> Environment::getDirections() const {
+    std::vector<std::string> directions;
+    for(auto entry : neighbors) {
+        directions.push_back(entry.first);
+    }
+    
+    return directions;
 }

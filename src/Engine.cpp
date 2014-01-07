@@ -10,19 +10,65 @@ using std::string;
 Engine::Engine() {
     running = true;
     
-    commands["exit"] = [](Engine *engine){
-        engine->running = false;
-    };
+    initCommands();
+    initEnvironments();
 }
 
 Engine::~Engine() {
     
 }
 
+void Engine::initCommands() {
+    commands["exit"] = [](Engine *engine, const std::vector<std::string> &) -> bool {
+        engine->running = false;
+        return true;
+    };
+    
+    commands["go"] = [](Engine * engine, const std::vector<std::string> & commands) -> bool {
+        if(commands.size() != 2) {
+            return false;
+        }
+        
+        std::weak_ptr<Environment> env = engine->getCurrentEnvironment().lock()->getNeighbor(commands[1]);
+        
+        if(env.expired()) {
+            return false;
+        }
+        
+        engine->setCurrentEnvironment(env);
+        
+        return true;
+    };
+}
+
+void Engine::initEnvironments() {
+    std::shared_ptr<Environment> house(new Environment("a big house with walls."));
+    std::shared_ptr<Environment> outside(new Environment("an outside place with big sun"));
+    
+    house->setNeightbor("forward", outside);
+    outside->setNeightbor("backward", house);
+    
+    environments.push_back(house);
+    environments.push_back(outside);
+  
+    currentEnv = house;
+}
+
 void Engine::run() {
     printIntro();
     
     while(running) {
+        
+        std::shared_ptr<Environment> env = currentEnv.lock();
+        
+        std::cout << "Your are in " << env->getDescription() << std::endl;
+        
+        std::cout << "You can move:" << std::endl;
+        
+        for(auto dir : env->getDirections()) {
+            std::cout << dir << std::endl;
+        }
+        
         std::cout << INPUT_INDICATOR;
         
         if(!performCommand(getInput())) {
@@ -71,10 +117,8 @@ bool Engine::performCommand(const vector<string> & input) {
         return false;
     }
     
-    std::function<void(Engine*)> command = commands[key];
-    command(this);
-    
-    return true;
+    auto command = commands[key];
+    return command(this, input);
 }
 
 void Engine::printIntro() const {
@@ -83,4 +127,12 @@ void Engine::printIntro() const {
 
 void Engine::printOutro() const {
     std::cout << GAME_OUTRO << std::endl;
+}
+
+void Engine::setCurrentEnvironment(std::weak_ptr<Environment> env) {
+    currentEnv = env;
+}
+
+std::weak_ptr<Environment> Engine::getCurrentEnvironment() {
+    return currentEnv;
 }

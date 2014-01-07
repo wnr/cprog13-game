@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
 
 namespace game {
     class Environment {
@@ -20,6 +21,7 @@ namespace game {
         std::weak_ptr<Environment> getNeighbor(const std::string & direction);
         
         std::string getDescription() const;
+        std::vector<std::string> getDirections() const;
     };
 }
 
