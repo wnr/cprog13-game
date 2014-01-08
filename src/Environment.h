@@ -6,10 +6,13 @@
 #include <map>
 #include <vector>
 
+#include "Entity.h"
+
 namespace game {
     class Environment {
         std::string description;
         std::map<std::string, std::weak_ptr<Environment> > neighbors;
+        std::vector<std::weak_ptr<Entity> > entities;
         
     public:
         Environment(std::string desc);
@@ -22,6 +25,11 @@ namespace game {
         
         std::string getDescription() const;
         std::vector<std::string> getDirections() const;
+        
+        void addEntity(std::weak_ptr<Entity> entity);
+        void removeEntity(std::weak_ptr<Entity> entity);
+        
+        virtual void updateEntities();
     };
 }
 

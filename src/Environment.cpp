@@ -42,3 +42,31 @@ std::vector<std::string> Environment::getDirections() const {
     
     return directions;
 }
+
+void Environment::addEntity(std::weak_ptr<Entity> entity) {
+    entities.push_back(std::weak_ptr<Entity>(entity));
+}
+
+void Environment::removeEntity(std::weak_ptr<Entity> entity) {
+    std::remove_if(entities.begin(), entities.end(), [entity] (std::weak_ptr<Entity> ptr) -> bool {
+        if(ptr.expired()) {
+            return true;
+        }
+        
+        if((ptr.lock()).get() == (entity.lock()).get()) {
+            return true;
+        }
+        
+        return false;
+    });
+}
+
+void Environment::updateEntities() {
+    for(auto entity : entities) {
+        if(entity.expired()) {
+            std::cerr << "Error: A pointer is gone.";
+        } else {
+            entity.lock()->update();
+        }
+    }
+}

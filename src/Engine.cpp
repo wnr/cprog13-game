@@ -1,5 +1,8 @@
 #include "Engine.h"
 
+#include "Environment.h"
+#include "Player.h"
+
 #include <iostream>
 #include <cstring>
 
@@ -9,6 +12,7 @@ using std::string;
 
 Engine::Engine() {
     running = true;
+    player = std::shared_ptr<Player>(new Player(this, "Lucas"));
     
     initCommands();
     initEnvironments();
@@ -46,6 +50,7 @@ void Engine::initEnvironments() {
     std::shared_ptr<Environment> outside(new Environment("an outside place with big sun"));
     
     house->setNeightbor("forward", outside);
+    house->addEntity(std::static_pointer_cast<Entity>(player));
     outside->setNeightbor("backward", house);
     
     environments.push_back(house);

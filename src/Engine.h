@@ -5,8 +5,6 @@
 #include <vector>
 #include <map>
 
-#include "Environment.h"
-
 #define INPUT_WORD_DELIMETER    " "
 #define INPUT_INDICATOR         "> "
 #define INPUT_INVALID_COMMAND   "Invalid command.";
@@ -15,8 +13,12 @@
 #define GAME_OUTRO              "Good bye sissy."
 
 namespace game {
+    class Environment;
+    class Player;
+    
     class Engine {
         bool running;
+        std::shared_ptr<Player> player;
         std::map<std::string, std::function<bool(Engine*, const std::vector<std::string> &)>> commands;
         std::vector<std::shared_ptr<Environment> > environments;
         std::weak_ptr<Environment> currentEnv;
