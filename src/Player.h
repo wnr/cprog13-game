@@ -3,8 +3,6 @@
 
 #include "Entity.h"
 
-#define ENTITY_PLAYER_TYPE "Player"
-
 namespace game {
     class Player : public Entity {
         std::string name;
@@ -14,7 +12,7 @@ namespace game {
         Player(const Player & player);
         Player(Player && player);
         
-        void update();
+        void update(const Environment & env);
     };
 }
 

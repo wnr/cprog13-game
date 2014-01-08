@@ -10,11 +10,14 @@
 
 namespace game {
     class Engine;
+    class Environment;
     
     class Entity {
+    protected:
         std::string type;
         bool alive;
         Engine * engine;
+        Environment * env;
         
     public:
         Entity(Engine * engine, std::string type);
@@ -22,11 +25,14 @@ namespace game {
         Entity(Entity && entity);
         ~Entity();
         
-        virtual void update() = 0;
+        virtual void update(const Environment & env) = 0;
         
         std::string getType() const;
         bool isAlive() const;
         void kill();
+        
+        void setEnvironment(Environment * env);
+        bool move(const std::string & direction);
     };
 }
 

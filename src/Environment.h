@@ -6,9 +6,9 @@
 #include <map>
 #include <vector>
 
-#include "Entity.h"
-
 namespace game {
+    class Entity;
+    
     class Environment {
         std::string description;
         std::map<std::string, std::weak_ptr<Environment> > neighbors;
@@ -28,8 +28,10 @@ namespace game {
         
         void addEntity(std::weak_ptr<Entity> entity);
         void removeEntity(std::weak_ptr<Entity> entity);
+        std::weak_ptr<Entity> removeEntity(const Entity * entity);
         
         virtual void updateEntities();
+        virtual void update();
     };
 }
 

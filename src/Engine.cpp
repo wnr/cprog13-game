@@ -3,6 +3,8 @@
 #include "Environment.h"
 #include "Player.h"
 
+#include "Constants.h"
+
 #include <iostream>
 #include <cstring>
 
@@ -33,15 +35,7 @@ void Engine::initCommands() {
             return false;
         }
         
-        std::weak_ptr<Environment> env = engine->getCurrentEnvironment().lock()->getNeighbor(commands[1]);
-        
-        if(env.expired()) {
-            return false;
-        }
-        
-        engine->setCurrentEnvironment(env);
-        
-        return true;
+        return engine->player->move(commands[1]);
     };
 }
 
@@ -55,8 +49,6 @@ void Engine::initEnvironments() {
     
     environments.push_back(house);
     environments.push_back(outside);
-  
-    currentEnv = house;
 }
 
 void Engine::run() {
@@ -64,21 +56,8 @@ void Engine::run() {
     
     while(running) {
         
-        std::shared_ptr<Environment> env = currentEnv.lock();
-        
-        std::cout << "Your are in " << env->getDescription() << std::endl;
-        
-        std::cout << "You can move:" << std::endl;
-        
-        for(auto dir : env->getDirections()) {
-            std::cout << dir << std::endl;
-        }
-        
-        std::cout << INPUT_INDICATOR;
-        
-        if(!performCommand(getInput())) {
-            std::cout << INPUT_INVALID_COMMAND;
-            std::cout << std::endl;
+        for(auto env : environments) {
+            env->update();
         }
         
         std::cout << std::endl;
@@ -132,12 +111,4 @@ void Engine::printIntro() const {
 
 void Engine::printOutro() const {
     std::cout << GAME_OUTRO << std::endl;
-}
-
-void Engine::setCurrentEnvironment(std::weak_ptr<Environment> env) {
-    currentEnv = env;
-}
-
-std::weak_ptr<Environment> Engine::getCurrentEnvironment() {
-    return currentEnv;
 }
