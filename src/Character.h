@@ -12,8 +12,8 @@ namespace game {
         const std::string name;
         
     public:
-        Character(Engine * engine, int maxHealth, std::string name);
-        Character(Engine * engine, int maxHealth, std::string name, std::string type);
+        Character(Engine * engine, std::string name, int maxHealth);
+        Character(Engine * engine, std::string name, int maxHealth, std::string type);
         Character(const Character & character);
         Character(Character && character);
         ~Character();

@@ -2,6 +2,7 @@
 
 #include "Environment.h"
 #include "Player.h"
+#include "Monster.h"
 
 #include "Constants.h"
 #include "Log.h"
@@ -32,6 +33,7 @@ void Engine::initEnvironments() {
     house->setNeightbor("forward", outside.get());
     house->addEntity(std::unique_ptr<Entity>(new Player(this, 1337, "Lucas")));
     outside->setNeightbor("backward", house.get());
+    outside->addEntity(std::unique_ptr<Entity>(new Monster(this, "Troll", 100)));
     
     environments.push_back(std::move(house));
     environments.push_back(std::move(outside));

@@ -5,6 +5,7 @@
 
 #define ENTITY_PLAYER_TYPE      "Player"
 #define ENTITY_CHARACTER_TYPE   "Character"
+#define ENTITY_MONSTER_TYPE     "Monster"
 
 #define INPUT_WORD_DELIMETER    " "
 #define INPUT_INDICATOR         "> "

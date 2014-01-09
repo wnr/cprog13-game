@@ -8,7 +8,7 @@
 
 using namespace game;
 
-Player::Player(Engine * engine, int maxHealth, std::string name) : Character(engine, maxHealth, name, ENTITY_PLAYER_TYPE) {
+Player::Player(Engine * engine, int maxHealth, std::string name) : Character(engine, name, maxHealth, ENTITY_PLAYER_TYPE) {
     initCommands();
 }
 

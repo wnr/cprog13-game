@@ -4,8 +4,8 @@
 
 using namespace game;
 
-Character::Character(Engine * engine, int maxHealth, std::string name) : Character(engine, maxHealth, name, ENTITY_CHARACTER_TYPE) {}
-Character::Character(Engine * engine, int maxHealth, std::string name, std::string type) : Entity(engine, type), maxHealth(maxHealth), health(maxHealth), name(name) {
+Character::Character(Engine * engine, std::string name, int maxHealth) : Character(engine, name, maxHealth, ENTITY_CHARACTER_TYPE) {}
+Character::Character(Engine * engine, std::string name, int maxHealth, std::string type) : Entity(engine, type), maxHealth(maxHealth), health(maxHealth), name(name) {
     log(this, "ctor");
 }
 
@@ -38,8 +38,9 @@ void Character::setHealth(unsigned int health) {
         throw std::invalid_argument("health must be set less than max health.");
     }
     
-    log(this, "health set to " + std::to_string(this->health));
     this->health = health;
+    
+    log(this, "health set to " + std::to_string(this->health));
 }
 
 void Character::addHealth(int health) {
