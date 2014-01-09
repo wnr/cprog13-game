@@ -13,13 +13,15 @@ using std::vector;
 using std::string;
 
 Engine::Engine() {
+    LOG("Engine ctor");
+    
     running = true;
     
     initEnvironments();
 }
 
 Engine::~Engine() {
-    
+    LOG("Engine dtor");
 }
 
 void Engine::initEnvironments() {

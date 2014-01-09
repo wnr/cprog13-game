@@ -1,16 +1,24 @@
 #include "Environment.h"
-
 #include "Entity.h"
+#include "Constants.h"
 
 using namespace game;
 
-Environment::Environment(std::string desc) : description(desc) {}
+Environment::Environment(std::string desc) : description(desc) {
+    LOG("Environment ctor");
+}
 
-Environment::Environment(const Environment & env) : description(env.description) {}
+Environment::Environment(const Environment & env) : description(env.description) {
+    LOG("Environment ctor copy");
+}
 
-Environment::Environment(Environment && env) : description(env.description) {}
+Environment::Environment(Environment && env) : description(env.description) {
+    LOG("Environment ctor move");
+}
 
-Environment::~Environment() {}
+Environment::~Environment() {
+    LOG("Environment dtor");
+}
 
 void Environment::setNeightbor(std::string direction, Environment * env) {
     neighbors[direction] = env;
