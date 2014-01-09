@@ -2,9 +2,9 @@
 #define cprog13_game_Constants_h
 
 #define CERR_LOG                true
-#define LOG(x)                  { std::cerr << x << std::endl; }
 
 #define ENTITY_PLAYER_TYPE      "Player"
+#define ENTITY_CHARACTER_TYPE   "Character"
 
 #define INPUT_WORD_DELIMETER    " "
 #define INPUT_INDICATOR         "> "

@@ -6,6 +6,8 @@
 #include <map>
 #include <vector>
 
+#include "Loggable.h"
+
 //Environment describes a place where entities can be. All environments makes the game world.
 //Environment handles as owns all Entities that are in them. Environments moves the ownership between them when
 //an Entity moves between Environments. Environments keeps track of the neighbors with weak pointers to break cyclic dependencies
@@ -14,7 +16,7 @@
 namespace game {
     class Entity;
     
-    class Environment {
+    class Environment : public Loggable {
         std::string description;
         std::map<std::string, Environment* > neighbors;
         std::vector<std::unique_ptr<Entity> > entities;
@@ -42,6 +44,8 @@ namespace game {
         
         virtual void updateEntities();
         virtual void update();
+        
+        virtual std::string toString() const;
     };
 }
 

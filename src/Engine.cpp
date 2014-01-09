@@ -4,6 +4,7 @@
 #include "Player.h"
 
 #include "Constants.h"
+#include "Log.h"
 
 #include <iostream>
 #include <cstring>
@@ -13,7 +14,7 @@ using std::vector;
 using std::string;
 
 Engine::Engine() {
-    LOG("Engine ctor");
+    log("Engine ctor");
     
     running = true;
     
@@ -21,7 +22,7 @@ Engine::Engine() {
 }
 
 Engine::~Engine() {
-    LOG("Engine dtor");
+    log("Engine dtor");
 }
 
 void Engine::initEnvironments() {
@@ -29,7 +30,7 @@ void Engine::initEnvironments() {
     std::unique_ptr<Environment> outside(new Environment("an outside place with big sun"));
     
     house->setNeightbor("forward", outside.get());
-    house->addEntity(std::unique_ptr<Entity>(new Player(this, "Lucas")));
+    house->addEntity(std::unique_ptr<Entity>(new Player(this, 1337, "Lucas")));
     outside->setNeightbor("backward", house.get());
     
     environments.push_back(std::move(house));

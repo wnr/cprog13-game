@@ -1,23 +1,23 @@
 #include "Environment.h"
 #include "Entity.h"
-#include "Constants.h"
+#include "Log.h"
 
 using namespace game;
 
 Environment::Environment(std::string desc) : description(desc) {
-    LOG("Environment ctor");
+    log(this, "ctor");
 }
 
 Environment::Environment(const Environment & env) : description(env.description) {
-    LOG("Environment ctor copy");
+    log(this, "ctor copy");
 }
 
 Environment::Environment(Environment && env) : description(env.description) {
-    LOG("Environment ctor move");
+    log(this, "ctor move");
 }
 
 Environment::~Environment() {
-    LOG("Environment dtor");
+    log(this, "dtor");
 }
 
 void Environment::setNeightbor(std::string direction, Environment * env) {
@@ -76,4 +76,8 @@ void Environment::updateEntities() {
     for(auto & entity : entities) {
         entity->update(*this);
     }
+}
+
+std::string Environment::toString() const {
+    return "Environment";
 }

@@ -8,11 +8,13 @@
 #include <string>
 #include <vector>
 
+#include "Loggable.h"
+
 namespace game {
     class Engine;
     class Environment;
     
-    class Entity {
+    class Entity : public Loggable {
     protected:
         std::string type;
         bool alive;
@@ -29,10 +31,12 @@ namespace game {
         
         std::string getType() const;
         bool isAlive() const;
-        void kill();
+        virtual void kill();
         
         void setEnvironment(Environment * env);
         bool move(const std::string & direction);
+        
+        virtual std::string toString() const;
     };
 }
 

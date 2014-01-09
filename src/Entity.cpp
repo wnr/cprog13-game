@@ -1,24 +1,24 @@
 #include "Entity.h"
 
 #include "Environment.h"
-#include "Constants.h"
+#include "Log.h"
 
 using namespace game;
 
 Entity::Entity(Engine * engine, std::string type) : engine(engine), type(type), alive(true) {
-    LOG(type + ": Entity ctor");
+    log(this, "ctor");
 }
 
 Entity::Entity(const Entity & entity) : engine(entity.engine), type(entity.type), alive(entity.alive) {
-    LOG(type + ": Entity ctor copy");
+    log(this, "ctor copy");
 }
 
 Entity::Entity(Entity && entity) : engine(entity.engine), type(entity.type), alive(entity.alive) {
-    LOG(type + ": Entity ctor move");
+    log(this, "ctor move");
 }
 
 Entity::~Entity() {
-    LOG(type + ": Entity dtor");
+    log(this, "dtor");
     engine = NULL;
     alive = false;
     type.clear();
@@ -33,7 +33,7 @@ bool Entity::isAlive() const {
 }
 
 void Entity::kill() {
-    LOG(type + ": Entity killed");
+    log(this, "killed");
     alive = false;
 }
 
@@ -43,7 +43,7 @@ void Entity::setEnvironment(Environment * env) {
 
 bool Entity::move(const std::string &direction) {
     if(env == NULL) {
-        LOG("ERROR: " + type + ": Entity does not have an Environment.");
+        error(this, "Entity does not have an Environment.");
         return false;
     }
     
@@ -54,9 +54,13 @@ bool Entity::move(const std::string &direction) {
         return false;
     }
     
-    LOG(type + ": Entity moving " + direction);
+    log(this, "move " + direction);
     
     neighbor->addEntity(env->removeEntity(this));
     
     return true;
+}
+
+std::string Entity::toString() const {
+    return "Entity:" + type;
 }

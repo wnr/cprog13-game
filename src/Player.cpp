@@ -8,13 +8,13 @@
 
 using namespace game;
 
-Player::Player(Engine * engine, std::string name) : Entity(engine, ENTITY_PLAYER_TYPE), name(name) {
+Player::Player(Engine * engine, int maxHealth, std::string name) : Character(engine, maxHealth, name, ENTITY_PLAYER_TYPE) {
     initCommands();
 }
 
-Player::Player(const Player & player) : Entity(player), name(player.name), commands(player.commands) {}
+Player::Player(const Player & player) : Character(player), commands(player.commands) {}
 
-Player::Player(Player && player) : Entity(player), name(player.name), commands(player.commands) {}
+Player::Player(Player && player) : Character(player), commands(player.commands) {}
 
 void Player::update(const Environment & env) {
     std::cout << "Your are in " << env.getDescription() << std::endl;
