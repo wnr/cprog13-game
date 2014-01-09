@@ -62,5 +62,5 @@ bool Entity::move(const std::string &direction) {
 }
 
 std::string Entity::toString() const {
-    return "Entity:" + type;
+    return "Entity(" + type + ")";
 }

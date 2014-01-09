@@ -14,8 +14,11 @@ namespace game {
         Player(Engine * engine, int maxHealth, std::string name);
         Player(const Player & player);
         Player(Player && player);
+        ~Player();
         
         void update(const Environment & env);
+        
+        std::string toString() const;
         
     private:
         void initCommands();

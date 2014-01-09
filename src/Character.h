@@ -31,6 +31,7 @@ namespace game {
         virtual void kill();
         
         virtual std::string toString() const;
+        virtual std::string getDescription() const;
     };
 }
 

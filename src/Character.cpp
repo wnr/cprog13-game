@@ -74,5 +74,9 @@ void Character::kill() {
 }
 
 std::string Character::toString() const {
-    return Entity::toString() + ":" + name;
+    return Entity::toString() + ":" + "Character(" + name + ")";
+}
+
+std::string Character::getDescription() const {
+    return name;
 }

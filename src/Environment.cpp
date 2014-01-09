@@ -1,6 +1,7 @@
 #include "Environment.h"
 #include "Entity.h"
 #include "Log.h"
+#include "Constants.h"
 
 using namespace game;
 
@@ -80,4 +81,18 @@ void Environment::updateEntities() {
 
 std::string Environment::toString() const {
     return "Environment";
+}
+
+std::vector<const Entity*> Environment::getEntities(bool includePlayer) const {
+    std::vector<const Entity*> result;
+    
+    for(auto & entity : entities) {
+        if(entity->getType() == ENTITY_PLAYER_TYPE && !includePlayer) {
+            continue;
+        }
+        
+        result.push_back(entity.get());
+    }
+    
+    return result;
 }

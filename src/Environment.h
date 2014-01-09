@@ -42,6 +42,8 @@ namespace game {
         //After this is done Entity will not belong to any Environment.
         std::unique_ptr<Entity> removeEntity(Entity * entity);
         
+        std::vector<const Entity*> getEntities(bool includePlayer = false) const;
+        
         virtual void updateEntities();
         virtual void update();
         

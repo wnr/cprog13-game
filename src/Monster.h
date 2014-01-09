@@ -29,6 +29,7 @@ namespace game {
         void decAttackProb(float prob);
         
         virtual void update(const Environment & env);
+        virtual std::string toString() const;
     };
 }
 

@@ -99,3 +99,7 @@ void Monster::incAttackProb(float prob) {
 void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
 }
+
+std::string Monster::toString() const {
+    return Character::toString() + ":Monster";
+}

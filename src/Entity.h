@@ -37,6 +37,7 @@ namespace game {
         bool move(const std::string & direction);
         
         virtual std::string toString() const;
+        virtual std::string getDescription() const = 0;
     };
 }
 

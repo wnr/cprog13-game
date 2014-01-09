@@ -3,18 +3,28 @@
 #include "Engine.h"
 
 #include "Constants.h"
+#include "Log.h"
 
 #include <iostream>
 
 using namespace game;
 
 Player::Player(Engine * engine, int maxHealth, std::string name) : Character(engine, name, maxHealth, ENTITY_PLAYER_TYPE) {
+    log(this, "ctor");
     initCommands();
 }
 
-Player::Player(const Player & player) : Character(player), commands(player.commands) {}
+Player::Player(const Player & player) : Character(player), commands(player.commands) {
+    log(this, "ctor copy");
+}
 
-Player::Player(Player && player) : Character(player), commands(player.commands) {}
+Player::Player(Player && player) : Character(player), commands(player.commands) {
+    log(this, "ctor move");
+}
+
+Player::~Player() {
+    log(this, "dtor");
+}
 
 void Player::update(const Environment & env) {
     std::cout << "Your are in " << env.getDescription() << std::endl;
@@ -23,6 +33,10 @@ void Player::update(const Environment & env) {
     
     for(auto dir : env.getDirections()) {
         std::cout << dir << std::endl;
+    }
+    
+    for(auto entity : env.getEntities()) {
+        std::cout << "You see " + entity->getDescription() << std::endl;
     }
     
     std::cout << INPUT_INDICATOR;
@@ -61,4 +75,8 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     
     auto command = commands[key];
     return command(input);
+}
+
+std::string Player::toString() const {
+    return Character::toString() + ":Player";
 }
