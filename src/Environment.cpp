@@ -12,13 +12,13 @@ Environment::Environment(Environment && env) : description(env.description) {}
 
 Environment::~Environment() {}
 
-void Environment::setNeightbor(std::string direction, std::weak_ptr<Environment> env) {
+void Environment::setNeightbor(std::string direction, Environment * env) {
     neighbors[direction] = env;
 }
 
-std::weak_ptr<Environment> Environment::getNeighbor(const std::string & direction) {
+Environment * Environment::getNeighbor(const std::string & direction) {
     if(neighbors.count(direction) == 0) {
-        return std::weak_ptr<Environment>();
+        return NULL;
     }
     
     return neighbors[direction];
@@ -37,45 +37,35 @@ std::vector<std::string> Environment::getDirections() const {
     return directions;
 }
 
-void Environment::addEntity(std::weak_ptr<Entity> entity) {
-    entities.push_back(entity);
-    entity.lock()->setEnvironment(this);
+void Environment::addEntity(std::unique_ptr<Entity> entity) {
+    entity->setEnvironment(this);
+    entities.push_back(std::move(entity));
 }
 
-std::weak_ptr<Entity> Environment::removeEntity(const Entity * entity) {
-    std::weak_ptr<Entity> removed;
+std::unique_ptr<Entity> Environment::removeEntity(Entity * entity) {
+    std::unique_ptr<Entity> removed;
     
-    std::remove_if(entities.begin(), entities.end(), [entity, &removed] (std::weak_ptr<Entity> ptr) -> bool {
-        if(ptr.expired()) {
-            return true;
-        }
-        
-        if((ptr.lock()).get() == entity) {
-            removed = ptr;
+    auto it = std::remove_if(entities.begin(), entities.end(), [entity, &removed] (std::unique_ptr<Entity> & ptr) -> bool {
+        //TODO: Can equality be checked like this? If the pointers are pointing to the same address they should be the same...
+        if(ptr.get() == entity) {
+            removed = std::move(ptr);
             return true;
         }
         
         return false;
     });
     
+    entities.erase(it, entities.end());
+    
     return removed;
 }
-
-void Environment::removeEntity(std::weak_ptr<Entity> entity) {
-    removeEntity(entity.lock().get());
-}
-
 
 void Environment::update() {
     updateEntities();
 }
 
 void Environment::updateEntities() {
-    for(auto entity : entities) {
-        if(entity.expired()) {
-            std::cerr << "Error: A pointer is gone.";
-        } else {
-            entity.lock()->update(*this);
-        }
+    for(auto & entity : entities) {
+        entity->update(*this);
     }
 }

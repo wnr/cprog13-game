@@ -14,9 +14,7 @@ using std::string;
 
 Engine::Engine() {
     running = true;
-    player = std::shared_ptr<Player>(new Player(this, "Lucas"));
     
-    initCommands();
     initEnvironments();
 }
 
@@ -24,31 +22,16 @@ Engine::~Engine() {
     
 }
 
-void Engine::initCommands() {
-    commands["exit"] = [](Engine *engine, const std::vector<std::string> &) -> bool {
-        engine->running = false;
-        return true;
-    };
-    
-    commands["go"] = [](Engine * engine, const std::vector<std::string> & commands) -> bool {
-        if(commands.size() != 2) {
-            return false;
-        }
-        
-        return engine->player->move(commands[1]);
-    };
-}
-
 void Engine::initEnvironments() {
-    std::shared_ptr<Environment> house(new Environment("a big house with walls."));
-    std::shared_ptr<Environment> outside(new Environment("an outside place with big sun"));
+    std::unique_ptr<Environment> house(new Environment("a big house with walls."));
+    std::unique_ptr<Environment> outside(new Environment("an outside place with big sun"));
     
-    house->setNeightbor("forward", outside);
-    house->addEntity(std::static_pointer_cast<Entity>(player));
-    outside->setNeightbor("backward", house);
+    house->setNeightbor("forward", outside.get());
+    house->addEntity(std::unique_ptr<Entity>(new Player(this, "Lucas")));
+    outside->setNeightbor("backward", house.get());
     
-    environments.push_back(house);
-    environments.push_back(outside);
+    environments.push_back(std::move(house));
+    environments.push_back(std::move(outside));
 }
 
 void Engine::run() {
@@ -56,8 +39,8 @@ void Engine::run() {
     
     while(running) {
         
-        for(auto env : environments) {
-            env->update();
+        for(auto env = environments.begin(); env != environments.end(); env++) {
+            (*env)->update();
         }
         
         std::cout << std::endl;
@@ -90,25 +73,14 @@ vector<string> Engine::getInput() const {
     return words;
 }
 
-bool Engine::performCommand(const vector<string> & input) {
-    if(input.empty()) {
-        return false;
-    }
-    
-    string key = input[0];
-    
-    if(commands.count(key) == 0) {
-        return false;
-    }
-    
-    auto command = commands[key];
-    return command(this, input);
-}
-
 void Engine::printIntro() const {
     std::cout << GAME_INTRO << std::endl;
 }
 
 void Engine::printOutro() const {
     std::cout << GAME_OUTRO << std::endl;
+}
+
+void Engine::kill() {
+    running = false;
 }

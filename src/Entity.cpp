@@ -38,16 +38,14 @@ bool Entity::move(const std::string &direction) {
         return false;
     }
     
-    std::weak_ptr<Environment> neighbor = env->getNeighbor(direction);
+    Environment * neighbor = env->getNeighbor(direction);
     
-    if(neighbor.expired()) {
+    if(neighbor == NULL) {
+        //No neighbor in that direction.
         return false;
     }
     
-    std::shared_ptr<Environment> newEnv = neighbor.lock();
-    
-    newEnv->addEntity(env->removeEntity(this));
-    env = newEnv.get();
+    neighbor->addEntity(env->removeEntity(this));
     
     return true;
 }

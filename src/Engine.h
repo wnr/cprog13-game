@@ -5,29 +5,28 @@
 #include <vector>
 #include <map>
 
+//Engine of the game. Holds and owns all environments. Everything Engine owns is freed when Engine is destructed.
+//All environments are guaranteed during lifetime of Engine.
+
 namespace game {
     class Environment;
-    class Player;
     
     class Engine {
         bool running;
-        std::shared_ptr<Player> player;
-        std::map<std::string, std::function<bool(Engine*, const std::vector<std::string> &)>> commands;
-        std::vector<std::shared_ptr<Environment> > environments;
+        std::vector<std::unique_ptr<Environment> > environments;
     public:
         Engine();
         ~Engine();
         
         void run();
+        void kill();
         
         std::vector<std::string> getInput() const;
-        bool performCommand(const std::vector<std::string> & inputs);
         
     private:
         void printIntro() const;
         void printOutro() const;
         
-        void initCommands();
         void initEnvironments();
     };
 }

@@ -3,9 +3,13 @@
 
 #include "Entity.h"
 
+#include <map>
+#include <vector>
+
 namespace game {
     class Player : public Entity {
         std::string name;
+        std::map<std::string, std::function<bool(const std::vector<std::string> &)>> commands;
         
     public:
         Player(Engine * engine, std::string name);
@@ -13,6 +17,10 @@ namespace game {
         Player(Player && player);
         
         void update(const Environment & env);
+        
+    private:
+        void initCommands();
+        bool performCommand(const std::vector<std::string> & inputs);
     };
 }
 
