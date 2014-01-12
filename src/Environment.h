@@ -9,7 +9,7 @@
 #include "Loggable.h"
 
 //Environment describes a place where entities can be. All environments makes the game world.
-//Environment handles as owns all Entities that are in them. Environments moves the ownership between them when
+//Environment handles and owns all Entities that are in them. Environments moves the ownership between them when
 //an Entity moves between Environments. Environments keeps track of the neighbors with weak pointers to break cyclic dependencies
 //between Engine and Environment.
 
@@ -18,7 +18,7 @@ namespace game {
     
     class Environment : public Loggable {
         std::string description;
-        std::map<std::string, Environment* > neighbors;
+        std::map<std::string, Environment* > neighbors; //TODO: Weak pointers? Don´t we have normal pointers here?
         std::vector<std::unique_ptr<Entity> > entities;
         
     public:
@@ -40,6 +40,7 @@ namespace game {
         
         //Removes the entity from this envrionment and transfers the ownership to the caller.
         //After this is done Entity will not belong to any Environment.
+        //TODO: So entities can be free? Aka temporarely not belong to any Environment? Sounds like thats impossible by the class description.
         std::unique_ptr<Entity> removeEntity(Entity * entity);
         
         std::vector<const Entity*> getEntities(bool includePlayer = false) const;

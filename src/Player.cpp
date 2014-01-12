@@ -27,17 +27,23 @@ Player::~Player() {
 }
 
 void Player::update(const Environment & env) {
-    std::cout << "Your are in " << env.getDescription() << std::endl;
+    std::cout << std::endl << "Your are in " << env.getDescription() << std::endl;
     
-    std::cout << "You can move:" << std::endl;
+    std::cout << "You can go:" << std::endl;
     
     for(auto dir : env.getDirections()) {
         std::cout << dir << std::endl;
     }
     
-    for(auto entity : env.getEntities()) {
-        std::cout << "You see " + entity->getDescription() << std::endl;
+    if(env.getEntities().size() > 0) {
+        std::cout << "-----------" << std::endl;
+        std::cout << "You can see the following:" << std::endl;
+        
+        for(auto entity : env.getEntities()) {
+            std::cout << entity->getDescription() << std::endl;
+        }
     }
+    
     
     std::cout << INPUT_INDICATOR;
     
@@ -60,6 +66,14 @@ void Player::initCommands() {
      
         return this->move(commands[1]);
      };
+    
+    commands["help"] = [this](const std::vector<std::string> &) -> bool {
+        std::cout << std::endl;
+        std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
+        std::cout << HELP_TEXT << std::endl;
+        std::cout << TEXT_DIVIDER << " HELP END " << TEXT_DIVIDER << std::endl;
+        return true;
+    };
 }
 
 bool Player::performCommand(const std::vector<std::string> & input) {
