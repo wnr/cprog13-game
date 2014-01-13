@@ -24,7 +24,7 @@ namespace game {
         Entity(Engine * engine, std::string type, bool visible);
         Entity(const Entity & entity);
         Entity(Entity && entity);
-        ~Entity();
+        virtual ~Entity();
         
         virtual void update(const Environment & env) = 0;
         

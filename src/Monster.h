@@ -14,7 +14,7 @@ namespace game {
         Monster(Engine * engine, std::string name, int maxHealth, float moveProb, float attackProb, std::string type);
         Monster(const Monster & monster);
         Monster(Monster && monster);
-        ~Monster();
+        virtual ~Monster();
         
         float getMoveProb() const;
         void setMoveProb(float prob);

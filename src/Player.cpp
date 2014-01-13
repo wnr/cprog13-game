@@ -10,21 +10,14 @@
 using namespace game;
 
 Player::Player(Engine * engine, int maxHealth, std::string name) : Character(engine, name, maxHealth, ENTITY_PLAYER_TYPE) {
-    log(this, "ctor");
     initCommands();
 }
 
-Player::Player(const Player & player) : Character(player), commands(player.commands) {
-    log(this, "ctor copy");
-}
+Player::Player(const Player & player) : Character(player), commands(player.commands) {}
 
-Player::Player(Player && player) : Character(player), commands(player.commands) {
-    log(this, "ctor move");
-}
+Player::Player(Player && player) : Character(player), commands(player.commands) {}
 
-Player::~Player() {
-    log(this, "dtor");
-}
+Player::~Player() {}
 
 void Player::update(const Environment & env) {
     std::cout << std::endl << "Your are in " << env.getDescription() << std::endl;

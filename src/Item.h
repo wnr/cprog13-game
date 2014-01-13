@@ -8,16 +8,13 @@
 #include <string>
 #include <vector>
 
-#include "Loggable.h"
 #include "Object.h"
 
 namespace game {
     
     class Item : public Object {
     protected:
-        std::string type;
-        bool visible;
-        bool breakable;
+        bool breakable; //TODO: Might do different class from this and working.
         bool working;
     public:
         Item(Engine * engine, std::string type);
@@ -25,7 +22,7 @@ namespace game {
         Item(Engine * engine, std::string type, bool visible, bool breakable, bool working);
         Item(const Item & item);
         Item(Item && item);
-        ~Item();
+        virtual ~Item();
         
         std::string getType() const;
         bool isVisible() const;

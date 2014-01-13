@@ -4,26 +4,15 @@
 
 using namespace game;
 
-Object::Object(Engine * engine, std::string type) : Object(engine, type, true, true){}
+Object::Object(Engine * engine, std::string type) : Object(engine, type, true, true) {}
 
-Object::Object(Engine * engine, std::string type, bool visible, bool carriable) : engine(engine), visible(visible), carriable(carriable) {
-    log(this, "ctor");
-}
+Object::Object(Engine * engine, std::string type, bool visible, bool carriable) : engine(engine), type(type), visible(visible), carriable(carriable) {}
 
-Object::Object(const Object & object) : Object(object.engine, object.type, object.visible, object.carriable) {
-    log(this, "ctor copy");
-}
+Object::Object(const Object & object) : Object(object.engine, object.type, object.visible, object.carriable) {}
 
-Object::Object(Object && object) : Object(object.engine, object.type, object.visible, object.carriable) { //TODO test if this works.
-    log(this, "ctor move");
-}
+Object::Object(Object && object) : Object(object.engine, object.type, object.visible, object.carriable) {} //TODO test if this works.
 
-Object::~Object() {
-    log(this, "dtor");
-    visible = false;
-    carriable = false;
-    type.clear();
-}
+Object::~Object() {}
 
 std::string Object::getType() const {
     return type;

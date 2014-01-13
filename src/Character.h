@@ -16,7 +16,7 @@ namespace game {
         Character(Engine * engine, std::string name, int maxHealth, std::string type);
         Character(const Character & character);
         Character(Character && character);
-        ~Character();
+        virtual ~Character();
         
         unsigned int getMaxHealth() const;
         

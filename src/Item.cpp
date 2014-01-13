@@ -12,20 +12,13 @@ Item::Item(Engine * engine, std::string type, bool visible, bool breakable, bool
     if(!breakable && !working){
         error(this, "Item can't be both unbreakable and broken.");
     }
-    log(this, "ctor");
 }
 
-Item::Item(const Item & item) : Object(item), breakable(item.breakable), working(item.working) {
-    log(this, "ctor copy");
-}
+Item::Item(const Item & item) : Object(item), breakable(item.breakable), working(item.working) {}
 
-Item::Item(Item && item) : Object(item), breakable(item.breakable), working(item.working) {
-    log(this, "ctor move");
-}
+Item::Item(Item && item) : Object(item), breakable(item.breakable), working(item.working) {} //TODO: Might be bad to use ctor.
 
-Item::~Item() {
-    log(this, "dtor");
-}
+Item::~Item() {}
 
 std::string Item::getType() const {
     return type;
@@ -58,5 +51,5 @@ std::string Item::toString() const {
 }
 
 std::string Item::getDescription() const {
-    return toString();
+    return type;
 }

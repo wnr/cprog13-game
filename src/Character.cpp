@@ -5,21 +5,13 @@
 using namespace game;
 
 Character::Character(Engine * engine, std::string name, int maxHealth) : Character(engine, name, maxHealth, ENTITY_CHARACTER_TYPE) {}
-Character::Character(Engine * engine, std::string name, int maxHealth, std::string type) : Entity(engine, type), maxHealth(maxHealth), health(maxHealth), name(name) {
-    log(this, "ctor");
-}
+Character::Character(Engine * engine, std::string name, int maxHealth, std::string type) : Entity(engine, type), maxHealth(maxHealth), health(maxHealth), name(name) {}
 
-Character::Character(const Character & character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {
-    log(this, "ctor copy");
-}
+Character::Character(const Character & character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {}
 
-Character::Character(Character && character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {
-    log(this, "ctor move");
-}
+Character::Character(Character && character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {}
 
-Character::~Character() {
-    log(this, "dtor");
-}
+Character::~Character() {}
 
 std::string Character::getName() const {
     return name;

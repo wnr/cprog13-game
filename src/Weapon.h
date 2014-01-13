@@ -25,7 +25,7 @@ namespace game {
         Weapon(Engine * engine, std::string type, bool visible, bool breakable, bool working, int minDmg, int maxDmg, float critModifier);
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
-        ~Weapon();
+        virtual ~Weapon();
     
         virtual std::string toString() const;
     };

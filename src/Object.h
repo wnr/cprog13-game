@@ -15,7 +15,7 @@ namespace game {
     protected:
         std::string type;
         bool visible;
-        bool carriable;
+        bool carriable; //TODO: Might wanna have this as a class.
         Engine * engine;
         
     public:
@@ -23,7 +23,7 @@ namespace game {
         Object(Engine * engine, std::string type, bool visible, bool carriable);
         Object(const Object & object);
         Object(Object && object);
-        ~Object();
+        virtual ~Object();
         
         std::string getType() const;
         bool isVisible() const;

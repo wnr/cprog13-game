@@ -6,25 +6,15 @@ using namespace game;
 
 Monster::Monster(Engine * engine, std::string name, int maxHealth) : Monster(engine, name, maxHealth, ENTITY_MONSTER_TYPE) {}
 Monster::Monster(Engine * engine, std::string name, int maxHealth, std::string type) : Monster(engine, name, maxHealth, 0, 0, type) {}
-Monster::Monster(Engine * engine, std::string name, int maxHealth, float moveProb, float attackProb, std::string type) : Character(engine, name, maxHealth, type), moveProb(moveProb), attackProb(attackProb) {
-    log(this, "ctor");
-}
+Monster::Monster(Engine * engine, std::string name, int maxHealth, float moveProb, float attackProb, std::string type) : Character(engine, name, maxHealth, type), moveProb(moveProb), attackProb(attackProb) {}
 
-Monster::Monster(const Monster & monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {
-    log(this, "ctor copy");
-}
+Monster::Monster(const Monster & monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
 
-Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {
-    log(this, "ctor move");
-}
+Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
 
-Monster::~Monster() {
-    log(this, "dtor");
-}
+Monster::~Monster() {}
 
-void Monster::update(const Environment & env) {
-    
-}
+void Monster::update(const Environment & env) {}
 
 float Monster::getMoveProb() const {
     return moveProb;

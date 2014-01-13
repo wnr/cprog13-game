@@ -5,21 +5,13 @@
 
 using namespace game;
 
-Environment::Environment(std::string desc) : description(desc) {
-    log(this, "ctor");
-}
+Environment::Environment(std::string desc) : description(desc) {}
 
-Environment::Environment(const Environment & env) : description(env.description) {
-    log(this, "ctor copy");
-}
+Environment::Environment(const Environment & env) : description(env.description) {}
 
-Environment::Environment(Environment && env) : description(env.description) {
-    log(this, "ctor move");
-}
+Environment::Environment(Environment && env) : description(env.description) {}
 
-Environment::~Environment() {
-    log(this, "dtor");
-}
+Environment::~Environment() {}
 
 void Environment::setNeightbor(std::string direction, Environment * env) {
     neighbors[direction] = env;

@@ -15,16 +15,12 @@ using std::vector;
 using std::string;
 
 Engine::Engine() {
-    log("Engine ctor");
-    
     running = true;
     
     initEnvironments();
 }
 
-Engine::~Engine() {
-    log("Engine dtor");
-}
+Engine::~Engine() {}
 
 void Engine::initEnvironments() {
     std::unique_ptr<Environment> house(new Environment("a big house with walls."));

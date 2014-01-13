@@ -14,7 +14,7 @@ namespace game {
         Player(Engine * engine, int maxHealth, std::string name);
         Player(const Player & player);
         Player(Player && player);
-        ~Player();
+        virtual ~Player();
         
         void update(const Environment & env);
         

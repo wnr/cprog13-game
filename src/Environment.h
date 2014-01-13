@@ -25,7 +25,7 @@ namespace game {
         Environment(std::string desc);
         Environment(const Environment & env);
         Environment(Environment && env);
-        ~Environment();
+        virtual ~Environment();
         
         void setNeightbor(std::string direction, Environment * env);
         

@@ -5,28 +5,15 @@
 
 using namespace game;
 
-Entity::Entity(Engine * engine, std::string type) : Entity(engine, type, true) {
-    log(this, "ctor");
-}
+Entity::Entity(Engine * engine, std::string type) : Entity(engine, type, true) {}
 
-Entity::Entity(Engine * engine, std::string type, bool visible) : Object(engine, type, visible, false), alive(true) {
-    log(this, "ctor");
-}
+Entity::Entity(Engine * engine, std::string type, bool visible) : Object(engine, type, visible, false), alive(true) {}
 
-Entity::Entity(const Entity & entity) : Object(entity), alive(entity.alive) {
-    log(this, "ctor copy");
-}
+Entity::Entity(const Entity & entity) : Object(entity), alive(entity.alive) {}
 
-Entity::Entity(Entity && entity) : Object(entity), alive(entity.alive) {
-    log(this, "ctor move");
-}
+Entity::Entity(Entity && entity) : Object(entity), alive(entity.alive) {} //TODO: Probably going to be copied now.
 
-Entity::~Entity() {
-    log(this, "dtor");
-    engine = NULL;
-    alive = false;
-    type.clear();
-}
+Entity::~Entity() {}
 
 bool Entity::isAlive() const {
     return alive;
