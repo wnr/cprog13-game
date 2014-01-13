@@ -76,7 +76,6 @@ void Character::decHealth(unsigned int health) {
 //}
 
 void Character::kill() {
-    log(this, "killed");
     setHealth(0);
     Entity::kill();
 }

@@ -44,6 +44,7 @@ namespace game {
         std::unique_ptr<Entity> removeEntity(Entity * entity);
         
         std::vector<const Entity*> getEntities(bool includePlayer = false) const;
+        std::vector<Entity*> getEntities(bool includePlayer = false);
         
         virtual void updateEntities();
         virtual void update();
