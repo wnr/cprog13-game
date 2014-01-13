@@ -37,7 +37,6 @@ void Player::update(const Environment & env) {
         }
     }
     
-    
     std::cout << INPUT_INDICATOR;
     
     if(!performCommand(engine->getInput())) {
@@ -60,7 +59,7 @@ void Player::initCommands() {
         return this->move(commands[1]);
      };
     
-    commands["help"] = [this](const std::vector<std::string> &) -> bool {
+    commands["help"] = [](const std::vector<std::string> &) -> bool {
         std::cout << std::endl;
         std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
         std::cout << HELP_TEXT << std::endl;
