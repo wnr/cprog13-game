@@ -66,6 +66,42 @@ void Player::initCommands() {
         std::cout << TEXT_DIVIDER << " HELP END " << TEXT_DIVIDER << std::endl;
         return true;
     };
+    
+    commands["attack"] = [this](const std::vector<std::string> & commands) -> bool {
+        if(commands.size() != 2) {
+            return false;
+        }
+
+        auto findTarget = [this](std::string target) -> Entity * {
+            std::transform(target.begin(), target.end(), target.begin(), ::tolower);
+            
+            std::string desc;
+            for(auto entity : this->env->getEntities()) {
+                if(entity->getType() == ENTITY_MONSTER_TYPE) {
+                    desc = entity->getDescription();
+                    std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
+                    
+                    if(desc == target) {
+                        return entity;
+                    }
+                }
+            }
+            
+            return NULL;
+        };
+        
+        Entity * entity = findTarget(commands[1]);
+        
+        if(entity == NULL) {
+            std::cout << "There is no " + commands[1] << " in the area." << std::endl;
+            return false;
+        }
+        
+        entity->kill();
+        env->removeEntity(entity);
+        
+        return true;
+    };
 }
 
 bool Player::performCommand(const std::vector<std::string> & input) {

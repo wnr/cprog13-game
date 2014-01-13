@@ -88,3 +88,17 @@ std::vector<const Entity*> Environment::getEntities(bool includePlayer) const {
     
     return result;
 }
+
+std::vector<Entity*> Environment::getEntities(bool includePlayer) {
+    std::vector<Entity*> result;
+    
+    for(auto & entity : entities) {
+        if(entity->getType() == ENTITY_PLAYER_TYPE && !includePlayer) {
+            continue;
+        }
+        
+        result.push_back(entity.get());
+    }
+    
+    return result;
+}
