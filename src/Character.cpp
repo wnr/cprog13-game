@@ -78,5 +78,5 @@ std::string Character::toString() const {
 }
 
 std::string Character::getDescription() const {
-    return name;
+    return name; //TODO Discuss alternatives
 }

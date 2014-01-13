@@ -7,6 +7,8 @@
 #define ENTITY_CHARACTER_TYPE   "Character"
 #define ENTITY_MONSTER_TYPE     "Monster"
 
+#define ITEM_WEAPON_TYPE        "Weapon"
+
 #define INPUT_WORD_DELIMETER    " "
 #define INPUT_INDICATOR         "> "
 #define INPUT_INVALID_COMMAND   "\n!!! Invalid command. Type 'help' for command instructions."

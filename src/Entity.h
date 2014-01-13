@@ -8,28 +8,26 @@
 #include <string>
 #include <vector>
 
-#include "Loggable.h"
+#include "Object.h"
 
 namespace game {
     class Engine;
     class Environment;
     
-    class Entity : public Loggable {
+    class Entity : public Object{
     protected:
-        std::string type;
         bool alive;
-        Engine * engine;
         Environment * env;
         
     public:
         Entity(Engine * engine, std::string type);
+        Entity(Engine * engine, std::string type, bool visible);
         Entity(const Entity & entity);
         Entity(Entity && entity);
         ~Entity();
         
         virtual void update(const Environment & env) = 0;
         
-        std::string getType() const;
         bool isAlive() const;
         virtual void kill();
         
@@ -37,7 +35,6 @@ namespace game {
         bool move(const std::string & direction);
         
         virtual std::string toString() const;
-        virtual std::string getDescription() const = 0;
     };
 }
 
