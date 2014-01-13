@@ -9,7 +9,7 @@
 
 using namespace game;
 
-Player::Player(Engine * engine, int maxHealth, std::string name) : Character(engine, name, maxHealth, ENTITY_PLAYER_TYPE) {
+Player::Player(int maxHealth, std::string name) : Character(name, maxHealth, ENTITY_PLAYER_TYPE) {
     initCommands();
 }
 
@@ -40,7 +40,7 @@ void Player::update(const Environment & env) {
     
     std::cout << INPUT_INDICATOR;
     
-    if(!performCommand(engine->getInput())) {
+    if(!performCommand(getEngine().getInput())) {
         std::cout << INPUT_INVALID_COMMAND;
         std::cout << std::endl;
     }
@@ -48,7 +48,7 @@ void Player::update(const Environment & env) {
 
 void Player::initCommands() {
     commands["exit"] = [this](const std::vector<std::string> &) -> bool {
-        this->engine->kill();
+        this->getEngine().kill();
         return true;
     };
     

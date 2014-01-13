@@ -17,9 +17,9 @@ namespace game {
         bool breakable; //TODO: Might do different class from this and working.
         bool working;
     public:
-        Item(Engine * engine, std::string type);
-        Item(Engine * engine, std::string type, bool visible, bool breakable);
-        Item(Engine * engine, std::string type, bool visible, bool breakable, bool working);
+        Item(std::string type);
+        Item(std::string type, bool visible, bool breakable);
+        Item(std::string type, bool visible, bool breakable, bool working);
         Item(const Item & item);
         Item(Item && item);
         virtual ~Item();

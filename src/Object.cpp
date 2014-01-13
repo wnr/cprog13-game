@@ -1,16 +1,17 @@
 #include "Object.h"
 
 #include "Log.h"
+#include "Engine.h"
 
 using namespace game;
 
-Object::Object(Engine * engine, std::string type) : Object(engine, type, true, true) {}
+Object::Object(std::string type) : Object(type, true, true) {}
 
-Object::Object(Engine * engine, std::string type, bool visible, bool carriable) : engine(engine), type(type), visible(visible), carriable(carriable) {}
+Object::Object(std::string type, bool visible, bool carriable) : type(type), visible(visible), carriable(carriable) {}
 
-Object::Object(const Object & object) : Object(object.engine, object.type, object.visible, object.carriable) {}
+Object::Object(const Object & object) : type(object.type), visible(object.visible), carriable(object.carriable) {}
 
-Object::Object(Object && object) : Object(object.engine, object.type, object.visible, object.carriable) {} //TODO test if this works.
+Object::Object(Object && object) : type(object.type), visible(object.visible), carriable(object.carriable) {}
 
 Object::~Object() {}
 
@@ -24,6 +25,10 @@ bool Object::isVisible() const {
 
 bool Object::isCarriable() const {
     return carriable;
+}
+
+Engine & Object::getEngine() const {
+    return Engine::getInstance();
 }
 
 std::string Object::toString() const {

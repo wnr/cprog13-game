@@ -4,13 +4,13 @@
 
 using namespace game;
 
-Item::Item(Engine * engine, std::string type) : Item(engine, type, true, true) {}
+Item::Item(std::string type) : Item(type, true, true) {}
 
-Item::Item(Engine * engine, std::string type, bool visible, bool breakable) : Item(engine, type, visible, breakable, true) {}
+Item::Item(std::string type, bool visible, bool breakable) : Item(type, visible, breakable, true) {}
 
-Item::Item(Engine * engine, std::string type, bool visible, bool breakable, bool working) : Object(engine, type, visible, true), breakable(breakable), working(working) {
+Item::Item(std::string type, bool visible, bool breakable, bool working) : Object(type, visible, true), breakable(breakable), working(working) {
     if(!breakable && !working){
-        error(this, "Item can't be both unbreakable and broken.");
+        error(this, "Items can't be both unbreakable and broken.");
     }
 }
 

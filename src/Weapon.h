@@ -20,9 +20,9 @@ namespace game {
         int maxDmg;
         float critModifier;
     public:
-        Weapon(Engine * engine, int dmg);
-        Weapon(Engine * engine, std::string type, int minDmg, int maxDmg, float critModifier);
-        Weapon(Engine * engine, std::string type, bool visible, bool breakable, bool working, int minDmg, int maxDmg, float critModifier);
+        Weapon(int dmg);
+        Weapon(std::string type, int minDmg, int maxDmg, float critModifier);
+        Weapon(std::string type, bool visible, bool breakable, bool working, int minDmg, int maxDmg, float critModifier);
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
         virtual ~Weapon();

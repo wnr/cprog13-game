@@ -20,8 +20,8 @@ namespace game {
         Environment * env;
         
     public:
-        Entity(Engine * engine, std::string type);
-        Entity(Engine * engine, std::string type, bool visible);
+        Entity(std::string type);
+        Entity(std::string type, bool visible);
         Entity(const Entity & entity);
         Entity(Entity && entity);
         virtual ~Entity();

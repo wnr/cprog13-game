@@ -2,18 +2,20 @@
 #define __cprog13_game__Character__
 
 #include "Entity.h"
+//#include "Inventory.h"
 
 namespace game {
     class Entity;
+    class Item;
     
     class Character : public Entity {
         unsigned int health;
         const unsigned int maxHealth;
         const std::string name;
-        
+//        Inventory * inventory;
     public:
-        Character(Engine * engine, std::string name, int maxHealth);
-        Character(Engine * engine, std::string name, int maxHealth, std::string type);
+        Character(std::string name, int maxHealth);
+        Character(std::string name, int maxHealth, std::string type);
         Character(const Character & character);
         Character(Character && character);
         virtual ~Character();
@@ -25,6 +27,9 @@ namespace game {
         void incHealth(unsigned int health);
         void decHealth(unsigned int health);
         void addHealth(int health);
+//        void dropInventory();
+//        bool pickItem(Item * item);
+//        void dropItem(Item * item);
         
         std::string getName() const;
         
