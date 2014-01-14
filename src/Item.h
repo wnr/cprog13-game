@@ -1,10 +1,6 @@
 #ifndef __cprog13_game__Item__
 #define __cprog13_game__Item__
 
-//An Entity is something that lives in the game world and interacts with other entities or environments in
-//some way. A monster is an Entity and a player is an Entity. However, items and environments are not Entities.
-//Entities can be viewed as "living things" that can perform actions independently of the player.
-
 #include <string>
 #include <vector>
 
@@ -16,6 +12,7 @@ namespace game {
     protected:
         bool breakable; //TODO: Might do different class from this and working.
         bool working;
+        int volume;
     public:
         Item(std::string type);
         Item(std::string type, bool visible, bool breakable);
@@ -28,6 +25,7 @@ namespace game {
         bool isVisible() const;
         bool isBreakable() const;
         bool isWorking() const;
+        int getVolume() const;
         
         virtual bool breakItem();
         
@@ -35,5 +33,8 @@ namespace game {
         virtual std::string getDescription() const;
     };
 }
+
+int operator+=(int, const game::Item &);
+int operator+(const game::Item &, const game::Item &);
 
 #endif

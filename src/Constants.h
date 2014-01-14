@@ -9,6 +9,9 @@
 
 #define ITEM_WEAPON_TYPE        "Weapon"
 
+#define CONTAINER_BACKPACK_TYPE "Backpack"
+#define CONTAINER_CHEST_TYPE    "Chest"
+
 #define INPUT_WORD_DELIMETER    " "
 #define INPUT_INDICATOR         "> "
 #define INPUT_INVALID_COMMAND   "\n!!! Invalid command. Type 'help' for command instructions."

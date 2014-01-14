@@ -1,10 +1,6 @@
 #ifndef __cprog13_game__Weapon__
 #define __cprog13_game__Weapon__
 
-//An Entity is something that lives in the game world and interacts with other entities or environments in
-//some way. A monster is an Entity and a player is an Entity. However, items and environments are not Entities.
-//Entities can be viewed as "living things" that can perform actions independently of the player.
-
 #include <string>
 #include <vector>
 

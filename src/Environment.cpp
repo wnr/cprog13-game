@@ -56,7 +56,7 @@ std::unique_ptr<Entity> Environment::removeEntity(Entity * entity) {
         return false;
     });
     
-    entities.erase(it, entities.end());
+    entities.erase(it, entities.end()); //TODO: Won't this erase everything from it to end?
     
     return removed;
 }

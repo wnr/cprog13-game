@@ -1,22 +1,57 @@
-#include "Weapon.h"
-
-#include "Log.h"
-#include "Constants.h"
+#include "Container.h"
 
 using namespace game;
 
-Weapon::Weapon(Engine * engine, int dmg) : Weapon(engine, ITEM_WEAPON_TYPE, dmg, dmg, 1){}
+Container::Container(std::string type, int maxSize) : Container(type, maxSize, true, true){}
 
-Weapon::Weapon(Engine * engine, std::string type, int minDmg, int maxDmg, float critModifier) : Weapon(engine, type, true, true, true, minDmg, maxDmg, critModifier) {}
+Container::Container(std::string type, int maxSize, bool visible, bool carriable) : Object(type, visible, carriable), maxSize(maxSize) {}
 
-Weapon::Weapon(Engine * engine, std::string type, bool visible, bool breakable, bool working, int minDmg, int maxDmg, float critModifier) : Item(engine, type, visible, breakable, working), minDmg(minDmg), maxDmg(maxDmg), critModifier(critModifier) {}
+Container::Container(const Container & con) : Object(con), maxSize(con.maxSize) {}
 
-Weapon::Weapon(const Weapon & weapon) : Item(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critModifier(weapon.critModifier) {}
+Container::Container(Container && con) : Object(con), maxSize(con.maxSize) {}
 
-Weapon::Weapon(Weapon && weapon) : Item(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critModifier(weapon.critModifier) {}
+Container::~Container() {}
 
-Weapon::~Weapon() {}
+bool Container::addItem(std::unique_ptr<Item> & item) {
+    if(getRemainingSpace() >= item->getVolume()){
+        inventory->push_back(std::move(item));
+        return true;
+    }else{
+        return false;
+    }
+}
 
-std::string Weapon::toString() const {
-    return "Weapon(" + type + ")";
+std::unique_ptr<Item> Container::removeItem(const Item * item) {
+    for (std::vector<std::unique_ptr<Item>>::iterator it = (*inventory).begin(); it != (*inventory).end(); it++){
+        if((*it).get() == item){
+            std::unique_ptr<Item> returnP = std::move(*it);
+            (*inventory).erase(it);
+            return returnP;
+        }
+    }
+    return nullptr;
+}
+
+const std::vector<std::unique_ptr<Item>> * Container::getInventory() const {
+    return inventory;
+}
+
+int Container::getRemainingSpace() const {
+    int takenSpace = 0;
+    for (const auto & item : *getInventory()){
+        takenSpace += *item;
+    }
+    return getMaxSize() - takenSpace;
+}
+
+int Container::getMaxSize() const {
+    return maxSize;
+}
+
+std::string Container::toString() const {
+    return "Container(" + type + ")";
+}
+
+std::string Container::getDescription() const {
+    return type;
 }

@@ -36,6 +36,10 @@ bool Item::isWorking() const {
     return working;
 }
 
+int Item::getVolume() const {
+    return volume;
+}
+
 bool Item::breakItem() {
     if(!breakable || !working){
         return false;
@@ -52,4 +56,12 @@ std::string Item::toString() const {
 
 std::string Item::getDescription() const {
     return type;
+}
+
+int operator+=(int value, const Item & item) {
+    return value + item.getVolume();
+}
+
+int operator+(const Item & item1, const Item & item2) {
+    return item1.getVolume() + item2.getVolume();
 }
