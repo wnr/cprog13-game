@@ -4,8 +4,11 @@
 #include <string>
 
 #include "Key.h"
+#include "Container.h"
 
 namespace game {
+    
+    class Container;
     
     class KeyHandler {
     protected:
@@ -19,7 +22,7 @@ namespace game {
         KeyHandler(KeyHandler && keyHandler);
         virtual ~KeyHandler();
         
-        bool unlock(Key * key);
+        bool unlock(Key * key, Container & container);
         
         bool isLocked() const;
         bool willDestroyKey() const;

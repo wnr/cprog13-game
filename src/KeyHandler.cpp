@@ -1,5 +1,7 @@
 #include "KeyHandler.h"
 
+#include "Log.h"
+
 using namespace game;
 
 KeyHandler::KeyHandler(Key * keyLock) : KeyHandler(keyLock, true) {}
@@ -18,7 +20,7 @@ KeyHandler::KeyHandler(KeyHandler && kh) : locked(kh.locked), keyLock(kh.keyLock
 
 KeyHandler::~KeyHandler() {}
 
-bool KeyHandler::unlock(Key * key) {
+bool KeyHandler::unlock(Key * key, Container & container) {
     if(!isLocked()){
         return true;
     } else {
@@ -26,10 +28,12 @@ bool KeyHandler::unlock(Key * key) {
             // It is the correct type
             if(*key >= keyLock){
                 // The key is strong enough
-                locked = false;
                 if(willDestroyKey()){
-                    delete key;
+                    if(container.removeItem(key) == nullptr){
+                        error(key, "Key should be removed from game but was not found in container.");
+                    }
                 }
+                locked = false;
                 return true;
             }
         }
