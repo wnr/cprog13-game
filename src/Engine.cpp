@@ -36,8 +36,8 @@ void Engine::initEnvironments() {
     outside->setNeightbor("inside", house.get());
     outside->addEntity(std::unique_ptr<Entity>(new Monster("Troll", 100)));
     
-    environments.push_back(std::move(house));
-    environments.push_back(std::move(outside));
+    push_back(std::move(house));
+    push_back(std::move(outside));
 }
 
 void Engine::run() {
@@ -51,9 +51,10 @@ void Engine::run() {
     
     while(running) {
         
-        for(auto env = environments.begin(); env != environments.end(); env++) {
-            (*env)->update();
-        }
+        for_each([] (Environment * env) {
+            env->update();
+            return true;
+        });
         
         std::cout << std::endl;
     }
