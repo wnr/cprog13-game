@@ -40,25 +40,12 @@ std::vector<std::string> Environment::getDirections() const {
 
 void Environment::addEntity(std::unique_ptr<Entity> entity) {
     entity->setEnvironment(this);
-    entities.push_back(std::move(entity));
+    push_back(std::move(entity));
 }
 
 std::unique_ptr<Entity> Environment::removeEntity(Entity * entity) {
-    std::unique_ptr<Entity> removed;
-    
-    auto it = std::remove_if(entities.begin(), entities.end(), [entity, &removed] (std::unique_ptr<Entity> & ptr) -> bool {
-        //TODO: Can equality be checked like this? If the pointers are pointing to the same address they should be the same...
-        if(ptr.get() == entity) {
-            removed = std::move(ptr);
-            return true;
-        }
-        
-        return false;
-    });
-    
-    entities.erase(it, entities.end()); //TODO: Won't this erase everything from it to end?
-    
-    return removed;
+    entity->setEnvironment(NULL);
+    return remove(entity);
 }
 
 void Environment::update() {
@@ -66,39 +53,12 @@ void Environment::update() {
 }
 
 void Environment::updateEntities() {
-    for(auto & entity : entities) {
+    for_each([this](Entity * entity) {
         entity->update(*this);
-    }
+        return true;
+    });
 }
 
 std::string Environment::toString() const {
     return "Environment";
-}
-
-std::vector<const Entity*> Environment::getEntities(bool includePlayer) const {
-    std::vector<const Entity*> result;
-    
-    for(auto & entity : entities) {
-        if(entity->getType() == ENTITY_PLAYER_TYPE && !includePlayer) {
-            continue;
-        }
-        
-        result.push_back(entity.get());
-    }
-    
-    return result;
-}
-
-std::vector<Entity*> Environment::getEntities(bool includePlayer) {
-    std::vector<Entity*> result;
-    
-    for(auto & entity : entities) {
-        if(entity->getType() == ENTITY_PLAYER_TYPE && !includePlayer) {
-            continue;
-        }
-        
-        result.push_back(entity.get());
-    }
-    
-    return result;
 }

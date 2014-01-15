@@ -28,15 +28,19 @@ void Player::update(const Environment & env) {
         std::cout << dir << std::endl;
     }
     
-    auto envEntities = env.getEntities();
-    
-    if(envEntities.size() > 0) {
+    //If only 1 thing in environment then it is the player itself, so skip then.
+    if(env.size() > 1) {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
         
-        for(auto entity : envEntities) {
+        env.for_each([this](const Entity * entity) {
+            if(entity == this) {
+                return true; //Skip when entity is the player itself.
+            }
+            
             std::cout << entity->getDescription() << std::endl;
-        }
+            return true;
+        });
     }
     
     std::cout << INPUT_INDICATOR;
@@ -76,19 +80,22 @@ void Player::initCommands() {
         auto findTarget = [this](std::string target) -> Entity * {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
             
-            std::string desc;
-            for(auto entity : this->env->getEntities()) {
+            Entity * found = NULL;
+            this->env->for_each([&found, target] (Entity * entity) {
                 if(entity->getType() == ENTITY_MONSTER_TYPE) {
-                    desc = entity->getDescription();
+                    std::string desc = entity->getDescription();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
                     
                     if(desc == target) {
-                        return entity;
+                        found = entity;
+                        return false;
                     }
                 }
-            }
+        
+                return true;
+            });
             
-            return NULL;
+            return found;
         };
         
         Entity * entity = findTarget(commands[1]);

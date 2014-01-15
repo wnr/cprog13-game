@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "Loggable.h"
+#include "OwningVector.h"
 
 //Environment describes a place where entities can be. All environments makes the game world.
 //Environment handles and owns all Entities that are in them. Environments moves the ownership between them when
@@ -16,16 +17,18 @@
 namespace game {
     class Entity;
     
-    class Environment : public Loggable {
+    class Environment : public Loggable, private OwningVector<Entity> {
         std::string description;
         std::map<std::string, Environment* > neighbors; //TODO: Weak pointers? Don´t we have normal pointers here?
-        std::vector<std::unique_ptr<Entity> > entities;
         
     public:
         Environment(std::string desc);
         Environment(const Environment & env);
         Environment(Environment && env);
         virtual ~Environment();
+        
+        using OwningVector<Entity>::for_each;
+        using OwningVector<Entity>::size;
         
         void setNeightbor(std::string direction, Environment * env);
         
@@ -42,9 +45,6 @@ namespace game {
         //After this is done Entity will not belong to any Environment.
         //TODO: So entities can be free? Aka temporarely not belong to any Environment? Sounds like thats impossible by the class description.
         std::unique_ptr<Entity> removeEntity(Entity * entity);
-        
-        std::vector<const Entity*> getEntities(bool includePlayer = false) const;
-        std::vector<Entity*> getEntities(bool includePlayer = false);
         
         virtual void updateEntities();
         virtual void update();
