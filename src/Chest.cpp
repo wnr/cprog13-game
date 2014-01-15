@@ -10,5 +10,5 @@ Chest::Chest(int maxSize, Key * keyLock) : LockableContainer(CONTAINER_CHEST_TYP
 Chest::~Chest() {}
 
 std::string Chest::toString() const {
-    return type;
+    return getType();
 }

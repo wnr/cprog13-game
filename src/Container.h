@@ -5,15 +5,15 @@
 #include <vector>
 
 #include "Object.h"
+#include "OwningVector.h"
+#include "Item.h"
 
 namespace game {
     
     class Engine;
-    class Item;
     
-    class Container : public Object {
+    class Container : public Object, private OwningVector<Item> {
     protected:
-        std::vector<std::unique_ptr<Item>> inventory;
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);
@@ -22,11 +22,12 @@ namespace game {
         Container(Container && container);
         ~Container();
         
+        using OwningVector<Item>::for_each;
+        
         unsigned int getMaxSize() const;
         unsigned int getRemainingSpace() const;
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);
-        virtual const std::vector<std::unique_ptr<Item>> * getInventory() const;
     
         virtual std::string toString() const;
         virtual std::string getDescription() const;

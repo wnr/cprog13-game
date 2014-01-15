@@ -14,41 +14,27 @@ Container::Container(Container && container) : Object(container), maxSize(contai
 Container::~Container() {}
 
 bool Container::addItem(std::unique_ptr<Item> & item) {
-    if(getRemainingSpace() >= item->getVolume()) { //Use operator?
-        inventory.push_back(std::move(item));
-        return true;
-    } else {
+    if(getRemainingSpace() < item->getVolume()) { //TODO: use operator?
         return false;
     }
+    
+    push_back(std::move(item));
+    
+    return true;
 }
 
 std::unique_ptr<Item> Container::removeItem(const Item * item) {
-    std::unique_ptr<Item> removed;
-    
-    auto it = std::remove_if(inventory.begin(), inventory.end(), [item, &removed] (std::unique_ptr<Item> & ptr) -> bool {
-        //TODO: Can equality be checked like this? If the pointers are pointing to the same address they should be the same...
-        if(ptr.get() == item) {
-            removed = std::move(ptr);
-            return true;
-        }
-        
-        return false;
-    });
-    
-    inventory.erase(it, inventory.end()); //TODO: Won't this erase everything from it to end?
-    
-    return removed;
-}
-
-const std::vector<std::unique_ptr<Item>> * Container::getInventory() const {
-    return &inventory;
+    return remove(item);
 }
 
 unsigned int Container::getRemainingSpace() const {
     unsigned int takenSpace = 0;
-    for (const auto & item : inventory){
+    
+    for_each([&takenSpace] (const Item * item) {
         takenSpace += *item;
-    }
+        return true;
+    });
+    
     return getMaxSize() - takenSpace;
 }
 

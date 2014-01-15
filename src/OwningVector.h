@@ -46,7 +46,7 @@ namespace game {
         }
         
         //Will keep iterating through vector and performing operation on every element until operation function returns false.
-        void for_each(const std::function<bool(T * element)> & operation) {
+        virtual void for_each(const std::function<bool(T * element)> & operation) {
             for(auto & e : data) {
                 if(operation(e.get()) == false) {
                     break;
@@ -54,7 +54,7 @@ namespace game {
             }
         }
         
-        void for_each(const std::function<bool(const T * element)> & operation) const {
+        virtual void for_each(const std::function<bool(const T * element)> & operation) const {
             for(const auto & e : data) {
                 if(operation(e.get()) == false) {
                     break;

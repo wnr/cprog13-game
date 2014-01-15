@@ -11,17 +11,25 @@ namespace game {
     
     class Container;
     
-    class LockableContainer : public Container, public KeyHandler {
-    protected:
+    class LockableContainer : private Container, public KeyHandler {
         
     public:
         LockableContainer(std::string type, int maxSize);
         LockableContainer(std::string type, int maxSize, Key * keyLock);
         ~LockableContainer();
         
+        using Container::toString;
+        using Container::getMaxSize;
+        using Container::getRemainingSpace;
+        using Container::getDescription;
+        using Container::getType;
+        using Container::isVisible;
+        using Container::isCarriable;
+        
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);
-        virtual const std::vector<std::unique_ptr<Item>> * getInventory() const;
+        virtual bool for_each(std::function<bool (Item * item)> & operation);
+        virtual bool for_each(std::function<bool (const Item * item)> & operation) const;
         
         std::string toString() const;
     };
