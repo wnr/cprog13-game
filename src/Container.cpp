@@ -14,7 +14,7 @@ Container::Container(Container && container) : Object(container), maxSize(contai
 Container::~Container() {}
 
 bool Container::addItem(std::unique_ptr<Item> & item) {
-    if(getRemainingSpace() < item->getVolume()) { //TODO: use operator?
+    if(getRemainingSpace() < *item) {
         return false;
     }
     

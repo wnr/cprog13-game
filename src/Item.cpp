@@ -57,3 +57,7 @@ int operator+=(int value, const Item & item) {
 int operator+(const Item & item1, const Item & item2) {
     return item1.getVolume() + item2.getVolume();
 }
+
+bool operator<(int value, const game::Item & item) {
+    return value < item.getVolume();
+};
