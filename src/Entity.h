@@ -8,13 +8,13 @@
 #include <string>
 #include <vector>
 
-#include "Object.h"
+#include "PhysicalObject.h"
 
 namespace game {
     class Engine;
     class Environment;
     
-    class Entity : public Object {
+    class Entity : public PhysicalObject {
         bool alive;
         
     public:

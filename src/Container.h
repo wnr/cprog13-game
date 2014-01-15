@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Object.h"
+#include "PhysicalObject.h"
 #include "OwningVector.h"
 #include "Item.h"
 
@@ -12,7 +12,7 @@ namespace game {
     
     class Engine;
     
-    class Container : public Object, private OwningVector<Item> {
+    class Container : public PhysicalObject, private OwningVector<Item> {
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);

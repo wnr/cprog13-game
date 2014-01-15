@@ -20,9 +20,9 @@ Player::Player(Player && player) : Character(player), commands(player.commands) 
 Player::~Player() {}
 
 void Player::update(Environment & env) {
-    std::cout << std::endl << "Your are in " << env.getDescription() << std::endl;
+    std::cout << std::endl << "Location: " << env.getFullInfo() << std::endl;
     
-    std::cout << "You can go:" << std::endl;
+    std::cout << "You can goto:" << std::endl;
     
     for(auto dir : env.getDirections()) {
         std::cout << dir << std::endl;
@@ -33,7 +33,7 @@ void Player::update(Environment & env) {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
         
-        env.for_each([this](const Object * entity) {
+        env.for_each([this](const PhysicalObject * entity) {
             if(entity == this) {
                 return true; //Skip when entity is the player itself.
             }
@@ -55,14 +55,16 @@ void Player::initCommands() {
         this->getEngine().kill();
         return true;
     };
-    
-    commands["go"] = [this](Environment & env, const std::vector<std::string> & commands) -> bool {
+    auto goOperation = [this](Environment & env, const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             return false;
         }
-     
+        
         return this->move(env, commands[1]);
-     };
+    };
+    commands["go"] = goOperation;
+    commands["goto"] = goOperation;
+    commands["move"] = goOperation;
     
     commands["help"] = [](Environment & env, const std::vector<std::string> &) -> bool {
         std::cout << std::endl;
@@ -80,7 +82,7 @@ void Player::initCommands() {
         auto findTarget = [env](Environment & env, std::string target) -> Entity * {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
             Entity * found = NULL;
-            env.for_each([&found, target] (Object * obj) {
+            env.for_each([&found, target] (PhysicalObject * obj) {
                 if(obj->getSubType() == ENTITY_MONSTER_TYPE) {
                     Entity * entity = static_cast<Entity*>(obj);
                     std::string desc = entity->getDescription();

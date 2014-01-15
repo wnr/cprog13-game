@@ -3,6 +3,7 @@
 
 #define CERR_LOG                true
 
+#define OBJECT_ENVIRONMENT_TYPE "Environment"
 #define OBJECT_CONTAINER_TYPE   "Container"
 #define OBJECT_ITEM_TYPE        "Item"
 #define OBJECT_ENTITY_TYPE      "Entity"
@@ -12,9 +13,13 @@
 #define ENTITY_MONSTER_TYPE     "Monster"
 
 #define ITEM_WEAPON_TYPE        "Weapon"
+#define ITEM_KEY_TYPE           "Key"
 
 #define CONTAINER_BACKPACK_TYPE "Backpack"
 #define CONTAINER_CHEST_TYPE    "Chest"
+
+#define KEY_STANDARD_IDENTIFIER "Standard_key"
+#define KEY_STANDARD_LEVEL      3
 
 #define INPUT_WORD_DELIMETER    " "
 #define INPUT_INDICATOR         "> "
@@ -24,7 +29,7 @@
 #define GAME_OUTRO              "Good bye sissy."
 
 #define TEXT_DIVIDER            "----------"
-#define HELP_TEXT               "To move somewhere, type 'go' followed by a direction. Example: 'go outside'\nTo quit the time, type 'exit'"
+#define HELP_TEXT               "To move somewhere, type 'goto' or 'go' or 'move' followed by a direction. Example: 'go outside'\nTo quit the time, type 'exit'"
 
 
 

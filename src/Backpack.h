@@ -11,6 +11,8 @@ namespace game {
     public:
         Backpack(int maxSize);
         ~Backpack();
+        
+        virtual std::string getDescription() const;
     };
 }
 

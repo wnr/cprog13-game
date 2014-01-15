@@ -5,9 +5,8 @@
 #include <vector>
 #include <map>
 
-#include "Object.h"
 #include "OwningVector.h"
-
+#include "BaseObject.h"
 //Engine of the game. Holds and owns all environments. Everything Engine owns is freed when Engine is destructed.
 //All environments are guaranteed during lifetime of Engine.
 
@@ -21,7 +20,7 @@ namespace game {
     public:
         //Only main function and Object can access engine.
         friend int ::main(int argc, const char * argv[]);
-        friend Engine & Object::getEngine() const;
+        friend Engine & BaseObject::getEngine() const;
         
         ~Engine();
         
