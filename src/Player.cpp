@@ -9,7 +9,7 @@
 
 using namespace game;
 
-Player::Player(int maxHealth, std::string name) : Character(name, maxHealth, ENTITY_PLAYER_TYPE) {
+Player::Player(unsigned int maxHealth, std::string name) : Character(name, maxHealth, ENTITY_PLAYER_TYPE) {
     initCommands();
 }
 
@@ -28,11 +28,13 @@ void Player::update(const Environment & env) {
         std::cout << dir << std::endl;
     }
     
-    if(env.getEntities().size() > 0) {
+    auto envEntities = env.getEntities();
+    
+    if(envEntities.size() > 0) {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
         
-        for(auto entity : env.getEntities()) {
+        for(auto entity : envEntities) {
             std::cout << entity->getDescription() << std::endl;
         }
     }
@@ -40,8 +42,7 @@ void Player::update(const Environment & env) {
     std::cout << INPUT_INDICATOR;
     
     if(!performCommand(getEngine().getInput())) {
-        std::cout << INPUT_INVALID_COMMAND;
-        std::cout << std::endl;
+        std::cout << INPUT_INVALID_COMMAND << std::endl;
     }
 }
 

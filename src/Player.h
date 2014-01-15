@@ -11,10 +11,10 @@ namespace game {
         std::map<std::string, std::function<bool(const std::vector<std::string> &)>> commands;
         
     public:
-        Player(int maxHealth, std::string name);
+        Player(unsigned int maxHealth, std::string name);
         Player(const Player & player);
         Player(Player && player);
-        virtual ~Player();
+        ~Player();
         
         void update(const Environment & env);
         

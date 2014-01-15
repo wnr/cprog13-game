@@ -19,6 +19,7 @@ namespace game {
         bool running;
         std::vector<std::unique_ptr<Environment> > environments;
     public:
+        //Only main function and Object can access engine.
         friend int ::main(int argc, const char * argv[]);
         friend Engine & Object::getEngine() const;
         
@@ -30,13 +31,9 @@ namespace game {
         std::vector<std::string> getInput() const;
         
     private:
-        
-        static Engine & getInstance() {
-            static Engine instance; // Guaranteed to be destroyed and instantiated on first use.
-            return instance;
-        }
-        
         Engine();
+        
+        static Engine & getInstance();
         
         void printIntro() const;
         void printOutro() const;

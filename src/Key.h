@@ -26,7 +26,7 @@ namespace game {
     
         virtual std::string toString() const;
     private:
-        bool differenceOperator(const Key &, const std::function<int(int, int)> &) const;
+        bool differenceOperator(const Key & key, const std::function<bool(int, int)> & operation) const;
     };
 }
 

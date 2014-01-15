@@ -10,19 +10,15 @@ Item::Item(std::string type, bool visible, bool breakable) : Item(type, visible,
 
 Item::Item(std::string type, bool visible, bool breakable, bool working) : Object(type, visible, true), breakable(breakable), working(working) {
     if(!breakable && !working){
-        error(this, "Items can't be both unbreakable and broken.");
+        throw std::logic_error("Items can't be both unbreakable and broken.");
     }
 }
 
 Item::Item(const Item & item) : Object(item), breakable(item.breakable), working(item.working) {}
 
-Item::Item(Item && item) : Object(item), breakable(item.breakable), working(item.working) {} //TODO: Might be bad to use ctor.
+Item::Item(Item && item) : Object(item), breakable(item.breakable), working(item.working) {}
 
 Item::~Item() {}
-
-std::string Item::getType() const {
-    return type;
-}
 
 bool Item::isVisible() const {
     return visible;
@@ -36,7 +32,7 @@ bool Item::isWorking() const {
     return working;
 }
 
-int Item::getVolume() const {
+unsigned int Item::getVolume() const {
     return volume;
 }
 

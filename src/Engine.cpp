@@ -15,12 +15,17 @@ using std::vector;
 using std::string;
 
 Engine::Engine() {
-    running = true;
+    running = false; //will be set to true when run is invoked.
     
     initEnvironments();
 }
 
 Engine::~Engine() {}
+
+Engine & Engine::getInstance() {
+    static Engine instance;
+    return instance;
+}
 
 void Engine::initEnvironments() {
     std::unique_ptr<Environment> house(new Environment("a big house with walls."));
@@ -36,6 +41,12 @@ void Engine::initEnvironments() {
 }
 
 void Engine::run() {
+    if(running) {
+        throw std::logic_error("Engine is already running.");
+    }
+    
+    running = true;
+    
     printIntro();
     
     while(running) {

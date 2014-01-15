@@ -4,9 +4,9 @@
 
 using namespace game;
 
-Character::Character(std::string name, int maxHealth) : Character(name, maxHealth, ENTITY_CHARACTER_TYPE) {}
+Character::Character(std::string name, unsigned int maxHealth) : Character(name, maxHealth, ENTITY_CHARACTER_TYPE) {}
 
-Character::Character(std::string name, int maxHealth, std::string type) : Entity(type), maxHealth(maxHealth), health(maxHealth), name(name) {
+Character::Character(std::string name, unsigned int maxHealth, std::string type) : Entity(type), maxHealth(maxHealth), health(maxHealth), name(name) {
 //    inventory = new Inventory();
 }
 

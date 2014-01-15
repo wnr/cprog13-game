@@ -4,25 +4,26 @@
 #include <string>
 #include <vector>
 
-#include "Item.h"
+#include "Object.h"
 
 namespace game {
     
     class Engine;
+    class Item;
     
     class Container : public Object {
     protected:
-        std::vector<std::unique_ptr<Item>> * inventory;
-        const int maxSize;
+        std::vector<std::unique_ptr<Item>> inventory;
+        const unsigned int maxSize;
     public:
-        Container(std::string type, int maxSize);
-        Container(std::string type, int maxSize, bool visible, bool carriable);
-        Container(const Container & con);
-        Container(Container && con);
+        Container(std::string type, unsigned int maxSize);
+        Container(std::string type, unsigned int maxSize, bool visible, bool carriable);
+        Container(const Container & container);
+        Container(Container && container);
         ~Container();
         
-        int getMaxSize() const;
-        int getRemainingSpace() const;
+        unsigned int getMaxSize() const;
+        unsigned int getRemainingSpace() const;
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);
         virtual const std::vector<std::unique_ptr<Item>> * getInventory() const;
