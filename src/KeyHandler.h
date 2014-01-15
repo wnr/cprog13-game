@@ -11,7 +11,6 @@ namespace game {
     class Container;
     
     class KeyHandler {
-    protected:
         bool locked;
         bool destroysKey;
         Key keyLock;

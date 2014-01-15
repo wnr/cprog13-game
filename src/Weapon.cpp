@@ -18,5 +18,5 @@ Weapon::Weapon(Weapon && weapon) : Item(weapon), minDmg(weapon.minDmg), maxDmg(w
 Weapon::~Weapon() {}
 
 std::string Weapon::toString() const {
-    return "Weapon(" + type + ")";
+    return "Weapon(" + getType() + ")";
 }

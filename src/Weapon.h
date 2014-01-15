@@ -11,7 +11,6 @@ namespace game {
     class Engine;
     
     class Weapon : public Item {
-    protected:
         int minDmg;
         int maxDmg;
         float critModifier;

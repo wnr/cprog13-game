@@ -12,7 +12,6 @@ namespace game {
     class Engine;
     
     class Object : public Loggable {
-    protected:
         std::string type;
         bool visible;
         bool carriable; //TODO: Might wanna have this as a class.

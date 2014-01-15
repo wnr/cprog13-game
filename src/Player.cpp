@@ -76,12 +76,14 @@ void Player::initCommands() {
         if(commands.size() != 2) {
             return false;
         }
+        
+        auto env = getEnvironment();
 
-        auto findTarget = [this](std::string target) -> Entity * {
+        auto findTarget = [env](std::string target) -> Entity * {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
             
             Entity * found = NULL;
-            this->env->for_each([&found, target] (Entity * entity) {
+            env->for_each([&found, target] (Entity * entity) {
                 if(entity->getType() == ENTITY_MONSTER_TYPE) {
                     std::string desc = entity->getDescription();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);

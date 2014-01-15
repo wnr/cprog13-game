@@ -20,10 +20,6 @@ Item::Item(Item && item) : Object(item), breakable(item.breakable), working(item
 
 Item::~Item() {}
 
-bool Item::isVisible() const {
-    return visible;
-}
-
 bool Item::isBreakable() const {
     return breakable;
 }
@@ -47,11 +43,11 @@ bool Item::breakItem() {
 }
 
 std::string Item::toString() const {
-    return "Item(" + type + ")";
+    return "Item(" + getType() + ")";
 }
 
 std::string Item::getDescription() const {
-    return type;
+    return getType();
 }
 
 int operator+=(int value, const Item & item) {

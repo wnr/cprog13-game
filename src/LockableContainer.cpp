@@ -9,7 +9,7 @@ LockableContainer::LockableContainer(std::string type, int maxSize, Key * keyLoc
 LockableContainer::~LockableContainer() {}
 
 bool LockableContainer::addItem(std::unique_ptr<Item> & item) {
-    if(locked) {
+    if(isLocked()) {
         return false;
     }
     
@@ -17,7 +17,7 @@ bool LockableContainer::addItem(std::unique_ptr<Item> & item) {
 }
 
 std::unique_ptr<Item> LockableContainer::removeItem(const Item * item) {
-    if(locked) {
+    if(isLocked()) {
         return nullptr;
     }
     
@@ -25,7 +25,7 @@ std::unique_ptr<Item> LockableContainer::removeItem(const Item * item) {
 }
 
 bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) {
-    if(locked) {
+    if(isLocked()) {
         return false;
     }
     
@@ -35,7 +35,7 @@ bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) 
 }
 
 bool LockableContainer::for_each(std::function<bool (const Item * item)> & operation) const {
-    if(locked) {
+    if(isLocked()) {
         return false;
     }
     
@@ -45,5 +45,5 @@ bool LockableContainer::for_each(std::function<bool (const Item * item)> & opera
 }
 
 std::string LockableContainer::toString() const {
-    return type;
+    return getType();
 }

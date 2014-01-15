@@ -13,7 +13,6 @@ namespace game {
     class Engine;
     
     class Container : public Object, private OwningVector<Item> {
-    protected:
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);

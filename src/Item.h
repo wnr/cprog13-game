@@ -9,7 +9,6 @@
 namespace game {
     
     class Item : public Object {
-    protected:
         bool breakable; //TODO: Might do different class from this and working.
         bool working;
         unsigned int volume;
@@ -22,7 +21,6 @@ namespace game {
         Item(Item && item);
         virtual ~Item();
         
-        bool isVisible() const;
         bool isBreakable() const;
         bool isWorking() const;
         unsigned int getVolume() const;

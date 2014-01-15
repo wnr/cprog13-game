@@ -28,6 +28,10 @@ void Entity::setEnvironment(Environment * env) {
     this->env = env;
 }
 
+Environment * Entity::getEnvironment() const {
+    return env;
+}
+
 bool Entity::move(const std::string &direction) {
     if(env == NULL) {
         error(this, "Entity does not have an Environment.");
@@ -49,5 +53,5 @@ bool Entity::move(const std::string &direction) {
 }
 
 std::string Entity::toString() const {
-    return "Entity(" + type + ")";
+    return "Entity(" + getType() + ")";
 }

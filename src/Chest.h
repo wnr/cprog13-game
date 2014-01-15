@@ -9,7 +9,6 @@
 namespace game {
     
     class Chest : public LockableContainer {
-    protected:
         
     public:
         Chest(int maxSize);

@@ -43,9 +43,9 @@ unsigned int Container::getMaxSize() const {
 }
 
 std::string Container::toString() const {
-    return "Container(" + type + ")";
+    return "Container(" + getType() + ")";
 }
 
 std::string Container::getDescription() const {
-    return type;
+    return getType();
 }

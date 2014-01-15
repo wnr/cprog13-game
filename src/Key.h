@@ -9,7 +9,6 @@
 namespace game {
     
     class Key : public Item {
-    protected:
         int level;
         std::string identifier;
     public:

@@ -8,7 +8,6 @@
 namespace game {
     
     class Backpack : public Container {
-    protected:
     public:
         Backpack(int maxSize);
         ~Backpack();
