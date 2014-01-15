@@ -8,7 +8,7 @@
 
 namespace game {
     class Player : public Character {
-        std::map<std::string, std::function<bool(const std::vector<std::string> &)>> commands;
+        std::map<std::string, std::function<bool(Environment & env, const std::vector<std::string> &)>> commands;
         
     public:
         Player(unsigned int maxHealth, std::string name);
@@ -16,13 +16,11 @@ namespace game {
         Player(Player && player);
         ~Player();
         
-        void update(const Environment & env);
-        
-        std::string toString() const;
+        void update(Environment & env);
         
     private:
         void initCommands();
-        bool performCommand(const std::vector<std::string> & inputs);
+        bool performCommand(Environment & env, const std::vector<std::string> & inputs);
     };
 }
 

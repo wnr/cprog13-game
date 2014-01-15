@@ -19,7 +19,7 @@ Player::Player(Player && player) : Character(player), commands(player.commands) 
 
 Player::~Player() {}
 
-void Player::update(const Environment & env) {
+void Player::update(Environment & env) {
     std::cout << std::endl << "Your are in " << env.getDescription() << std::endl;
     
     std::cout << "You can go:" << std::endl;
@@ -45,26 +45,26 @@ void Player::update(const Environment & env) {
     
     std::cout << INPUT_INDICATOR;
     
-    if(!performCommand(getEngine().getInput())) {
+    if(!performCommand(env, getEngine().getInput())) {
         std::cout << INPUT_INVALID_COMMAND << std::endl;
     }
 }
 
 void Player::initCommands() {
-    commands["exit"] = [this](const std::vector<std::string> &) -> bool {
+    commands["exit"] = [this](Environment & env, const std::vector<std::string> &) -> bool {
         this->getEngine().kill();
         return true;
     };
     
-    commands["go"] = [this](const std::vector<std::string> & commands) -> bool {
+    commands["go"] = [this](Environment & env, const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             return false;
         }
      
-        return this->move(commands[1]);
+        return this->move(env, commands[1]);
      };
     
-    commands["help"] = [](const std::vector<std::string> &) -> bool {
+    commands["help"] = [](Environment & env, const std::vector<std::string> &) -> bool {
         std::cout << std::endl;
         std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
         std::cout << HELP_TEXT << std::endl;
@@ -72,19 +72,16 @@ void Player::initCommands() {
         return true;
     };
     
-    commands["attack"] = [this](const std::vector<std::string> & commands) -> bool {
+    commands["attack"] = [this](Environment & env, const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             return false;
         }
-        
-        auto env = getEnvironment();
 
-        auto findTarget = [env](std::string target) -> Entity * {
+        auto findTarget = [env](Environment & env, std::string target) -> Entity * {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
-            
             Entity * found = NULL;
-            env->for_each([&found, target] (Object * obj) {
-                if(obj->getType() == ENTITY_MONSTER_TYPE) {
+            env.for_each([&found, target] (Object * obj) {
+                if(obj->getSubType() == ENTITY_MONSTER_TYPE) {
                     Entity * entity = static_cast<Entity*>(obj);
                     std::string desc = entity->getDescription();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
@@ -101,21 +98,20 @@ void Player::initCommands() {
             return found;
         };
         
-        Entity * entity = findTarget(commands[1]);
+        Entity * entity = findTarget(env, commands[1]);
         
         if(entity == NULL) {
             std::cout << "There is no " + commands[1] << " in the area." << std::endl;
             return false;
         }
-        
         entity->kill();
-        env->removeObject(entity);
+        env.removeObject(entity);
         
         return true;
     };
 }
 
-bool Player::performCommand(const std::vector<std::string> & input) {
+bool Player::performCommand(Environment & env, const std::vector<std::string> & input) {
     if(input.empty()) {
         return false;
     }
@@ -127,9 +123,5 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     }
     
     auto command = commands[key];
-    return command(input);
-}
-
-std::string Player::toString() const {
-    return Character::toString() + ":Player";
+    return command(env, input);
 }

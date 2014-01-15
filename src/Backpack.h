@@ -11,8 +11,6 @@ namespace game {
     public:
         Backpack(int maxSize);
         ~Backpack();
-    
-        std::string toString() const;
     };
 }
 

@@ -5,7 +5,7 @@ using namespace game;
 
 Container::Container(std::string type, unsigned int maxSize) : Container(type, maxSize, true) {}
 
-Container::Container(std::string type, unsigned int maxSize, bool visible) : Object(type, visible), maxSize(maxSize) {}
+Container::Container(std::string type, unsigned int maxSize, bool visible) : Object(OBJECT_CONTAINER_TYPE, type, visible), maxSize(maxSize) {}
 
 Container::Container(const Container & container) : Object(container), maxSize(container.maxSize) {}
 
@@ -40,12 +40,4 @@ unsigned int Container::getRemainingSpace() const {
 
 unsigned int Container::getMaxSize() const {
     return maxSize;
-}
-
-std::string Container::toString() const {
-    return "Container(" + getType() + ")";
-}
-
-std::string Container::getDescription() const {
-    return getType();
 }

@@ -25,8 +25,8 @@ namespace game {
         
         bool isLocked() const;
         bool willDestroyKey() const;
-    
-        virtual std::string toString() const;
+        
+        virtual std::string toString() const = 0;
     };
 }
 

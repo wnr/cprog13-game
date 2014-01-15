@@ -3,6 +3,10 @@
 
 #define CERR_LOG                true
 
+#define OBJECT_CONTAINER_TYPE   "Container"
+#define OBJECT_ITEM_TYPE        "Item"
+#define OBJECT_ENTITY_TYPE      "Entity"
+
 #define ENTITY_PLAYER_TYPE      "Player"
 #define ENTITY_CHARACTER_TYPE   "Character"
 #define ENTITY_MONSTER_TYPE     "Monster"

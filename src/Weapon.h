@@ -22,8 +22,6 @@ namespace game {
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
         virtual ~Weapon();
-    
-        virtual std::string toString() const;
     };
 }
 

@@ -43,7 +43,3 @@ bool LockableContainer::for_each(std::function<bool (const Item * item)> & opera
     
     return true;
 }
-
-std::string LockableContainer::toString() const {
-    return getType();
-}

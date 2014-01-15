@@ -39,12 +39,10 @@ std::vector<std::string> Environment::getDirections() const {
 }
 
 void Environment::addObject(std::unique_ptr<Object> obj) {
-    obj->setEnvironment(this);
     push_back(std::move(obj));
 }
 
 std::unique_ptr<Object> Environment::removeObject(Object * obj) {
-    obj->setEnvironment(NULL);
     return remove(obj);
 }
 

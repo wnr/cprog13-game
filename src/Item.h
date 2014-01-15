@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Object.h"
+#include "Constants.h"
 
 namespace game {
     
@@ -20,7 +21,6 @@ namespace game {
         
         unsigned int getVolume() const;
         
-        virtual std::string toString() const;
         virtual std::string getDescription() const;
     };
 }

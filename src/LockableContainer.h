@@ -11,7 +11,7 @@ namespace game {
     
     class Container;
     
-    class LockableContainer : private Container, public KeyHandler {
+    class LockableContainer : private Container, public KeyHandler { //TODO: Why private container?
         
     public:
         LockableContainer(std::string type, int maxSize);
@@ -22,15 +22,14 @@ namespace game {
         using Container::getMaxSize;
         using Container::getRemainingSpace;
         using Container::getDescription;
-        using Container::getType;
+        using Container::getMainType;
+        using Container::getSubType;
         using Container::isVisible;
         
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);
         virtual bool for_each(std::function<bool (Item * item)> & operation);
         virtual bool for_each(std::function<bool (const Item * item)> & operation) const;
-        
-        std::string toString() const;
     };
 }
 

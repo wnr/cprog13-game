@@ -24,12 +24,12 @@ namespace game {
         Entity(Entity && entity);
         virtual ~Entity();
         
+        bool move(Environment & env, const std::string & direction);
+        
         bool isAlive() const;
         virtual void kill();
         
-        virtual void update(const Environment & env) = 0;
-        
-        virtual std::string toString() const;
+        virtual void update(Environment &) = 0;
     };
 }
 

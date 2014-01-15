@@ -6,7 +6,7 @@ using namespace game;
 
 Item::Item(std::string type) : Item(type, true) {}
 
-Item::Item(std::string type, bool visible) : Object(type, visible) {}
+Item::Item(std::string type, bool visible) : Object(OBJECT_ITEM_TYPE, type, visible) {}
 
 Item::Item(const Item & item) : Object(item) {}
 
@@ -18,12 +18,8 @@ unsigned int Item::getVolume() const {
     return volume;
 }
 
-std::string Item::toString() const {
-    return "Item(" + getType() + ")";
-}
-
 std::string Item::getDescription() const {
-    return getType();
+    return getSubType();
 }
 
 int operator+=(int value, const Item & item) {

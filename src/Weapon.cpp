@@ -18,7 +18,3 @@ Weapon::Weapon(const Weapon & weapon) : BreakableItem(weapon), minDmg(weapon.min
 Weapon::Weapon(Weapon && weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critModifier(weapon.critModifier) {}
 
 Weapon::~Weapon() {}
-
-std::string Weapon::toString() const {
-    return "Weapon(" + getType() + ")";
-}

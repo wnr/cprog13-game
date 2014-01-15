@@ -5,58 +5,46 @@
 
 using namespace game;
 
-Object::Object(std::string type) : Object(type, true) {}
+Object::Object(std::string mainType, std::string subType) : Object(mainType, subType, true) {}
 
-Object::Object(std::string type, bool visible) : type(type), visible(visible) {}
+Object::Object(std::string mainType, std::string subType, bool visible) : mainType(mainType), subType(subType), visible(visible) {}
 
-Object::Object(const Object & object) : type(object.type), visible(object.visible) {}
+Object::Object(const Object & object) : mainType(object.mainType), subType(object.subType), visible(object.visible) {}
 
-Object::Object(Object && object) : type(object.type), visible(object.visible) {}
+Object::Object(Object && object) : mainType(object.mainType), subType(object.subType), visible(object.visible) {}
 
 Object::~Object() {}
 
-std::string Object::getType() const {
-    return type;
+std::string Object::getMainType() const {
+    return mainType;
+}
+
+std::string Object::getSubType() const {
+    return subType;
 }
 
 bool Object::isVisible() const {
     return visible;
 }
 
+bool Object::isContainer() const {
+    return getMainType() == OBJECT_CONTAINER_TYPE;
+}
+
+bool Object::isEntity() const {
+    return getMainType() == OBJECT_ENTITY_TYPE;
+}
+
+bool Object::isItem() const {
+    return getMainType() == OBJECT_ITEM_TYPE;
+}
+
 Engine & Object::getEngine() const {
     return Engine::getInstance();
 }
 
-void Object::setEnvironment(Environment * env) {
-    this->env = env;
-}
-
-Environment * Object::getEnvironment() const {
-    return env;
-}
-
-bool Object::move(const std::string &direction) {
-    if(env == NULL) {
-        error(this, "Entity does not have an Environment.");
-        return false;
-    }
-    
-    Environment * neighbor = env->getNeighbor(direction);
-    
-    if(neighbor == NULL) {
-        //No neighbor in that direction.
-        return false;
-    }
-    
-    log(this, "move " + direction);
-    
-    neighbor->addObject(env->removeObject(this));
-    
-    return true;
-}
-
 std::string Object::toString() const {
-    return "Object(" + type + ")";
+    return getMainType() + "(" + getSubType() + ")";
 }
 
-void Object::update(const Environment & env) {}
+void Object::update(Environment & env) {}

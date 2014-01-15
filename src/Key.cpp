@@ -31,7 +31,3 @@ bool Key::operator<(const Key & key) const {
 bool Key::differenceOperator(const Key & key, const std::function<bool(int, int)> & operation) const {
     return operation(level, key.level);
 }
-
-std::string Key::toString() const {
-    return Item::toString() + ":Key";
-}

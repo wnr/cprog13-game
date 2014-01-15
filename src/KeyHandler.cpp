@@ -48,7 +48,3 @@ bool KeyHandler::isLocked() const {
 bool KeyHandler::willDestroyKey() const {
     return destroysKey;
 }
-
-std::string KeyHandler::toString() const {
-    return keyLock.toString();
-}

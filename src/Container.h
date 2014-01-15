@@ -27,9 +27,6 @@ namespace game {
         unsigned int getRemainingSpace() const;
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);
-    
-        virtual std::string toString() const;
-        virtual std::string getDescription() const;
     };
 }
 

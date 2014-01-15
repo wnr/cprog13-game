@@ -16,6 +16,7 @@
 
 namespace game {
     class Object;
+    class Entity;
     
     class Environment : public Loggable, private OwningVector<Object> {
         std::string description;

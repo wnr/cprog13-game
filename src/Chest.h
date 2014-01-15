@@ -15,8 +15,6 @@ namespace game {
         Chest(int maxSize);
         Chest(int maxSize, Key * keyLock);
         ~Chest();
-        
-        std::string toString() const;
     };
 }
 

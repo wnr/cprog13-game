@@ -7,34 +7,39 @@
 
 #include "Loggable.h"
 #include "Environment.h"
+#include "Constants.h"
 
 namespace game {
     
     class Engine;
     
     class Object : public Loggable {
-        std::string type;
+        std::string mainType;
+        std::string subType;
         bool visible;
-        Environment * env;
         
     public:
-        Object(std::string type);
-        Object(std::string type, bool visible);
+        Object(std::string mainType, std::string subType);
+        Object(std::string mainType, std::string subType, bool visible);
         Object(const Object & object);
         Object(Object && object);
         virtual ~Object();
         
-        std::string getType() const;
         bool isVisible() const;
-        Engine & getEngine() const;
+        bool isContainer() const;
+        bool isEntity() const;
+        bool isItem() const;
         
-        void setEnvironment(Environment * env);
-        Environment * getEnvironment() const;
-        bool move(const std::string & direction);
+        std::string getMainType() const;
+        std::string getSubType() const;
+        
+        virtual void update(Environment & env);
         
         virtual std::string toString() const;
-        virtual void update(const Environment & env);
+        
         virtual std::string getDescription() const = 0;
+        
+        Engine & getEngine() const;
     };
 }
 

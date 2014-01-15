@@ -16,7 +16,7 @@ Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.move
 
 Monster::~Monster() {}
 
-void Monster::update(const Environment & env) {}
+void Monster::update(Environment & env) {}
 
 float Monster::getMoveProb() const {
     return moveProb;
@@ -90,8 +90,4 @@ void Monster::incAttackProb(float prob) {
 
 void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
-}
-
-std::string Monster::toString() const {
-    return Character::toString() + ":Monster";
 }

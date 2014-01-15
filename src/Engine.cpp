@@ -30,6 +30,8 @@ Engine & Engine::getInstance() {
 void Engine::initEnvironments() {
     std::unique_ptr<Environment> house(new Environment("a big house with walls."));
     std::unique_ptr<Environment> outside(new Environment("an outside place with big sun"));
+    std::unique_ptr<Environment> west(new Environment("an outside place with big sun"));
+    
     
     house->setNeightbor("outside", outside.get());
     house->addObject(std::unique_ptr<Object>(new Player(1337, "Lucas")));

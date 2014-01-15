@@ -80,10 +80,6 @@ void Character::kill() {
     Entity::kill();
 }
 
-std::string Character::toString() const {
-    return Entity::toString() + ":" + "Character(" + name + ")";
-}
-
 std::string Character::getDescription() const {
     return name; //TODO Discuss alternatives
 }
