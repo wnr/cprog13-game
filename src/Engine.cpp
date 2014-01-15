@@ -41,10 +41,14 @@ void Engine::initEnvironments() {
     std::unique_ptr<Environment> church(new Environment("Church","god is watching."));
     
     home->setNeightbor("outside", outside.get());
-    home->addObject(std::unique_ptr<PhysicalObject>(new Player(1337, "Lucas")));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Monster("Troll", 100)));
     home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2)));
     std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
     home->addObject(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Player(1337, "Lucas")));
+    
+    //TODO: Strange crash when player is added before other objects!
+    
     outside->setNeightbor("inside", home.get());
     outside->setNeightbor("street", street54.get());
     outside->addObject(std::unique_ptr<PhysicalObject>(new Monster("Troll", 100)));
@@ -52,7 +56,7 @@ void Engine::initEnvironments() {
     street54->setNeightbor("outside_home", outside.get());
     street54->setNeightbor("statoil", statoil.get());
     street54->setNeightbor("flanders", flanders.get());
-    street54->setNeightbor("mcDonalds", flanders.get());
+    street54->setNeightbor("mcDonalds", mcDonalds.get());
     street54->setNeightbor("church", church.get());
     statoil->setNeightbor("street", street54.get());
     flanders->setNeightbor("street", street54.get());

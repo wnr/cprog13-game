@@ -15,10 +15,17 @@ Entity::Entity(Entity && entity) : PhysicalObject(entity), alive(entity.alive) {
 
 Entity::~Entity() {}
 
+void Entity::setEnvironment(Environment * env) {
+    this->env = env;
+}
 
-bool Entity::move(Environment & env, const std::string &direction) {
+Environment * Entity::getEnvironment() const {
+    return env;
+}
+
+bool Entity::move(const std::string &direction) {
     
-    Environment * neighbor = env.getNeighbor(direction);
+    Environment * neighbor = env->getNeighbor(direction);
     
     if(neighbor == NULL) {
         //No neighbor in that direction.
@@ -27,7 +34,7 @@ bool Entity::move(Environment & env, const std::string &direction) {
     
     log(this, "moved to " + direction);
     
-    neighbor->addObject(env.removeObject(this));
+    neighbor->addObject(env->removeObject(this));
     
     return true;
 }

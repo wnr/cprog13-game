@@ -5,17 +5,17 @@
 //some way. A monster is an Entity and a player is an Entity. However, items and environments are not Entities.
 //Entities can be viewed as "living things" that can perform actions independently of the player.
 
+#include "PhysicalObject.h"
 #include <string>
 #include <vector>
 
-#include "PhysicalObject.h"
 
 namespace game {
-    class Engine;
     class Environment;
     
     class Entity : public PhysicalObject {
         bool alive;
+        Environment * env;
         
     public:
         Entity(std::string type);
@@ -24,12 +24,14 @@ namespace game {
         Entity(Entity && entity);
         virtual ~Entity();
         
-        bool move(Environment & env, const std::string & direction);
+        void setEnvironment(Environment * env);
+        Environment * getEnvironment() const;
+        bool move(const std::string & direction);
         
         bool isAlive() const;
         virtual void kill();
         
-        virtual void update(Environment &) = 0;
+               virtual void update() = 0;
     };
 }
 

@@ -30,4 +30,4 @@ bool PhysicalObject::isItem() const {
     return getMainType() == OBJECT_ITEM_TYPE;
 }
 
-void PhysicalObject::update(Environment & env) {}
+void PhysicalObject::update() {}

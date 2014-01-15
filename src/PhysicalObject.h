@@ -29,7 +29,7 @@ namespace game {
         bool isEntity() const;
         bool isItem() const;
         
-        virtual void update(Environment & env);
+        virtual void update();
         
         virtual std::string getDescription() const = 0;
     };

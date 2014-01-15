@@ -18,6 +18,7 @@
 
 namespace game {
     class PhysicalObject;
+    class Entity;
     
     class Environment : public BaseObject, private OwningVector<PhysicalObject> {
         std::string name;
