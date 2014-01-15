@@ -16,7 +16,7 @@ namespace game {
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);
-        Container(std::string type, unsigned int maxSize, bool visible, bool carriable);
+        Container(std::string type, unsigned int maxSize, bool visible);
         Container(const Container & container);
         Container(Container && container);
         ~Container();

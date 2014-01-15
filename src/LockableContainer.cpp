@@ -4,7 +4,7 @@ using namespace game;
 
 LockableContainer::LockableContainer(std::string type, int maxSize) : LockableContainer(type, maxSize, nullptr) {}
 
-LockableContainer::LockableContainer(std::string type, int maxSize, Key * keyLock) : Container(type, maxSize, true, false), KeyHandler(keyLock) {}
+LockableContainer::LockableContainer(std::string type, int maxSize, Key * keyLock) : Container(type, maxSize, true), KeyHandler(keyLock) {}
 
 LockableContainer::~LockableContainer() {}
 

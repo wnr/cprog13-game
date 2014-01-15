@@ -3,9 +3,9 @@
 
 using namespace game;
 
-Container::Container(std::string type, unsigned int maxSize) : Container(type, maxSize, true, true){}
+Container::Container(std::string type, unsigned int maxSize) : Container(type, maxSize, true) {}
 
-Container::Container(std::string type, unsigned int maxSize, bool visible, bool carriable) : Object(type, visible, carriable), maxSize(maxSize) {}
+Container::Container(std::string type, unsigned int maxSize, bool visible) : Object(type, visible), maxSize(maxSize) {}
 
 Container::Container(const Container & container) : Object(container), maxSize(container.maxSize) {}
 

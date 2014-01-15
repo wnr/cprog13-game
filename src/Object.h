@@ -14,18 +14,16 @@ namespace game {
     class Object : public Loggable {
         std::string type;
         bool visible;
-        bool carriable; //TODO: Might wanna have this as a class.
         
     public:
         Object(std::string type);
-        Object(std::string type, bool visible, bool carriable);
+        Object(std::string type, bool visible);
         Object(const Object & object);
         Object(Object && object);
         virtual ~Object();
         
         std::string getType() const;
         bool isVisible() const;
-        bool isCarriable() const;
         Engine & getEngine() const;
         
         virtual std::string toString() const;

@@ -24,7 +24,6 @@ namespace game {
         using Container::getDescription;
         using Container::getType;
         using Container::isVisible;
-        using Container::isCarriable;
         
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);

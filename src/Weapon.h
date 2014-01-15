@@ -4,20 +4,21 @@
 #include <string>
 #include <vector>
 
-#include "Item.h"
+#include "BreakableItem.h"
 
 namespace game {
     
     class Engine;
     
-    class Weapon : public Item {
+    class Weapon : public BreakableItem {
         int minDmg;
         int maxDmg;
         float critModifier;
     public:
         Weapon(int dmg);
+        Weapon(std::string type, int dmg);
         Weapon(std::string type, int minDmg, int maxDmg, float critModifier);
-        Weapon(std::string type, bool visible, bool breakable, bool working, int minDmg, int maxDmg, float critModifier);
+        Weapon(std::string type, bool visible, int minDmg, int maxDmg, float critModifier);
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
         virtual ~Weapon();

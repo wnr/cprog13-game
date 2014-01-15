@@ -5,13 +5,13 @@
 
 using namespace game;
 
-Object::Object(std::string type) : Object(type, true, true) {}
+Object::Object(std::string type) : Object(type, true) {}
 
-Object::Object(std::string type, bool visible, bool carriable) : type(type), visible(visible), carriable(carriable) {}
+Object::Object(std::string type, bool visible) : type(type), visible(visible) {}
 
-Object::Object(const Object & object) : type(object.type), visible(object.visible), carriable(object.carriable) {}
+Object::Object(const Object & object) : type(object.type), visible(object.visible) {}
 
-Object::Object(Object && object) : type(object.type), visible(object.visible), carriable(object.carriable) {}
+Object::Object(Object && object) : type(object.type), visible(object.visible) {}
 
 Object::~Object() {}
 
@@ -21,10 +21,6 @@ std::string Object::getType() const {
 
 bool Object::isVisible() const {
     return visible;
-}
-
-bool Object::isCarriable() const {
-    return carriable;
 }
 
 Engine & Object::getEngine() const {

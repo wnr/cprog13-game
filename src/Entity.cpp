@@ -7,7 +7,7 @@ using namespace game;
 
 Entity::Entity(std::string type) : Entity(type, true) {}
 
-Entity::Entity(std::string type, bool visible) : Object(type, visible, false), alive(true) {}
+Entity::Entity(std::string type, bool visible) : Object(type, visible), alive(true) {}
 
 Entity::Entity(const Entity & entity) : Object(entity), alive(entity.alive) {}
 

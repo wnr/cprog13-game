@@ -6,6 +6,7 @@
 #include "LockableContainer.h"
 #include "Key.h"
 
+
 namespace game {
     
     class Chest : public LockableContainer {

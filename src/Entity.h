@@ -14,7 +14,7 @@ namespace game {
     class Engine;
     class Environment;
     
-    class Entity : public Object{
+    class Entity : public Object {
         bool alive;
         Environment * env;
         
