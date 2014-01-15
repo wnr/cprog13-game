@@ -6,6 +6,7 @@
 #include <string>
 
 #include "Loggable.h"
+#include "Environment.h"
 
 namespace game {
     
@@ -14,6 +15,7 @@ namespace game {
     class Object : public Loggable {
         std::string type;
         bool visible;
+        Environment * env;
         
     public:
         Object(std::string type);
@@ -26,7 +28,12 @@ namespace game {
         bool isVisible() const;
         Engine & getEngine() const;
         
+        void setEnvironment(Environment * env);
+        Environment * getEnvironment() const;
+        bool move(const std::string & direction);
+        
         virtual std::string toString() const;
+        virtual void update(const Environment & env);
         virtual std::string getDescription() const = 0;
     };
 }

@@ -16,7 +16,6 @@ namespace game {
     
     class Entity : public Object {
         bool alive;
-        Environment * env;
         
     public:
         Entity(std::string type);
@@ -25,14 +24,10 @@ namespace game {
         Entity(Entity && entity);
         virtual ~Entity();
         
-        virtual void update(const Environment & env) = 0;
-        
         bool isAlive() const;
         virtual void kill();
         
-        void setEnvironment(Environment * env);
-        Environment * getEnvironment() const;
-        bool move(const std::string & direction);
+        virtual void update(const Environment & env) = 0;
         
         virtual std::string toString() const;
     };

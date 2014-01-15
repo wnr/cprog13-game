@@ -1,7 +1,7 @@
 #include "Environment.h"
-#include "Entity.h"
 #include "Log.h"
 #include "Constants.h"
+#include "Object.h"
 
 using namespace game;
 
@@ -38,23 +38,23 @@ std::vector<std::string> Environment::getDirections() const {
     return directions;
 }
 
-void Environment::addEntity(std::unique_ptr<Entity> entity) {
-    entity->setEnvironment(this);
-    push_back(std::move(entity));
+void Environment::addObject(std::unique_ptr<Object> obj) {
+    obj->setEnvironment(this);
+    push_back(std::move(obj));
 }
 
-std::unique_ptr<Entity> Environment::removeEntity(Entity * entity) {
-    entity->setEnvironment(NULL);
-    return remove(entity);
+std::unique_ptr<Object> Environment::removeObject(Object * obj) {
+    obj->setEnvironment(NULL);
+    return remove(obj);
 }
 
 void Environment::update() {
-    updateEntities();
+    updateObjects();
 }
 
-void Environment::updateEntities() {
-    for_each([this](Entity * entity) {
-        entity->update(*this);
+void Environment::updateObjects() {
+    for_each([this](Object * obj) {
+        obj->update(*this);
         return true;
     });
 }

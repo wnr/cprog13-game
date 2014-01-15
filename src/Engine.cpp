@@ -32,9 +32,9 @@ void Engine::initEnvironments() {
     std::unique_ptr<Environment> outside(new Environment("an outside place with big sun"));
     
     house->setNeightbor("outside", outside.get());
-    house->addEntity(std::unique_ptr<Entity>(new Player(1337, "Lucas")));
+    house->addObject(std::unique_ptr<Object>(new Player(1337, "Lucas")));
     outside->setNeightbor("inside", house.get());
-    outside->addEntity(std::unique_ptr<Entity>(new Monster("Troll", 100)));
+    outside->addObject(std::unique_ptr<Object>(new Monster("Troll", 100)));
     
     push_back(std::move(house));
     push_back(std::move(outside));

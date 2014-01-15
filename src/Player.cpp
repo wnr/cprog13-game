@@ -33,7 +33,7 @@ void Player::update(const Environment & env) {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
         
-        env.for_each([this](const Entity * entity) {
+        env.for_each([this](const Object * entity) {
             if(entity == this) {
                 return true; //Skip when entity is the player itself.
             }
@@ -83,8 +83,9 @@ void Player::initCommands() {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
             
             Entity * found = NULL;
-            env->for_each([&found, target] (Entity * entity) {
-                if(entity->getType() == ENTITY_MONSTER_TYPE) {
+            env->for_each([&found, target] (Object * obj) {
+                if(obj->getType() == ENTITY_MONSTER_TYPE) {
+                    Entity * entity = static_cast<Entity*>(obj);
                     std::string desc = entity->getDescription();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
                     
@@ -108,7 +109,7 @@ void Player::initCommands() {
         }
         
         entity->kill();
-        env->removeEntity(entity);
+        env->removeObject(entity);
         
         return true;
     };

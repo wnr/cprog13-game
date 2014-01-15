@@ -24,34 +24,6 @@ void Entity::kill() {
     alive = false;
 }
 
-void Entity::setEnvironment(Environment * env) {
-    this->env = env;
-}
-
-Environment * Entity::getEnvironment() const {
-    return env;
-}
-
-bool Entity::move(const std::string &direction) {
-    if(env == NULL) {
-        error(this, "Entity does not have an Environment.");
-        return false;
-    }
-    
-    Environment * neighbor = env->getNeighbor(direction);
-    
-    if(neighbor == NULL) {
-        //No neighbor in that direction.
-        return false;
-    }
-    
-    log(this, "move " + direction);
-    
-    neighbor->addEntity(env->removeEntity(this));
-    
-    return true;
-}
-
 std::string Entity::toString() const {
     return "Entity(" + getType() + ")";
 }
