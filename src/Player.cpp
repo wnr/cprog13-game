@@ -56,16 +56,14 @@ void Player::initCommands() {
         this->getEngine().kill();
         return true;
     };
-    auto goOperation = [this](const std::vector<std::string> & commands) -> bool {
+    
+    commands["move"] = commands["goto"] = commands["go"] = [this](const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             return false;
         }
         
         return this->move(commands[1]);
     };
-    commands["go"] = goOperation;
-    commands["goto"] = goOperation;
-    commands["move"] = goOperation;
     
     commands["help"] = [](const std::vector<std::string> &) -> bool {
         std::cout << std::endl;
