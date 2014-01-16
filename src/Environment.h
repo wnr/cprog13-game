@@ -13,8 +13,7 @@
 
 //Environment describes a place where Objects can be. All environments makes the game world.
 //Environment handles and owns all Objects that are in them. Environments moves the ownership between them when
-//for example an Entity moves between Environments. Environments keeps track of the neighbors with weak pointers to break cyclic dependencies
-//between Engine and Environment.
+//for example an Entity moves between Environments. Environments keeps track of the neighbors with pointers.
 
 namespace game {
     class PhysicalObject;
@@ -23,7 +22,7 @@ namespace game {
     class Environment : public BaseObject, private OwningVector<PhysicalObject> {
         std::string name;
         std::string description;
-        std::map<std::string, Environment* > neighbors; //TODO: Weak pointers? Don´t we have normal pointers here?
+        std::map<std::string, Environment* > neighbors;
         
     public:
         Environment(std::string name, std::string desc);

@@ -57,13 +57,15 @@ void Player::initCommands() {
         return true;
     };
     
-    commands["move"] = commands["goto"] = commands["go"] = [this](const std::vector<std::string> & commands) -> bool {
+    commands["go"] = [this](const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             return false;
         }
         
         return this->move(commands[1]);
     };
+    commands["move"] = commands["go"];
+    commands["goto"] = commands["go"];
     
     commands["help"] = [](const std::vector<std::string> &) -> bool {
         std::cout << std::endl;
