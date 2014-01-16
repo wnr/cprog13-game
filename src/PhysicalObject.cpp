@@ -1,5 +1,6 @@
 #include "PhysicalObject.h"
-
+#include "Environment.h"
+#include "Constants.h"
 #include "Log.h"
 
 using namespace game;
@@ -28,6 +29,12 @@ bool PhysicalObject::isEntity() const {
 
 bool PhysicalObject::isItem() const {
     return getMainType() == OBJECT_ITEM_TYPE;
+}
+
+void PhysicalObject::move(Environment * from, Environment * to) {
+    to->addObject(from->removeObject(this));
+    
+    log(this, "moved from '" + from->getDescription() + "' to '" + to->getDescription() + "'.");
 }
 
 void PhysicalObject::update() {}

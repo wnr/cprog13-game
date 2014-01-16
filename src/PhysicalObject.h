@@ -6,8 +6,6 @@
 #include <string>
 
 #include "BaseObject.h"
-#include "Environment.h"
-#include "Constants.h"
 
 namespace game {
     
@@ -29,7 +27,9 @@ namespace game {
         bool isEntity() const;
         bool isItem() const;
         
-        virtual void update();
+        virtual void move(Environment * from, Environment * to);
+        
+        virtual void update(); //TODO: Make pure virtual.
         
         virtual std::string getDescription() const = 0;
     };

@@ -14,8 +14,8 @@ namespace game {
         const std::string name;
 //        Inventory * inventory;
     public:
-        Character(std::string name, unsigned int maxHealth);
-        Character(std::string name, unsigned int maxHealth, std::string type);
+        Character(Environment * env, std::string name, unsigned int maxHealth);
+        Character(Environment * env, std::string name, unsigned int maxHealth, std::string type);
         Character(const Character & character);
         Character(Character && character);
         virtual ~Character();

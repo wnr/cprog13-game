@@ -18,20 +18,21 @@ namespace game {
         Environment * env;
         
     public:
-        Entity(std::string type);
-        Entity(std::string type, bool visible);
+        Entity(Environment * env, std::string type);
+        Entity(Environment * env, std::string type, bool visible);
         Entity(const Entity & entity);
         Entity(Entity && entity);
         virtual ~Entity();
         
-        void setEnvironment(Environment * env);
         Environment * getEnvironment() const;
+        
+        void move(Environment * from, Environment * to);
         bool move(const std::string & direction);
         
         bool isAlive() const;
         virtual void kill();
         
-               virtual void update() = 0;
+        virtual void update() = 0;
     };
 }
 

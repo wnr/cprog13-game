@@ -9,7 +9,7 @@
 
 using namespace game;
 
-Player::Player(unsigned int maxHealth, std::string name) : Character(name, maxHealth, ENTITY_PLAYER_TYPE) {
+Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Character(env, name, maxHealth, ENTITY_PLAYER_TYPE) {
     initCommands();
 }
 

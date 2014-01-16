@@ -9,9 +9,9 @@ namespace game {
         float attackProb;
         
     public:
-        Monster(std::string name, unsigned int maxHealth);
-        Monster(std::string name, unsigned int maxHealth, std::string type);
-        Monster(std::string name, unsigned int maxHealth, float moveProb, float attackProb, std::string type);
+        Monster(Environment * env, std::string name, unsigned int maxHealth);
+        Monster(Environment * env, std::string name, unsigned int maxHealth, std::string type);
+        Monster(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb, std::string type);
         Monster(const Monster & monster);
         Monster(Monster && monster);
         virtual ~Monster();

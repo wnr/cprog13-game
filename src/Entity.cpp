@@ -2,25 +2,28 @@
 
 #include "Environment.h"
 #include "Log.h"
+#include "Constants.h"
 
 using namespace game;
 
-Entity::Entity(std::string type) : Entity(type, true) {}
+Entity::Entity(Environment * env, std::string type) : Entity(env, type, true) {}
 
-Entity::Entity(std::string type, bool visible) : PhysicalObject(OBJECT_ENTITY_TYPE, type, visible), alive(true) {}
+Entity::Entity(Environment * env, std::string type, bool visible) : PhysicalObject(OBJECT_ENTITY_TYPE, type, visible), alive(true), env(env) {}
 
-Entity::Entity(const Entity & entity) : PhysicalObject(entity), alive(entity.alive) {}
+Entity::Entity(const Entity & entity) : PhysicalObject(entity), alive(entity.alive), env(entity.env) {}
 
-Entity::Entity(Entity && entity) : PhysicalObject(entity), alive(entity.alive) {} //TODO: Probably going to be copied now.
+Entity::Entity(Entity && entity) : PhysicalObject(entity), alive(entity.alive), env(entity.env) {}
 
 Entity::~Entity() {}
 
-void Entity::setEnvironment(Environment * env) {
-    this->env = env;
-}
-
 Environment * Entity::getEnvironment() const {
     return env;
+}
+
+void Entity::move(Environment * from, Environment * to) {
+    env = to;
+    
+    PhysicalObject::move(from, to);
 }
 
 bool Entity::move(const std::string &direction) {
@@ -32,9 +35,7 @@ bool Entity::move(const std::string &direction) {
         return false;
     }
     
-    log(this, "moved to " + direction);
-    
-    neighbor->addObject(env->removeObject(this));
+    move(env, neighbor);
     
     return true;
 }

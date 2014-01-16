@@ -11,7 +11,7 @@ namespace game {
         std::map<std::string, std::function<bool(const std::vector<std::string> &)>> commands;
         
     public:
-        Player(unsigned int maxHealth, std::string name);
+        Player(Environment * env, unsigned int maxHealth, std::string name);
         Player(const Player & player);
         Player(Player && player);
         ~Player();

@@ -50,16 +50,10 @@ std::vector<std::string> Environment::getDirections() const {
 }
 
 void Environment::addObject(std::unique_ptr<PhysicalObject> obj) {
-    if(obj->isEntity()){
-        dynamic_cast<Entity * >(obj.get())->setEnvironment(this);
-    }
     push_back(std::move(obj));
 }
 
 std::unique_ptr<PhysicalObject> Environment::removeObject(PhysicalObject * obj) {
-    if(obj->isEntity()){
-        dynamic_cast<Entity * >(obj)->setEnvironment(NULL);
-    }
     return remove(obj);
 }
 
