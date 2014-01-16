@@ -77,12 +77,12 @@ void Player::initCommands() {
             return false;
         }
 
-        auto findTarget = [env](Environment & env, std::string target) -> Entity * {
+        auto findTarget = [env](Environment & env, std::string target) -> Character * {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
-            Entity * found = NULL;
+            Character * found = NULL;
             env.for_each([&found, target] (Object * obj) {
                 if(obj->getSubType() == ENTITY_MONSTER_TYPE) {
-                    Entity * entity = static_cast<Entity*>(obj);
+                    Character * entity = static_cast<Character*>(obj);
                     std::string desc = entity->getDescription();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
                     
@@ -98,14 +98,14 @@ void Player::initCommands() {
             return found;
         };
         
-        Entity * entity = findTarget(env, commands[1]);
+        auto entity = findTarget(env, commands[1]);
         
         if(entity == NULL) {
             std::cout << "There is no " + commands[1] << " in the area." << std::endl;
             return false;
         }
-        entity->kill();
-        env.removeObject(entity);
+        
+        interact(entity);
         
         return true;
     };
@@ -124,4 +124,57 @@ bool Player::performCommand(Environment & env, const std::vector<std::string> & 
     
     auto command = commands[key];
     return command(env, input);
+}
+
+void Player::interact(game::Character * other) {
+    if(!isAlive()) {
+        return;
+    }
+    
+    std::cout << "You can do the following:" << std::endl;
+    
+    std::cout << "kick" << std::endl;
+    std::cout << "hit" << std::endl;
+    
+    std::map<std::string, std::function<bool()>> actions;
+    
+    actions["kick"] = [&other]() {
+        other->decHealth(3);
+        std::cout << "You kicked " + other->getDescription() << " for 3 hp!" << std::endl;
+        return true;
+    };
+    actions["hit"] = [&other]() {
+        other->kill();
+        std::cout << "You hit " + other->getDescription() << " for all the hp!" << std::endl;
+        return true;
+    };
+    actions["flee"] = []() {
+        return true;
+    };
+    
+    auto performAttackCommand = [&actions](const std::vector<std::string> & input) -> bool {
+        if(input.empty()) {
+            return false;
+        }
+        
+        std::string key = input[0];
+        
+        if(actions.count(key) == 0) {
+            return false;
+        }
+        
+        auto action = actions[key];
+        return action();
+    };
+    
+    while(!performAttackCommand(getEngine().getInput())) {
+        std::cout << INPUT_INVALID_COMMAND << std::endl;
+    }
+    
+    if(!other->isAlive()) {
+        std::cout << "You killed " << other->getDescription() << "!" << std::endl;
+        return;
+    }
+    
+    other->interact(this);
 }

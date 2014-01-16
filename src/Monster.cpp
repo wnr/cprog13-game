@@ -91,3 +91,15 @@ void Monster::incAttackProb(float prob) {
 void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
 }
+
+void Monster::interact(Character * other) {
+    if(!isAlive()) {
+        return;
+    }
+    
+    other->decHealth(1);
+    
+    if(other->isAlive()) {
+        other->interact(this);
+    }
+}

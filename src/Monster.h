@@ -29,6 +29,7 @@ namespace game {
         void decAttackProb(float prob);
         
         virtual void update(Environment & env);
+        virtual void interact(Character * other);
     };
 }
 

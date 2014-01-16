@@ -36,6 +36,8 @@ namespace game {
         virtual void kill();
         
         virtual std::string getDescription() const;
+        
+        virtual void interact(Character * other) = 0;
     };
 }
 

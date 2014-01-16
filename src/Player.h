@@ -18,6 +18,8 @@ namespace game {
         
         void update(Environment & env);
         
+        void interact(Character * other);
+        
     private:
         void initCommands();
         bool performCommand(Environment & env, const std::vector<std::string> & inputs);
