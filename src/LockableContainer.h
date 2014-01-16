@@ -11,20 +11,12 @@ namespace game {
     
     class Container;
     
-    class LockableContainer : private Container, public KeyHandler { //TODO: Why private container?
+    class LockableContainer : public Container, public KeyHandler {
         
     public:
         LockableContainer(std::string type, int maxSize);
         LockableContainer(std::string type, int maxSize, Key * keyLock);
         ~LockableContainer();
-        
-        using Container::toString;
-        using Container::getMaxSize;
-        using Container::getRemainingSpace;
-        using Container::getDescription;
-        using Container::getMainType;
-        using Container::getSubType;
-        using Container::isVisible;
         
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);

@@ -13,7 +13,7 @@ namespace game {
     class KeyHandler {
         bool locked;
         bool destroysKey;
-        Key keyLock;
+        Key * keyLock;
     public:
         KeyHandler(Key * KeyHandler);
         KeyHandler(Key * KeyHandler, bool destroysKey);
@@ -26,7 +26,7 @@ namespace game {
         bool isLocked() const;
         bool willDestroyKey() const;
         
-        virtual std::string toString() const = 0;
+        virtual std::string getDescription() const = 0;
     };
 }
 

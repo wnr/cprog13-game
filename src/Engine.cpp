@@ -3,6 +3,10 @@
 #include "Environment.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Weapon.h"
+#include "Chest.h"
+#include "Key.h"
+#include "Backpack.h"
 
 #include "Constants.h"
 #include "Log.h"
@@ -28,18 +32,45 @@ Engine & Engine::getInstance() {
 }
 
 void Engine::initEnvironments() {
-    std::unique_ptr<Environment> house(new Environment("a big house with walls."));
-    std::unique_ptr<Environment> outside(new Environment("an outside place with big sun"));
-    std::unique_ptr<Environment> west(new Environment("an outside place with big sun"));
+    std::unique_ptr<Environment> home(new Environment("Home", "a big house with walls."));
+    std::unique_ptr<Environment> outside(new Environment("Outside home", "an outside place with big sun."));
+    std::unique_ptr<Environment> street54(new Environment("Street 54","an street just outside your home."));
+    std::unique_ptr<Environment> statoil(new Environment("Statoil","your favorite gas station."));
+    std::unique_ptr<Environment> flanders(new Environment("Flanders","awful neighbours."));
+    std::unique_ptr<Environment> mcDonalds(new Environment("MC","mmm burgers."));
+    std::unique_ptr<Environment> church(new Environment("Church","god is watching."));
     
+    home->setNeightbor("outside", outside.get());
+    home->addObject(std::unique_ptr<PhysicalObject>(new Monster("Troll", 100)));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2)));
+    std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Player(1337, "Lucas")));
     
-    house->setNeightbor("outside", outside.get());
-    house->addObject(std::unique_ptr<Object>(new Player(1337, "Lucas")));
-    outside->setNeightbor("inside", house.get());
-    outside->addObject(std::unique_ptr<Object>(new Monster("Troll", 100)));
+    //TODO: Strange crash when player is added before other objects!
     
-    push_back(std::move(house));
+    outside->setNeightbor("inside", home.get());
+    outside->setNeightbor("street", street54.get());
+    outside->addObject(std::unique_ptr<PhysicalObject>(new Monster("Troll", 100)));
+    outside->addObject(std::move(key));
+    street54->setNeightbor("outside_home", outside.get());
+    street54->setNeightbor("statoil", statoil.get());
+    street54->setNeightbor("flanders", flanders.get());
+    street54->setNeightbor("mcDonalds", mcDonalds.get());
+    street54->setNeightbor("church", church.get());
+    statoil->setNeightbor("street", street54.get());
+    flanders->setNeightbor("street", street54.get());
+    mcDonalds->setNeightbor("street", street54.get());
+    mcDonalds->addObject(std::unique_ptr<PhysicalObject>(new Chest(10)));
+    church->setNeightbor("street", street54.get());
+
+    push_back(std::move(home));
     push_back(std::move(outside));
+    push_back(std::move(street54));
+    push_back(std::move(statoil));
+    push_back(std::move(flanders));
+    push_back(std::move(mcDonalds));
+    push_back(std::move(church));
 }
 
 void Engine::run() {

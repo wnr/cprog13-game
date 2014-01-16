@@ -16,7 +16,7 @@ Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.move
 
 Monster::~Monster() {}
 
-void Monster::update(Environment & env) {}
+void Monster::update() {}
 
 float Monster::getMoveProb() const {
     return moveProb;

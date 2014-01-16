@@ -6,11 +6,11 @@ using namespace game;
 
 Item::Item(std::string type) : Item(type, true) {}
 
-Item::Item(std::string type, bool visible) : Object(OBJECT_ITEM_TYPE, type, visible) {}
+Item::Item(std::string type, bool visible) : PhysicalObject(OBJECT_ITEM_TYPE, type, visible) {}
 
-Item::Item(const Item & item) : Object(item) {}
+Item::Item(const Item & item) : PhysicalObject(item) {}
 
-Item::Item(Item && item) : Object(item) {}
+Item::Item(Item && item) : PhysicalObject(item) {}
 
 Item::~Item() {}
 

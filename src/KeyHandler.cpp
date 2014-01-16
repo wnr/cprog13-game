@@ -6,7 +6,7 @@ using namespace game;
 
 KeyHandler::KeyHandler(Key * keyLock) : KeyHandler(keyLock, true) {}
 
-KeyHandler::KeyHandler(Key * keyLock, bool destroysKey) : keyLock(*keyLock), destroysKey(destroysKey) {
+KeyHandler::KeyHandler(Key * keyLock, bool destroysKey) : keyLock(keyLock), destroysKey(destroysKey) {
     if(keyLock == nullptr){
         locked = false;
     } else {
@@ -24,9 +24,9 @@ bool KeyHandler::unlock(Key * key, Container & container) {
     if(!isLocked()){
         return true;
     } else {
-        if(keyLock == *key) {
+        if(*keyLock == *key) {
             // It is the correct type
-            if(*key >= keyLock){
+            if(*key >= *keyLock){
                 // The key is strong enough
                 if(willDestroyKey()){
                     if(container.removeItem(key) == nullptr){

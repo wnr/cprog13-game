@@ -1,15 +1,18 @@
 #include "Environment.h"
 #include "Log.h"
 #include "Constants.h"
-#include "Object.h"
+#include "PhysicalObject.h"
+#include "Entity.h"
 
 using namespace game;
 
-Environment::Environment(std::string desc) : description(desc) {}
+Environment::Environment(std::string name, std::string desc) : Environment("", name, desc) {}
 
-Environment::Environment(const Environment & env) : description(env.description) {}
+Environment::Environment(std::string subType, std::string name, std::string desc) : BaseObject(OBJECT_ENVIRONMENT_TYPE, subType), name(name), description(desc) {}
 
-Environment::Environment(Environment && env) : description(env.description) {}
+Environment::Environment(const Environment & env) : BaseObject(env), name(env.name), description(env.description) {}
+
+Environment::Environment(Environment && env) : BaseObject(env), name(env.name), description(env.description) {}
 
 Environment::~Environment() {}
 
@@ -25,8 +28,16 @@ Environment * Environment::getNeighbor(const std::string & direction) {
     return neighbors[direction];
 }
 
+std::string Environment::getName() const {
+    return name;
+}
+
 std::string Environment::getDescription() const {
     return description;
+}
+
+std::string Environment::getFullInfo() const {
+    return getName() + ", " + getDescription();
 }
 
 std::vector<std::string> Environment::getDirections() const {
@@ -38,11 +49,17 @@ std::vector<std::string> Environment::getDirections() const {
     return directions;
 }
 
-void Environment::addObject(std::unique_ptr<Object> obj) {
+void Environment::addObject(std::unique_ptr<PhysicalObject> obj) {
+    if(obj->isEntity()){
+        dynamic_cast<Entity * >(obj.get())->setEnvironment(this);
+    }
     push_back(std::move(obj));
 }
 
-std::unique_ptr<Object> Environment::removeObject(Object * obj) {
+std::unique_ptr<PhysicalObject> Environment::removeObject(PhysicalObject * obj) {
+    if(obj->isEntity()){
+        dynamic_cast<Entity * >(obj)->setEnvironment(NULL);
+    }
     return remove(obj);
 }
 
@@ -51,8 +68,8 @@ void Environment::update() {
 }
 
 void Environment::updateObjects() {
-    for_each([this](Object * obj) {
-        obj->update(*this);
+    for_each([this](PhysicalObject * obj) {
+        obj->update();
         return true;
     });
 }

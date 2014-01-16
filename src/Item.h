@@ -4,12 +4,12 @@
 #include <string>
 #include <vector>
 
-#include "Object.h"
+#include "PhysicalObject.h"
 #include "Constants.h"
 
 namespace game {
     
-    class Item : public Object {
+    class Item : public PhysicalObject {
         unsigned int volume;
     public:
         //TODO: type is last parameter for all other objects. Why not volume in constructor?

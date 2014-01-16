@@ -12,6 +12,9 @@ namespace game {
         int level;
         std::string identifier;
     public:
+        Key();
+        Key(int level);
+        Key(std::string identifier);
         Key(int level, std::string identifier);
         Key(const Key & key);
         Key(Key && key);
