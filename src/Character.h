@@ -38,6 +38,7 @@ namespace game {
         virtual std::string getDescription() const;
         
         virtual void interact(Character * other) = 0;
+        virtual unsigned int attack(unsigned int health) = 0;
     };
 }
 
