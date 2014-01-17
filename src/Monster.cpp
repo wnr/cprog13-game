@@ -98,7 +98,7 @@ void Monster::interact(Character * other) {
         return;
     }
     
-    other->decHealth(1);
+    other->attack(5);
     
     if(other->isAlive()) {
         other->interact(this);
