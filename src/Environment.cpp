@@ -62,7 +62,7 @@ void Environment::update() {
 }
 
 void Environment::updateObjects() {
-    for_each([this](PhysicalObject * obj) {
+    for_each([](PhysicalObject * obj) {
         obj->update();
         return true;
     });
