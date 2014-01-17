@@ -38,7 +38,6 @@ namespace game {
         void printOutro() const;
         
         void initEnvironments();
-        Environment * createEnv(Environment * env);
     };
 }
 
