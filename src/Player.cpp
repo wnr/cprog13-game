@@ -138,10 +138,7 @@ void Player::interact(game::Character * other) {
         return;
     }
     
-    std::cout << "You can do the following:" << std::endl;
-    
-    std::cout << "kick" << std::endl;
-    std::cout << "hit" << std::endl;
+    std::cout << "You are initiating a fight with " << other->getDescription() << " with " + std::to_string(other->getHealth()) << " hp." << std::endl;
     
     std::map<std::string, std::function<bool()>> actions;
     
@@ -158,6 +155,11 @@ void Player::interact(game::Character * other) {
     actions["flee"] = []() {
         return true;
     };
+    
+    std::cout << "You can do the following:" << std::endl;
+    for(auto & kv : actions) {
+        std::cout << kv.first << std::endl;
+    }
     
     auto performAttackCommand = [&actions](const std::vector<std::string> & input) -> bool {
         if(input.empty()) {
