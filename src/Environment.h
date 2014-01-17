@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "Loggable.h"
-#include "OwningVector.h"
+#include "OwningStorage.h"
 #include "BaseObject.h"
 #include "PhysicalObject.h"
 
@@ -19,7 +19,7 @@ namespace game {
     class PhysicalObject;
     class Entity;
     
-    class Environment : public BaseObject, private OwningVector<PhysicalObject> {
+    class Environment : public BaseObject, private OwningStorage<PhysicalObject> {
         std::string name;
         std::string description;
         std::map<std::string, Environment* > neighbors;
@@ -31,8 +31,8 @@ namespace game {
         Environment(Environment && env);
         virtual ~Environment();
         
-        using OwningVector<PhysicalObject>::for_each;
-        using OwningVector<PhysicalObject>::size;
+        using OwningStorage<PhysicalObject>::for_each;
+        using OwningStorage<PhysicalObject>::size;
         
         void setNeightbor(std::string direction, Environment * env);
         

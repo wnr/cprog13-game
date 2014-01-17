@@ -5,14 +5,14 @@
 #include <vector>
 
 #include "PhysicalObject.h"
-#include "OwningVector.h"
+#include "OwningStorage.h"
 #include "Item.h"
 
 namespace game {
     
     class Engine;
     
-    class Container : public PhysicalObject, private OwningVector<Item> {
+    class Container : public PhysicalObject, private OwningStorage<Item> {
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);
@@ -21,7 +21,7 @@ namespace game {
         Container(Container && container);
         ~Container();
         
-        using OwningVector<Item>::for_each;
+        using OwningStorage<Item>::for_each;
         
         unsigned int getMaxSize() const;
         unsigned int getRemainingSpace() const;
