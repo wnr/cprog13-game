@@ -55,22 +55,16 @@ namespace game {
         
         template<class E>
         E * find(const std::string mainType, std::string searchString) const {
-            E * result;
-            E ** resultHolder = &result;
+            E * result = NULL;
             
-            mapFunction([resultHolder, searchString, mainType](T * e, int val) {
-                std::string matchString;
-                if(e->getMainType() != mainType) {
+            mapFunction([&result, searchString, mainType, this](T * element, int val) {
+                if(element->getMainType() != mainType) {
                     return true; //Continue searching
                 }
-                if(val == 0) {
-                    matchString = e->getDescription();
-                } else {
-                    matchString = e->getDescription() + " (" + std::to_string(val);
-                }
+                std::string matchString = getDescriptionString(element, val);
                 
                 if(matchString == searchString) {
-                    (*resultHolder) = (E*)e;
+                    result = (E*)element;
                     return false;
                 } else {
                     return true; //Continue searching
@@ -102,16 +96,14 @@ namespace game {
             return data.size();
         }
         
-        std::string listToString() const {
-            std::string * result;
-            mapFunction([result](T * b, int val){
-                if(val == 0) {
-                    result->append(b->toString() + "/n");
-                } else {
-                    result->append(b->toString() + " (" + std::to_string(val) + ")/n");
-                }
+        virtual std::string storageListToString() const {
+            std::string * result = new std::string("");
+            mapFunction([result, this](T * element, int val){
+                result->append(getDescriptionString(element, val));
+                result->append("\n");
                 return true;
             });
+            return *result;
         }
         
     private:
@@ -134,6 +126,15 @@ namespace game {
             }
             
             return index;
+        }
+        
+        std::string getDescriptionString(T * element, int val) const {
+            if(val == 0) {
+                return element->getDescription();
+            } else {
+                return element->getDescription() + " (" + std::to_string(val) + ")";
+            }
+
         }
         
         void mapFunction(const std::function<bool(T *, int)> operation) const {

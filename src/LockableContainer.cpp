@@ -33,3 +33,27 @@ bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) 
     
     return true;
 }
+
+std::string LockableContainer::storageListToString() const {
+    if(isLocked()) {
+        return "LOCKED";
+    } else {
+        return Container::storageListToString();
+    }
+}
+
+int LockableContainer::getRemainingSpace() const {
+    if(isLocked()) {
+        return -1;
+    }else {
+        return Container::getRemainingSpace();
+    }
+}
+
+int LockableContainer::getTakenSpace() const {
+    if(isLocked()) {
+        return -1;
+    }else {
+        return Container::getTakenSpace();
+    }
+}

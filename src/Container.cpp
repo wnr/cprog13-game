@@ -27,15 +27,20 @@ std::unique_ptr<Item> Container::removeItem(const Item * item) {
     return remove(item);
 }
 
-unsigned int Container::getRemainingSpace() const {
-    unsigned int takenSpace = 0;
+int Container::getRemainingSpace() const {
+    
+    return getMaxSize() - getTakenSpace();
+}
+
+int Container::getTakenSpace() const {
+    int takenSpace = 0;
     
     for_each([&takenSpace] (const Item * item) {
         takenSpace += *item;
         return true;
     });
     
-    return getMaxSize() - takenSpace;
+    return takenSpace;
 }
 
 unsigned int Container::getMaxSize() const {

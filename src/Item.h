@@ -14,8 +14,8 @@ namespace game {
         unsigned int volume;
     public:
         //TODO: type is last parameter for all other objects. Why not volume in constructor?
-        Item(std::string type);
-        Item(std::string type, bool visible);
+        Item(std::string type, unsigned int volume);
+        Item(std::string type, bool visible, unsigned int volume);
         Item(const Item & item);
         Item(Item && item);
         virtual ~Item();
@@ -33,7 +33,7 @@ namespace game {
 }
 
 //TODO: check if this is a good way to do it.
-int operator+=(int, const game::Item &);
+int operator+=(int &, const game::Item &);
 int operator+(const game::Item &, const game::Item &);
 bool operator<(int, const game::Item &);
 
