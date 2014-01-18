@@ -249,6 +249,7 @@ void Player::interact(game::Character * other) {
     
     if(!other->isAlive()) {
         std::cout << "You killed " << other->getDescription() << "!" << std::endl;
+        getEnvironment()->removeObject(other); //TODO: This shouldn't be handled by the characters. Or should it?
         return;
     }
     
@@ -263,6 +264,8 @@ unsigned int Player::attack(unsigned int hp) {
     if(happen(dodgeProb)) {
         std::cout << "You dodged the attack!" << std::endl;
         hp = 0;
+    } else {
+        std::cout << "You got hit and lost " + std::to_string(hp) + " hp!";
     }
     
     decHealth(hp);

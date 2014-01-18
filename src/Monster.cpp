@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Constants.h"
 #include "rand.h"
+#include "Environment.h"
 
 using namespace game;
 
@@ -100,9 +101,11 @@ void Monster::interact(Character * other) {
     
     other->attack(5);
     
-    if(other->isAlive()) {
-        other->interact(this);
+    if(!other->isAlive()) {
+        getEnvironment()->remove(other); //TODO: See player same place.
     }
+    
+    other->interact(this);
 }
 
 unsigned int Monster::attack(unsigned int hp) {
