@@ -76,7 +76,6 @@ namespace game {
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
         virtual void for_each(const std::function<bool(T * element)> & operation) const {
             for(auto it = data.begin(); it != data.end();) {
-                size_t preSize = data.size();
                 auto next = it;
                 ++next;
                 
@@ -84,9 +83,8 @@ namespace game {
                     break;
                 }
                 
-                if(preSize == data.size()) {
-                    ++it;
-                } else {
+                if(++it != next) {
+                    //Remove occured.
                     it = next;
                 }
             }

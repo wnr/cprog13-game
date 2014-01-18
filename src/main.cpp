@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "Engine.h"
 
@@ -18,7 +19,7 @@ int main(int argc, const char * argv[])
         return 1;
     }
     
-
+//
 //    OwningStorage<std::string> vector;
 //    
 //    vector.push_back(std::unique_ptr<std::string>(new std::string("0")));
@@ -32,6 +33,7 @@ int main(int argc, const char * argv[])
 //        
 //        if(*str == "2") {
 //            vector.remove(str);
+//            vector.push_back(std::unique_ptr<std::string>(new std::string("4")));
 //        }
 //        
 //        if(*str == "3") {
@@ -50,6 +52,6 @@ int main(int argc, const char * argv[])
 //        
 //        return true;
 //    });
-//    
+    
     return 0;
 }
