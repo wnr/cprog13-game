@@ -159,6 +159,8 @@ void Player::initCommands() {
             return false;
         }
         
+        std::cout << "You are initiating a fight with " << entity->getDescription() << " with " + std::to_string(entity->getHealth()) << " hp." << std::endl;
+        
         interact(entity);
         
         return true;
@@ -186,21 +188,36 @@ void Player::interact(game::Character * other) {
         return;
     }
     
-    std::cout << "You are initiating a fight with " << other->getDescription() << " with " + std::to_string(other->getHealth()) << " hp." << std::endl;
+    bool flee = false;
     
     std::map<std::string, std::function<bool()>> actions;
     
     actions["kick"] = [&other]() {
         auto res = other->attack(3);
-        std::cout << "You kicked " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
+        
+        if(res == 0) {
+            std::cout << "The " << other->getDescription() << " blocked your attack!" << std::endl;
+        } else {
+            std::cout << "You kicked " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
+        }
+        
         return true;
     };
+    
     actions["hit"] = [&other]() {
         auto res = other->attack(other->getHealth());
-        std::cout << "You hit " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
+        
+        if(res == 0) {
+            std::cout << "The " + other->getDescription() << " blocked your attack!" << std::endl;
+        } else {
+            std::cout << "You hit " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
+        }
+        
         return true;
     };
-    actions["flee"] = []() {
+    
+    actions["flee"] = [&flee]() {
+        flee = true;
         return true;
     };
     
@@ -228,12 +245,16 @@ void Player::interact(game::Character * other) {
         std::cout << INPUT_INVALID_COMMAND << std::endl;
     }
     
+    std::cout << std::endl;
+    
     if(!other->isAlive()) {
         std::cout << "You killed " << other->getDescription() << "!" << std::endl;
         return;
     }
     
-    other->interact(this);
+    if(!flee) {
+        other->interact(this);
+    }
 }
 
 unsigned int Player::attack(unsigned int hp) {

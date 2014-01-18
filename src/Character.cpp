@@ -33,8 +33,6 @@ void Character::setHealth(unsigned int health) {
     }
     
     this->health = health;
-    
-    log(this, "health set to " + std::to_string(this->health));
 }
 
 void Character::addHealth(int health) {
@@ -42,12 +40,10 @@ void Character::addHealth(int health) {
     res += health;
     
     if(res <= 0) {
-        log(this, "health decreased 0 or below. Killing character.");
         this->health = 0;
         kill();
     } else if(res > maxHealth) {
         this->health = maxHealth;
-        log(this, "health increased above max. Set to max.");
     } else {
         setHealth(res);
     }
