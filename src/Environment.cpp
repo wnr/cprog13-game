@@ -17,6 +17,7 @@ Environment::Environment(Environment && env) : BaseObject(env), name(env.name), 
 Environment::~Environment() {}
 
 void Environment::setNeightbor(std::string direction, Environment * env) {
+    std::transform(direction.begin(), direction.end(), direction.begin(), ::tolower);
     neighbors[direction] = env;
 }
 

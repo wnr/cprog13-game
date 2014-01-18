@@ -54,8 +54,13 @@ namespace game {
             return result;
         }
         
-        virtual T * find(const std::string & mainType, const std::string & searchString) const {
+        virtual T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
             T * result = NULL;
+            
+            
+            if(caseinsens) {
+                std::transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
+            }
             
             mapFunction([&result, searchString, mainType, this](T * element, int val) {
                 if(element->getMainType() != mainType) {
@@ -74,8 +79,8 @@ namespace game {
         }
         
         template<class E>
-        E * find(const std::string & mainType, const std::string & searchString) const {
-            return (E*) find(mainType, searchString);
+        E * find(const std::string & mainType, const std::string & searchString, bool caseinsens = true) const {
+            return (E*) find(mainType, searchString, caseinsens);
         }
         
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
