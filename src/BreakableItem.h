@@ -13,8 +13,8 @@ namespace game {
         int maxDurability;
 
     public:
-        BreakableItem(std::string type);
-        BreakableItem(std::string type, bool visible);
+        BreakableItem(std::string type, unsigned int volume);
+        BreakableItem(std::string type, bool visible, unsigned int volume);
         BreakableItem(const BreakableItem & bi);
         BreakableItem(BreakableItem && bi);
         virtual ~BreakableItem();

@@ -18,9 +18,16 @@ namespace game {
         LockableContainer(std::string type, int maxSize, Key * keyLock);
         ~LockableContainer();
         
-        virtual bool addItem(std::unique_ptr<Item> & item);
-        virtual std::unique_ptr<Item> removeItem(const Item * item);
-        virtual bool for_each(std::function<bool (Item * item)> & operation) const;
+        bool addItem(std::unique_ptr<Item> & item);
+        std::unique_ptr<Item> removeItem(const Item * item);
+        bool for_each(std::function<bool (Item * item)> & operation) const;
+        
+        Item * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const;
+        std::unique_ptr<Item> push_back(std::unique_ptr<Item> element);
+        std::unique_ptr<Item> remove(const Item * element);
+        std::string storageListToString() const;
+        int getRemainingSpace() const;
+        int getTakenSpace() const;
     };
 }
 

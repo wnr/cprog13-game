@@ -49,7 +49,8 @@ void Engine::initEnvironments() {
     
     home->setNeightbor("Outside", outside);
     home->addObject(std::unique_ptr<PhysicalObject>(new Monster(home, "Troll", 100)));
-    home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2)));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2,2)));
+    home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
     std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
     home->addObject(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
     home->addObject(std::unique_ptr<PhysicalObject>(new Player(home, 1337, "Lucas")));

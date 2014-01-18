@@ -14,6 +14,7 @@ namespace game {
     class Environment;
     class Backpack;
     class Item;
+    class Container;
     
     class Entity : public PhysicalObject {
         bool alive;
@@ -36,7 +37,9 @@ namespace game {
         
         void dropInventory();
         bool pickItem(const Item * item);
+        bool pickItem(const Item * item, Container * con);
         bool dropItem(const Item * item);
+        bool putItem(const Item * item, Container * con);
         
         bool isAlive() const;
         virtual void kill();

@@ -4,6 +4,7 @@
 #include "Log.h"
 #include "Constants.h"
 #include "Backpack.h"
+#include "Container.h"
 
 using namespace game;
 
@@ -58,8 +59,16 @@ bool Entity::pickItem(const Item * item) {
     return item->move(env, inventory);
 }
 
+bool Entity::pickItem(const Item * item, Container * con) {
+    return item->move(con, inventory);
+}
+
 bool Entity::dropItem(const Item * item) {
     return item->move(inventory, env);
+}
+
+bool Entity::putItem(const Item * item, Container * con) {
+    return item->move(inventory, con);
 }
 
 bool Entity::isAlive() const {

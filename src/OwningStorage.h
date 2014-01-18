@@ -25,15 +25,16 @@ namespace game {
             return index(element) != -1;
         }
         
-        void push_back(std::unique_ptr<T> element) {
+        virtual std::unique_ptr<T> push_back(std::unique_ptr<T> element) {
             if(exist(element.get())) {
                 throw std::invalid_argument("Element already exists in storage.");
             }
             
             data.push_back(std::move(element));
+            return nullptr;
         }
 
-        std::unique_ptr<T> remove(const T * element) {
+        virtual std::unique_ptr<T> remove(const T * element) {
             std::unique_ptr<T> ptr = nullptr;
             
             for(auto it = data.begin(); it != data.end(); it++) {
@@ -49,39 +50,37 @@ namespace game {
         
         template<class E>
         std::unique_ptr<E> remove(const T * element) {
-            std::unique_ptr<E> result(static_cast<E*>(remove(element).release()));
+            std::unique_ptr<E> result((E*)((remove(element).release())));
             return result;
         }
         
-        template<class E>
-        E * find(const std::string mainType, std::string searchString, bool caseinses = true) const {
-            E * result;
-            E ** resultHolder = &result;
+        virtual T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
+            T * result = NULL;
             
             
-            if(caseinses) {
+            if(caseinsens) {
                 std::transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
             }
             
-            mapFunction([resultHolder, searchString, mainType](T * e, int val) {
-                std::string matchString;
-                if(e->getMainType() != mainType) {
+            mapFunction([&result, searchString, mainType, this](T * element, int val) {
+                if(element->getMainType() != mainType) {
                     return true; //Continue searching
                 }
-                if(val == 0) {
-                    matchString = e->getDescription();
-                } else {
-                    matchString = e->getDescription() + " (" + std::to_string(val);
-                }
+                std::string matchString = getDescriptionString(element, val);
                 
                 if(matchString == searchString) {
-                    (*resultHolder) = (E*)e;
+                    result = element;
                     return false;
                 } else {
                     return true; //Continue searching
                 }
             });
             return result;
+        }
+        
+        template<class E>
+        E * find(const std::string & mainType, const std::string & searchString, bool caseinsens = true) const {
+            return (E*) find(mainType, searchString, caseinsens);
         }
         
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
@@ -105,16 +104,14 @@ namespace game {
             return data.size();
         }
         
-        std::string listToString() const {
-            std::string * result;
-            mapFunction([result](T * b, int val){
-                if(val == 0) {
-                    result->append(b->toString() + "/n");
-                } else {
-                    result->append(b->toString() + " (" + std::to_string(val) + ")/n");
-                }
+        virtual std::string storageListToString() const {
+            std::string * result = new std::string("");
+            mapFunction([result, this](T * element, int val){
+                result->append(getDescriptionString(element, val));
+                result->append("\n");
                 return true;
             });
+            return *result;
         }
         
     private:
@@ -137,6 +134,15 @@ namespace game {
             }
             
             return index;
+        }
+        
+        std::string getDescriptionString(T * element, int val) const {
+            if(val == 0) {
+                return element->getDescription();
+            } else {
+                return element->getDescription() + " (" + std::to_string(val) + ")";
+            }
+
         }
         
         void mapFunction(const std::function<bool(T *, int)> operation) const {
