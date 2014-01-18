@@ -9,7 +9,7 @@ using namespace game;
 
 Entity::Entity(Environment * env, std::string type) : Entity(env, type, true, ENTITY_INVENTORY_SIZE) {}
 
-Entity::Entity(Environment * env, std::string type, bool visible, int inventorySize) : PhysicalObject(OBJECT_TYPE_ENTITY, type, visible), alive(true), env(env), inventory(new Backpack(inventorySize)){
+Entity::Entity(Environment * env, std::string type, bool visible, int inventorySize) : PhysicalObject(OBJECT_TYPE_ENTITY, type, visible), alive(true), env(env), inventory(new Backpack(inventorySize)), rottenness(0) {
 }
 
 Entity::Entity(const Entity & entity) : PhysicalObject(entity), alive(entity.alive), env(entity.env) {}
@@ -69,4 +69,16 @@ bool Entity::isAlive() const {
 void Entity::kill() {
     log(this, "killed");
     alive = false;
+}
+
+unsigned int Entity::getRottenness() const {
+    return rottenness;
+}
+
+void Entity::update() {
+    if(!isAlive()) {
+        if(++rottenness >= MAXIMUM_ROTTENNESS) {
+            env->remove(this);
+        }
+    }
 }

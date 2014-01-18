@@ -63,5 +63,11 @@ void Character::kill() {
 }
 
 std::string Character::getDescription() const {
-    return name; //TODO Discuss alternatives
+    //TODO Discuss alternatives
+    
+    if(!isAlive()) {
+        return name + " corpse";
+    }
+    
+    return name;
 }

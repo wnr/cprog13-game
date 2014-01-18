@@ -18,7 +18,9 @@ Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.move
 
 Monster::~Monster() {}
 
-void Monster::update() {}
+void Monster::update() {
+    Entity::update();
+}
 
 float Monster::getMoveProb() const {
     return moveProb;
@@ -101,11 +103,9 @@ void Monster::interact(Character * other) {
     
     other->attack(5);
     
-    if(!other->isAlive()) {
-        getEnvironment()->remove(other); //TODO: See player same place.
+    if(other->isAlive()) {
+        other->interact(this);
     }
-    
-    other->interact(this);
 }
 
 unsigned int Monster::attack(unsigned int hp) {

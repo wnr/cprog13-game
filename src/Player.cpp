@@ -79,6 +79,11 @@ void Player::initCommands() {
     commands["move"] = commands["go"];
     commands["goto"] = commands["go"];
     
+    commands["pass"] = [](const std::vector<std::string> &) -> bool {
+        return true;
+    };
+    commands["skip"] = commands["pass"];
+    
     commands["help"] = [](const std::vector<std::string> &) -> bool {
         std::cout << std::endl;
         std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
@@ -189,28 +194,29 @@ void Player::interact(game::Character * other) {
     }
     
     bool flee = false;
+    const std::string desc = other->getDescription();
     
     std::map<std::string, std::function<bool()>> actions;
     
-    actions["kick"] = [&other]() {
+    actions["kick"] = [&other, &desc]() {
         auto res = other->attack(3);
         
         if(res == 0) {
-            std::cout << "The " << other->getDescription() << " blocked your attack!" << std::endl;
+            std::cout << "The " << desc << " blocked your attack!" << std::endl;
         } else {
-            std::cout << "You kicked " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
+            std::cout << "You kicked " + desc << " for " + std::to_string(res) + " hp!" << std::endl;
         }
         
         return true;
     };
     
-    actions["hit"] = [&other]() {
+    actions["hit"] = [&other, &desc]() {
         auto res = other->attack(other->getHealth());
         
         if(res == 0) {
-            std::cout << "The " + other->getDescription() << " blocked your attack!" << std::endl;
+            std::cout << "The " + desc << " blocked your attack!" << std::endl;
         } else {
-            std::cout << "You hit " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
+            std::cout << "You hit " + desc << " for " + std::to_string(res) + " hp!" << std::endl;
         }
         
         return true;
@@ -248,8 +254,7 @@ void Player::interact(game::Character * other) {
     std::cout << std::endl;
     
     if(!other->isAlive()) {
-        std::cout << "You killed " << other->getDescription() << "!" << std::endl;
-        getEnvironment()->removeObject(other); //TODO: This shouldn't be handled by the characters. Or should it?
+        std::cout << "You killed " << desc << "!" << std::endl;
         return;
     }
     

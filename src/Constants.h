@@ -3,6 +3,8 @@
 
 #define CERR_LOG                true
 
+#define MAXIMUM_ROTTENNESS      10
+
 #define OBJECT_TYPE_ENVIRONMENT "Environment"
 #define OBJECT_TYPE_CONTAINER   "Container"
 #define OBJECT_TYPE_ITEM        "Item"
