@@ -12,7 +12,7 @@ namespace game {
     
     class Engine;
     
-    class Container : public PhysicalObject, private OwningStorage<Item> {
+    class Container : public PhysicalObject, public OwningStorage<Item> {
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);
@@ -20,9 +20,7 @@ namespace game {
         Container(const Container & container);
         Container(Container && container);
         ~Container();
-        
-        using OwningStorage<Item>::for_each;
-        
+
         unsigned int getMaxSize() const;
         unsigned int getRemainingSpace() const;
         virtual bool addItem(std::unique_ptr<Item> & item);

@@ -7,10 +7,12 @@
 
 #include "BaseObject.h"
 
+
 namespace game {
     
     class Engine;
     class Environment;
+    class Item;
     
     class PhysicalObject : public BaseObject {
         bool visible;
@@ -26,8 +28,6 @@ namespace game {
         bool isContainer() const;
         bool isEntity() const;
         bool isItem() const;
-        
-        virtual void move(Environment * from, Environment * to);
         
         virtual void update(); //TODO: Make pure virtual.
         

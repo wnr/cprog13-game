@@ -3,12 +3,14 @@
 #include "Environment.h"
 #include "Log.h"
 #include "Constants.h"
+#include "Backpack.h"
 
 using namespace game;
 
-Entity::Entity(Environment * env, std::string type) : Entity(env, type, true) {}
+Entity::Entity(Environment * env, std::string type) : Entity(env, type, true, ENTITY_INVENTORY_SIZE) {}
 
-Entity::Entity(Environment * env, std::string type, bool visible) : PhysicalObject(OBJECT_ENTITY_TYPE, type, visible), alive(true), env(env) {}
+Entity::Entity(Environment * env, std::string type, bool visible, int inventorySize) : PhysicalObject(OBJECT_TYPE_ENTITY, type, visible), alive(true), env(env), inventory(new Backpack(inventorySize)){
+}
 
 Entity::Entity(const Entity & entity) : PhysicalObject(entity), alive(entity.alive), env(entity.env) {}
 
@@ -20,10 +22,15 @@ Environment * Entity::getEnvironment() const {
     return env;
 }
 
-void Entity::move(Environment * from, Environment * to) {
+Backpack * Entity::getInventory() const {
+    return inventory;
+}
+
+bool Entity::move(Environment * from, Environment * to) {
     env = to;
-    
-    PhysicalObject::move(from, to);
+    to->push_back(from->remove(this));
+    log(this, "moved from '" + from->getDescription() + "' to '" + to->getDescription() + "'.");
+    return true;
 }
 
 bool Entity::move(const std::string &direction) {
@@ -38,6 +45,21 @@ bool Entity::move(const std::string &direction) {
     move(env, neighbor);
     
     return true;
+}
+
+void Entity::dropInventory() {
+    inventory->for_each([this](Item * item){
+        dropItem(item);
+        return true;
+    });
+}
+
+bool Entity::pickItem(const Item * item) {
+    return item->move(env, inventory);
+}
+
+bool Entity::dropItem(const Item * item) {
+    return item->move(inventory, env);
 }
 
 bool Entity::isAlive() const {

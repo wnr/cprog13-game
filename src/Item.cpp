@@ -6,7 +6,7 @@ using namespace game;
 
 Item::Item(std::string type) : Item(type, true) {}
 
-Item::Item(std::string type, bool visible) : PhysicalObject(OBJECT_ITEM_TYPE, type, visible) {}
+Item::Item(std::string type, bool visible) : PhysicalObject(OBJECT_TYPE_ITEM, type, visible) {}
 
 Item::Item(const Item & item) : PhysicalObject(item) {}
 

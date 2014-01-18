@@ -20,21 +20,15 @@ bool PhysicalObject::isVisible() const {
 }
 
 bool PhysicalObject::isContainer() const {
-    return getMainType() == OBJECT_CONTAINER_TYPE;
+    return getMainType() == OBJECT_TYPE_CONTAINER;
 }
 
 bool PhysicalObject::isEntity() const {
-    return getMainType() == OBJECT_ENTITY_TYPE;
+    return getMainType() == OBJECT_TYPE_ENTITY;
 }
 
 bool PhysicalObject::isItem() const {
-    return getMainType() == OBJECT_ITEM_TYPE;
-}
-
-void PhysicalObject::move(Environment * from, Environment * to) {
-    to->addObject(from->removeObject(this));
-    
-    log(this, "moved from '" + from->getDescription() + "' to '" + to->getDescription() + "'.");
+    return getMainType() == OBJECT_TYPE_ITEM;
 }
 
 void PhysicalObject::update() {}

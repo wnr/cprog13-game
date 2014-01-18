@@ -25,7 +25,7 @@ namespace game {
         void update();
         void initCommands();
     private:
-        
+        void printUpdateInfo() const;
         bool performCommand(const std::vector<std::string> & inputs);
     };
 }

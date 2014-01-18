@@ -8,7 +8,7 @@ using namespace game;
 
 Environment::Environment(std::string name, std::string desc) : Environment("", name, desc) {}
 
-Environment::Environment(std::string subType, std::string name, std::string desc) : BaseObject(OBJECT_ENVIRONMENT_TYPE, subType), name(name), description(desc) {}
+Environment::Environment(std::string subType, std::string name, std::string desc) : BaseObject(OBJECT_TYPE_ENVIRONMENT, subType), name(name), description(desc) {}
 
 Environment::Environment(const Environment & env) : BaseObject(env), name(env.name), description(env.description) {}
 
