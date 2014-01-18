@@ -3,7 +3,7 @@
 
 using namespace game;
 
-Backpack::Backpack(int maxSize) : Container(CONTAINER_BACKPACK_TYPE, maxSize){}
+Backpack::Backpack(int maxSize) : Container(CONTAINER_TYPE_BACKPACK, maxSize){}
 
 Backpack::~Backpack() {}
 

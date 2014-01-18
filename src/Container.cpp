@@ -5,7 +5,7 @@ using namespace game;
 
 Container::Container(std::string type, unsigned int maxSize) : Container(type, maxSize, true) {}
 
-Container::Container(std::string type, unsigned int maxSize, bool visible) : PhysicalObject(OBJECT_CONTAINER_TYPE, type, visible), maxSize(maxSize) {}
+Container::Container(std::string type, unsigned int maxSize, bool visible) : PhysicalObject(OBJECT_TYPE_CONTAINER, type, visible), maxSize(maxSize) {}
 
 Container::Container(const Container & container) : PhysicalObject(container), maxSize(container.maxSize) {}
 

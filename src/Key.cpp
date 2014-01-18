@@ -8,7 +8,7 @@ Key::Key(int level) : Key(level, KEY_STANDARD_IDENTIFIER) {}
 
 Key::Key(std::string identfier) : Key(KEY_STANDARD_LEVEL, identifier) {}
 
-Key::Key(int level, std::string identifier) : Item(ITEM_KEY_TYPE,true), level(level), identifier(identifier){}
+Key::Key(int level, std::string identifier) : Item(ITEM_TYPE_KEY,true), level(level), identifier(identifier){}
 
 Key::Key(const Key & key) : Item(key), level(key.level), identifier(key.identifier) {}
 

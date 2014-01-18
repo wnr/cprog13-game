@@ -22,6 +22,12 @@ namespace game {
         unsigned int getVolume() const;
         
         virtual std::string getDescription() const;
+        
+        template<class T, class E>
+        bool move(OwningVector<T> * from, OwningVector<E> * to) const {
+            to->push_back(from->template remove<E>(this));
+            return true;
+        }
     };
 }
 

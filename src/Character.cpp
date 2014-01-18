@@ -4,10 +4,9 @@
 
 using namespace game;
 
-Character::Character(Environment * env, std::string name, unsigned int maxHealth) : Character(env, name, maxHealth, ENTITY_CHARACTER_TYPE) {}
+Character::Character(Environment * env, std::string name, unsigned int maxHealth) : Character(env, name, maxHealth, ENTITY_TYPE_CHARACTER) {}
 
 Character::Character(Environment * env, std::string name, unsigned int maxHealth, std::string type) : Entity(env, type), maxHealth(maxHealth), health(maxHealth), name(name) {
-//    inventory = new Inventory();
 }
 
 Character::Character(const Character & character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {}
@@ -61,19 +60,6 @@ void Character::incHealth(unsigned int health) {
 void Character::decHealth(unsigned int health) {
     addHealth(-health);
 }
-
-//void Character::dropInventory() {
-//    for(Item * item: inventory){
-//    }
-//}
-//
-//bool Character::pickItem(Item * item) {
-//    return False;
-//}
-//
-//void Character::dropItem(Item * item) {
-//
-//}
 
 void Character::kill() {
     setHealth(0);

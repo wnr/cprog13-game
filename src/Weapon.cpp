@@ -5,7 +5,7 @@
 
 using namespace game;
 
-Weapon::Weapon(int dmg) : Weapon(ITEM_WEAPON_TYPE, dmg) {}
+Weapon::Weapon(int dmg) : Weapon(ITEM_TYPE_WEAPON, dmg) {}
 
 Weapon::Weapon(std::string type, int dmg) : Weapon(type, dmg, dmg, 1){}
 

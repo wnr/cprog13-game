@@ -4,7 +4,7 @@
 
 using namespace game;
 
-Monster::Monster(Environment * env, std::string name, unsigned int maxHealth) : Monster(env, name, maxHealth, ENTITY_MONSTER_TYPE) {}
+Monster::Monster(Environment * env, std::string name, unsigned int maxHealth) : Monster(env, name, maxHealth, ENTITY_TYPE_MONSTER) {}
 
 Monster::Monster(Environment * env, std::string name, unsigned int maxHealth, std::string type) : Monster(env, name, maxHealth, 0.0f, 0.0f, type) {}
 

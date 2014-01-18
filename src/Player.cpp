@@ -9,7 +9,7 @@
 
 using namespace game;
 
-Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Character(env, name, maxHealth, ENTITY_PLAYER_TYPE) {
+Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Character(env, name, maxHealth, ENTITY_TYPE_PLAYER) {
     initCommands();
 }
 
@@ -20,7 +20,18 @@ Player::Player(Player && player) : Character(player), commands(player.commands) 
 Player::~Player() {}
 
 void Player::update() {
+    printUpdateInfo();
+    
+    std::cout << INPUT_INDICATOR;
+    
+    if(!performCommand(getEngine().getInput())) {
+        std::cout << INPUT_INVALID_COMMAND << std::endl;
+    }
+}
+
+void Player::printUpdateInfo() const {
     Environment & env = *getEnvironment();
+    
     std::cout << std::endl << "Location: " << env.getFullInfo() << std::endl;
     
     std::cout << "You can goto:" << std::endl;
@@ -28,7 +39,7 @@ void Player::update() {
     for(auto dir : env.getDirections()) {
         std::cout << dir << std::endl;
     }
-    
+
     //If only 1 thing in environment then it is the player itself, so skip then.
     if(env.size() > 1) {
         std::cout << "-----------" << std::endl;
@@ -43,15 +54,15 @@ void Player::update() {
             return true;
         });
     }
-    
-    std::cout << INPUT_INDICATOR;
-    
-    if(!performCommand(getEngine().getInput())) {
-        std::cout << INPUT_INVALID_COMMAND << std::endl;
-    }
+
 }
 
 void Player::initCommands() {
+    commands["look"] = [this](const std::vector<std::string> &) -> bool {
+        printUpdateInfo();
+        return true;
+    };
+    
     commands["exit"] = [this](const std::vector<std::string> &) -> bool {
         this->getEngine().kill();
         return true;
@@ -75,6 +86,43 @@ void Player::initCommands() {
         return true;
     };
     
+    commands["inventory"] = [this](const std::vector<std::string> &) -> bool {
+        return true;
+    };
+    commands["backpack"] = commands["inventory"];
+    
+    commands["pick"] = [this](const std::vector<std::string> & commands) -> bool {
+        if(commands.size() < 2) {
+            return false;
+        }
+        if(commands.size() == 2) {
+            Environment * env = getEnvironment();
+            Item * item = env->find<Item>(OBJECT_TYPE_ITEM, commands[1]);
+            if(item == NULL) {
+                std::cout << "Found no item named: " << commands[1] << std::endl;
+            } else {
+                if(!pickItem(item)) {
+                    std::cout << "You can't pick up item: " << commands[1] << std::endl;
+                } else {
+                    std::cout << "You picked up item:" << commands[1] << std::endl;
+                }
+                
+            }
+        }
+        return true;
+//        } else if(commands.size() == 3){
+//            
+//        } else {
+//            return false;
+//        }
+        
+        
+    };
+    
+    commands["drop"] = [this](const std::vector<std::string> & commands) -> bool {
+        return true;
+    };
+    
     commands["attack"] = [this](const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             return false;
@@ -86,7 +134,7 @@ void Player::initCommands() {
             std::transform(target.begin(), target.end(), target.begin(), ::tolower);
             Character * found = NULL;
             env->for_each([&found, target] (PhysicalObject * obj) {
-                if(obj->getSubType() == ENTITY_MONSTER_TYPE) {
+                if(obj->getSubType() == ENTITY_TYPE_MONSTER) {
                     Character * entity = static_cast<Character*>(obj);
                     std::string desc = entity->getDescription();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);

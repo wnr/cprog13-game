@@ -3,20 +3,21 @@
 
 #define CERR_LOG                true
 
-#define OBJECT_ENVIRONMENT_TYPE "Environment"
-#define OBJECT_CONTAINER_TYPE   "Container"
-#define OBJECT_ITEM_TYPE        "Item"
-#define OBJECT_ENTITY_TYPE      "Entity"
+#define OBJECT_TYPE_ENVIRONMENT "Environment"
+#define OBJECT_TYPE_CONTAINER   "Container"
+#define OBJECT_TYPE_ITEM        "Item"
+#define OBJECT_TYPE_ENTITY      "Entity"
 
-#define ENTITY_PLAYER_TYPE      "Player"
-#define ENTITY_CHARACTER_TYPE   "Character"
-#define ENTITY_MONSTER_TYPE     "Monster"
+#define ENTITY_TYPE_PLAYER      "Player"
+#define ENTITY_TYPE_CHARACTER   "Character"
+#define ENTITY_TYPE_MONSTER     "Monster"
+#define ENTITY_INVENTORY_SIZE   50
 
-#define ITEM_WEAPON_TYPE        "Weapon"
-#define ITEM_KEY_TYPE           "Key"
+#define ITEM_TYPE_WEAPON        "Weapon"
+#define ITEM_TYPE_KEY           "Key"
 
-#define CONTAINER_BACKPACK_TYPE "Backpack"
-#define CONTAINER_CHEST_TYPE    "Chest"
+#define CONTAINER_TYPE_BACKPACK "Backpack"
+#define CONTAINER_TYPE_CHEST    "Chest"
 
 #define KEY_STANDARD_IDENTIFIER "Standard_key"
 #define KEY_STANDARD_LEVEL      3

@@ -19,7 +19,7 @@ namespace game {
     class PhysicalObject;
     class Entity;
     
-    class Environment : public BaseObject, private OwningVector<PhysicalObject> {
+    class Environment : public BaseObject, public OwningVector<PhysicalObject> {
         std::string name;
         std::string description;
         std::map<std::string, Environment* > neighbors;
@@ -30,9 +30,6 @@ namespace game {
         Environment(const Environment & env);
         Environment(Environment && env);
         virtual ~Environment();
-        
-        using OwningVector<PhysicalObject>::for_each;
-        using OwningVector<PhysicalObject>::size;
         
         void setNeightbor(std::string direction, Environment * env);
         
@@ -46,6 +43,7 @@ namespace game {
         
         //Transfers the ownership of the object to the Environment.
         void addObject(std::unique_ptr<PhysicalObject> obj);
+        //TODO: remove addObject and removeObject. They are the same as pushback and remove in OwningVector. Should override
         
         //Removes the entity from this envrionment and transfers the ownership to the caller.
         //After this is done Entity will not belong to any Environment.
