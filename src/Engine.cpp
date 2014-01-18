@@ -7,6 +7,7 @@
 #include "Chest.h"
 #include "Key.h"
 #include "Backpack.h"
+#include "Graveyard.h"
 
 #include "Constants.h"
 #include "Log.h"
@@ -44,6 +45,7 @@ void Engine::initEnvironments() {
     Environment * flanders = createEnv(new Environment("Flanders","awful neighbours."));
     Environment * mcDonalds = createEnv(new Environment("MC","mmm burgers."));
     Environment * church = createEnv(new Environment("Church","god is watching."));
+    Environment * graveyard = createEnv(new Graveyard("Graveyard", "Ghastly place with a creepy big moon.", 10));
     
     home->setNeightbor("Outside", outside);
     home->addObject(std::unique_ptr<PhysicalObject>(new Monster(home, "Troll", 100)));
@@ -66,6 +68,8 @@ void Engine::initEnvironments() {
     mcDonalds->setNeightbor("street", street54);
     mcDonalds->addObject(std::unique_ptr<PhysicalObject>(new Chest(10)));
     church->setNeightbor("street", street54);
+    church->setNeightbor("graveyard", graveyard);
+    graveyard->setNeightbor("church", church);
 }
 
 void Engine::run() {
