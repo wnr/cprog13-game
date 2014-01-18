@@ -35,10 +35,10 @@ void Player::printUpdateInfo() const {
     
     std::cout << std::endl << "Location: " << env.getFullInfo() << std::endl;
     
-    std::cout << "You can goto:" << std::endl;
+    std::cout << "You can go to:" << std::endl;
     
     for(auto dir : env.getDirections()) {
-        std::cout << dir << std::endl;
+        std::cout << LIST_ITEM_PREFIX << " " << dir << std::endl;
     }
 
     //If only 1 thing in environment then it is the player itself, so skip then.
@@ -51,7 +51,7 @@ void Player::printUpdateInfo() const {
                 return true; //Skip when entity is the player itself.
             }
             
-            std::cout << entity->getDescription() << std::endl;
+            std::cout << LIST_ITEM_PREFIX << " " << entity->getDescription() << std::endl;
             return true;
         });
     }
