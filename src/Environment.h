@@ -34,6 +34,7 @@ namespace game {
         void setNeightbor(std::string direction, Environment * env);
         
         //Returns NULL if no neighbor is found in that direction.
+        //is case insensitive.
         Environment * getNeighbor(const std::string & direction);
         
         std::string getName() const;

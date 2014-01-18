@@ -54,9 +54,14 @@ namespace game {
         }
         
         template<class E>
-        E * find(const std::string mainType, std::string searchString) const {
+        E * find(const std::string mainType, std::string searchString, bool caseinses = true) const {
             E * result;
             E ** resultHolder = &result;
+            
+            
+            if(caseinses) {
+                std::transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
+            }
             
             mapFunction([resultHolder, searchString, mainType](T * e, int val) {
                 std::string matchString;

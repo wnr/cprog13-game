@@ -45,7 +45,7 @@ void Engine::initEnvironments() {
     Environment * mcDonalds = createEnv(new Environment("MC","mmm burgers."));
     Environment * church = createEnv(new Environment("Church","god is watching."));
     
-    home->setNeightbor("outside", outside);
+    home->setNeightbor("Outside", outside);
     home->addObject(std::unique_ptr<PhysicalObject>(new Monster(home, "Troll", 100)));
     home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2)));
     std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
@@ -105,6 +105,7 @@ vector<string> Engine::getInput() const {
     while((pos = line.find(INPUT_WORD_DELIMETER, pos)) != string::npos) {
         word = line.substr(prevPos, pos - prevPos);
         if(!word.empty()) {
+            std::transform(word.begin(), word.end(), word.begin(), ::tolower);
             words.push_back(word);
         }
         pos += delimeterLength;
