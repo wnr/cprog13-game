@@ -25,15 +25,16 @@ namespace game {
             return index(element) != -1;
         }
         
-        void push_back(std::unique_ptr<T> element) {
+        virtual std::unique_ptr<T> push_back(std::unique_ptr<T> element) {
             if(exist(element.get())) {
                 throw std::invalid_argument("Element already exists in storage.");
             }
             
             data.push_back(std::move(element));
+            return nullptr;
         }
 
-        std::unique_ptr<T> remove(const T * element) {
+        virtual std::unique_ptr<T> remove(const T * element) {
             std::unique_ptr<T> ptr = nullptr;
             
             for(auto it = data.begin(); it != data.end(); it++) {
@@ -49,13 +50,12 @@ namespace game {
         
         template<class E>
         std::unique_ptr<E> remove(const T * element) {
-            std::unique_ptr<E> result(static_cast<E*>(remove(element).release()));
+            std::unique_ptr<E> result((E*)((remove(element).release())));
             return result;
         }
         
-        template<class E>
-        E * find(const std::string mainType, std::string searchString) const {
-            E * result = NULL;
+        virtual T * find(const std::string & mainType, const std::string & searchString) const {
+            T * result = NULL;
             
             mapFunction([&result, searchString, mainType, this](T * element, int val) {
                 if(element->getMainType() != mainType) {
@@ -64,13 +64,18 @@ namespace game {
                 std::string matchString = getDescriptionString(element, val);
                 
                 if(matchString == searchString) {
-                    result = (E*)element;
+                    result = element;
                     return false;
                 } else {
                     return true; //Continue searching
                 }
             });
             return result;
+        }
+        
+        template<class E>
+        E * find(const std::string & mainType, const std::string & searchString) const {
+            return (E*) find(mainType, searchString);
         }
         
         //Will keep iterating through storage and performing operation on every element until operation function returns false.

@@ -7,6 +7,7 @@
 #include "PhysicalObject.h"
 #include "OwningStorage.h"
 #include "Constants.h"
+#include "Log.h"
 
 namespace game {
     
@@ -26,7 +27,17 @@ namespace game {
         
         template<class T, class E>
         bool move(OwningStorage<T> * from, OwningStorage<E> * to) const {
-            to->push_back(from->template remove<E>(this));
+            auto uniqueItem(from->template remove<E>(this));
+            if(uniqueItem == nullptr) {
+                return false;
+            }
+            uniqueItem = to->push_back(std::move(uniqueItem));
+            if(uniqueItem != nullptr) {
+                if(from->push_back(std::unique_ptr<T>((T*)(uniqueItem.release()))) != nullptr) {
+                    throw std::runtime_error("We failed to make a container switch and then failed to restore to item.");
+                }
+                return false;
+            }
             return true;
         }
     };

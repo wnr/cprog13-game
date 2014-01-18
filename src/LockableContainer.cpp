@@ -57,3 +57,27 @@ int LockableContainer::getTakenSpace() const {
         return Container::getTakenSpace();
     }
 }
+
+Item * LockableContainer::find(const std::string & mainType, const std::string & searchString) const {
+    if(isLocked()) {
+        return NULL;
+    } else {
+        return Container::find(mainType, searchString);
+    }
+}
+
+std::unique_ptr<Item> LockableContainer::push_back(std::unique_ptr<Item> element) {
+    if(isLocked()) {
+        return element;
+    } else {
+        return Container::push_back(std::move(element));
+    }
+}
+
+std::unique_ptr<Item> LockableContainer::remove(const Item * element) {
+    if(isLocked()) {
+        return nullptr;
+    } else {
+        return Container::remove(element);
+    }
+}
