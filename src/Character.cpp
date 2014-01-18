@@ -41,8 +41,8 @@ void Character::addHealth(int health) {
     int res = (int)this->health;
     res += health;
     
-    if(res < 0) {
-        log(this, "health decreased below 0. Killing character.");
+    if(res <= 0) {
+        log(this, "health decreased 0 or below. Killing character.");
         this->health = 0;
         kill();
     } else if(res > maxHealth) {

@@ -20,8 +20,7 @@ namespace game {
         
         virtual bool addItem(std::unique_ptr<Item> & item);
         virtual std::unique_ptr<Item> removeItem(const Item * item);
-        virtual bool for_each(std::function<bool (Item * item)> & operation);
-        virtual bool for_each(std::function<bool (const Item * item)> & operation) const;
+        virtual bool for_each(std::function<bool (Item * item)> & operation) const;
     };
 }
 

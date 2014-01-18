@@ -4,6 +4,7 @@
 
 #include "Constants.h"
 #include "Log.h"
+#include "rand.h"
 
 #include <iostream>
 
@@ -185,26 +186,28 @@ void Player::interact(game::Character * other) {
         return;
     }
     
-    std::cout << "You can do the following:" << std::endl;
-    
-    std::cout << "kick" << std::endl;
-    std::cout << "hit" << std::endl;
+    std::cout << "You are initiating a fight with " << other->getDescription() << " with " + std::to_string(other->getHealth()) << " hp." << std::endl;
     
     std::map<std::string, std::function<bool()>> actions;
     
     actions["kick"] = [&other]() {
-        other->decHealth(3);
-        std::cout << "You kicked " + other->getDescription() << " for 3 hp!" << std::endl;
+        auto res = other->attack(3);
+        std::cout << "You kicked " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
         return true;
     };
     actions["hit"] = [&other]() {
-        other->kill();
-        std::cout << "You hit " + other->getDescription() << " for all the hp!" << std::endl;
+        auto res = other->attack(other->getHealth());
+        std::cout << "You hit " + other->getDescription() << " for " + std::to_string(res) + " hp!" << std::endl;
         return true;
     };
     actions["flee"] = []() {
         return true;
     };
+    
+    std::cout << "You can do the following:" << std::endl;
+    for(auto & kv : actions) {
+        std::cout << kv.first << std::endl;
+    }
     
     auto performAttackCommand = [&actions](const std::vector<std::string> & input) -> bool {
         if(input.empty()) {
@@ -231,4 +234,17 @@ void Player::interact(game::Character * other) {
     }
     
     other->interact(this);
+}
+
+unsigned int Player::attack(unsigned int hp) {
+    static const unsigned int dodgeProb = 75;
+    
+    if(happen(dodgeProb)) {
+        std::cout << "You dodged the attack!" << std::endl;
+        hp = 0;
+    }
+    
+    decHealth(hp);
+    
+    return hp;
 }

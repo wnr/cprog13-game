@@ -5,7 +5,6 @@
 
 #include <string>
 
-#include "OwningVector.h"
 #include "BaseObject.h"
 
 

@@ -1,26 +1,25 @@
-#ifndef __cprog13_game__OwningVector__
-#define __cprog13_game__OwningVector__
+#ifndef __cprog13_game__OwningStorage__
+#define __cprog13_game__OwningStorage__
 
-//A vector that stores data in unique_ptr's with custom functions to access/manipulate data.
-//The OwningVector owns the memory of whats stored and the only way of moving the owning of the data
-//is to remove it from the vector.
-//Also, only unique values can be stored in the vector.
+//A list that stores data in unique_ptr's with custom functions to access/manipulate data.
+//The OwningStorage owns the memory of whats stored and the only way of moving the owning of the data
+//is to remove it from the storage.
+//Also, only unique values can be stored in the storage.
 
 #include <functional>
 #include <stdexcept>
-#include <vector>
 #include <map>
+#include <list>
 
 namespace game {
     
     template<class T>
-    class OwningVector {
-        
-        std::vector<std::unique_ptr<T>> data;
+    class OwningStorage {
+        std::list<std::unique_ptr<T>> data;
         
     public:
-        OwningVector() {}
-        virtual ~OwningVector() {}
+        OwningStorage() {}
+        virtual ~OwningStorage() {}
         
         bool exist(const T * element) const {
             return index(element) != -1;
@@ -28,22 +27,22 @@ namespace game {
         
         void push_back(std::unique_ptr<T> element) {
             if(exist(element.get())) {
-                throw std::invalid_argument("Element already exists in vector.");
+                throw std::invalid_argument("Element already exists in storage.");
             }
             
             data.push_back(std::move(element));
         }
 
         std::unique_ptr<T> remove(const T * element) {
-            unsigned int index = this->index(element);
+            std::unique_ptr<T> ptr = nullptr;
             
-            if(index == -1) {
-                return nullptr;
+            for(auto it = data.begin(); it != data.end(); it++) {
+                if((*it).get() == element) {
+                    ptr = std::move(*(it));
+                    data.erase(it);
+                    break;
+                }
             }
-            
-            auto ptr = std::move(data[index]);
-            
-            data.erase(data.begin() + index);
             
             return ptr;
         }
@@ -80,19 +79,21 @@ namespace game {
             return result;
         }
         
-        //Will keep iterating through vector and performing operation on every element until operation function returns false.
-        virtual void for_each(const std::function<bool(T * element)> & operation) {
-            for(auto & e : data) {
-                if(operation(e.get()) == false) {
+        //Will keep iterating through storage and performing operation on every element until operation function returns false.
+        virtual void for_each(const std::function<bool(T * element)> & operation) const {
+            for(auto it = data.begin(); it != data.end();) {
+                size_t preSize = data.size();
+                auto next = it;
+                ++next;
+                
+                if(operation((*it).get()) == false) {
                     break;
                 }
-            }
-        }
-        
-        virtual void for_each(const std::function<bool(const T * element)> & operation) const {
-            for(const auto & e : data) {
-                if(operation(e.get()) == false) {
-                    break;
+                
+                if(preSize == data.size()) {
+                    ++it;
+                } else {
+                    it = next;
                 }
             }
         }

@@ -32,6 +32,11 @@ Engine & Engine::getInstance() {
 }
 
 void Engine::initEnvironments() {
+    auto createEnv = [this](Environment * env) -> Environment * {
+        this->push_back(std::unique_ptr<Environment>(env));
+        return env;
+    };
+    
     Environment * home = createEnv(new Environment("Home", "a big house with walls"));
     Environment * outside = createEnv(new Environment("Outside home", "an outside place with big sun."));
     Environment * street54 = createEnv(new Environment("Street 54","an street just outside your home."));
@@ -47,9 +52,6 @@ void Engine::initEnvironments() {
     home->addObject(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
     home->addObject(std::unique_ptr<PhysicalObject>(new Player(home, 1337, "Lucas")));
     
-    
-    //TODO: Strange crash when player is added before other objects!
-    
     outside->setNeightbor("inside", home);
     outside->setNeightbor("street", street54);
     outside->addObject(std::unique_ptr<PhysicalObject>(new Monster(outside, "Troll", 100)));
@@ -64,11 +66,6 @@ void Engine::initEnvironments() {
     mcDonalds->setNeightbor("street", street54);
     mcDonalds->addObject(std::unique_ptr<PhysicalObject>(new Chest(10)));
     church->setNeightbor("street", street54);
-}
-
-Environment * Engine::createEnv(Environment * env) {
-    push_back(static_cast<std::unique_ptr<Environment>>(env));
-    return env;
 }
 
 void Engine::run() {

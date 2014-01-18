@@ -1,6 +1,7 @@
 #include "Monster.h"
 #include "Log.h"
 #include "Constants.h"
+#include "rand.h"
 
 using namespace game;
 
@@ -97,9 +98,23 @@ void Monster::interact(Character * other) {
         return;
     }
     
-    other->decHealth(1);
+    other->attack(5);
     
     if(other->isAlive()) {
         other->interact(this);
     }
+}
+
+unsigned int Monster::attack(unsigned int hp) {
+    static const unsigned int dodgeProb = 25;
+    
+    unsigned int actual = hp;
+    
+    if(happen(dodgeProb)) {
+        actual = 0;
+    }
+    
+    decHealth(actual);
+    
+    return actual;
 }

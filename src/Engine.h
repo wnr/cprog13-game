@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 
-#include "OwningVector.h"
+#include "OwningStorage.h"
 #include "BaseObject.h"
 //Engine of the game. Holds and owns all environments. Everything Engine owns is freed when Engine is destructed.
 //All environments are guaranteed during lifetime of Engine.
@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]);
 namespace game {
     class Environment;
     
-    class Engine : private OwningVector<Environment> {
+    class Engine : private OwningStorage<Environment> {
         bool running;
     public:
         //Only main function and Object can access engine.
@@ -38,7 +38,6 @@ namespace game {
         void printOutro() const;
         
         void initEnvironments();
-        Environment * createEnv(Environment * env);
     };
 }
 

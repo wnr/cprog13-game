@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "Loggable.h"
-#include "OwningVector.h"
+#include "OwningStorage.h"
 #include "BaseObject.h"
 #include "PhysicalObject.h"
 
@@ -19,7 +19,7 @@ namespace game {
     class PhysicalObject;
     class Entity;
     
-    class Environment : public BaseObject, public OwningVector<PhysicalObject> {
+    class Environment : public BaseObject, public OwningStorage<PhysicalObject> {
         std::string name;
         std::string description;
         std::map<std::string, Environment* > neighbors;

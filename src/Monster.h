@@ -30,6 +30,7 @@ namespace game {
         
         virtual void update();
         virtual void interact(Character * other);
+        virtual unsigned int attack(unsigned int hp);
     };
 }
 

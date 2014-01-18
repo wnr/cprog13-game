@@ -5,14 +5,14 @@
 #include <vector>
 
 #include "PhysicalObject.h"
-#include "OwningVector.h"
+#include "OwningStorage.h"
 #include "Item.h"
 
 namespace game {
     
     class Engine;
     
-    class Container : public PhysicalObject, public OwningVector<Item> {
+    class Container : public PhysicalObject, public OwningStorage<Item> {
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);
@@ -20,7 +20,7 @@ namespace game {
         Container(const Container & container);
         Container(Container && container);
         ~Container();
-        
+
         unsigned int getMaxSize() const;
         unsigned int getRemainingSpace() const;
         virtual bool addItem(std::unique_ptr<Item> & item);

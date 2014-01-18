@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "PhysicalObject.h"
+#include "OwningStorage.h"
 #include "Constants.h"
 
 namespace game {
@@ -24,7 +25,7 @@ namespace game {
         virtual std::string getDescription() const;
         
         template<class T, class E>
-        bool move(OwningVector<T> * from, OwningVector<E> * to) const {
+        bool move(OwningStorage<T> * from, OwningStorage<E> * to) const {
             to->push_back(from->template remove<E>(this));
             return true;
         }

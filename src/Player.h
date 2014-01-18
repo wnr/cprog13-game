@@ -19,6 +19,7 @@ namespace game {
         void update(Environment & env);
         
         void interact(Character * other);
+        unsigned int attack(unsigned int hp);
         
     private:
         void update();

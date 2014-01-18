@@ -24,17 +24,7 @@ std::unique_ptr<Item> LockableContainer::removeItem(const Item * item) {
     return Container::removeItem(item);
 }
 
-bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) {
-    if(isLocked()) {
-        return false;
-    }
-    
-    Container::for_each(operation);
-    
-    return true;
-}
-
-bool LockableContainer::for_each(std::function<bool (const Item * item)> & operation) const {
+bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) const {
     if(isLocked()) {
         return false;
     }

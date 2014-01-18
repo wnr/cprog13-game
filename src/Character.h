@@ -21,11 +21,6 @@ namespace game {
         unsigned int getMaxHealth() const;
         
         unsigned int getHealth() const;
-        void setHealth(unsigned int health);
-        void incHealth(unsigned int health);
-        void decHealth(unsigned int health);
-        void addHealth(int health);
-
         
         std::string getName() const;
         
@@ -34,6 +29,13 @@ namespace game {
         virtual std::string getDescription() const;
         
         virtual void interact(Character * other) = 0;
+        virtual unsigned int attack(unsigned int health) = 0;
+        
+    protected:
+        void setHealth(unsigned int health);
+        void incHealth(unsigned int health);
+        void decHealth(unsigned int health);
+        void addHealth(int health);
     };
 }
 
