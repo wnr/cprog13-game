@@ -20,6 +20,7 @@ namespace game {
         bool alive;
         Environment * env;
         Backpack * inventory;
+        unsigned int rottenness;
         
     public:
         Entity(Environment * env, std::string type);
@@ -43,7 +44,9 @@ namespace game {
         bool isAlive() const;
         virtual void kill();
         
-        virtual void update() = 0;
+        unsigned int getRottenness() const;
+        
+        virtual void update();
     };
 }
 

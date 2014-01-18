@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Constants.h"
 #include "rand.h"
+#include "Environment.h"
 
 using namespace game;
 
@@ -17,7 +18,9 @@ Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.move
 
 Monster::~Monster() {}
 
-void Monster::update() {}
+void Monster::update() {
+    Entity::update();
+}
 
 float Monster::getMoveProb() const {
     return moveProb;
