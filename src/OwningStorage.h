@@ -63,9 +63,9 @@ namespace game {
             }
             
             mapFunction([&result, searchString, mainType, this](T * element, int val) {
-                if(element->getMainType() != mainType) {
+                //if(element->getMainType() != mainType) {
                     return true; //Continue searching
-                }
+                //}
                 std::string matchString = getDescriptionString(element, val);
                 
                 if(matchString == searchString) {
@@ -85,23 +85,63 @@ namespace game {
         
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
         virtual void for_each(const std::function<bool(T * element)> & operation) const {
-            for(auto it = data.begin(); it != data.end();) {
-                auto next = it;
-                ++next;
+            std::list<T *> processed;
+            
+            //Finds the last element of the processed list in the data list, and returns an iterator to the next element.
+            auto catchup = [&processed, this]() {
+                auto found = data.end();
                 
-                if(operation((*it).get()) == false) {
+                for(auto it = processed.rbegin(); it != processed.rend(); it++) {
+                    auto e = std::find_if(data.begin(), data.end(), [&it](const std::unique_ptr<T> & ptr){
+                        return ptr.get() == (*it);
+                    });
+                    
+                    if(e != data.end()) {
+                        found = e;
+                        break;
+                    }
+                }
+                
+                if(found != data.end()) {
+                    return std::next(found, 1);
+                } else {
+                    //Couldn't find any of the processed elements. Start from the start then.
+                    return data.begin();
+                }
+                
+            };
+            
+            for(auto it = data.begin(); it != data.end();) {
+                auto prev = std::prev(it, 1);
+                auto next = std::next(it, 1);
+                
+                T * element = (*it).get();
+                
+                //Store the element in the processed list.
+                processed.push_back(element);
+                
+                if(operation(element) == false) {
                     break;
                 }
                 
-                if(++it != next) {
-                    //Remove occured.
-                    it = next;
+                //Sanity check for the iterator.
+                if(std::next(it, 1) == next && std::prev(it, 1) == prev) {
+                    //The iterator is valid. Keep iterating as normal.
+                    it++;
+                } else {
+                    //Remove has occured which invalidated some or all of the iterators.
+                    //Perform a catch-up.
+                    it = catchup();
                 }
             }
         }
         
         size_t size() const {
             return data.size();
+        }
+        
+        void clear() {
+            data.clear();
         }
         
         virtual std::string storageListToString() const {
@@ -142,7 +182,6 @@ namespace game {
             } else {
                 return element->getDescription() + " (" + std::to_string(val) + ")";
             }
-
         }
         
         void mapFunction(const std::function<bool(T *, int)> operation) const {
