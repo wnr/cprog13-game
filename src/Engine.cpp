@@ -45,7 +45,7 @@ void Engine::initEnvironments() {
     Environment * flanders = createEnv(new Environment("Flanders","awful neighbours."));
     Environment * mcDonalds = createEnv(new Environment("MC","mmm burgers."));
     Environment * church = createEnv(new Environment("Church","god is watching."));
-    Environment * graveyard = createEnv(new Graveyard("Graveyard", "Ghastly place with a creepy big moon.", 100));
+    Environment * graveyard = createEnv(new Graveyard("Graveyard", "Ghastly place with a creepy big moon.", 10));
     
     home->setNeightbor("Outside", outside);
     home->push_back(std::unique_ptr<PhysicalObject>(new Monster(home, "Troll", 100)));
