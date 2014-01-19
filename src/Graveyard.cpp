@@ -15,7 +15,7 @@ Graveyard::~Graveyard() {}
 
 void Graveyard::update() {
     if(happen(ghostSpawnProb)) {
-        addObject(std::unique_ptr<PhysicalObject>(new Ghost(this)));
+        push_back(std::unique_ptr<PhysicalObject>(new Ghost(this)));
     }
     
     Environment::update();

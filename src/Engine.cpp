@@ -48,17 +48,17 @@ void Engine::initEnvironments() {
     Environment * graveyard = createEnv(new Graveyard("Graveyard", "Ghastly place with a creepy big moon.", 10));
     
     home->setNeightbor("Outside", outside);
-    home->addObject(std::unique_ptr<PhysicalObject>(new Monster(home, "Troll", 100)));
-    home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2,2)));
-    home->addObject(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Monster(home, "Troll", 100)));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,2)));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
     std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
-    home->addObject(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
-    home->addObject(std::unique_ptr<PhysicalObject>(new Player(home, 1337, "Lucas")));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Player(home, 1337, "Lucas")));
     
     outside->setNeightbor("inside", home);
     outside->setNeightbor("street", street54);
-    outside->addObject(std::unique_ptr<PhysicalObject>(new Monster(outside, "Troll", 100)));
-    outside->addObject(std::move(key));
+    outside->push_back(std::unique_ptr<PhysicalObject>(new Monster(outside, "Troll", 100)));
+    outside->push_back(std::move(key));
     street54->setNeightbor("outside_home", outside);
     street54->setNeightbor("statoil", statoil);
     street54->setNeightbor("flanders", flanders);
@@ -67,7 +67,7 @@ void Engine::initEnvironments() {
     statoil->setNeightbor("street", street54);
     flanders->setNeightbor("street", street54);
     mcDonalds->setNeightbor("street", street54);
-    mcDonalds->addObject(std::unique_ptr<PhysicalObject>(new Chest(10)));
+    mcDonalds->push_back(std::unique_ptr<PhysicalObject>(new Chest(10)));
     church->setNeightbor("street", street54);
     church->setNeightbor("graveyard", graveyard);
     graveyard->setNeightbor("church", church);

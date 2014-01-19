@@ -50,14 +50,6 @@ std::vector<std::string> Environment::getDirections() const {
     return directions;
 }
 
-void Environment::addObject(std::unique_ptr<PhysicalObject> obj) {
-    push_back(std::move(obj));
-}
-
-std::unique_ptr<PhysicalObject> Environment::removeObject(PhysicalObject * obj) {
-    return remove(obj);
-}
-
 void Environment::update() {
     updateObjects();
 }
