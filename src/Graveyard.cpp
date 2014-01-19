@@ -1,7 +1,7 @@
 #include "Graveyard.h"
 #include "Constants.h"
 #include "rand.h"
-#include "Monster.h"
+#include "Ghost.h"
 
 using namespace game;
 
@@ -15,7 +15,7 @@ Graveyard::~Graveyard() {}
 
 void Graveyard::update() {
     if(happen(ghostSpawnProb)) {
-        addObject(std::unique_ptr<PhysicalObject>(new Monster(this, "Ghost", 500)));
+        addObject(std::unique_ptr<PhysicalObject>(new Ghost(this)));
     }
     
     Environment::update();

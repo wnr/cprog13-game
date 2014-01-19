@@ -36,6 +36,9 @@
 #define TEXT_DIVIDER                        "----------"
 #define HELP_TEXT                           "To move somewhere, type 'goto' or 'go' or 'move' followed by a direction. Example: 'go outside'\nTo quit the time, type 'exit'"
 
-
+#define GHOST_NAME                          "Ghost"
+#define GHOST_HEALTH                        500
+#define GHOST_MOVE_PROB                     35
+#define GHOST_ATTACK_PROB                   60
 
 #endif

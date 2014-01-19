@@ -6,11 +6,9 @@
 
 using namespace game;
 
-Monster::Monster(Environment * env, std::string name, unsigned int maxHealth) : Monster(env, name, maxHealth, ENTITY_TYPE_MONSTER) {}
+Monster::Monster(Environment * env, std::string name, unsigned int maxHealth) : Monster(env, name, maxHealth, 0.0f, 0.0f) {}
 
-Monster::Monster(Environment * env, std::string name, unsigned int maxHealth, std::string type) : Monster(env, name, maxHealth, 0.0f, 0.0f, type) {}
-
-Monster::Monster(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb, std::string type) : Character(env, name, maxHealth, type), moveProb(moveProb), attackProb(attackProb) {}
+Monster::Monster(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb) : Character(env, name, maxHealth, ENTITY_TYPE_MONSTER), moveProb(moveProb), attackProb(attackProb) {}
 
 Monster::Monster(const Monster & monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
 
