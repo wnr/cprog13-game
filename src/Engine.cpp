@@ -83,8 +83,6 @@ void Engine::run() {
     printIntro();
     
     while(running) {
-        std::cout << "\n\n========== TICK TICK MOTHERFUCKER =========\n\n";
-        
         for_each([] (Environment * env) {
             env->update();
             return true;

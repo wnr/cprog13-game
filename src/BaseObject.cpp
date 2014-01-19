@@ -43,5 +43,4 @@ void BaseObject::tick() {
 
 void BaseObject::update() {
     tick();
-    std::cout << "tick: " << getDescription() << std::endl;
 }

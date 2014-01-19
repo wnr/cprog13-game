@@ -61,8 +61,6 @@ void Environment::updateObjects() {
     for_each([tickSync](PhysicalObject * obj) {
         if(tickSync == obj->getTickSync()) {
             obj->update();
-        } else {
-            std::cerr << "IGNORED TICK: " + obj->getDescription() + ".\n";
         }
         return true;
     });
