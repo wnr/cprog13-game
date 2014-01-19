@@ -22,6 +22,8 @@ std::string Item::getDescription() const {
     return getSubType();
 }
 
+void Item::update() {}
+
 int operator+=(int & value, const Item & item) {
     return value += item.getVolume();
 }

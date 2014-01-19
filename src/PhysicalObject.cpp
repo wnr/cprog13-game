@@ -30,5 +30,3 @@ bool PhysicalObject::isEntity() const {
 bool PhysicalObject::isItem() const {
     return getMainType() == OBJECT_TYPE_ITEM;
 }
-
-void PhysicalObject::update() {}

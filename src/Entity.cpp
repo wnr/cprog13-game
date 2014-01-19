@@ -90,4 +90,6 @@ void Entity::update() {
             env->remove(this);
         }
     }
+    
+    inventory->update();
 }

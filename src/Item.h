@@ -25,6 +25,8 @@ namespace game {
         
         virtual std::string getDescription() const;
         
+        virtual void update();
+        
         template<class T, class E>
         bool move(OwningStorage<T> * from, OwningStorage<E> * to) const {
             auto uniqueItem(from->template remove<E>(this));
