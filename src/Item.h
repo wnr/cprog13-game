@@ -7,7 +7,6 @@
 #include "PhysicalObject.h"
 #include "OwningStorage.h"
 #include "Constants.h"
-#include "Log.h"
 
 namespace game {
     

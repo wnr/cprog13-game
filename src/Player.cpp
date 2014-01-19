@@ -4,7 +4,6 @@
 #include "Backpack.h"
 
 #include "Constants.h"
-#include "Log.h"
 #include "rand.h"
 
 #include <iostream>

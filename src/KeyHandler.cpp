@@ -1,6 +1,5 @@
 #include "KeyHandler.h"
 
-#include "Log.h"
 
 using namespace game;
 
@@ -30,7 +29,7 @@ bool KeyHandler::unlock(Key * key, Container & container) {
                 // The key is strong enough
                 if(willDestroyKey()){
                     if(container.removeItem(key) == nullptr){
-                        error(key, "Key should be removed from game but was not found in container.");
+                        throw std::runtime_error("Key should be removed from game but was not found in container.");
                     }
                 }
                 locked = false;

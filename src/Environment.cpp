@@ -1,5 +1,4 @@
 #include "Environment.h"
-#include "Log.h"
 #include "Constants.h"
 #include "PhysicalObject.h"
 #include "Entity.h"

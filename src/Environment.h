@@ -6,7 +6,6 @@
 #include <map>
 #include <vector>
 
-#include "Loggable.h"
 #include "OwningStorage.h"
 #include "BaseObject.h"
 #include "PhysicalObject.h"

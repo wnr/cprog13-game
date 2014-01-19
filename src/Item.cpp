@@ -1,7 +1,5 @@
 #include "Item.h"
 
-#include "Log.h"
-
 using namespace game;
 
 Item::Item(std::string type, unsigned int volume) : Item(type, true, volume) {}

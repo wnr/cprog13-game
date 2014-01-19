@@ -10,7 +10,6 @@
 #include "Graveyard.h"
 
 #include "Constants.h"
-#include "Log.h"
 
 #include <iostream>
 #include <cstring>

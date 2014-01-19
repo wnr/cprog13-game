@@ -1,5 +1,4 @@
 #include "Monster.h"
-#include "Log.h"
 #include "Constants.h"
 #include "rand.h"
 #include "Environment.h"
@@ -32,17 +31,14 @@ void Monster::setMoveProb(float prob) {
     }
     
     moveProb = prob;
-    log(this, "move prob is set to " + std::to_string(moveProb));
 }
 
 void Monster::addMoveProb(float prob) {
     float res = moveProb + prob;
     
     if(res < 0) {
-        log(this, "move prob set < 0, setting to 0.");
         res = 0;
     } else if(res > 1) {
-        log(this, "move prob set > 1, setting to 1.");
         res = 1;
     }
     
@@ -69,17 +65,14 @@ void Monster::setAttackProb(float prob) {
     }
     
     attackProb = prob;
-    log(this, "attack prob is set to " + std::to_string(attackProb));
 }
 
 void Monster::addAttackProb(float prob) {
     float res = attackProb + prob;
     
     if(res < 0) {
-        log(this, "attack prob set < 0, setting to 0.");
         res = 0;
     } else if(res > 1) {
-        log(this, "attack prob set > 1, setting to 1.");
         res = 1;
     }
     

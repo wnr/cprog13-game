@@ -1,7 +1,6 @@
 #include "Entity.h"
 
 #include "Environment.h"
-#include "Log.h"
 #include "Constants.h"
 #include "Backpack.h"
 #include "Container.h"
@@ -30,7 +29,6 @@ Backpack * Entity::getInventory() const {
 bool Entity::move(Environment * from, Environment * to) {
     env = to;
     to->push_back(from->remove(this));
-    log(this, "moved from '" + from->getDescription() + "' to '" + to->getDescription() + "'.");
     return true;
 }
 
@@ -76,7 +74,6 @@ bool Entity::isAlive() const {
 }
 
 void Entity::kill() {
-    log(this, "killed");
     alive = false;
 }
 

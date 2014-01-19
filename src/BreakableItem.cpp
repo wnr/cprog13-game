@@ -17,7 +17,6 @@ bool BreakableItem::breakItem() {
         return false;
     }
     
-    log(this, "broke!");
     durability = 0;
     return true;
 }

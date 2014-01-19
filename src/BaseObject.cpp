@@ -1,6 +1,5 @@
 #include "BaseObject.h"
 
-#include "Log.h"
 #include "Engine.h"
 
 using namespace game;

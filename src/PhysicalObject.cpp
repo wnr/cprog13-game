@@ -1,7 +1,6 @@
 #include "PhysicalObject.h"
 #include "Environment.h"
 #include "Constants.h"
-#include "Log.h"
 
 using namespace game;
 
