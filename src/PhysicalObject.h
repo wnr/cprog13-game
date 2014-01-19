@@ -29,8 +29,6 @@ namespace game {
         bool isEntity() const;
         bool isItem() const;
         
-        virtual void update() = 0;
-        
         virtual std::string getDescription() const = 0;
     };
 }

@@ -52,11 +52,18 @@ std::vector<std::string> Environment::getDirections() const {
 
 void Environment::update() {
     updateObjects();
+    BaseObject::update();
 }
 
 void Environment::updateObjects() {
-    for_each([](PhysicalObject * obj) {
-        obj->update();
+    bool tickSync = getTickSync();
+    
+    for_each([tickSync](PhysicalObject * obj) {
+        if(tickSync == obj->getTickSync()) {
+            obj->update();
+        } else {
+            std::cerr << "IGNORED TICK: " + obj->getDescription() + ".\n";
+        }
         return true;
     });
 }

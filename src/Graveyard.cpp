@@ -15,7 +15,9 @@ Graveyard::~Graveyard() {}
 
 void Graveyard::update() {
     if(happen(ghostSpawnProb)) {
-        push_back(std::unique_ptr<PhysicalObject>(new Ghost(this)));
+        Ghost * ghost = new Ghost(this);
+        ghost->setTickSync(getTickSync());
+        push_back(std::unique_ptr<PhysicalObject>(ghost));
     }
     
     Environment::update();

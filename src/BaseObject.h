@@ -14,6 +14,7 @@ namespace game {
     class BaseObject : public Loggable {
         std::string mainType;
         std::string subType;
+        bool tickSync;
         
     public:
         BaseObject(std::string mainType, std::string subType);
@@ -29,6 +30,12 @@ namespace game {
         virtual std::string getDescription() const = 0;
         
         Engine & getEngine() const;
+        
+        virtual void update();
+        
+        bool getTickSync() const;
+        void setTickSync(bool ts);
+        void tick();
     };
 }
 

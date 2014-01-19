@@ -17,7 +17,7 @@ Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.move
 Monster::~Monster() {}
 
 void Monster::update() {
-    Entity::update();
+    Character::update();
 }
 
 float Monster::getMoveProb() const {

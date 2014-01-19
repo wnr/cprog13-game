@@ -85,6 +85,8 @@ unsigned int Entity::getRottenness() const {
 }
 
 void Entity::update() {
+    PhysicalObject::update();
+    
     if(!isAlive()) {
         if(++rottenness >= MAXIMUM_ROTTENNESS) {
             env->remove(this);

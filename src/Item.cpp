@@ -22,7 +22,9 @@ std::string Item::getDescription() const {
     return getSubType();
 }
 
-void Item::update() {}
+void Item::update() {
+    PhysicalObject::update();
+}
 
 int operator+=(int & value, const Item & item) {
     return value += item.getVolume();

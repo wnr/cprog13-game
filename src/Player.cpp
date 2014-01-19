@@ -22,6 +22,8 @@ Player::Player(Player && player) : Character(player), commands(player.commands) 
 Player::~Player() {}
 
 void Player::update() {
+    Character::update();
+    
     printUpdateInfo();
     
     std::cout << INPUT_INDICATOR;

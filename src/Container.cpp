@@ -48,6 +48,8 @@ unsigned int Container::getMaxSize() const {
 }
 
 void Container::update() {
+    PhysicalObject::update();
+    
     for_each([](Item * item) -> bool {
         item->update();
         return true;
