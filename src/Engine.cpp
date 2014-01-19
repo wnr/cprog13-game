@@ -86,8 +86,6 @@ void Engine::run() {
             env->update();
             return true;
         });
-        
-        std::cout << std::endl;
     }
     
     printOutro();
