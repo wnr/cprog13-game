@@ -2,9 +2,9 @@
 
 using namespace game;
 
-Item::Item(std::string type, unsigned int volume) : Item(type, true, volume) {}
+Item::Item(std::string subType, unsigned int volume) : Item(subType, volume, subType) {}
 
-Item::Item(std::string type, bool visible, unsigned int volume) : PhysicalObject(OBJECT_TYPE_ITEM, type, visible), volume(volume){}
+Item::Item(std::string subType, unsigned int volume, std::string name) : PhysicalObject(OBJECT_TYPE_ITEM, subType, name), volume(volume){}
 
 Item::Item(const Item & item) : PhysicalObject(item), volume(item.volume) {}
 

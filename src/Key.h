@@ -15,7 +15,7 @@ namespace game {
         Key();
         Key(int level);
         Key(std::string identifier);
-        Key(int level, std::string identifier);
+        Key(int level, std::string identifier, std::string name);
         Key(const Key & key);
         Key(Key && key);
         virtual ~Key();

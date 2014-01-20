@@ -19,7 +19,6 @@ namespace game {
     class Entity;
     
     class Environment : public BaseObject, public GameStorage<PhysicalObject> {
-        std::string name;
         std::string description;
         std::map<std::string, Environment* > neighbors;
         
@@ -36,7 +35,6 @@ namespace game {
         //is case insensitive.
         Environment * getNeighbor(const std::string & direction);
         
-        std::string getName() const;
         std::string getDescription() const;
         std::string getFullInfo() const;
         std::vector<std::string> getDirections() const;

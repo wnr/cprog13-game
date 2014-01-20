@@ -3,9 +3,9 @@
 
 using namespace game;
 
-Container::Container(std::string type, unsigned int maxSize) : Container(type, maxSize, true) {}
+Container::Container(std::string subType, unsigned int maxSize) : Container(subType, maxSize, subType) {}
 
-Container::Container(std::string type, unsigned int maxSize, bool visible) : PhysicalObject(OBJECT_TYPE_CONTAINER, type, visible), maxSize(maxSize) {}
+Container::Container(std::string subType, unsigned int maxSize, std::string name) : PhysicalObject(OBJECT_TYPE_CONTAINER, subType, name), maxSize(maxSize) {}
 
 Container::Container(const Container & container) : PhysicalObject(container), maxSize(container.maxSize) {}
 
@@ -54,4 +54,8 @@ void Container::update() {
         item->update();
         return true;
     });
+}
+
+std::string Container::getDescription() const {
+    return "This is a " + getSubType() + " where items can be stored./nSpace: (" + std::to_string(getTakenSpace()) + "/" + std::to_string(getMaxSize()) + ")";
 }

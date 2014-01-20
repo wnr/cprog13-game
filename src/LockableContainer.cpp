@@ -2,9 +2,11 @@
 
 using namespace game;
 
-LockableContainer::LockableContainer(std::string type, int maxSize) : LockableContainer(type, maxSize, nullptr) {}
+LockableContainer::LockableContainer(std::string subType, int maxSize) : LockableContainer(subType, maxSize, nullptr) {}
 
-LockableContainer::LockableContainer(std::string type, int maxSize, Key * keyLock) : Container(type, maxSize, true), KeyHandler(keyLock) {}
+LockableContainer::LockableContainer(std::string subType, int maxSize, Key * keyLock) : LockableContainer(subType, maxSize, keyLock, subType) {}
+
+LockableContainer::LockableContainer(std::string subType, int maxSize, Key * keyLock, std::string name) : Container(subType, maxSize, name), KeyHandler(keyLock) {}
 
 LockableContainer::~LockableContainer() {}
 

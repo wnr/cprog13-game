@@ -16,9 +16,9 @@ namespace game {
         float critModifier;
     public:
         Weapon(unsigned int dmg, unsigned int volume);
-        Weapon(std::string type, unsigned int dmg, unsigned int volume);
-        Weapon(std::string type, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume);
-        Weapon(std::string type, bool visible, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume);
+        Weapon(std::string name, unsigned int dmg, unsigned int volume);
+        Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume);
+        Weapon(std::string name, bool visible, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume);
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
         virtual ~Weapon();

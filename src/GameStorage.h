@@ -29,7 +29,7 @@ namespace game {
                 if(element->getMainType() != mainType) {
                     return true; //Continue searching
                 }
-                std::string matchString = getDescriptionString(element, val);
+                std::string matchString = getModName(element, val);
                 if(caseinsens) {
                     std::transform(matchString.begin(), matchString.end(), matchString.begin(), ::tolower);
                 }
@@ -66,7 +66,7 @@ namespace game {
                 }
                 
                 result->append(prefix);
-                result->append(getDescriptionString(element, val));
+                result->append(getModName(element, val));
                 result->append("\n");
                 return true;
             });
@@ -74,11 +74,11 @@ namespace game {
         }
         
     private:
-        std::string getDescriptionString(T * element, int val) const {
+        std::string getModName(T * element, int val) const {
             if(val == 0) {
-                return element->getDescription();
+                return element->getName();
             } else {
-                return element->getDescription() + "(" + std::to_string(val) + ")";
+                return element->getName() + "(" + std::to_string(val) + ")";
             }
 
         }
@@ -86,7 +86,7 @@ namespace game {
         void for_each_count(const std::function<bool(T *, int)> operation) const {
             std::map<std::string, int> map;
             this->for_each([&operation, &map](T * element){
-                std::string objectName = element->getDescription();
+                std::string objectName = element->getName();
                 std::map<std::string, int>::iterator mapIt = map.find(objectName);
                 int elementNameFoundAmount = 0;
                 if(mapIt != map.end()){

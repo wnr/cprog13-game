@@ -12,10 +12,12 @@ namespace game {
     class BaseObject {
         std::string mainType;
         std::string subType;
+        std::string name;
         bool tickSync;
         
     public:
         BaseObject(std::string mainType, std::string subType);
+        BaseObject(std::string mainType, std::string subType, std::string name);
         BaseObject(const BaseObject & baseObject);
         BaseObject(BaseObject && baseObject);
         virtual ~BaseObject();
@@ -26,6 +28,8 @@ namespace game {
         virtual std::string toString() const;
         
         virtual std::string getDescription() const = 0;
+        
+        virtual std::string getName() const;
         
         Engine & getEngine() const;
         

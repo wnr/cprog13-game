@@ -15,21 +15,17 @@ namespace game {
     class Item;
     
     class PhysicalObject : public BaseObject {
-        bool visible;
         
     public:
         PhysicalObject(std::string mainType, std::string subType);
-        PhysicalObject(std::string mainType, std::string subType, bool visible);
+        PhysicalObject(std::string mainType, std::string subType, std::string name);
         PhysicalObject(const PhysicalObject & pObject);
         PhysicalObject(PhysicalObject && pObject);
         virtual ~PhysicalObject();
         
-        bool isVisible() const;
         bool isContainer() const;
         bool isEntity() const;
         bool isItem() const;
-        
-        virtual std::string getDescription() const = 0;
     };
 }
 

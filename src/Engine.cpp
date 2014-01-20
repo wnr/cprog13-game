@@ -50,7 +50,7 @@ void Engine::initEnvironments() {
     home->push_back(std::unique_ptr<PhysicalObject>(new Troll(home)));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,2)));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
-    std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
+    std::unique_ptr<Key>  key(new Key());
     home->push_back(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
     graveyard->push_back(std::unique_ptr<PhysicalObject>(new Player(graveyard, 1337, "Lucas")));
     

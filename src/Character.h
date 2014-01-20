@@ -10,7 +10,6 @@ namespace game {
     class Character : public Entity {
         unsigned int health;
         const unsigned int maxHealth;
-        const std::string name;
     public:
         struct Attack {
             unsigned int health;
@@ -21,7 +20,7 @@ namespace game {
         };
         
         Character(Environment * env, std::string name, unsigned int maxHealth);
-        Character(Environment * env, std::string name, unsigned int maxHealth, std::string type);
+        Character(Environment * env, std::string name, unsigned int maxHealth, std::string subType);
         Character(const Character & character);
         Character(Character && character);
         virtual ~Character();
@@ -29,8 +28,6 @@ namespace game {
         unsigned int getMaxHealth() const;
         
         unsigned int getHealth() const;
-        
-        std::string getName() const;
         
         virtual void kill();
         

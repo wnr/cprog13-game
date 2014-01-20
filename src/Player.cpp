@@ -50,8 +50,13 @@ void Player::printUpdateInfo() const {
 
 void Player::initCommands() {
     commands["look"] = [this](const std::vector<std::string> & commands) -> bool {
-        printUpdateInfo();
-        return true;
+        if(commands.size() == 1) { //TODO: Should not take a tick
+            printUpdateInfo();
+        } else if(commands.size() == 2) {
+            
+        }
+        
+        return false;
     };
     
     commands["exit"] = [this](const std::vector<std::string> &) -> bool {
@@ -73,6 +78,7 @@ void Player::initCommands() {
     commands["pass"] = [](const std::vector<std::string> &) -> bool {
         return true;
     };
+    commands["wait"] = commands["pass"];
     commands["skip"] = commands["pass"];
     
     commands["help"] = [](const std::vector<std::string> &) -> bool {
@@ -87,7 +93,7 @@ void Player::initCommands() {
         Backpack * inv = getInventory();
         std::cout << "Inventory (" << inv->getTakenSpace() << "/" << inv->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
         std::cout << inv->storageListToString();
-        return true;
+        return false;
     };
     commands["backpack"] = commands["inventory"];
     commands["inv"] = commands["inventory"];
@@ -113,7 +119,7 @@ void Player::initCommands() {
             
             std::cout << "You picked up item: " << commands[1] << std::endl;
             
-            return true;
+            return false;
         } else if(commands.size() == 3) {
             Container * container = env->find<Container>(OBJECT_TYPE_CONTAINER, commands[1]);
             if(container == NULL) {
@@ -134,7 +140,7 @@ void Player::initCommands() {
 
             std::cout << "You picked up item: " << commands[2] << " from container: " << commands[1]<< std::endl;
             
-            return true;
+            return false;
         }
         
         std::cout << "Invalid command syntax. Usage: pick [CONTAINER] ITEM" << std::endl;
@@ -161,7 +167,7 @@ void Player::initCommands() {
             }
             
             std::cout << "You dropped item: " << commands[1] << " from your inventory. " << std::endl;
-            return true;
+            return false;
             
         } else if(commands.size() == 3) {
             Environment * env = getEnvironment();
@@ -184,7 +190,7 @@ void Player::initCommands() {
             
             std::cout << "You put item: " << commands[2] << " in container: " << commands[1] << std::endl;
 
-            return true;
+            return false;
         }
         
         std::cout << "Invalid command syntax. Usage: drop [CONTAINER] ITEM" << std::endl;
@@ -212,10 +218,10 @@ void Player::initCommands() {
             takenSpaceText = "UNKNOWN";
         }
         
-        std::cout << container->getDescription() << " (" << takenSpaceText << "/" << container->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
+        std::cout << container->getName() << " (" << takenSpaceText << "/" << container->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
         std::cout << container->storageListToString();
         
-        return true;
+        return false;
     };
     
     commands["attack"] = [this](const std::vector<std::string> & commands) -> bool {
@@ -232,7 +238,7 @@ void Player::initCommands() {
             env->for_each([&found, target] (PhysicalObject * obj) {
                 if(obj->getSubType() == ENTITY_TYPE_MONSTER) {
                     Character * entity = static_cast<Character*>(obj);
-                    std::string desc = entity->getDescription();
+                    std::string desc = entity->getName();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
                     
                     if(desc == target) {
@@ -254,7 +260,7 @@ void Player::initCommands() {
             return false;
         }
         
-        std::cout << std::endl << "You are initiating a fight with " << entity->getDescription() << "!" << std::endl;
+        std::cout << std::endl << "You are initiating a fight with " << entity->getName() << "!" << std::endl;
         
         interact(entity);
         
@@ -286,7 +292,7 @@ void Player::interact(game::Character * other) {
     }
     
     bool flee = false;
-    const std::string desc = other->getDescription();
+    const std::string desc = other->getName();
     const auto self = this;
     
     std::map<std::string, std::function<bool()>> actions;
@@ -317,7 +323,7 @@ void Player::interact(game::Character * other) {
     };
     
     std::cout << "You have " << getHealth() << "/" << getMaxHealth() << " health and ";
-    std::cout << other->getDescription() << " has " << other->getHealth() << "/" << other->getMaxHealth() << " health." << std::endl;
+    std::cout << other->getName() << " has " << other->getHealth() << "/" << other->getMaxHealth() << " health." << std::endl;
 
     std::cout << "You can do the following:" << std::endl;
     for(auto & kv : actions) {

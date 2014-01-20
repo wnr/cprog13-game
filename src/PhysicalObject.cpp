@@ -4,19 +4,16 @@
 
 using namespace game;
 
-PhysicalObject::PhysicalObject(std::string mainType, std::string subType) : PhysicalObject(mainType, subType, true) {}
+PhysicalObject::PhysicalObject(std::string mainType, std::string subType) : PhysicalObject(mainType, subType, subType) {}
 
-PhysicalObject::PhysicalObject(std::string mainType, std::string subType, bool visible) : BaseObject(mainType, subType), visible(visible) {}
+PhysicalObject::PhysicalObject(std::string mainType, std::string subType, std::string name) : BaseObject(mainType, subType, name) {}
 
-PhysicalObject::PhysicalObject(const PhysicalObject & pObject) : BaseObject(pObject), visible(pObject.visible) {}
+PhysicalObject::PhysicalObject(const PhysicalObject & pObject) : BaseObject(pObject) {}
 
-PhysicalObject::PhysicalObject(PhysicalObject && pObject) : BaseObject(pObject), visible(pObject.visible) {}
+PhysicalObject::PhysicalObject(PhysicalObject && pObject) : BaseObject(pObject) {}
 
 PhysicalObject::~PhysicalObject() {}
 
-bool PhysicalObject::isVisible() const {
-    return visible;
-}
 
 bool PhysicalObject::isContainer() const {
     return getMainType() == OBJECT_TYPE_CONTAINER;
