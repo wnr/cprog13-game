@@ -218,7 +218,7 @@ void Player::initCommands() {
             takenSpaceText = "UNKNOWN";
         }
         
-        std::cout << container->getDescription() << " (" << takenSpaceText << "/" << container->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
+        std::cout << container->getName() << " (" << takenSpaceText << "/" << container->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
         std::cout << container->storageListToString();
         
         return true;
@@ -238,7 +238,7 @@ void Player::initCommands() {
             env->for_each([&found, target] (PhysicalObject * obj) {
                 if(obj->getSubType() == ENTITY_TYPE_MONSTER) {
                     Character * entity = static_cast<Character*>(obj);
-                    std::string desc = entity->getDescription();
+                    std::string desc = entity->getName();
                     std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
                     
                     if(desc == target) {
@@ -260,7 +260,7 @@ void Player::initCommands() {
             return false;
         }
         
-        std::cout << std::endl << "You are initiating a fight with " << entity->getDescription() << "!" << std::endl;
+        std::cout << std::endl << "You are initiating a fight with " << entity->getName() << "!" << std::endl;
         
         interact(entity);
         
@@ -292,7 +292,7 @@ void Player::interact(game::Character * other) {
     }
     
     bool flee = false;
-    const std::string desc = other->getDescription();
+    const std::string desc = other->getName();
     const auto self = this;
     
     std::map<std::string, std::function<bool()>> actions;
@@ -323,7 +323,7 @@ void Player::interact(game::Character * other) {
     };
     
     std::cout << "You have " << getHealth() << "/" << getMaxHealth() << " health and ";
-    std::cout << other->getDescription() << " has " << other->getHealth() << "/" << other->getMaxHealth() << " health." << std::endl;
+    std::cout << other->getName() << " has " << other->getHealth() << "/" << other->getMaxHealth() << " health." << std::endl;
 
     std::cout << "You can do the following:" << std::endl;
     for(auto & kv : actions) {
