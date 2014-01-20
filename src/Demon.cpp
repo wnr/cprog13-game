@@ -33,5 +33,9 @@ Demon::Attack Demon::attack(const Character * attacker, const Attack & attack) {
     
     decHealth(actual.health);
     
+    if(actual.health == 0) {
+        actual.description = "laughed at";
+    }
+    
     return actual;
 }
