@@ -5,14 +5,14 @@
 #include <vector>
 
 #include "PhysicalObject.h"
-#include "OwningStorage.h"
+#include "GameStorage.h"
 #include "Item.h"
 
 namespace game {
     
     class Engine;
     
-    class Container : public PhysicalObject, public OwningStorage<Item> {
+    class Container : public PhysicalObject, public GameStorage<Item> {
         const unsigned int maxSize;
     public:
         Container(std::string type, unsigned int maxSize);

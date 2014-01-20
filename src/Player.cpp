@@ -43,15 +43,8 @@ void Player::printUpdateInfo() const {
     if(env.size() > 1) {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
-        
-        env.for_each([this](const PhysicalObject * entity) {
-            if(entity == this) {
-                return true; //Skip when entity is the player itself.
-            }
-            
-            std::cout << LIST_ITEM_PREFIX << entity->getDescription() << std::endl;
-            return true;
-        });
+    
+        std::cout << env.storageListToString();
     }
 }
 
@@ -163,13 +156,13 @@ void Player::initCommands() {
             }
             
             if(!dropItem(item)) {
-                std::cout << "You can't drop item: " << commands[2] << " from your inventory. " << std::endl;
+                std::cout << "You can't drop item: " << commands[1] << " from your inventory. " << std::endl;
                 return false;
             }
             
-            std::cout << "You dropped item: " << commands[2] << " from your inventory. " << std::endl;
-            
+            std::cout << "You dropped item: " << commands[1] << " from your inventory. " << std::endl;
             return true;
+            
         } else if(commands.size() == 3) {
             Environment * env = getEnvironment();
             Container * container = env->find<Container>(OBJECT_TYPE_CONTAINER, commands[1]);
@@ -275,6 +268,8 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     }
     
     std::string key = input[0];
+    std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+
     
     if(commands.count(key) == 0) {
         return false;

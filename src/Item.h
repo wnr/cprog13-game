@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "PhysicalObject.h"
-#include "OwningStorage.h"
+#include "GameStorage.h"
 #include "Constants.h"
 
 namespace game {
@@ -27,7 +27,7 @@ namespace game {
         virtual void update();
         
         template<class T, class E>
-        bool move(OwningStorage<T> * from, OwningStorage<E> * to) const {
+        bool move(GameStorage<T> * from, GameStorage<E> * to) const {
             auto uniqueItem(from->template remove<E>(this));
             if(uniqueItem == nullptr) {
                 return false;
