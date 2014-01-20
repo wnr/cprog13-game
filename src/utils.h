@@ -6,11 +6,13 @@
 #include <string>
 
 namespace game {
-    
-    class Utils {
-    public:
-        static std::string unsignedValToString(int val);
-    };
+    std::string unsignedValToString(int val) {
+        if(val == -1) {
+            return "UNKNOWN";
+        }
+        
+        return std::to_string(val);
+    }
 }
 
 #endif

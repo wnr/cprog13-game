@@ -1,8 +1,6 @@
 #ifndef __cprog13_game__rand__
 #define __cprog13_game__rand__
 
-#include <iostream>
-
 namespace game {
     
     //Seed the random generator.

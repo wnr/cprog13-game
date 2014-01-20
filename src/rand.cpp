@@ -2,6 +2,8 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <stdexcept>
+#include <cstdlib>
 
 void game::seed() {
     srand((unsigned int)time(NULL));
