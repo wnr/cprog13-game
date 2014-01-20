@@ -106,7 +106,6 @@ vector<string> Engine::getInput() const {
     while((pos = line.find(INPUT_WORD_DELIMETER, pos)) != string::npos) {
         word = line.substr(prevPos, pos - prevPos);
         if(!word.empty()) {
-            std::transform(word.begin(), word.end(), word.begin(), ::tolower);
             words.push_back(word);
         }
         pos += delimeterLength;

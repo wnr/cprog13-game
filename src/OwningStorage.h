@@ -8,7 +8,6 @@
 
 #include <functional>
 #include <stdexcept>
-#include <map>
 #include <list>
 
 namespace game {
@@ -54,35 +53,6 @@ namespace game {
             return result;
         }
         
-        virtual T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
-            T * result = NULL;
-            
-            
-            if(caseinsens) {
-                std::transform(searchString.begin(), searchString.end(), searchString.begin(), ::tolower);
-            }
-            
-            mapFunction([&result, searchString, mainType, this](T * element, int val) {
-                if(element->getMainType() != mainType) {
-                    return true; //Continue searching
-                }
-                std::string matchString = getDescriptionString(element, val);
-                
-                if(matchString == searchString) {
-                    result = element;
-                    return false;
-                } else {
-                    return true; //Continue searching
-                }
-            });
-            return result;
-        }
-        
-        template<class E>
-        E * find(const std::string & mainType, const std::string & searchString, bool caseinsens = true) const {
-            return (E*) find(mainType, searchString, caseinsens);
-        }
-        
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
         virtual void for_each(const std::function<bool(T * element)> & operation) const {
             for(auto it = data.begin(); it != data.end();) {
@@ -102,16 +72,6 @@ namespace game {
         
         size_t size() const {
             return data.size();
-        }
-        
-        virtual std::string storageListToString() const {
-            std::string * result = new std::string("");
-            mapFunction([result, this](T * element, int val){
-                result->append(getDescriptionString(element, val));
-                result->append("\n");
-                return true;
-            });
-            return *result;
         }
         
     private:
@@ -134,40 +94,6 @@ namespace game {
             }
             
             return index;
-        }
-        
-        std::string getDescriptionString(T * element, int val) const {
-            if(val == 0) {
-                return element->getDescription();
-            } else {
-                return element->getDescription() + " (" + std::to_string(val) + ")";
-            }
-
-        }
-        
-        void mapFunction(const std::function<bool(T *, int)> operation) const {
-            std::string result;
-            std::map<std::string, int> map;
-            std::map<std::string, int>::iterator it;
-            for(auto & a : data) {
-                auto * e = a.get();
-                std::string objectName = e->getDescription();
-                it = map.find(objectName);
-                if(it == map.end()){
-                    if (!operation(e, 0)) {
-                        break;
-                    }
-                    map[objectName] = 1;
-                    result.append(objectName);
-                } else {
-                    if (!operation(e, it->second)) {
-                        break;
-                    }
-                    result.append(objectName + " (" + std::to_string(it->second) + ")");
-                    map[objectName] = it->second + 1;
-                }
-            }
-
         }
     };
 }

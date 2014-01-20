@@ -6,9 +6,9 @@
 #include <map>
 #include <vector>
 
-#include "Loggable.h"
-#include "OwningStorage.h"
 #include "BaseObject.h"
+#include "Loggable.h"
+#include "GameStorage.h"
 #include "PhysicalObject.h"
 
 //Environment describes a place where Objects can be. All environments makes the game world.
@@ -19,7 +19,7 @@ namespace game {
     class PhysicalObject;
     class Entity;
     
-    class Environment : public BaseObject, public OwningStorage<PhysicalObject> {
+    class Environment : public BaseObject, public GameStorage<PhysicalObject> {
         std::string name;
         std::string description;
         std::map<std::string, Environment* > neighbors;
