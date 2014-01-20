@@ -21,6 +21,8 @@ namespace game {
         void interact(Character * other);
         Attack attack(const Character * attacker, const Attack & attack);
         
+        void kill();
+        
     private:
         void update();
         void initCommands();

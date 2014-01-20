@@ -6,7 +6,6 @@
 #include <map>
 #include <vector>
 
-#include "BaseObject.h"
 #include "GameStorage.h"
 #include "PhysicalObject.h"
 

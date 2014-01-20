@@ -8,6 +8,7 @@
 #include "Key.h"
 #include "Backpack.h"
 #include "Graveyard.h"
+#include "Demon.h"
 
 #include "Constants.h"
 
@@ -26,9 +27,9 @@ Engine::Engine() {
 
 Engine::~Engine() {}
 
-Engine & Engine::getInstance() {
+Engine * Engine::getInstance() {
     static Engine instance;
-    return instance;
+    return &instance;
 }
 
 void Engine::initEnvironments() {
@@ -52,7 +53,9 @@ void Engine::initEnvironments() {
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
     std::unique_ptr<Key>  key(new Key());
     home->push_back(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
-    graveyard->push_back(std::unique_ptr<PhysicalObject>(new Player(graveyard, 1337, "Lucas")));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Player(home, 1337, "Lucas")));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Demon(home)));
+    
     
     outside->setNeightbor("inside", home);
     outside->setNeightbor("street", street54);

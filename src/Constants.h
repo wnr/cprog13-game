@@ -31,7 +31,7 @@
 #define INPUT_INVALID_COMMAND               "Invalid command. Type 'help' for command instructions."
 
 #define GAME_INTRO                          "This is a magical game with magic and stuff. Type 'exit' to exit, otherwise just follow the instructions."
-#define GAME_OUTRO                          "Good bye sissy."
+#define GAME_OUTRO                          ""
 
 #define TEXT_DIVIDER                        "----------"
 #define HELP_TEXT                           "To move somewhere, type 'goto' or 'go' or 'move' followed by a direction. Example: 'go outside'\nTo quit the time, type 'exit'"

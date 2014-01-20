@@ -25,7 +25,7 @@ void Player::update() {
     
     printUpdateInfo();
     
-    do { std::cout << INPUT_INDICATOR; } while(!performCommand(getEngine().getInput()));
+    do { std::cout << INPUT_INDICATOR; } while(!performCommand(getEngine()->getInput()));
 }
 
 void Player::printUpdateInfo() const {
@@ -60,7 +60,7 @@ void Player::initCommands() {
     };
     
     commands["exit"] = [this](const std::vector<std::string> &) -> bool {
-        this->getEngine().kill();
+        this->getEngine()->kill();
         return true;
     };
     
@@ -345,7 +345,7 @@ void Player::interact(game::Character * other) {
         return action();
     };
     
-    do { std::cout << INPUT_INDICATOR; } while(!performAttackCommand(getEngine().getInput()));
+    do { std::cout << INPUT_INDICATOR; } while(!performAttackCommand(getEngine()->getInput()));
     
     if(!other->isAlive()) {
         std::cout << "You killed " << desc << "!" << std::endl;
@@ -380,4 +380,11 @@ Player::Attack Player::attack(const Character * attacker, const Attack & attack)
     decHealth(actual.health);
     
     return actual;
+}
+
+void Player::kill() {
+    Character::kill();
+    
+    std::cout << "You died." << std::endl;
+    getEngine()->kill();
 }

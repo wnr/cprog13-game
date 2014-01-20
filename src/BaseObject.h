@@ -31,7 +31,7 @@ namespace game {
         
         virtual std::string getName() const;
         
-        Engine & getEngine() const;
+        Engine * getEngine() const;
         
         virtual void update();
         

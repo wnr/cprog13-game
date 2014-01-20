@@ -13,7 +13,7 @@ int main(int argc, const char * argv[])
 {
     try
     {
-        Engine::getInstance().run();
+        Engine::getInstance()->run();
     }
     catch(std::exception & ex)
     {

@@ -26,7 +26,7 @@ std::string BaseObject::toString() const {
     return getMainType() + "(" + getSubType() + ")";
 }
 
-Engine & BaseObject::getEngine() const {
+Engine * BaseObject::getEngine() const {
     return Engine::getInstance();
 }
 
