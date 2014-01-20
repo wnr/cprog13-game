@@ -52,7 +52,7 @@ void Engine::initEnvironments() {
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
     std::unique_ptr<Key>  key(new Key(3, "Standard_key"));
     home->push_back(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
-    home->push_back(std::unique_ptr<PhysicalObject>(new Player(home, 1337, "Lucas")));
+    graveyard->push_back(std::unique_ptr<PhysicalObject>(new Player(graveyard, 1337, "Lucas")));
     
     outside->setNeightbor("inside", home);
     outside->setNeightbor("street", street54);

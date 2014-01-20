@@ -291,27 +291,23 @@ void Player::interact(game::Character * other) {
     
     std::map<std::string, std::function<bool()>> actions;
     
-    actions["kick"] = [self, &other, &desc]() {
-        auto res = other->attack(self, 3);
+    auto attack = [self, &desc, other](const std::string & attackDesc, unsigned int health) {
+        Attack actual = other->attack(self, health);
         
-        if(res == 0) {
-            std::cout << "The " << desc << " blocked your attack!" << std::endl;
+        if(actual.health == 0) {
+            std::cout << "The " << desc << " " << (actual.description.empty() ? "blocked" : actual.description) << " your " << attackDesc << "!" << std::endl;
         } else {
-            std::cout << "You kicked " + desc << " for " + std::to_string(res) + " hp!" << std::endl;
+            std::cout << "You " << attackDesc << " " << desc << " for " << std::to_string(actual.health) << " hp!" << std::endl;
         }
-        
+    };
+    
+    actions["kick"] = [&attack]() {
+        attack("kick", 3);
         return true;
     };
     
-    actions["hit"] = [self, &other, &desc]() {
-        auto res = other->attack(self, other->getHealth());
-        
-        if(res == 0) {
-            std::cout << "The " + desc << " blocked your attack!" << std::endl;
-        } else {
-            std::cout << "You hit " + desc << " for " + std::to_string(res) + " hp!" << std::endl;
-        }
-        
+    actions["hit"] = [self, &other, &attack]() {
+        attack("hit", other->getHealth());
         return true;
     };
     
