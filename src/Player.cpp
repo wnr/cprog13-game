@@ -29,22 +29,22 @@ void Player::update() {
 }
 
 void Player::printUpdateInfo() const {
-    Environment & env = *getEnvironment();
+    Environment * env = getEnvironment();
     
-    std::cout << std::endl << "Location: " << env.getFullInfo() << std::endl;
+    std::cout << std::endl << "Location: " << env->getFullInfo() << std::endl;
     
     std::cout << "You can go to:" << std::endl;
     
-    for(auto dir : env.getDirections()) {
+    for(auto dir : env->getDirections()) {
         std::cout << LIST_ITEM_PREFIX << dir << std::endl;
     }
 
     //If only 1 thing in environment then it is the player itself, so skip then.
-    if(env.size() > 1) {
+    if(env->size() > 1) {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
     
-        std::cout << env.storageListToString();
+        std::cout << env->storageListToString((PhysicalObject*)this);
     }
 }
 

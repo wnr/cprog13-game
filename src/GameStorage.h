@@ -6,6 +6,7 @@
 #include "BaseObject.h"
 #include "Constants.h"
 #include <map>
+#include <vector>
 
 namespace game {
     
@@ -48,13 +49,22 @@ namespace game {
             return (E*) find(mainType, searchString, caseinsens);
         }
         
-        virtual std::string storageListToString() const {
-            return storageListToString(LIST_ITEM_PREFIX);
+        virtual std::string storageListToString(T * skip) const {
+            return storageListToString(LIST_ITEM_PREFIX, {skip});
         }
         
-        virtual std::string storageListToString(const std::string & prefix) const {
+        virtual std::string storageListToString(const std::vector<T*> skips = {}) const {
+            return storageListToString(LIST_ITEM_PREFIX, skips);
+        }
+        
+        virtual std::string storageListToString(const std::string & prefix, const std::vector<T*> skips = {}) const {
             std::string * result = new std::string("");
-            for_each_count([prefix, result, this](T * element, int val){
+            for_each_count([prefix, result, this, &skips](T * element, int val){
+                if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
+                    //Found in skips list. So skip element.
+                    return true;;
+                }
+                
                 result->append(prefix);
                 result->append(getDescriptionString(element, val));
                 result->append("\n");
