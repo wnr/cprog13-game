@@ -21,6 +21,21 @@ void Ghost::kill() {
     getEnvironment()->remove(this);
 }
 
-std::string Ghost::getCompleteDescription() const {
-    return "Watch out, it's a scary " + getSubType() + " that might hurt you!\nHealth: " + std::to_string(getHealth());
+//std::string Ghost::getCompleteDescription() const {
+//    return "Watch out, it's a scary " + getSubType() + " that might hurt you!\nHealth: " + std::to_string(getHealth());
+
+void Ghost::interact(Character * other) {
+    if(!isAlive()) {
+        return;
+    }
+    
+    other->attack(this, Attack(50, "scared"));
+    
+    if(other->isAlive()) {
+        other->interact(this);
+    }
+}
+
+Ghost::Attack Ghost::attack(const Character * attacker, const Attack & attack) {
+    return Attack(0, "absorbed");
 }

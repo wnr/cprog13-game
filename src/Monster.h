@@ -28,8 +28,6 @@ namespace game {
         void decAttackProb(float prob);
         
         virtual void update();
-        virtual void interact(Character * other);
-        virtual unsigned int attack(unsigned int hp);
     };
 }
 

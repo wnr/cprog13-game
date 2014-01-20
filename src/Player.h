@@ -19,7 +19,7 @@ namespace game {
         void update(Environment & env);
         
         void interact(Character * other);
-        unsigned int attack(unsigned int hp);
+        Attack attack(const Character * attacker, const Attack & attack);
         
     private:
         void update();

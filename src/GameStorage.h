@@ -49,8 +49,7 @@ namespace game {
         }
         
         virtual std::string storageListToString() const {
-            std::string prefix = LIST_ITEM_PREFIX;
-            return storageListToString(prefix + " ");
+            return storageListToString(LIST_ITEM_PREFIX);
         }
         
         virtual std::string storageListToString(const std::string & prefix) const {

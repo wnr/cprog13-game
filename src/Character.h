@@ -11,6 +11,14 @@ namespace game {
         unsigned int health;
         const unsigned int maxHealth;
     public:
+        struct Attack {
+            unsigned int health;
+            std::string description;
+            
+            explicit Attack(unsigned int health);
+            Attack(unsigned int health, std::string description);
+        };
+        
         Character(Environment * env, std::string name, unsigned int maxHealth);
         Character(Environment * env, std::string name, unsigned int maxHealth, std::string subType);
         Character(const Character & character);
@@ -26,7 +34,9 @@ namespace game {
         virtual std::string getDescription() const;
         
         virtual void interact(Character * other) = 0;
-        virtual unsigned int attack(unsigned int health) = 0;
+        Attack attack(const Character * attacker, unsigned int health);
+        Attack attack(const Character * attacker, unsigned int health, std::string description);
+        virtual Attack attack(const Character * attacker, const Attack & attack) = 0;
         
     protected:
         void setHealth(unsigned int health);
