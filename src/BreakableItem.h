@@ -2,8 +2,6 @@
 #define __cprog13_game__BreakableItem__
 
 #include <string>
-
-#include "Log.h"
 #include "Item.h"
 
 namespace game {

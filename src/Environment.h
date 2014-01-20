@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "BaseObject.h"
-#include "Loggable.h"
 #include "GameStorage.h"
 #include "PhysicalObject.h"
 
@@ -41,15 +40,6 @@ namespace game {
         std::string getDescription() const;
         std::string getFullInfo() const;
         std::vector<std::string> getDirections() const;
-        
-        //Transfers the ownership of the object to the Environment.
-        void addObject(std::unique_ptr<PhysicalObject> obj);
-        //TODO: remove addObject and removeObject. They are the same as pushback and remove in OwningVector. Should override
-        
-        //Removes the entity from this envrionment and transfers the ownership to the caller.
-        //After this is done Entity will not belong to any Environment.
-        //TODO: So entities can be free? Aka temporarely not belong to any Environment? Sounds like thats impossible by the class description.
-        std::unique_ptr<PhysicalObject> removeObject(PhysicalObject * obj);
         
         virtual void updateObjects();
         virtual void update();

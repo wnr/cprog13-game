@@ -1,6 +1,5 @@
 #include "Character.h"
 #include "Constants.h"
-#include "Log.h"
 
 using namespace game;
 

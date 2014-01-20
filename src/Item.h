@@ -7,7 +7,6 @@
 #include "PhysicalObject.h"
 #include "GameStorage.h"
 #include "Constants.h"
-#include "Log.h"
 
 namespace game {
     
@@ -24,6 +23,8 @@ namespace game {
         unsigned int getVolume() const;
         
         virtual std::string getDescription() const;
+        
+        virtual void update();
         
         template<class T, class E>
         bool move(GameStorage<T> * from, GameStorage<E> * to) const {

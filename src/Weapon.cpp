@@ -1,6 +1,5 @@
 #include "Weapon.h"
 
-#include "Log.h"
 #include "Constants.h"
 
 using namespace game;

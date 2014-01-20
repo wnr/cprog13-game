@@ -1,7 +1,6 @@
 #include "PhysicalObject.h"
 #include "Environment.h"
 #include "Constants.h"
-#include "Log.h"
 
 using namespace game;
 
@@ -30,5 +29,3 @@ bool PhysicalObject::isEntity() const {
 bool PhysicalObject::isItem() const {
     return getMainType() == OBJECT_TYPE_ITEM;
 }
-
-void PhysicalObject::update() {}

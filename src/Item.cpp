@@ -1,7 +1,5 @@
 #include "Item.h"
 
-#include "Log.h"
-
 using namespace game;
 
 Item::Item(std::string type, unsigned int volume) : Item(type, true, volume) {}
@@ -20,6 +18,10 @@ unsigned int Item::getVolume() const {
 
 std::string Item::getDescription() const {
     return getSubType();
+}
+
+void Item::update() {
+    PhysicalObject::update();
 }
 
 int operator+=(int & value, const Item & item) {

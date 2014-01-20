@@ -46,3 +46,12 @@ int Container::getTakenSpace() const {
 unsigned int Container::getMaxSize() const {
     return maxSize;
 }
+
+void Container::update() {
+    PhysicalObject::update();
+    
+    for_each([](Item * item) -> bool {
+        item->update();
+        return true;
+    });
+}

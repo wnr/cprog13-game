@@ -1,5 +1,4 @@
 #include "Environment.h"
-#include "Log.h"
 #include "Constants.h"
 #include "PhysicalObject.h"
 #include "Entity.h"
@@ -50,21 +49,18 @@ std::vector<std::string> Environment::getDirections() const {
     return directions;
 }
 
-void Environment::addObject(std::unique_ptr<PhysicalObject> obj) {
-    push_back(std::move(obj));
-}
-
-std::unique_ptr<PhysicalObject> Environment::removeObject(PhysicalObject * obj) {
-    return remove(obj);
-}
-
 void Environment::update() {
     updateObjects();
+    BaseObject::update();
 }
 
 void Environment::updateObjects() {
-    for_each([](PhysicalObject * obj) {
-        obj->update();
+    bool tickSync = getTickSync();
+    
+    for_each([tickSync](PhysicalObject * obj) {
+        if(tickSync == obj->getTickSync()) {
+            obj->update();
+        }
         return true;
     });
 }
