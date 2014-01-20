@@ -29,6 +29,8 @@ namespace game {
         std::string storageListToString() const;
         int getRemainingSpace() const;
         int getTakenSpace() const;
+        
+        std::string getDescription() const;
     };
 }
 

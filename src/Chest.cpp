@@ -10,7 +10,3 @@ Chest::Chest(int maxSize, Key * keyLock) : Chest(maxSize, keyLock, CONTAINER_TYP
 Chest::Chest(int maxSize, Key * keyLock, std::string name) : LockableContainer(CONTAINER_TYPE_CHEST, maxSize, keyLock, name) {}
 
 Chest::~Chest() {}
-
-std::string Chest::getDescription() const {
-    return getSubType();
-}

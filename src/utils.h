@@ -1,17 +1,22 @@
-#ifndef __cprog13_game__Utils__
-#define __cprog13_game__Utils__
+#ifndef __cprog13_game__utils__
+#define __cprog13_game__utils__
 
 //Helper methods for dealing with any general problems regarding the game
 
 #include <string>
 
 namespace game {
-    std::string unsignedValToString(int val) {
+    inline std::string unsignedValToString(int val) {
         if(val == -1) {
             return "UNKNOWN";
         }
         
         return std::to_string(val);
+    }
+    
+    inline std::string toLowerCase(std::string word) {
+        std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+        return word;
     }
 }
 

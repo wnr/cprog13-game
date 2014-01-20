@@ -83,3 +83,11 @@ std::unique_ptr<Item> LockableContainer::remove(const Item * element) {
         return Container::remove(element);
     }
 }
+
+std::string LockableContainer::getDescription() const {
+    std::string desc = Container::getDescription();
+    if(isLocked()) {
+        desc += "\nLOCKED";
+    }
+    return desc;
+}
