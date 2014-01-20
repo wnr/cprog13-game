@@ -4,7 +4,9 @@
 
 using namespace game;
 
-BaseObject::BaseObject(std::string mainType, std::string subType) : mainType(mainType), subType(subType), tickSync(false) {}
+BaseObject::BaseObject(std::string mainType, std::string subType) : BaseObject(mainType, subType, subType) {}
+
+BaseObject::BaseObject(std::string mainType, std::string subType, std::string name) : mainType(mainType), subType(subType), name(name), tickSync(false) {}
 
 BaseObject::BaseObject(const BaseObject & baseObject) : mainType(baseObject.mainType), subType(baseObject.subType), tickSync(baseObject.tickSync) {}
 
@@ -42,4 +44,8 @@ void BaseObject::tick() {
 
 void BaseObject::update() {
     tick();
+}
+
+std::string BaseObject::getName() const {
+    return name;
 }

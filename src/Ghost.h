@@ -17,7 +17,9 @@ namespace game {
         
         //Ghost will remove itself from env when killed directly. No rottenness.
         virtual void kill();
-//        
+        
+        virtual std::string getCompleteDescription() const;
+//
 //        virtual void update();
 //        virtual void interact();
 //        virtual unsigned int attack(unsigned int hp);

@@ -2,9 +2,9 @@
 
 using namespace game;
 
-BreakableItem::BreakableItem(std::string type, unsigned int volume) : BreakableItem(type, true, volume) {}
+BreakableItem::BreakableItem(std::string subType, unsigned int volume) : BreakableItem(subType, volume, subType) {}
 
-BreakableItem::BreakableItem(std::string type, bool visible, unsigned int volume) : Item(type, visible, volume) {}
+BreakableItem::BreakableItem(std::string subType, unsigned int volume, std::string name) : Item(subType, volume, name) {}
 
 BreakableItem::BreakableItem(const BreakableItem & bi) : Item(bi), durability(bi.durability), maxDurability(bi.maxDurability) {}
 

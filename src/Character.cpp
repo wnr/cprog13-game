@@ -5,18 +5,14 @@ using namespace game;
 
 Character::Character(Environment * env, std::string name, unsigned int maxHealth) : Character(env, name, maxHealth, ENTITY_TYPE_CHARACTER) {}
 
-Character::Character(Environment * env, std::string name, unsigned int maxHealth, std::string type) : Entity(env, type), maxHealth(maxHealth), health(maxHealth), name(name) {
+Character::Character(Environment * env, std::string name, unsigned int maxHealth, std::string subType) : Entity(env, subType, name), maxHealth(maxHealth), health(maxHealth) {
 }
 
-Character::Character(const Character & character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {}
+Character::Character(const Character & character) : Entity(character), maxHealth(character.maxHealth), health(character.health) {}
 
-Character::Character(Character && character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {}
+Character::Character(Character && character) : Entity(character), maxHealth(character.maxHealth), health(character.health) {}
 
 Character::~Character() {}
-
-std::string Character::getName() const {
-    return name;
-}
 
 unsigned int Character::getMaxHealth() const {
     return maxHealth;
@@ -65,8 +61,8 @@ std::string Character::getDescription() const {
     //TODO Discuss alternatives
     
     if(!isAlive()) {
-        return name + " corpse";
+        return getName() + " corpse";
     }
     
-    return name;
+    return getName();
 }

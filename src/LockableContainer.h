@@ -14,8 +14,9 @@ namespace game {
     class LockableContainer : public Container, public KeyHandler {
         
     public:
-        LockableContainer(std::string type, int maxSize);
-        LockableContainer(std::string type, int maxSize, Key * keyLock);
+        LockableContainer(std::string subType, int maxSize);
+        LockableContainer(std::string subType, int maxSize, Key * keyLock);
+        LockableContainer(std::string subType, int maxSize, Key * keyLock, std::string name);
         ~LockableContainer();
         
         bool addItem(std::unique_ptr<Item> & item);

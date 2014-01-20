@@ -15,8 +15,8 @@ namespace game {
     class Container : public PhysicalObject, public GameStorage<Item> {
         const unsigned int maxSize;
     public:
-        Container(std::string type, unsigned int maxSize);
-        Container(std::string type, unsigned int maxSize, bool visible);
+        Container(std::string subType, unsigned int maxSize);
+        Container(std::string subType, unsigned int maxSize, std::string name);
         Container(const Container & container);
         Container(Container && container);
         ~Container();
@@ -28,6 +28,7 @@ namespace game {
         virtual std::unique_ptr<Item> removeItem(const Item * item);
         
         virtual void update();
+        virtual std::string getDescription() const;
     };
 }
 

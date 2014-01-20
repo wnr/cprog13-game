@@ -7,9 +7,11 @@
 
 using namespace game;
 
-Entity::Entity(Environment * env, std::string type) : Entity(env, type, true, ENTITY_INVENTORY_SIZE) {}
+Entity::Entity(Environment * env, std::string subType) : Entity(env, subType, subType) {}
 
-Entity::Entity(Environment * env, std::string type, bool visible, int inventorySize) : PhysicalObject(OBJECT_TYPE_ENTITY, type, visible), alive(true), env(env), inventory(new Backpack(inventorySize)), rottenness(0) {
+Entity::Entity(Environment * env, std::string subType, std::string name) : Entity(env, subType, name, ENTITY_INVENTORY_SIZE) {}
+
+Entity::Entity(Environment * env, std::string subType, std::string name, int inventorySize) : PhysicalObject(OBJECT_TYPE_ENTITY, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), rottenness(0) {
 }
 
 Entity::Entity(const Entity & entity) : PhysicalObject(entity), alive(entity.alive), env(entity.env) {}

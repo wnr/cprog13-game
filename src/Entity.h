@@ -23,8 +23,9 @@ namespace game {
         unsigned int rottenness;
         
     public:
-        Entity(Environment * env, std::string type);
-        Entity(Environment * env, std::string type, bool visible, int inventorySize);
+        Entity(Environment * env, std::string subType);
+        Entity(Environment * env, std::string subType, std::string name);
+        Entity(Environment * env, std::string subType, std::string name, int inventorySize);
         Entity(const Entity & entity);
         Entity(Entity && entity);
         virtual ~Entity();

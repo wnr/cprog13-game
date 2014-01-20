@@ -20,3 +20,7 @@ void Ghost::kill() {
     Monster::kill();
     getEnvironment()->remove(this);
 }
+
+std::string Ghost::getCompleteDescription() const {
+    return "Watch out, it's a scary " + getSubType() + " that might hurt you!\nHealth: " + std::to_string(getHealth());
+}

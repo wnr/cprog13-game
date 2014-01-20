@@ -59,7 +59,13 @@ void Player::printUpdateInfo() const {
 
 void Player::initCommands() {
     commands["look"] = [this](const std::vector<std::string> & commands) -> bool {
-        printUpdateInfo();
+        if(commands.size() == 1) { //TODO: Should not take a tick
+            printUpdateInfo();
+            return true;
+        } else if(commands.size() == 2) {
+            
+        }
+        
         return true;
     };
     

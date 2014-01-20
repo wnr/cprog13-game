@@ -12,11 +12,10 @@ namespace game {
 
     public:
         BreakableItem(std::string type, unsigned int volume);
-        BreakableItem(std::string type, bool visible, unsigned int volume);
+        BreakableItem(std::string type, unsigned int volume, std::string name);
         BreakableItem(const BreakableItem & bi);
         BreakableItem(BreakableItem && bi);
         virtual ~BreakableItem();
-
         
         bool breakItem();
         bool decDurability(int amount);
