@@ -4,6 +4,7 @@
 //A class that extends the generic class OwningStorage to have more game-specific storage related methods.
 #include "OwningStorage.h"
 #include "BaseObject.h"
+#include "Constants.h"
 #include <map>
 
 namespace game {
@@ -48,8 +49,14 @@ namespace game {
         }
         
         virtual std::string storageListToString() const {
+            std::string prefix = LIST_ITEM_PREFIX;
+            return storageListToString(prefix + " ");
+        }
+        
+        virtual std::string storageListToString(const std::string & prefix) const {
             std::string * result = new std::string("");
-            for_each_count([result, this](T * element, int val){
+            for_each_count([prefix, result, this](T * element, int val){
+                result->append(prefix);
                 result->append(getDescriptionString(element, val));
                 result->append("\n");
                 return true;
