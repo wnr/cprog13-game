@@ -20,3 +20,7 @@ void Ghost::kill() {
     Monster::kill();
     getEnvironment()->remove(this);
 }
+
+Ghost::Attack Ghost::attack(const Character * attacker, const Attack & attack) {
+    return Attack(0, "absorbed");
+}

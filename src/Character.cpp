@@ -3,10 +3,13 @@
 
 using namespace game;
 
+Character::Attack::Attack(unsigned int health) : Character::Attack::Attack(health, "") {}
+
+Character::Attack::Attack(unsigned int health, std::string description) : health(health), description(description) {}
+
 Character::Character(Environment * env, std::string name, unsigned int maxHealth) : Character(env, name, maxHealth, ENTITY_TYPE_CHARACTER) {}
 
-Character::Character(Environment * env, std::string name, unsigned int maxHealth, std::string type) : Entity(env, type), maxHealth(maxHealth), health(maxHealth), name(name) {
-}
+Character::Character(Environment * env, std::string name, unsigned int maxHealth, std::string type) : Entity(env, type), maxHealth(maxHealth), health(maxHealth), name(name) {}
 
 Character::Character(const Character & character) : Entity(character), maxHealth(character.maxHealth), health(character.health), name(character.name) {}
 
@@ -69,4 +72,12 @@ std::string Character::getDescription() const {
     }
     
     return name;
+}
+
+unsigned int Character::attack(const Character * attacker, unsigned int health) {
+    return attack(attacker, Character::Attack(health)).health;
+}
+
+Character::Attack Character::attack(const Character * attacker, unsigned int health, std::string description) {
+    return attack(attacker, Character::Attack(health, description));
 }

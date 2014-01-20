@@ -92,23 +92,23 @@ void Monster::interact(Character * other) {
         return;
     }
     
-    other->attack(5);
+    other->attack(this, Attack(5, "scratched"));
     
     if(other->isAlive()) {
         other->interact(this);
     }
 }
 
-unsigned int Monster::attack(unsigned int hp) {
+Monster::Attack Monster::attack(const Character * attacker, const Attack & attack) {
     static const unsigned int dodgeProb = 25;
     
-    unsigned int actual = hp;
+    Attack actual(attack.health);
     
     if(happen(dodgeProb)) {
-        actual = 0;
+        actual.health = 0;
     }
     
-    decHealth(actual);
+    decHealth(actual.health);
     
     return actual;
 }
