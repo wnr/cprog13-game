@@ -74,8 +74,8 @@ std::string Character::getDescription() const {
     return name;
 }
 
-unsigned int Character::attack(const Character * attacker, unsigned int health) {
-    return attack(attacker, Character::Attack(health)).health;
+Character::Attack Character::attack(const Character * attacker, unsigned int health) {
+    return attack(attacker, Character::Attack(health));
 }
 
 Character::Attack Character::attack(const Character * attacker, unsigned int health, std::string description) {

@@ -1,6 +1,5 @@
 #include "Monster.h"
 #include "Constants.h"
-#include "rand.h"
 #include "Environment.h"
 
 using namespace game;
@@ -87,28 +86,3 @@ void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
 }
 
-void Monster::interact(Character * other) {
-    if(!isAlive()) {
-        return;
-    }
-    
-    other->attack(this, Attack(5, "scratched"));
-    
-    if(other->isAlive()) {
-        other->interact(this);
-    }
-}
-
-Monster::Attack Monster::attack(const Character * attacker, const Attack & attack) {
-    static const unsigned int dodgeProb = 25;
-    
-    Attack actual(attack.health);
-    
-    if(happen(dodgeProb)) {
-        actual.health = 0;
-    }
-    
-    decHealth(actual.health);
-    
-    return actual;
-}

@@ -16,7 +16,7 @@ namespace game {
             unsigned int health;
             std::string description;
             
-            Attack(unsigned int health);
+            explicit Attack(unsigned int health);
             Attack(unsigned int health, std::string description);
         };
         
@@ -37,7 +37,7 @@ namespace game {
         virtual std::string getDescription() const;
         
         virtual void interact(Character * other) = 0;
-        unsigned int attack(const Character * attacker, unsigned int health);
+        Attack attack(const Character * attacker, unsigned int health);
         Attack attack(const Character * attacker, unsigned int health, std::string description);
         virtual Attack attack(const Character * attacker, const Attack & attack) = 0;
         

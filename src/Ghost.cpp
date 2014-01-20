@@ -21,6 +21,18 @@ void Ghost::kill() {
     getEnvironment()->remove(this);
 }
 
+void Ghost::interact(Character * other) {
+    if(!isAlive()) {
+        return;
+    }
+    
+    other->attack(this, Attack(50, "scared"));
+    
+    if(other->isAlive()) {
+        other->interact(this);
+    }
+}
+
 Ghost::Attack Ghost::attack(const Character * attacker, const Attack & attack) {
     return Attack(0, "absorbed");
 }
