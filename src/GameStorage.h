@@ -19,7 +19,7 @@ namespace game {
         GameStorage() {}
         virtual ~GameStorage() {}
         
-        virtual T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
+        virtual T * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
             T * result = NULL;
             
             
@@ -42,11 +42,25 @@ namespace game {
                 } else {
                     return true; //Continue searching
                 }
-            });
+            }, skips);
+            
             return result;
         }
         
+        T * find(std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return find("", searchString, skips, caseinsens);
+        }
         
+        
+        template<class E>
+        E * find(std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return (E*) find("", searchString, skips, caseinsens);
+        }
+        
+        template<class E>
+        E * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return (E*) find(mainType, searchString, skips, caseinsens);
+        }
         
         template<class E>
         E * random(const std::string & mainType, const std::vector<T*> skips = {}) const {
@@ -67,15 +81,6 @@ namespace game {
             auto picked = rand((unsigned int)candidates.size(), false);
             
             return (E*)candidates[picked];
-        }
-        
-        template<class E>
-        E * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
-            return (E*) find(mainType, searchString, caseinsens);
-        }
-        
-        T * find(std::string searchString, bool caseinsens = true) const {
-            return find("", searchString, caseinsens);
         }
         
         virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {
@@ -104,7 +109,7 @@ namespace game {
 
         }
         
-        void for_each_count(const std::function<bool(T *, int)> operation) const {
+        void for_each_count(const std::function<bool(T *, int)> operation, const std::vector<T*> & skips = {}) const {
             std::map<std::string, int> map;
             this->for_each([&operation, &map](T * element){
                 std::string objectName = element->getName();
@@ -115,7 +120,7 @@ namespace game {
                 }
                 map[objectName] = elementNameFoundAmount + 1;
                 return operation(element, elementNameFoundAmount);
-            });
+            }, skips);
         }
     };
 }

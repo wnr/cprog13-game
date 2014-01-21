@@ -257,29 +257,7 @@ void Player::initCommands() {
             return false;
         }
         
-        Environment * env = getEnvironment();
-
-        auto findTarget = [env](std::string target) -> Character * {
-            target = toLowerCase(target);
-            Character * found = NULL;
-            env->for_each([&found, target] (PhysicalObject * obj) {
-                if(obj->getSubType() == CHARACTER_TYPE_MONSTER) {
-                    Character * character = static_cast<Character*>(obj);
-                    std::string desc = character->getName();
-                    desc = toLowerCase(desc);
-                    if(desc == target) {
-                        found = character;
-                        return false;
-                    }
-                }
-        
-                return true;
-            });
-            
-            return found;
-        };
-        
-        auto character = findTarget(commands[1]);
+        Character * character = getEnvironment()->find<Character>(OBJECT_TYPE_CHARACTER, commands[1], {this});
         
         if(character == NULL) {
             std::cout << "There is no " + commands[1] << " in the area." << std::endl;
@@ -302,7 +280,6 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     std::string key = input[0];
     key = toLowerCase(key);
 
-    
     if(commands.count(key) == 0) {
         std::cout << "Invalid command '" + input[0] + "'." << std::endl;
         return false;
