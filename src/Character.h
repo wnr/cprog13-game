@@ -25,6 +25,7 @@ namespace game {
             Attack(unsigned int health, std::string description);
         };
         
+        //When a Character is constructed, it will add itself to the given environment.
         Character(Environment * env, std::string subType, unsigned int maxHealth);
         Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
         Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize);

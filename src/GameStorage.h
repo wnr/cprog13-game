@@ -46,6 +46,8 @@ namespace game {
             return result;
         }
         
+        
+        
         template<class E>
         E * random(const std::string & mainType, const std::vector<T*> skips = {}) const {
             std::vector<T*> candidates;
