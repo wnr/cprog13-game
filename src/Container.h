@@ -24,8 +24,7 @@ namespace game {
         unsigned int getMaxSize() const;
         virtual int getRemainingSpace() const;
         virtual int getTakenSpace() const;
-        virtual bool addItem(std::unique_ptr<Item> & item);
-        virtual std::unique_ptr<Item> removeItem(const Item * item);
+        virtual std::unique_ptr<Item> push_back(std::unique_ptr<Item> item);
         
         virtual void update();
         virtual std::string getDescription() const;

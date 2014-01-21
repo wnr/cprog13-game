@@ -3,6 +3,7 @@
 #include "Backpack.h"
 #include "Container.h"
 #include "Environment.h"
+#include "Food.h"
 
 using namespace game;
 
@@ -164,6 +165,15 @@ bool Character::startInteraction(Character * other) {
 
 void Character::endInteraction(Character * other) {
     interacting = false;
+}
+    
+bool Character::eatFood(Food * food) {
+    addHealth(food->getStrength());
+    if(inventory->remove(food) != nullptr) {
+        return true;
+    } else {
+        return true;
+    }
 }
 
 Character::Attack Character::attack(const Character * attacker, unsigned int health) {

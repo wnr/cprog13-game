@@ -23,7 +23,7 @@ namespace game {
         bool exist(const T * element) const {
             return index(element) != -1;
         }
-        
+    
         virtual std::unique_ptr<T> push_back(std::unique_ptr<T> element) {
             if(exist(element.get())) {
                 //This means there are two unique_ptr to the same object. Releaase this ptr and throw exception.

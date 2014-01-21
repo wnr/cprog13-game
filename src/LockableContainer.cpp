@@ -10,22 +10,6 @@ LockableContainer::LockableContainer(std::string subType, int maxSize, Key * mat
 
 LockableContainer::~LockableContainer() {}
 
-bool LockableContainer::addItem(std::unique_ptr<Item> & item) {
-    if(isLocked()) {
-        return false;
-    }
-    
-    return Container::addItem(item);
-}
-
-std::unique_ptr<Item> LockableContainer::removeItem(const Item * item) {
-    if(isLocked()) {
-        return nullptr;
-    }
-    
-    return Container::removeItem(item);
-}
-
 bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) const {
     if(isLocked()) {
         return false;
@@ -70,7 +54,7 @@ int LockableContainer::getTakenSpace() const {
     }
 }
 
-Item * LockableContainer::find(const std::string & mainType, std::string searchString, bool caseinsens) const {
+Item * LockableContainer::find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<Item*> & skips, bool caseinsens) const {
     if(isLocked()) {
         return NULL;
     } else {

@@ -7,6 +7,7 @@ namespace game {
     class Item;
     class Backpack;
     class Container;
+    class Food;
     
     class Character : public PhysicalObject {
         unsigned int health;
@@ -67,6 +68,8 @@ namespace game {
         Attack attack(const Character * attacker, unsigned int health);
         Attack attack(const Character * attacker, unsigned int health, std::string description);
         virtual Attack attack(const Character * attacker, const Attack & attack) = 0;
+
+        bool eatFood(Food * food);
         
     protected:
         void setHealth(unsigned int health);

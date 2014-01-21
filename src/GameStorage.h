@@ -19,16 +19,19 @@ namespace game {
         GameStorage() {}
         virtual ~GameStorage() {}
         
-        virtual T * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
-            T * result = NULL;
+        virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
             
+            T * result = NULL;
             
             if(caseinsens) {
                 searchString = toLowerCase(searchString);
             }
             
-            for_each_count([caseinsens, &result, searchString, mainType, this](T * element, int val) {
+            for_each_count([caseinsens, &result, searchString, mainType, subType, this](T * element, int val) {
                 if(mainType != "" && element->getMainType() != mainType) {
+                    return true; //Continue searching
+                }
+                if(subType != "" && element->getSubType() != subType) {
                     return true; //Continue searching
                 }
                 std::string matchString = getModName(element, val);
@@ -47,19 +50,22 @@ namespace game {
             return result;
         }
         
+        T * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return find(mainType, "", searchString, skips, caseinsens);
+        }
+        
         T * find(std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
             return find("", searchString, skips, caseinsens);
         }
         
-        
         template<class E>
-        E * find(std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
-            return (E*) find("", searchString, skips, caseinsens);
+        E * find(const std::string mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return (E*) find<E>(mainType, "", searchString, skips, caseinsens);
         }
         
         template<class E>
-        E * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
-            return (E*) find(mainType, searchString, skips, caseinsens);
+        E * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return (E*) find(mainType, subType, searchString, skips, caseinsens);
         }
         
         template<class E>

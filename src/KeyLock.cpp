@@ -28,7 +28,7 @@ bool KeyLock::unlock(Key * key, Container & container) {
             if(*key >= *matchingKey){
                 // The key is strong enough
                 if(willDestroyKey()){
-                    if(container.removeItem(key) == nullptr){
+                    if(container.remove(key) == nullptr){
                         throw std::runtime_error("Key should be removed from game but was not found in container.");
                     }
                 }
@@ -61,6 +61,9 @@ std::string KeyLock::getStatisticalDescription() const {
     if(isLocked()) {
         desc.append("\nLock type: " + matchingKey->getIdentifier());
         desc.append("\nLock level: " + unsignedValToString(matchingKey->getLevel()));
+        if(willDestroyKey()) {
+            desc.append("\nKey used to unlock will get destroyed!");
+        }
     }
     return desc;
 }

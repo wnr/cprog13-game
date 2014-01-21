@@ -17,6 +17,7 @@
 
 #define ITEM_TYPE_WEAPON                    "Weapon"
 #define ITEM_TYPE_KEY                       "Key"
+#define ITEM_TYPE_FOOD                      "Food"
 
 #define CONTAINER_TYPE_BACKPACK             "Backpack"
 #define CONTAINER_TYPE_CHEST                "Chest"
@@ -26,6 +27,9 @@
 
 #define WEAPON_CRIT_PROB                    2
 #define WEAPON_CRIT_MOD                     1.5
+
+#define FOOD_STRENGTH                       10
+#define FOOD_WEIGHT                         3
 
 #define LIST_ITEM_PREFIX                    "* "
 #define INPUT_WORD_DELIMETER                " "

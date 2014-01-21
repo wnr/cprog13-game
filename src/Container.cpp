@@ -14,18 +14,12 @@ Container::Container(Container && container) : PhysicalObject(container), maxSiz
 
 Container::~Container() {}
 
-bool Container::addItem(std::unique_ptr<Item> & item) {
+std::unique_ptr<Item> Container::push_back(std::unique_ptr<Item> item) {
     if(getRemainingSpace() < *item) {
-        return false;
+        return item;
     }
     
-    push_back(std::move(item));
-    
-    return true;
-}
-
-std::unique_ptr<Item> Container::removeItem(const Item * item) {
-    return remove(item);
+    return GameStorage<Item>::push_back(std::move(item));
 }
 
 int Container::getRemainingSpace() const {
@@ -68,4 +62,3 @@ std::string Container::getPersonalDescription() const {
 std::string Container::getStatisticalDescription() const {
     return "Taken space/Max space: (" + unsignedValToString(getTakenSpace()) + "/" + unsignedValToString(getMaxSize()) + ")";
 }
-

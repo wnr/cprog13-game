@@ -48,3 +48,7 @@ int Key::getLevel() const {
 std::string Key::getIdentifier() const {
     return identifier;
 }
+
+std::string Key::getPersonalDescription() const {
+    return "A " + getName() + ". You know... to unlock stuff.";
+}
