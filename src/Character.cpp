@@ -154,3 +154,7 @@ Character::Attack Character::attack(const Character * attacker, unsigned int hea
     return attack(attacker, Character::Attack(health, description));
 }
 
+std::string Character::getStatisticalDescription() const {
+    return 0;
+}
+

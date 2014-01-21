@@ -26,3 +26,11 @@ bool PhysicalObject::isCharacter() const {
 bool PhysicalObject::isItem() const {
     return getMainType() == OBJECT_TYPE_ITEM;
 }
+
+std::string PhysicalObject::getDescription() const {
+    return getPersonalDescription() + "\n" + TEXT_DIVIDER + "\n" + getStatisticalDescription();
+}
+
+std::string PhysicalObject::getPersonalDescription() const {
+    return getName() + ": ";
+}

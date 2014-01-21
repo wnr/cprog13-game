@@ -29,6 +29,10 @@ namespace game {
         
         virtual void update();
         virtual std::string getDescription() const;
+        
+    protected:
+        virtual std::string getPersonalDescription() const;
+        virtual std::string getStatisticalDescription() const;
     };
 }
 

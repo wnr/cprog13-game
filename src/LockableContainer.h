@@ -4,19 +4,19 @@
 #include <string>
 
 #include "Container.h"
-#include "KeyHandler.h"
+#include "KeyLock.h"
 #include "Key.h"
 
 namespace game {
     
     class Container;
     
-    class LockableContainer : public Container, public KeyHandler {
+    class LockableContainer : public Container, public KeyLock {
         
     public:
         LockableContainer(std::string subType, int maxSize);
-        LockableContainer(std::string subType, int maxSize, Key * keyLock);
-        LockableContainer(std::string subType, int maxSize, Key * keyLock, std::string name);
+        LockableContainer(std::string subType, int maxSize, Key * matchingKey);
+        LockableContainer(std::string subType, int maxSize, Key * matchingKey, std::string name);
         ~LockableContainer();
         
         bool addItem(std::unique_ptr<Item> & item);
@@ -26,11 +26,12 @@ namespace game {
         Item * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const;
         std::unique_ptr<Item> push_back(std::unique_ptr<Item> element);
         std::unique_ptr<Item> remove(const Item * element);
-        std::string storageListToString() const;
+        virtual std::string getStorageListAsString(const std::vector<const Item*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const;
         int getRemainingSpace() const;
         int getTakenSpace() const;
         
-        std::string getDescription() const;
+    protected:
+        virtual std::string getStatisticalDescription() const;
     };
 }
 

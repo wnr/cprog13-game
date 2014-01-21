@@ -43,7 +43,7 @@ void Player::printUpdateInfo() const {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
     
-        std::cout << env->storageListToString("", (PhysicalObject*)this);
+        std::cout << env->getStorageListAsString({(PhysicalObject*)this});
     }
 }
 
@@ -55,7 +55,6 @@ void Player::initCommands() {
         } else if(commands.size() == 2) {
             if(isCommandInventory(commands[1])) {
                 std::cout << getInventory()->getDescription() << std::endl;
-                std::cout << getInventory()->storageListToString();
                 return false;
             }
             PhysicalObject * physicalObject = env->find(commands[1]);
@@ -63,9 +62,6 @@ void Player::initCommands() {
                 std::cout << "Found no item named: " << commands[1] << std::endl;
             } else {
                 std::cout << physicalObject->getDescription() << std::endl;
-                if(physicalObject->isContainer()) {
-                    std::cout << ((Container*) physicalObject)->storageListToString();
-                }
             }
         } else if(commands.size() == 3) {
             Item * item = NULL;
@@ -128,7 +124,6 @@ void Player::initCommands() {
     commands["inventory"] = [this](const std::vector<std::string> &) -> bool {
         Backpack * inv = getInventory();
         std::cout << inv->getDescription() << std::endl;
-        std::cout << inv->storageListToString();
         return false;
     };
     commands["backpack"] = commands["inventory"];
@@ -249,13 +244,9 @@ void Player::initCommands() {
         }
         
         int takenSpace = container->getTakenSpace();
-        std::string takenSpaceText = std::to_string(takenSpace);
-        if(takenSpace == -1){
-            takenSpaceText = "UNKNOWN";
-        }
+        std::string takenSpaceText = unsignedValToString(takenSpace);
         
         std::cout << container->getDescription() << std::endl;
-        std::cout << container->storageListToString();
         
         return false;
     };
