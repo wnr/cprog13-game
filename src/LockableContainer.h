@@ -23,7 +23,7 @@ namespace game {
         std::unique_ptr<Item> removeItem(const Item * item);
         bool for_each(std::function<bool (Item * item)> & operation) const;
         
-        Item * find(const std::string & mainType, const std::string & subType, std::string searchString, bool caseinsens = true) const;
+        Item * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<Item*> & skips = {}, bool caseinsens = true) const;
         std::unique_ptr<Item> push_back(std::unique_ptr<Item> element);
         std::unique_ptr<Item> remove(const Item * element);
         virtual std::string getStorageListAsString(const std::vector<const Item*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const;
