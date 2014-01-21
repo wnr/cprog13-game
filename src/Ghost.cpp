@@ -37,3 +37,7 @@ void Ghost::interact(Character * other) {
 Ghost::Attack Ghost::attack(const Character * attacker, const Attack & attack) {
     return Attack(0, "absorbed");
 }
+
+std::string Ghost::getPersonalDescription() const {
+    return "It looks like a " + getName() + ". You don't believe in ghosts do ya?";
+}

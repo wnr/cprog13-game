@@ -140,10 +140,6 @@ void Character::decHealth(unsigned int health) {
     addHealth(-health);
 }
 
-std::string Character::getDescription() const {
-    return getName();
-}
-
 Character::Attack Character::attack(const Character * attacker, unsigned int health) {
     return attack(attacker, Character::Attack(health));
 }
@@ -152,7 +148,12 @@ Character::Attack Character::attack(const Character * attacker, unsigned int hea
     return attack(attacker, Character::Attack(health, description));
 }
 
+std::string Character::getPersonalDescription() const {
+    return PhysicalObject::getPersonalDescription() + "A character of type " + getSubType();
+}
+
 std::string Character::getStatisticalDescription() const {
-    return 0;
+    std::string desc = "Health: " + unsignedValToString(getHealth()) + "/" + unsignedValToString(getMaxHealth());
+    return desc;
 }
 

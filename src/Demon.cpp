@@ -44,3 +44,7 @@ Demon::Attack Demon::attack(const Character * attacker, const Attack & attack) {
     
     return actual;
 }
+
+std::string Demon::getPersonalDescription() const {
+    return "A powerful " + getName() + " from the world below. Gear up!";
+}

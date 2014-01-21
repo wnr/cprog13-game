@@ -64,3 +64,7 @@ Troll::Attack Troll::attack(const Character * attacker, const Attack & attack) {
     
     return actual;
 }
+
+std::string Troll::getPersonalDescription() const {
+    return "A ugly " + getName() + " who does not fancy your good looks. Watch out!";
+}
