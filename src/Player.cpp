@@ -304,6 +304,7 @@ bool Player::performCommand(const std::vector<std::string> & input) {
 
     
     if(commands.count(key) == 0) {
+        std::cout << "Invalid command '" + input[0] + "'." << std::endl;
         return false;
     }
     
