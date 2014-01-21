@@ -1,5 +1,6 @@
 #include "Container.h"
 #include "Item.h"
+#include "Constants.h"
 
 using namespace game;
 
@@ -57,6 +58,14 @@ void Container::update() {
 }
 
 std::string Container::getDescription() const {
-    return getName() + ": " + "(" + unsignedValToString(getTakenSpace()) + "/" + unsignedValToString(getMaxSize()) + ")";
-
+    return getPersonalDescription() + "\n" + getStatisticalDescription() + "\n" + TEXT_DIVIDER + "\n" + getStorageListAsString();
 }
+
+std::string Container::getPersonalDescription() const {
+    return PhysicalObject::getPersonalDescription() + "Items can be stored here.";
+}
+
+std::string Container::getStatisticalDescription() const {
+    return "Taken space/Max space: (" + unsignedValToString(getTakenSpace()) + "/" + unsignedValToString(getMaxSize()) + ")";
+}
+

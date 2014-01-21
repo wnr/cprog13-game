@@ -20,6 +20,9 @@ namespace game {
         Key(Key && key);
         virtual ~Key();
         
+        int getLevel() const;
+        std::string getIdentifier() const;
+        
         bool operator==(const Key & key) const;
         bool operator>=(const Key & key) const;
         bool operator>(const Key & key) const;

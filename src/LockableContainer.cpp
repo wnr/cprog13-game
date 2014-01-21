@@ -4,9 +4,9 @@ using namespace game;
 
 LockableContainer::LockableContainer(std::string subType, int maxSize) : LockableContainer(subType, maxSize, nullptr) {}
 
-LockableContainer::LockableContainer(std::string subType, int maxSize, Key * keyLock) : LockableContainer(subType, maxSize, keyLock, subType) {}
+LockableContainer::LockableContainer(std::string subType, int maxSize, Key * matchingKey) : LockableContainer(subType, maxSize, matchingKey, subType) {}
 
-LockableContainer::LockableContainer(std::string subType, int maxSize, Key * keyLock, std::string name) : Container(subType, maxSize, name), KeyHandler(keyLock) {}
+LockableContainer::LockableContainer(std::string subType, int maxSize, Key * matchingKey, std::string name) : Container(subType, maxSize, name), KeyLock(matchingKey) {}
 
 LockableContainer::~LockableContainer() {}
 
@@ -36,11 +36,11 @@ bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) 
     return true;
 }
 
-std::string LockableContainer::storageListToString() const {
+std::string LockableContainer::getStorageListAsString(const std::vector<const Item*> skips, const std::string & itemPrefix) const {
     if(isLocked()) {
-        return "LOCKED";
+        return INFORMATION_UNKNOWN;
     } else {
-        return Container::storageListToString();
+        return Container::getStorageListAsString(skips, itemPrefix);
     }
 }
 
@@ -84,10 +84,6 @@ std::unique_ptr<Item> LockableContainer::remove(const Item * element) {
     }
 }
 
-std::string LockableContainer::getDescription() const {
-    std::string desc = Container::getDescription();
-    if(isLocked()) {
-        desc += "\nLOCKED";
-    }
-    return desc;
+std::string LockableContainer::getStatisticalDescription() const {
+    return Container::getStatisticalDescription() + "\n" + KeyLock::getStatisticalDescription();
 }

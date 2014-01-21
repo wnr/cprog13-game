@@ -17,7 +17,7 @@ unsigned int Item::getVolume() const {
 }
 
 std::string Item::getDescription() const {
-    return getSubType();
+    return getName() + ": A  ;";
 }
 
 void Item::update() {
@@ -34,4 +34,4 @@ int operator+(const Item & item1, const Item & item2) {
 
 bool operator<(int value, const game::Item & item) {
     return value < item.getVolume();
-};
+}

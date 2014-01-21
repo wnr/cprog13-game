@@ -53,32 +53,9 @@ namespace game {
         T * find(std::string searchString, bool caseinsens = true) const {
             return find("", searchString, caseinsens);
         }
-
-        virtual std::string storageListToString(const T * skip) const {
-            std::vector<const T*> skips({skip});
-            return storageListToString(skips);
-        }
         
-        virtual std::string storageListToString(const std::string listPrefix, const T * skip) const {
-            std::vector<const T*> skips({skip});
-            return storageListToString(listPrefix, skips);
-        }
-        
-        virtual std::string storageListToString(const std::vector<const T*> skips = {}) const {
-            return storageListToString(TEXT_DIVIDER, skips);
-        }
-        
-        virtual std::string storageListToString(const std::string listPrefix, const std::vector<const T*> skips = {}) const {
-            return storageListToString(listPrefix, LIST_ITEM_PREFIX, skips);
-        }
-        
-        virtual std::string storageListToString(const std::string & listPrefix, const std::string & itemPrefix, const std::vector<const T*> skips = {}) const {
-            std::string * result;
-            if(listPrefix == "") {
-                result = new std::string("");
-            } else {
-                result = new std::string(listPrefix + "\n");
-            }
+        virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {
+            std::string * result = new std::string("");
             for_each_count([itemPrefix, result, this, &skips](T * element, int val){
                 if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
                     //Found in skips list. So skip element.

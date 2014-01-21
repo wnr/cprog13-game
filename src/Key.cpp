@@ -40,3 +40,11 @@ bool Key::operator<(const Key & key) const {
 bool Key::differenceOperator(const Key & key, const std::function<bool(int, int)> & operation) const {
     return operation(level, key.level);
 }
+
+int Key::getLevel() const {
+    return level;
+}
+
+std::string Key::getIdentifier() const {
+    return identifier;
+}

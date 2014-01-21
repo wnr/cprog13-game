@@ -4,11 +4,12 @@
 //Helper methods for dealing with any general problems regarding the game
 
 #include <string>
+#include "Constants.h"
 
 namespace game {
     inline std::string unsignedValToString(int val) {
         if(val == -1) {
-            return "UNKNOWN";
+            return INFORMATION_UNKNOWN;
         }
         
         return std::to_string(val);

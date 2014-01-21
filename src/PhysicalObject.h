@@ -26,6 +26,13 @@ namespace game {
         bool isContainer() const;
         bool isEntity() const;
         bool isItem() const;
+        
+        virtual std::string getDescription() const;
+        
+    protected:
+        virtual std::string getPersonalDescription() const;
+        virtual std::string getStatisticalDescription() const;
+        
     };
 }
 
