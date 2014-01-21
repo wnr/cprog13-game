@@ -24,7 +24,7 @@ namespace game {
             return index(element) != -1;
         }
         
-        virtual std::unique_ptr<T> push_back(T * element) {
+        virtual std::unique_ptr<T> push_back(T * element) { //TODO Is this really good? Seems open for bugs
             return push_back(std::unique_ptr<T>(element));
         }
         

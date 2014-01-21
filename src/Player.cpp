@@ -4,6 +4,7 @@
 #include "Backpack.h"
 #include "KeyLock.h"
 #include "Container.h"
+#include "Food.h"
 
 #include "Constants.h"
 #include "rand.h"
@@ -327,6 +328,30 @@ void Player::initCommands() {
             return true;
         } else {
             std::cout << "You can't unlock: " << lockName << containerString << " using key: " << keyName << std::endl;
+            return false;
+        }
+    };
+    
+    commands["eat"] = [this](const std::vector<std::string> & commands) -> bool {
+        if(commands.size() != 2) {
+            std::cout << "Invalid command syntax. Usage: eat FOOD" << std::endl;
+            return false;
+        }
+        
+        Food * food = getInventory()->find<Food>(OBJECT_TYPE_ITEM, ITEM_TYPE_FOOD, commands[1]);
+        if(food == NULL) {
+            std::cout << "Found no food named: " << commands[1]  << " in your inventory."<< std::endl;
+            return false;
+        }
+        
+        std::string foodName = food->getName();
+        unsigned int before = getHealth();
+        if(eatFood(food)) {
+            unsigned int change = getHealth() - before;
+            std::cout << "You ate some " << foodName  << " and gained " << change << " HP" << std::endl;
+            return true;
+        } else {
+            std::cout << "You are unable to eat " << foodName << std::endl;
             return false;
         }
     };

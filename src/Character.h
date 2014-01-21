@@ -7,6 +7,7 @@ namespace game {
     class Item;
     class Backpack;
     class Container;
+    class Food;
     
     class Character : public PhysicalObject {
         unsigned int health;
@@ -49,6 +50,8 @@ namespace game {
         
         unsigned int getMaxHealth() const;
         unsigned int getHealth() const;
+        
+        bool eatFood(Food * food);
         
         bool isAlive() const;
         virtual void kill();

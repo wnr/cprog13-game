@@ -28,7 +28,7 @@ bool KeyLock::unlock(Key * key, Container & container) {
             if(*key >= *matchingKey){
                 // The key is strong enough
                 if(willDestroyKey()){
-                    if(container.removeItem(key) == nullptr){
+                    if(container.remove(key) == nullptr){
                         throw std::runtime_error("Key should be removed from game but was not found in container.");
                     }
                 }

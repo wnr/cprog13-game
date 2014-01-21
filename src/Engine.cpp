@@ -9,6 +9,7 @@
 #include "Backpack.h"
 #include "Graveyard.h"
 #include "Demon.h"
+#include "Food.h"
 
 #include "Constants.h"
 
@@ -49,6 +50,7 @@ void Engine::initEnvironments() {
     
     home->setNeightbor("Outside", outside);
     new Troll(home);
+    home->push_back(std::unique_ptr<PhysicalObject>(new Food("Pie")));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,2)));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
     std::unique_ptr<Key>  key(new Key());

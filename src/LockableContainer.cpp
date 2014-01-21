@@ -10,22 +10,6 @@ LockableContainer::LockableContainer(std::string subType, int maxSize, Key * mat
 
 LockableContainer::~LockableContainer() {}
 
-bool LockableContainer::addItem(std::unique_ptr<Item> & item) {
-    if(isLocked()) {
-        return false;
-    }
-    
-    return Container::addItem(item);
-}
-
-std::unique_ptr<Item> LockableContainer::removeItem(const Item * item) {
-    if(isLocked()) {
-        return nullptr;
-    }
-    
-    return Container::removeItem(item);
-}
-
 bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) const {
     if(isLocked()) {
         return false;
