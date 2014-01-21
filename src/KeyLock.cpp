@@ -61,6 +61,9 @@ std::string KeyLock::getStatisticalDescription() const {
     if(isLocked()) {
         desc.append("\nLock type: " + matchingKey->getIdentifier());
         desc.append("\nLock level: " + unsignedValToString(matchingKey->getLevel()));
+        if(willDestroyKey()) {
+            desc.append("\nKey used to unlock will get destroyed!");
+        }
     }
     return desc;
 }

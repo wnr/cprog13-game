@@ -70,7 +70,7 @@ int LockableContainer::getTakenSpace() const {
     }
 }
 
-Item * LockableContainer::find(const std::string & mainType, std::string searchString, bool caseinsens) const {
+Item * LockableContainer::find(const std::string & mainType, const std::string & subType, std::string searchString, bool caseinsens) const {
     if(isLocked()) {
         return NULL;
     } else {

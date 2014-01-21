@@ -19,17 +19,19 @@ namespace game {
         GameStorage() {}
         virtual ~GameStorage() {}
         
-        virtual T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
+        virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, bool caseinsens = true) const {
             T * result = NULL;
-            
             
             if(caseinsens) {
                 searchString = toLowerCase(searchString);
             }
             
-            for_each_count([caseinsens, &result, searchString, mainType, this](T * element, int val) {
+            for_each_count([caseinsens, &result, searchString, mainType, subType, this](T * element, int val) {
                 if(mainType != "" && element->getMainType() != mainType) {
                     return true; //Continue searching
+                }
+                if(subType != "" && element->getSubType() != subType) {
+                    return true;
                 }
                 std::string matchString = getModName(element, val);
                 if(caseinsens) {
@@ -46,32 +48,18 @@ namespace game {
             return result;
         }
         
-        
-        
         template<class E>
-        E * random(const std::string & mainType, const std::vector<T*> skips = {}) const {
-            std::vector<T*> candidates;
-            
-            this->for_each([&candidates, &mainType](T * element){
-                if(element->getMainType() == mainType) {
-                    candidates.push_back(element);
-                }
-                
-                return true;
-            }, skips);
-            
-            if(candidates.empty()) {
-                return NULL;
-            }
-            
-            auto picked = rand((unsigned int)candidates.size(), false);
-            
-            return (E*)candidates[picked];
+        E * find(const std::string & mainType, const std::string & subType, std::string searchString, bool caseinsens = true) const {
+            return (E*) find(mainType, subType, searchString, caseinsens);
         }
         
         template<class E>
         E * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
-            return (E*) find(mainType, searchString, caseinsens);
+            return (E*) find<E>(mainType, "", searchString, caseinsens);
+        }
+        
+        T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
+            return find(mainType,"", searchString, caseinsens);
         }
         
         T * find(std::string searchString, bool caseinsens = true) const {
@@ -92,6 +80,27 @@ namespace game {
                 return true;
             });
             return *result;
+        }
+        
+        template<class E>
+        E * random(const std::string & mainType, const std::vector<T*> skips = {}) const {
+            std::vector<T*> candidates;
+            
+            this->for_each([&candidates, &mainType](T * element){
+                if(element->getMainType() == mainType) {
+                    candidates.push_back(element);
+                }
+                
+                return true;
+            }, skips);
+            
+            if(candidates.empty()) {
+                return NULL;
+            }
+            
+            auto picked = rand((unsigned int)candidates.size(), false);
+            
+            return (E*)candidates[picked];
         }
         
     private:

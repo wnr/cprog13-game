@@ -29,6 +29,9 @@ namespace game {
         bool operator<=(const Key & key) const;
         bool operator<(const Key & ket) const;
 
+    protected:
+        virtual std::string getPersonalDescription() const;
+        
     private:
         bool differenceOperator(const Key & key, const std::function<bool(int, int)> & operation) const;
     };

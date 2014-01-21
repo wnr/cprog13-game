@@ -2,6 +2,8 @@
 #include "Environment.h"
 #include "Engine.h"
 #include "Backpack.h"
+#include "KeyLock.h"
+#include "Container.h"
 
 #include "Constants.h"
 #include "rand.h"
@@ -292,6 +294,65 @@ void Player::initCommands() {
         
         return true;
     };
+    
+    commands["unlock"] = [this](const std::vector<std::string> & commands) -> bool {
+        Environment * env = getEnvironment();
+        Backpack * inv = getInventory();
+        if(commands.size() < 3 || commands.size() > 4) {
+            std::cout << "Invalid command syntax. Usage: unlock [CONTAINER] LOCKED_OBJECT KEY" << std::endl;
+            return false;
+        }
+        KeyLock * lock = NULL;
+        std::string containerString;
+        std::string lockString;
+        std::string keyString;
+        if(commands.size() == 4) {
+            lockString = commands[2];
+            keyString = commands[3];
+            Container * con;
+            if(isCommandInventory(commands[1])) {
+                con = inv;
+            } else {
+                con = env->find<Container>(OBJECT_TYPE_CONTAINER, commands[1]);
+            }
+            if(con == NULL) {
+                std::cout << "Found no container named: " << commands[1] << std::endl;
+                return false;
+            }
+            lock = dynamic_cast<KeyLock *>(con->find(commands[1]));
+            
+            containerString = " in container named: " + con->getName();
+
+        } else if(commands.size() == 3) {
+            containerString = "";
+            lockString = commands[1];
+            keyString = commands[2];
+            lock = dynamic_cast<KeyLock *>(env->find(commands[1]));
+        }
+        if(lock == NULL) {
+            std::cout << "Found no lockable object named: " << lockString << containerString << std::endl;
+        return false;
+        }
+        Key * key = inv->find<Key>(OBJECT_TYPE_ITEM, ITEM_TYPE_KEY, keyString);
+        if(key == NULL) {
+            std::cout << "Found no key named: " << keyString  << " in your inventory."<< std::endl;
+            return false;
+        }
+        std::string keyName = key->getName();
+        PhysicalObject * test = dynamic_cast<PhysicalObject*>(lock); // Needed because not strictly
+        if(test == nullptr) {
+            throw std::runtime_error("The lockable item was not a PhysicalObject. Should not be possible.");
+        }
+        std::string lockName = test->getName();
+        if(lock->unlock(key, *inv)) {
+            std::cout << "You unlocked: " << lockName << containerString << " using key: " << keyName << std::endl;
+            return true;
+        } else {
+            std::cout << "You can't unlock: " << lockName << containerString << " using key: " << keyName << std::endl;
+            return false;
+        }
+    };
+    
 }
 
 bool Player::performCommand(const std::vector<std::string> & input) {
