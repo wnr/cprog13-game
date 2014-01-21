@@ -30,6 +30,8 @@ namespace game {
         int getRemainingSpace() const;
         int getTakenSpace() const;
         
+        virtual std::string getDescription() const;
+        
     protected:
         virtual std::string getStatisticalDescription() const;
     };
