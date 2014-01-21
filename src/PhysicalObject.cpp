@@ -19,8 +19,8 @@ bool PhysicalObject::isContainer() const {
     return getMainType() == OBJECT_TYPE_CONTAINER;
 }
 
-bool PhysicalObject::isEntity() const {
-    return getMainType() == OBJECT_TYPE_ENTITY;
+bool PhysicalObject::isCharacter() const {
+    return getMainType() == OBJECT_TYPE_CHARACTER;
 }
 
 bool PhysicalObject::isItem() const {

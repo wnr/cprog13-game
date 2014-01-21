@@ -1,11 +1,16 @@
 #include "Demon.h"
 #include "rand.h"
+#include "Constants.h" 
 
 using namespace game;
 
-Demon::Demon(Environment * env) : Demon(env, "Demon", 5000) {}
-Demon::Demon(Environment * env, std::string name, unsigned int maxHealth) : Demon(env, name, maxHealth, 0.0f, 0.0f) {}
-Demon::Demon(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb) : Monster(env, name, maxHealth, moveProb, attackProb) {}
+Demon::Demon(Environment * env) : Demon(env, CHARACTER_TYPE_DEMON, DEMON_HEALTH) {}
+Demon::Demon(Environment * env, std::string subType, unsigned int maxHealth) : Demon(env, subType, maxHealth, subType) {}
+Demon::Demon(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Demon(env, subType, maxHealth, name, DEMON_MOVE_PROB, DEMON_ATTACK_PROB) {}
+Demon::Demon(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Monster(env, subType, maxHealth, name, moveProb, attackProb) {}
+
+Demon::Demon(const Demon & demon)   : Monster(demon) {}
+Demon::Demon(Demon && demon)        : Monster(demon) {}
 
 Demon::~Demon() {}
 

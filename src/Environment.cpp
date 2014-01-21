@@ -2,7 +2,7 @@
 
 #include "Constants.h"
 #include "PhysicalObject.h"
-#include "Entity.h"
+#include "Character.h"
 
 using namespace game;
 

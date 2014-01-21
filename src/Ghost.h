@@ -9,8 +9,9 @@ namespace game {
     class Ghost : public Monster {
     public:
         Ghost(Environment * env);
-        Ghost(Environment * env, std::string name, unsigned int maxHealth);
-        Ghost(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb);
+        Ghost(Environment * env, std::string subType, unsigned int maxHealth);
+        Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
+        Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb);
         Ghost(const Ghost & ghost);
         Ghost(Ghost && ghost);
         virtual ~Ghost();

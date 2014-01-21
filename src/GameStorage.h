@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "BaseObject.h"
 #include "Constants.h"
+#include "rand.h"
 #include <map>
 #include <vector>
 
@@ -43,6 +44,27 @@ namespace game {
                 }
             });
             return result;
+        }
+        
+        template<class E>
+        E * random(const std::string & mainType, const std::vector<T*> skips = {}) const {
+            std::vector<T*> candidates;
+            
+            this->for_each([&candidates, &mainType](T * element){
+                if(element->getMainType() == mainType) {
+                    candidates.push_back(element);
+                }
+                
+                return true;
+            }, skips);
+            
+            if(candidates.empty()) {
+                return NULL;
+            }
+            
+            auto picked = rand((unsigned int)candidates.size(), false);
+            
+            return (E*)candidates[picked];
         }
         
         template<class E>

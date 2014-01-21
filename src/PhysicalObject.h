@@ -1,7 +1,7 @@
 #ifndef __cprog13_game__PhysicalObject__
 #define __cprog13_game__PhysicalObject__
 
-//An Object can be anything that can exist in an Environment, either directly or indirectly (objects carried by some Entity).
+//An Object can be anything that can exist in an Environment, either directly or indirectly (objects carried by some Character).
 
 #include <string>
 
@@ -24,7 +24,7 @@ namespace game {
         virtual ~PhysicalObject();
         
         bool isContainer() const;
-        bool isEntity() const;
+        bool isCharacter() const;
         bool isItem() const;
         
         virtual std::string getDescription() const;

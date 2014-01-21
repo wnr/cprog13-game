@@ -10,13 +10,12 @@
 
 using namespace game;
 
-Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Character(env, name, maxHealth, ENTITY_TYPE_PLAYER) {
+Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Character(env, CHARACTER_TYPE_PLAYER, maxHealth, name) {
     initCommands();
 }
 
-Player::Player(const Player & player) : Character(player), commands(player.commands) {}
-
-Player::Player(Player && player) : Character(player), commands(player.commands) {}
+Player::Player(const Player & player)   : Character(player), commands(player.commands) {}
+Player::Player(Player && player)        : Character(player), commands(player.commands) {}
 
 Player::~Player() {}
 
@@ -264,13 +263,12 @@ void Player::initCommands() {
             target = toLowerCase(target);
             Character * found = NULL;
             env->for_each([&found, target] (PhysicalObject * obj) {
-                if(obj->getSubType() == ENTITY_TYPE_MONSTER) {
-                    Character * entity = static_cast<Character*>(obj);
-                    std::string desc = entity->getName();
+                if(obj->getSubType() == CHARACTER_TYPE_MONSTER) {
+                    Character * character = static_cast<Character*>(obj);
+                    std::string desc = character->getName();
                     desc = toLowerCase(desc);
-                    
                     if(desc == target) {
-                        found = entity;
+                        found = character;
                         return false;
                     }
                 }
@@ -281,16 +279,16 @@ void Player::initCommands() {
             return found;
         };
         
-        auto entity = findTarget(commands[1]);
+        auto character = findTarget(commands[1]);
         
-        if(entity == NULL) {
+        if(character == NULL) {
             std::cout << "There is no " + commands[1] << " in the area." << std::endl;
             return false;
         }
         
-        std::cout << std::endl << "You are initiating a fight with " << entity->getName() << "!" << std::endl;
+        std::cout << std::endl << "You are initiating a fight with " << character->getName() << "!" << std::endl;
         
-        interact(entity);
+        interact(character);
         
         return true;
     };

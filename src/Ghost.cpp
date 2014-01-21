@@ -4,15 +4,13 @@
 
 using namespace game;
 
-Ghost::Ghost(Environment * env) : Ghost(env, GHOST_NAME, GHOST_HEALTH, GHOST_MOVE_PROB, GHOST_ATTACK_PROB) {}
+Ghost::Ghost(Environment * env) : Ghost(env, CHARACTER_TYPE_GHOST, GHOST_HEALTH) {}
+Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth) : Ghost(env, subType, maxHealth, subType) {}
+Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Ghost(env, subType, maxHealth, name, GHOST_MOVE_PROB, GHOST_ATTACK_PROB) {}
+Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Monster(env, subType, maxHealth, name, moveProb, attackProb) {}
 
-Ghost::Ghost(Environment * env, std::string name, unsigned int maxHealth) : Ghost(env, name, maxHealth, GHOST_MOVE_PROB, GHOST_ATTACK_PROB) {}
-
-Ghost::Ghost(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb) : Monster(env, name, maxHealth, moveProb, attackProb) {}
-
-Ghost::Ghost(const Ghost & ghost) : Monster(ghost) {}
-
-Ghost::Ghost(Ghost && ghost) : Monster(ghost) {}
+Ghost::Ghost(const Ghost & ghost)   : Monster(ghost) {}
+Ghost::Ghost(Ghost && ghost)        : Monster(ghost) {}
 
 Ghost::~Ghost() {}
 

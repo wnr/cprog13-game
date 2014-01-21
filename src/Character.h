@@ -1,15 +1,21 @@
 #ifndef __cprog13_game__Character__
 #define __cprog13_game__Character__
 
-#include "Entity.h"
+#include "PhysicalObject.h"
 
 namespace game {
-    class Entity;
     class Item;
+    class Backpack;
+    class Container;
     
-    class Character : public Entity {
+    class Character : public PhysicalObject {
         unsigned int health;
         const unsigned int maxHealth;
+        bool alive;
+        Environment * env;
+        Backpack * inventory;
+        unsigned int rottenness;
+        
     public:
         struct Attack {
             unsigned int health;
@@ -19,17 +25,36 @@ namespace game {
             Attack(unsigned int health, std::string description);
         };
         
-        Character(Environment * env, std::string name, unsigned int maxHealth);
-        Character(Environment * env, std::string name, unsigned int maxHealth, std::string subType);
+        Character(Environment * env, std::string subType, unsigned int maxHealth);
+        Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
+        Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize);
         Character(const Character & character);
         Character(Character && character);
         virtual ~Character();
         
-        unsigned int getMaxHealth() const;
+        Environment * getEnvironment() const;
+        Backpack * getInventory() const;
         
+        std::string getName() const;
+        
+        bool move(Environment * from, Environment * to);
+        bool move(const std::string & direction);
+        
+        void dropInventory();
+        bool pickItem(const Item * item);
+        bool pickItem(const Item * item, Container * con);
+        bool dropItem(const Item * item);
+        bool putItem(const Item * item, Container * con);
+        
+        unsigned int getMaxHealth() const;
         unsigned int getHealth() const;
         
+        bool isAlive() const;
         virtual void kill();
+        
+        unsigned int getRottenness() const;
+        
+        virtual void update();
         
         virtual std::string getDescription() const;
         

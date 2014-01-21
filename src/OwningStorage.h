@@ -54,7 +54,7 @@ namespace game {
         }
         
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
-        virtual void for_each(const std::function<bool(T * element)> & operation) const {
+        virtual void for_each(const std::function<bool(T * element)> & operation, const std::vector<T*> skips = {}) const {
             std::list<T *> processed;
             
             //Finds the last element of the processed list in the data list, and returns an iterator to the next element.
@@ -87,11 +87,15 @@ namespace game {
                 
                 T * element = (*it).get();
                 
-                //Store the element in the processed list.
+                //Store the element in the processed list. Doesn't matter if skipped or not.
                 processed.push_back(element);
                 
-                if(operation(element) == false) {
-                    break;
+                if(std::find(skips.begin(), skips.end(), element) == skips.end()) {
+                    //Element not found in skips list. So process element.
+                    
+                    if(operation(element) == false) {
+                        break;
+                    }
                 }
                 
                 //Sanity check for the iterator.
