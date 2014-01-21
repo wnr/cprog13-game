@@ -28,8 +28,11 @@ void Troll::update() {
         
         Character * target = getEnvironment()->random<Character>("Character", {this});
         
-        if(target != NULL) {
+        if(target != NULL && target->startInteraction(this)) {
+            startInteraction(target);
             interact(target);
+            target->endInteraction(this);
+            endInteraction(target);
             tickConsumed = true;
         }
     }

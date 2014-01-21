@@ -18,7 +18,10 @@ namespace game {
         
         void update(Environment & env);
         
+        bool startInteraction(Character * other);
+        void endInteraction(Character * other);
         void interact(Character * other);
+        
         Attack attack(const Character * attacker, const Attack & attack);
         
         void kill();

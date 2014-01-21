@@ -264,9 +264,18 @@ void Player::initCommands() {
             return false;
         }
         
+        if(!character->startInteraction(this)) {
+            std::cout << "The " << character->getName() << " busy fighting already." << std::endl;
+            return false;
+        }
+        
         std::cout << std::endl << "You are initiating a fight with " << character->getName() << "!" << std::endl;
         
         interact(character);
+        
+        character->endInteraction(this);
+        endInteraction(character);
+        
         
         return true;
     };
@@ -290,7 +299,23 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     return command(input);
 }
 
-void Player::interact(game::Character * other) {
+bool Player::startInteraction(Character * other) {
+    auto res = Character::startInteraction(other);
+
+    if(res) {
+        std::cout << std::endl << "You are being attacked by " << other->getName() << "!" << std::endl;
+    }
+    
+    return res;
+}
+
+void Player::endInteraction(Character * other) {
+    Character::endInteraction(other);
+    //TODO: Want this?
+    //std::cout << other->getName() + " leaves the fight." << std::endl;
+}
+
+void Player::interact(Character * other) {
     if(!isAlive()) {
         return;
     }

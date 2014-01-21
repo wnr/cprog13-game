@@ -11,13 +11,14 @@ Character::Attack::Attack(unsigned int health, std::string description) : health
 
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth) : Character(env, subType, maxHealth, subType) {}
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Character(env, subType, maxHealth, name, CHARACTER_INVENTORY_SIZE) {}
-Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), rottenness(0), maxHealth(maxHealth), health(maxHealth) {
+Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false) {
     setTickSync(env->getTickSync());
-    env->push_back(this);
+    env->push_back(std::unique_ptr<PhysicalObject>(this));
 }
 
-Character::Character(const Character & character)   : PhysicalObject(character), alive(character.alive), env(character.env), inventory(character.inventory), rottenness(character.rottenness), maxHealth(character.maxHealth), health(character.health) {}
-Character::Character(Character && character)        : PhysicalObject(character), alive(character.alive), env(character.env), inventory(character.inventory), rottenness(character.rottenness), maxHealth(character.maxHealth), health(character.health) {}
+//TODO: When characters are copied, shouldn't they add themselves to the env again since we now have 2 characters?
+Character::Character(const Character & character)   : PhysicalObject(character), alive(character.alive), env(character.env), inventory(character.inventory), rottenness(character.rottenness), maxHealth(character.maxHealth), health(character.health), interacting(character.interacting) {}
+Character::Character(Character && character)        : PhysicalObject(character), alive(character.alive), env(character.env), inventory(character.inventory), rottenness(character.rottenness), maxHealth(character.maxHealth), health(character.health), interacting(character.interacting) {}
 
 Character::~Character() {}
 
@@ -78,6 +79,10 @@ bool Character::dropItem(const Item * item) {
 
 bool Character::putItem(const Item * item, Container * con) {
     return item->move(inventory, con);
+}
+
+bool Character::isInteracting() const {
+    return interacting;
 }
 
 bool Character::isAlive() const {
@@ -143,6 +148,24 @@ void Character::decHealth(unsigned int health) {
     addHealth(-health);
 }
 
+bool Character::startInteraction(Character * other) {
+    if(interacting) {
+        return false;
+    }
+
+    if(!isAlive()) {
+        return false;
+    }
+    
+    interacting = true;
+    
+    return true;
+}
+
+void Character::endInteraction(Character * other) {
+    interacting = false;
+}
+
 Character::Attack Character::attack(const Character * attacker, unsigned int health) {
     return attack(attacker, Character::Attack(health));
 }
@@ -159,4 +182,3 @@ std::string Character::getStatisticalDescription() const {
     std::string desc = "Health: " + unsignedValToString(getHealth()) + "/" + unsignedValToString(getMaxHealth());
     return desc;
 }
-
