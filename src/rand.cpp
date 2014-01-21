@@ -22,7 +22,7 @@ unsigned int game::rand(unsigned int max, bool inclusive) {
         throw std::invalid_argument("max cannot be higher than MAX_RAND.");
     }
     
-    return (unsigned int)((std::rand() % (max == 0 ? 1 : max)) + (inclusive ? 0 : 1)); //Generates number between 1 and max inclusively.
+    return (unsigned int)((std::rand() % (max == 0 ? 1 : max)) + (inclusive ? 1 : 0)); //Generates number between 1 and max inclusively.
 }
 
 bool game::happen(unsigned int limit, unsigned int max) {
