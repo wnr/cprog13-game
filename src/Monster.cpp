@@ -4,13 +4,12 @@
 
 using namespace game;
 
-Monster::Monster(Environment * env, std::string name, unsigned int maxHealth) : Monster(env, name, maxHealth, 0.0f, 0.0f) {}
+Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth) : Monster(env, subType, maxHealth, subType) {}
+Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Monster(env, subType, maxHealth, name, 0.0f, 0.0f) {}
+Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Character(env, subType, maxHealth, name), moveProb(moveProb), attackProb(attackProb) {}
 
-Monster::Monster(Environment * env, std::string name, unsigned int maxHealth, float moveProb, float attackProb) : Character(env, name, maxHealth, ENTITY_TYPE_MONSTER), moveProb(moveProb), attackProb(attackProb) {}
-
-Monster::Monster(const Monster & monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
-
-Monster::Monster(Monster && monster) : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
+Monster::Monster(const Monster & monster)   : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
+Monster::Monster(Monster && monster)        : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
 
 Monster::~Monster() {}
 

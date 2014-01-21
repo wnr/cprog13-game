@@ -3,18 +3,17 @@
 
 #define CERR_LOG                            true
 
-#define MAXIMUM_ROTTENNESS                  10
+#define MAXIMUM_ROTTENNESS                  5
 
 #define OBJECT_TYPE_ENVIRONMENT             "Environment"
 #define OBJECT_TYPE_GRAVEYARD_ENVIRONMENT   "Graveyard"
 #define OBJECT_TYPE_CONTAINER               "Container"
 #define OBJECT_TYPE_ITEM                    "Item"
-#define OBJECT_TYPE_ENTITY                  "Entity"
+#define OBJECT_TYPE_CHARACTER               "Character"
 
-#define ENTITY_TYPE_PLAYER                  "Player"
-#define ENTITY_TYPE_CHARACTER               "Character"
-#define ENTITY_TYPE_MONSTER                 "Monster"
-#define ENTITY_INVENTORY_SIZE               50
+#define CHARACTER_TYPE_PLAYER               "Player"
+#define CHARACTER_TYPE_MONSTER              "Monster"
+#define CHARACTER_INVENTORY_SIZE            50
 
 #define ITEM_TYPE_WEAPON                    "Weapon"
 #define ITEM_TYPE_KEY                       "Key"
@@ -36,9 +35,21 @@
 #define TEXT_DIVIDER                        "----------"
 #define HELP_TEXT                           "To move somewhere, type 'goto' or 'go' or 'move' followed by a direction. Example: 'go outside'\nTo quit the time, type 'exit'"
 
-#define GHOST_NAME                          "Ghost"
+
+#define CHARACTER_TYPE_GHOST                "Ghost"
 #define GHOST_HEALTH                        500
 #define GHOST_MOVE_PROB                     35
 #define GHOST_ATTACK_PROB                   60
+
+#define CHARACTER_TYPE_TROLL                "Troll"
+#define TROLL_HEALTH                        100
+#define TROLL_MOVE_PROB                     50
+#define TROLL_ATTACK_PROB                   70
+
+#define CHARACTER_TYPE_DEMON                "Demon"
+#define DEMON_HEALTH                        10000
+#define DEMON_MOVE_PROB                     0
+#define DEMON_ATTACK_PROB                   100
+
 
 #endif

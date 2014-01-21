@@ -1,7 +1,7 @@
 #ifndef __cprog13_game__BaseObject__
 #define __cprog13_game__BaseObject__
 
-//An Object can be anything that can exist in an Environment, either directly or indirectly (objects carried by some Entity).
+//An Object can be anything that can exist in an Environment, either directly or indirectly (objects carried by some Character).
 
 #include <string>
 

@@ -11,11 +11,10 @@
 
 //Environment describes a place where Objects can be. All environments makes the game world.
 //Environment handles and owns all Objects that are in them. Environments moves the ownership between them when
-//for example an Entity moves between Environments. Environments keeps track of the neighbors with pointers.
+//for example an Character moves between Environments. Environments keeps track of the neighbors with pointers.
 
 namespace game {
     class PhysicalObject;
-    class Entity;
     
     class Environment : public BaseObject, public GameStorage<PhysicalObject> {
         std::string description;
