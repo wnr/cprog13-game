@@ -11,18 +11,16 @@
 namespace game {
     
     class Item : public PhysicalObject {
-        unsigned int volume;
+        unsigned int weight;
     public:
-        //TODO: type is last parameter for all other objects. Why not volume in constructor?
-        Item(std::string subType, unsigned int volume);
-        Item(std::string subType, unsigned int volume, std::string name);
+        //TODO: type is last parameter for all other objects. Why not weight in constructor?
+        Item(std::string subType, unsigned int weight);
+        Item(std::string subType, unsigned int weight, std::string name);
         Item(const Item & item);
         Item(Item && item);
         virtual ~Item();
         
-        unsigned int getVolume() const;
-        
-        virtual std::string getDescription() const;
+        unsigned int getWeight() const;
         
         virtual void update();
         
@@ -41,6 +39,9 @@ namespace game {
             }
             return true;
         }
+    protected:
+        virtual std::string getPersonalDescription() const;
+        virtual std::string getStatisticalDescription() const;
     };
 }
 

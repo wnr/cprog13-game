@@ -68,6 +68,8 @@ namespace game {
         void incHealth(unsigned int health);
         void decHealth(unsigned int health);
         void addHealth(int health);
+        
+        virtual std::string getStatisticalDescription() const;
     };
 }
 

@@ -24,6 +24,9 @@
 #define KEY_STANDARD_IDENTIFIER             "Standard_key"
 #define KEY_STANDARD_LEVEL                  3
 
+#define WEAPON_CRIT_PROB                    2
+#define WEAPON_CRIT_MOD                     1.5
+
 #define LIST_ITEM_PREFIX                    "* "
 #define INPUT_WORD_DELIMETER                " "
 #define INPUT_INDICATOR                     "> "

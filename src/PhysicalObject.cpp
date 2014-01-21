@@ -31,10 +31,6 @@ std::string PhysicalObject::getDescription() const {
     return getPersonalDescription() + "\n" + TEXT_DIVIDER + "\n" + getStatisticalDescription();
 }
 
-std::string PhysicalObject::getStatisticalDescription() const {
-    return "";
-}
-
 std::string PhysicalObject::getPersonalDescription() const {
     return getName() + ": ";
 }

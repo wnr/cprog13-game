@@ -4,16 +4,40 @@
 
 using namespace game;
 
-Weapon::Weapon(unsigned int dmg, unsigned int volume) : Weapon(ITEM_TYPE_WEAPON, dmg, volume) {}
+Weapon::Weapon(unsigned int dmg, unsigned int weight) : Weapon(ITEM_TYPE_WEAPON, dmg, weight) {}
 
-Weapon::Weapon(std::string name, unsigned int dmg, unsigned int volume) : Weapon(name, dmg, dmg, 1, volume){}
+Weapon::Weapon(std::string name, unsigned int dmg, unsigned int weight) : Weapon(name, dmg, dmg, weight){}
 
-Weapon::Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume) : Weapon(name, true, minDmg, maxDmg, critModifier, volume) {}
+Weapon::Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int weight) : Weapon(name, minDmg, maxDmg, WEAPON_CRIT_PROB, WEAPON_CRIT_MOD, weight) {}
 
-Weapon::Weapon(std::string name, bool visible, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume) : BreakableItem(ITEM_TYPE_WEAPON, volume, name), minDmg(minDmg), maxDmg(maxDmg), critModifier(critModifier) {}
+Weapon::Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int critProb, float critModifier, unsigned int weight) : BreakableItem(ITEM_TYPE_WEAPON, weight, name), minDmg(minDmg), maxDmg(maxDmg), critProb(critProb), critModifier(critModifier) {}
 
-Weapon::Weapon(const Weapon & weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critModifier(weapon.critModifier) {}
+Weapon::Weapon(const Weapon & weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critProb(weapon.critProb), critModifier(weapon.critModifier) {}
 
-Weapon::Weapon(Weapon && weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critModifier(weapon.critModifier) {}
+Weapon::Weapon(Weapon && weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critProb(weapon.critProb), critModifier(weapon.critModifier) {}
 
 Weapon::~Weapon() {}
+
+int Weapon::getMinDmg() const {
+    return minDmg;
+}
+
+int Weapon::getMaxDmg() const {
+    return maxDmg;
+}
+
+int Weapon::getCritProb() const {
+    return critProb;
+}
+
+float Weapon::getCritModifier() const {
+    return critModifier;
+}
+
+std::string Weapon::getStatisticalDescription() const {
+    std::string desc = Item::getStatisticalDescription();
+    desc += "\nDmg: " + unsignedValToString(getMinDmg()) + "-" + unsignedValToString(getMaxDmg());
+    desc += "\nCrit prob: " + unsignedValToString(getCritProb());
+    desc += "\nCrit mod: " + unsignedValToString(getCritModifier());
+    return desc;
+}

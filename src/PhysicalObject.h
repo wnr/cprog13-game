@@ -31,7 +31,7 @@ namespace game {
         
     protected:
         virtual std::string getPersonalDescription() const;
-        virtual std::string getStatisticalDescription() const;
+        virtual std::string getStatisticalDescription() const = 0;
         
     };
 }

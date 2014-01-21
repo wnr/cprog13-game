@@ -11,17 +11,27 @@ namespace game {
     class Engine;
     
     class Weapon : public BreakableItem {
-        int minDmg;
-        int maxDmg;
+        unsigned int minDmg;
+        unsigned int maxDmg;
+        unsigned int critProb;
         float critModifier;
+        
     public:
-        Weapon(unsigned int dmg, unsigned int volume);
-        Weapon(std::string name, unsigned int dmg, unsigned int volume);
-        Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume);
-        Weapon(std::string name, bool visible, unsigned int minDmg, unsigned int maxDmg, float critModifier, unsigned int volume);
+        Weapon(unsigned int dmg, unsigned int weight);
+        Weapon(std::string name, unsigned int dmg, unsigned int weight);
+        Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int weight);
+        Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int critProb, float critModifier, unsigned int weight);
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
         virtual ~Weapon();
+        
+        int getMinDmg() const;
+        int getMaxDmg() const;
+        int getCritProb() const;
+        float getCritModifier() const;
+        
+    protected:
+        virtual std::string getStatisticalDescription() const;
     };
 }
 
