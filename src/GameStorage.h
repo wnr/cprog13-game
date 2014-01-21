@@ -19,7 +19,8 @@ namespace game {
         GameStorage() {}
         virtual ~GameStorage() {}
         
-        virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, bool caseinsens = true) const {
+        virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            
             T * result = NULL;
             
             if(caseinsens) {
@@ -31,7 +32,7 @@ namespace game {
                     return true; //Continue searching
                 }
                 if(subType != "" && element->getSubType() != subType) {
-                    return true;
+                    return true; //Continue searching
                 }
                 std::string matchString = getModName(element, val);
                 if(caseinsens) {
@@ -44,42 +45,27 @@ namespace game {
                 } else {
                     return true; //Continue searching
                 }
-            });
+            }, skips);
+            
             return result;
         }
         
-        template<class E>
-        E * find(const std::string & mainType, const std::string & subType, std::string searchString, bool caseinsens = true) const {
-            return (E*) find(mainType, subType, searchString, caseinsens);
+        T * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return find(mainType, "", searchString, skips, caseinsens);
+        }
+        
+        T * find(std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return find("", searchString, skips, caseinsens);
         }
         
         template<class E>
-        E * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
-            return (E*) find<E>(mainType, "", searchString, caseinsens);
+        E * find(const std::string mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return (E*) find<E>(mainType, "", searchString, skips, caseinsens);
         }
         
-        T * find(const std::string & mainType, std::string searchString, bool caseinsens = true) const {
-            return find(mainType,"", searchString, caseinsens);
-        }
-        
-        T * find(std::string searchString, bool caseinsens = true) const {
-            return find("", searchString, caseinsens);
-        }
-        
-        virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {
-            std::string * result = new std::string("");
-            for_each_count([itemPrefix, result, this, &skips](T * element, int val){
-                if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
-                    //Found in skips list. So skip element.
-                    return true;;
-                }
-                
-                result->append(itemPrefix);
-                result->append(getModName(element, val));
-                result->append("\n");
-                return true;
-            });
-            return *result;
+        template<class E>
+        E * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+            return (E*) find(mainType, subType, searchString, skips, caseinsens);
         }
         
         template<class E>
@@ -103,6 +89,22 @@ namespace game {
             return (E*)candidates[picked];
         }
         
+        virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {
+            std::string * result = new std::string("");
+            for_each_count([itemPrefix, result, this, &skips](T * element, int val){
+                if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
+                    //Found in skips list. So skip element.
+                    return true;;
+                }
+                
+                result->append(itemPrefix);
+                result->append(getModName(element, val));
+                result->append("\n");
+                return true;
+            });
+            return *result;
+        }
+        
     private:
         std::string getModName(T * element, int val) const {
             if(val == 0) {
@@ -113,7 +115,7 @@ namespace game {
 
         }
         
-        void for_each_count(const std::function<bool(T *, int)> operation) const {
+        void for_each_count(const std::function<bool(T *, int)> operation, const std::vector<T*> & skips = {}) const {
             std::map<std::string, int> map;
             this->for_each([&operation, &map](T * element){
                 std::string objectName = element->getName();
@@ -124,7 +126,7 @@ namespace game {
                 }
                 map[objectName] = elementNameFoundAmount + 1;
                 return operation(element, elementNameFoundAmount);
-            });
+            }, skips);
         }
     };
 }
