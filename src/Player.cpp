@@ -43,16 +43,53 @@ void Player::printUpdateInfo() const {
         std::cout << "-----------" << std::endl;
         std::cout << "You can see the following:" << std::endl;
     
-        std::cout << env->storageListToString((PhysicalObject*)this);
+        std::cout << env->storageListToString("", (PhysicalObject*)this);
     }
 }
 
 void Player::initCommands() {
     commands["look"] = [this](const std::vector<std::string> & commands) -> bool {
-        if(commands.size() == 1) { //TODO: Should not take a tick
+        Environment * env = getEnvironment();
+        if(commands.size() == 1) {
             printUpdateInfo();
         } else if(commands.size() == 2) {
-            
+            if(isCommandInventory(commands[1])) {
+                std::cout << getInventory()->getDescription() << std::endl;
+                std::cout << getInventory()->storageListToString();
+                return false;
+            }
+            PhysicalObject * physicalObject = env->find(commands[1]);
+            if(physicalObject == NULL) {
+                std::cout << "Found no item named: " << commands[1] << std::endl;
+            } else {
+                std::cout << physicalObject->getDescription() << std::endl;
+                if(physicalObject->isContainer()) {
+                    std::cout << ((Container*) physicalObject)->storageListToString();
+                }
+            }
+        } else if(commands.size() == 3) {
+            Item * item = NULL;
+            if(isCommandInventory(commands[1])) {
+                Backpack * inv = getInventory();
+                item = inv->find(commands[2]);
+                if(item == NULL) {
+                    std::cout << "Found no item named: " << commands[2] << " in your inventory." << std::endl;
+                    return false;
+                }
+            } else {
+                Container * con = env->find<Container>(OBJECT_TYPE_CONTAINER, commands[2]);
+                if(con == NULL) {
+                    std::cout << "Found no container named: " <<commands[1] << std::endl;
+                    return false;
+                } else {
+                    item = con->find(commands[2]);
+                    if(item == NULL) {
+                        std::cout << "Found no item named: " << commands[2] << " in container: " << con->getName() << std::endl;
+                        return false;
+                    }
+                }
+            }
+            std::cout << item->getDescription() << std::endl;
         }
         
         return false;
@@ -90,7 +127,7 @@ void Player::initCommands() {
     
     commands["inventory"] = [this](const std::vector<std::string> &) -> bool {
         Backpack * inv = getInventory();
-        std::cout << "Inventory (" << inv->getTakenSpace() << "/" << inv->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
+        std::cout << inv->getDescription() << std::endl;
         std::cout << inv->storageListToString();
         return false;
     };
@@ -154,7 +191,7 @@ void Player::initCommands() {
         
         Backpack * inv = getInventory();
         if(commands.size() == 2) {
-            Item * item = inv->find<Item>(OBJECT_TYPE_ITEM, commands[1]);
+            Item * item = inv->find(commands[1]);
             if(item == NULL) {
                 std::cout << "Found no item named: " << commands[1] << " in your inventory." << std::endl;
                 return false;
@@ -176,7 +213,7 @@ void Player::initCommands() {
                 return false;
             }
             
-            Item * item = inv->find<Item>(OBJECT_TYPE_ITEM, commands[2]);
+            Item * item = inv->find(commands[2]);
             if(item == NULL) {
                 std::cout << "Found no item named: " << commands[2] << " in your inventory." << std::endl;
                 return false;
@@ -217,7 +254,7 @@ void Player::initCommands() {
             takenSpaceText = "UNKNOWN";
         }
         
-        std::cout << container->getName() << " (" << takenSpaceText << "/" << container->getMaxSize() << ")" << std::endl << TEXT_DIVIDER << std::endl;
+        std::cout << container->getDescription() << std::endl;
         std::cout << container->storageListToString();
         
         return false;
@@ -232,14 +269,13 @@ void Player::initCommands() {
         Environment * env = getEnvironment();
 
         auto findTarget = [env](std::string target) -> Character * {
-            std::transform(target.begin(), target.end(), target.begin(), ::tolower);
+            target = toLowerCase(target);
             Character * found = NULL;
             env->for_each([&found, target] (PhysicalObject * obj) {
                 if(obj->getSubType() == CHARACTER_TYPE_MONSTER) {
                     Character * character = static_cast<Character*>(obj);
                     std::string desc = character->getName();
-                    std::transform(desc.begin(), desc.end(), desc.begin(), ::tolower);
-                    
+                    desc = toLowerCase(desc);
                     if(desc == target) {
                         found = character;
                         return false;
@@ -273,7 +309,7 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     }
     
     std::string key = input[0];
-    std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+    key = toLowerCase(key);
 
     
     if(commands.count(key) == 0) {
@@ -386,4 +422,13 @@ void Player::kill() {
     
     std::cout << "You died." << std::endl;
     getEngine()->kill();
+}
+
+bool Player::isCommandInventory(std::string command) const {
+    command = toLowerCase(command);
+    if(command == "inv" || command == "backpack" || command == "inventory") {
+        return true;
+    } else {
+        return false;
+    }
 }

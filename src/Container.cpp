@@ -57,5 +57,6 @@ void Container::update() {
 }
 
 std::string Container::getDescription() const {
-    return "This is a " + getSubType() + " where items can be stored./nSpace: (" + std::to_string(getTakenSpace()) + "/" + std::to_string(getMaxSize()) + ")";
+    return getName() + ": " + "(" + unsignedValToString(getTakenSpace()) + "/" + unsignedValToString(getMaxSize()) + ")";
+
 }
