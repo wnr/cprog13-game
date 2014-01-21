@@ -36,6 +36,16 @@ bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) 
     return true;
 }
 
+std::string LockableContainer::getDescription() const {
+    std::string desc = getPersonalDescription() + "\n" + getStatisticalDescription();
+    if(!isLocked()){
+        desc += "\n";
+        desc += TEXT_DIVIDER;
+        desc += "\n" + getStorageListAsString();
+    }
+    return desc;
+}
+
 std::string LockableContainer::getStorageListAsString(const std::vector<const Item*> skips, const std::string & itemPrefix) const {
     if(isLocked()) {
         return INFORMATION_UNKNOWN;
