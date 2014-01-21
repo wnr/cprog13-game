@@ -1,8 +1,12 @@
 #include "Environment.h"
 
+#include <iterator>
+
 #include "Constants.h"
 #include "PhysicalObject.h"
 #include "Character.h"
+#include "rand.h"
+
 
 using namespace game;
 
@@ -27,6 +31,18 @@ Environment * Environment::getNeighbor(const std::string & direction) {
     }
     
     return neighbors[direction];
+}
+
+Environment * Environment::randomNeighbor() const {
+    if(neighbors.empty()) {
+        return NULL;
+    }
+    
+    unsigned int picked = rand((unsigned int)neighbors.size(), false);
+    
+    auto env = std::next(neighbors.begin(), picked);
+    
+    return env->second;
 }
 
 std::string Environment::getDescription() const {

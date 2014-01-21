@@ -32,6 +32,7 @@ namespace game {
         //Returns NULL if no neighbor is found in that direction.
         //is case insensitive.
         Environment * getNeighbor(const std::string & direction);
+        Environment * randomNeighbor() const;
         
         std::string getDescription() const;
         std::string getFullInfo() const;

@@ -38,7 +38,12 @@ void Troll::update() {
     }
     
     if(!tickConsumed && happen(getMoveProb())) {
-        //TODO
+        Environment * env = getEnvironment()->randomNeighbor();
+        
+        if(env != NULL) {
+            move(getEnvironment(), env);
+            tickConsumed = true;
+        }
     }
 }
 
