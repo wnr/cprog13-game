@@ -4,6 +4,8 @@
 #include "Container.h"
 #include "Environment.h"
 #include "Food.h"
+#include "Equipment.h"
+#include "BreakableItem.h"
 
 using namespace game;
 
@@ -12,7 +14,7 @@ Character::Attack::Attack(unsigned int health, std::string description) : health
 
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth) : Character(env, subType, maxHealth, subType) {}
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Character(env, subType, maxHealth, name, CHARACTER_INVENTORY_SIZE) {}
-Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), rottenness(0), maxHealth(maxHealth), health(maxHealth) {
+Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth) {
     setTickSync(env->getTickSync());
     env->push_back(this);
 }
@@ -168,5 +170,17 @@ std::string Character::getPersonalDescription() const {
 std::string Character::getStatisticalDescription() const {
     std::string desc = "Health: " + unsignedValToString(getHealth()) + "/" + unsignedValToString(getMaxHealth());
     return desc;
+}
+
+bool Character::equip(const BreakableItem * bItem) {
+    return bItem->move(inventory, equipment);
+}
+
+bool Character::unEquip(const BreakableItem * bItem) {
+    return bItem->move(equipment, inventory);
+}
+
+Equipment * Character::getEquipment() const {
+    return equipment;
 }
 

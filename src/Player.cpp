@@ -5,6 +5,8 @@
 #include "KeyLock.h"
 #include "Container.h"
 #include "Food.h"
+#include "BreakableItem.h"
+#include "Equipment.h"
 
 #include "Constants.h"
 #include "rand.h"
@@ -352,6 +354,55 @@ void Player::initCommands() {
             return true;
         } else {
             std::cout << "You are unable to eat " << foodName << std::endl;
+            return false;
+        }
+    };
+    
+    commands["equip"] = [this](const std::vector<std::string> & commands) -> bool {
+        if(commands.size() != 2) {
+            std::cout << "Invalid command syntax. Usage: equip ITEM" << std::endl;
+            return false;
+        }
+        
+        Backpack * inv = getInventory();
+        Item * item = inv->find(commands[1]);
+        if(item == NULL) {
+            std::cout << "Found no equipable item named: " << commands[1] << std::endl;
+            return false;
+        }
+        
+        BreakableItem * bItem = dynamic_cast<BreakableItem*>(item);
+        if(bItem == nullptr) {
+            std::cout << "The item: " << item->getName() << " is not equipable." << std::endl;
+            return false;
+        }
+        
+        if(equip(bItem)) {
+            std::cout << "You equipeed item: " << bItem->getName() << std::endl;
+            return false;
+        } else {
+            std::cout << "You failed to equip: " << bItem->getName() << std::endl;
+            return false;
+        }
+    };
+    
+    commands["unequip"] = [this](const std::vector<std::string> & commands) -> bool {
+        if(commands.size() != 2) {
+            std::cout << "Invalid command syntax. Usage: equip ITEM" << std::endl;
+            return false;
+        }
+        
+        Equipment * eq = getEquipment();
+        BreakableItem * bItem = eq->find(commands[1]);
+        if(bItem == NULL) {
+            std::cout << "Found no equiped item named: " << commands[1] << std::endl;
+            return false;
+        }
+        if(unEquip(bItem)) {
+            std::cout << "You unequiped item: " << bItem->getName() << std::endl;
+            return false;
+        } else {
+            std::cout << "You failed to unequip: " << bItem->getName() << std::endl;
             return false;
         }
     };

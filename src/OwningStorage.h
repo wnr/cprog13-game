@@ -9,6 +9,7 @@
 #include <functional>
 #include <stdexcept>
 #include <list>
+#include <vector>
 
 namespace game {
     

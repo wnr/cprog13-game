@@ -8,6 +8,8 @@ namespace game {
     class Backpack;
     class Container;
     class Food;
+    class Equipment;
+    class BreakableItem;
     
     class Character : public PhysicalObject {
         unsigned int health;
@@ -15,6 +17,7 @@ namespace game {
         bool alive;
         Environment * env;
         Backpack * inventory;
+        Equipment * equipment;
         unsigned int rottenness;
         
     public:
@@ -35,6 +38,7 @@ namespace game {
         virtual ~Character();
         
         Environment * getEnvironment() const;
+        Equipment * getEquipment() const;
         Backpack * getInventory() const;
         
         std::string getName() const;
@@ -73,6 +77,9 @@ namespace game {
         
         virtual std::string getPersonalDescription() const;
         virtual std::string getStatisticalDescription() const;
+        
+        virtual bool equip(const BreakableItem * bItem);
+        virtual bool unEquip(const BreakableItem * bItem);
     };
 }
 

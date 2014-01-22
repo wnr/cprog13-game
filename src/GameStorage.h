@@ -39,7 +39,7 @@ namespace game {
                     matchString = toLowerCase(matchString);
                 }
                 
-                if(matchString == searchString) {
+                if(searchString == "" || matchString == searchString) {
                     result = element;
                     return false;
                 } else {
