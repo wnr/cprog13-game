@@ -28,6 +28,14 @@
 #define WEAPON_CRIT_PROB                    2
 #define WEAPON_CRIT_MOD                     1.5
 
+#define ARMOR_TYPE_HELMET                   "Helmet"
+#define ARMOR_TYPE_CHEST                    "Chest"
+#define ARMOR_TYPE_PANTS                    "Pants"
+#define ARMOR_TYPE_SHIELD                   "Shield"
+#define ARMOR_TYPE_SHOE                     "Shoe"
+#define ARMOR_RATING                        5
+#define ARMOR_WEIGHT                        7
+
 #define FOOD_STRENGTH                       10
 #define FOOD_WEIGHT                         3
 

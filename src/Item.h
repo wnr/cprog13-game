@@ -26,7 +26,7 @@ namespace game {
         
         template<class T, class E>
         bool move(GameStorage<T> * from, GameStorage<E> * to) const {
-            auto uniqueItem(from->template remove<E>(this));
+            auto uniqueItem(from->template remove<E>((T*)this));
             if(uniqueItem == nullptr) {
                 return false;
             }
