@@ -15,8 +15,6 @@ namespace game {
         Troll(Troll && troll);
         virtual ~Troll();
         
-        virtual void update();
-        
         virtual void interact(Character * other);
         virtual Attack attack(const Character * attacker, const Attack & attack);
         
