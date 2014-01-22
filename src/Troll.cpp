@@ -14,39 +14,6 @@ Troll::Troll(Troll && troll)        : Monster(troll) {}
 
 Troll::~Troll() {}
 
-void Troll::update() {
-    Monster::update();
-    
-    if(!isAlive()) {
-        return;
-    }
-    
-    bool tickConsumed = false;
-    
-    if(happen(getAttackProb())) {
-        //Pick random from env.
-        
-        Character * target = getEnvironment()->random<Character>("Character", {this});
-        
-        if(target != NULL && target->startInteraction(this)) {
-            startInteraction(target);
-            interact(target);
-            target->endInteraction(this);
-            endInteraction(target);
-            tickConsumed = true;
-        }
-    }
-    
-    if(!tickConsumed && happen(getMoveProb())) {
-        Environment * env = getEnvironment()->randomNeighbor();
-        
-        if(env != NULL) {
-            move(getEnvironment(), env);
-            tickConsumed = true;
-        }
-    }
-}
-
 void Troll::interact(Character * other) {
     if(!isAlive()) {
         return;
