@@ -84,7 +84,7 @@ namespace game {
                 return NULL;
             }
             
-            auto picked = rand((unsigned int)candidates.size(), false);
+            auto picked = rand((unsigned int)candidates.size());
             
             return (E*)candidates[picked];
         }

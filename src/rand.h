@@ -3,11 +3,11 @@
 
 namespace game {
     
-    //Seed the random generator.
+    // Seed the random generator.
     void seed();
     
-    // Return rand between 1 to 100 if inclusive. 0 to 99 if exclusive (inclusive = false).
-    unsigned int rand(unsigned int max = 100, bool inclusive = true);
+    // Returns random value beteen 0 and 100 (inclusive).
+    unsigned int rand(unsigned int min = 0, unsigned int max = 100, bool includeMax = false);
     
     // Function that returns true if rand between 1 to 100 is <= the given limit.
     // Limit of 0 will always return false.

@@ -10,15 +10,15 @@
 using namespace game;
 
 bool testRand() {
-    auto res = rand(1);
+    auto res = rand(0, 1);
     
-    if(res != 1) {
+    if(res != 0) {
         return false;
     }
     
-    res = rand(0, false);
+    res = rand(50, 51);
     
-    if(res != 0) {
+    if(res != 50) {
         return false;
     }
     

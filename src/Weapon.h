@@ -29,6 +29,7 @@ namespace game {
         int getMaxDmg() const;
         int getCritProb() const;
         float getCritModifier() const;
+        unsigned int getAttackPower() const;
         
     protected:
         virtual std::string getStatisticalDescription() const;

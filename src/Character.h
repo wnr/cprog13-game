@@ -71,7 +71,7 @@ namespace game {
         
         Attack attack(const Character * attacker, unsigned int health);
         Attack attack(const Character * attacker, unsigned int health, std::string description);
-        virtual Attack attack(const Character * attacker, const Attack & attack) = 0;
+        virtual Attack attack(const Character * attacker, const Attack & attack);
 
         bool eatFood(Food * food);
         
@@ -80,6 +80,20 @@ namespace game {
         void incHealth(unsigned int health);
         void decHealth(unsigned int health);
         void addHealth(int health);
+        
+        unsigned int getAttackPower() const;
+        unsigned int getArmorRating() const;
+        unsigned int getDodgeProb() const;
+        unsigned int getBlockProb() const;
+        
+        virtual unsigned int getBaseArmorRating() const;
+        virtual unsigned int getBaseAttackPower() const;
+        virtual unsigned int getBaseDodgeProb() const;
+        virtual unsigned int getBaseBlockProb() const;
+        
+        virtual unsigned int dodgeMod(const unsigned int originalDmg) const;
+        virtual unsigned int blockMod(const unsigned int originalDmg) const;
+        virtual unsigned int armorMod(const unsigned int originalDmg) const;
         
         virtual std::string getPersonalDescription() const;
         virtual std::string getStatisticalDescription() const;

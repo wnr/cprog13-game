@@ -207,3 +207,77 @@ bool Character::unEquip(const BreakableItem * bItem) {
 Equipment * Character::getEquipment() const {
     return equipment;
 }
+
+unsigned int Character::getArmorRating() const {
+    return equipment->getArmorRating() + getBaseArmorRating();
+}
+
+unsigned int Character::getDodgeProb() const {
+    return equipment->getDodgeProb() + getBaseDodgeProb();
+}
+
+unsigned int Character::getAttackPower() const {
+    return equipment->getAttackPower() + getBaseAttackPower();
+}
+
+unsigned int Character::getBlockProb() const {
+    return equipment->getBlockProb() + getBaseBlockProb();
+}
+
+unsigned int Character::getBaseArmorRating() const {
+    return 0;
+}
+
+unsigned int Character::getBaseDodgeProb() const {
+    return 5;
+}
+
+unsigned int Character::getBaseAttackPower() const {
+    return rand(1, 5, true);
+}
+
+unsigned int Character::getBaseBlockProb() const {
+    return 0;
+}
+
+unsigned int Character::blockMod(const unsigned int originalDmg) const {
+    int blockPercent = rand(0, 3, true) * 25;
+    return (originalDmg * blockPercent) / 100;
+}
+
+unsigned int Character::dodgeMod(const unsigned int originalDmg) const {
+    return 0;
+}
+
+unsigned int Character::armorMod(const unsigned int originalDmg) const {
+    if(originalDmg <= getArmorRating()) {
+        return 0;
+    } else {
+        return originalDmg - getArmorRating();
+    }
+}
+
+Character::Attack Character::attack(const Character * attacker, const Attack & attack) {
+    static const unsigned int dodgeProb = getDodgeProb();
+    static const unsigned int blockProb = getBlockProb();
+    
+    Attack actual(attack.health);
+    
+    actual.health = armorMod(actual.health);
+    if(actual.health == 0){
+        actual.description = ATTACK_ABSORBED;
+    } else if(happen(dodgeProb)) {
+        actual.health = dodgeMod(actual.health);
+        actual.description = ATTACK_DODGED;
+    } else if(happen(blockProb)) {
+        unsigned int preHP = actual.health;
+        actual.health = blockMod(actual.health);
+        unsigned int blocked = preHP - actual.health;
+        actual.description = ATTACK_BLOCKED;
+        actual.description = actual.description + "(" + unsignedValToString(blocked) + ")";
+    }
+    
+    decHealth(actual.health);
+    
+    return actual;
+}

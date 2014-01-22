@@ -6,38 +6,43 @@ using namespace game;
 
 Armor::Armor(std::string subType) : Armor(subType, ARMOR_RATING){}
 
-Armor::Armor(std::string subType, unsigned int armorRating) : Armor(subType, armorRating, ARMOR_WEIGHT) {}
+Armor::Armor(std::string subType, unsigned int armorRating) : Armor(subType, armorRating, ARMOR_DODGE_RATING){}
 
-Armor::Armor(std::string subType, unsigned int armorRating, unsigned int weight) : Armor(subType, armorRating, weight, subType) {}
+Armor::Armor(std::string subType, unsigned int armorRating, unsigned int dodgeRating) : Armor(subType, armorRating, dodgeRating, ARMOR_WEIGHT) {}
 
-Armor::Armor(std::string subType, unsigned int armorRating, unsigned int weight, std::string name) : BreakableItem(subType, weight, name), armorRating(armorRating) {
-    if(!isSubTypeAllowed(subType)) {
+Armor::Armor(std::string subType, unsigned int armorRating, unsigned int dodgeRating, unsigned int weight) : Armor(subType, armorRating, dodgeRating, weight, subType) {}
+
+Armor::Armor(std::string subType, unsigned int armorRating, unsigned int dodgeRating, unsigned int weight, std::string name) : BreakableItem(subType, weight, name), armorRating(armorRating), dodgeRating(dodgeRating) {
+    if(!isArmor()) {
         throw new std::invalid_argument("The subType: " +  subType + " is not allowed.");
     }
 }
+
+Armor::Armor(const Armor & armor) :  BreakableItem(armor), armorRating(armor.armorRating) {}
 
 Armor::Armor(Armor && armor) : BreakableItem(armor), armorRating(armor.armorRating) {}
 
 Armor::~Armor() {}
 
 std::string Armor::getStatisticalDescription() const {
-    std::string desc = Item::getStatisticalDescription();
-    desc += "\nArmor rating: " + unsignedValToString(getArmorRating());
+    std::string desc = BreakableItem::getStatisticalDescription();
+    desc += "\nArmor rating: " + unsignedValToString(armorRating);
+    desc += "\nDodge rating: " + unsignedValToString(dodgeRating);
     return desc;
 }
 
-bool Armor::isSubTypeAllowed(const std::string & subType) const {
-    if(subType != ARMOR_TYPE_CHEST  &&
-       subType != ARMOR_TYPE_HELMET &&
-       subType != ARMOR_TYPE_PANTS  &&
-       subType != ARMOR_TYPE_SHIELD &&
-       subType != ARMOR_TYPE_SHOE) {
-        return false;
+unsigned int Armor::getArmorRating() const {
+    if(isWorking()){
+        return armorRating;
     } else {
-        return true;
+        return 0;
     }
 }
 
-unsigned int Armor::getArmorRating() const {
-    return armorRating;
+unsigned int Armor::getDodgeRating() const {
+    if(isWorking()) {
+        return dodgeRating;
+    } else {
+        return 0;
+    }
 }

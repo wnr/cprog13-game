@@ -18,10 +18,10 @@ namespace game {
         virtual void update();
         
         virtual void interact(Character * other);
-        virtual Attack attack(const Character * attacker, const Attack & attack);
         
     protected:
         virtual std::string getPersonalDescription() const;
+        virtual unsigned int getBaseAttackPower() const;
     };
 }
 

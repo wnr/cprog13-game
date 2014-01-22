@@ -18,6 +18,7 @@
 #define ITEM_TYPE_WEAPON                    "Weapon"
 #define ITEM_TYPE_KEY                       "Key"
 #define ITEM_TYPE_FOOD                      "Food"
+#define ITEM_DURABILITY                     100
 
 #define CONTAINER_TYPE_BACKPACK             "Backpack"
 #define CONTAINER_TYPE_CHEST                "Chest"
@@ -35,9 +36,19 @@
 #define ARMOR_TYPE_SHOE                     "Shoe"
 #define ARMOR_RATING                        5
 #define ARMOR_WEIGHT                        7
+#define ARMOR_DODGE_RATING                  4
+
+#define SHIELD_BLOCK_RATING                 10
+#define SHIELD_ARMOR_RATING                 15
+#define SHIELD_DODGE_RATING                 2
+#define SHIELD_WEIGHT                       10
 
 #define FOOD_STRENGTH                       10
 #define FOOD_WEIGHT                         3
+
+#define ATTACK_DODGED                       "dodged"
+#define ATTACK_BLOCKED                      "blocked"
+#define ATTACK_ABSORBED                     "absorbed"
 
 #define LIST_ITEM_PREFIX                    "* "
 #define INPUT_WORD_DELIMETER                " "

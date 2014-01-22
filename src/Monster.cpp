@@ -85,3 +85,4 @@ void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
 }
 
+

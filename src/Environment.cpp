@@ -38,7 +38,7 @@ Environment * Environment::randomNeighbor() const {
         return NULL;
     }
     
-    unsigned int picked = rand((unsigned int)neighbors.size(), false);
+    unsigned int picked = rand((unsigned int)neighbors.size());
     
     auto env = std::next(neighbors.begin(), picked);
     

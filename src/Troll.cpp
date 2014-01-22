@@ -52,27 +52,17 @@ void Troll::interact(Character * other) {
         return;
     }
     
-    other->attack(this, Attack(5, "scratched"));
+    other->attack(this, Attack(getAttackPower(), "scratched"));
     
     if(other->isAlive()) {
         other->interact(this);
     }
 }
 
-Troll::Attack Troll::attack(const Character * attacker, const Attack & attack) {
-    static const unsigned int dodgeProb = 25;
-    
-    Attack actual(attack.health);
-    
-    if(happen(dodgeProb)) {
-        actual.health = 0;
-    }
-    
-    decHealth(actual.health);
-    
-    return actual;
-}
-
 std::string Troll::getPersonalDescription() const {
     return "A ugly " + getName() + " who does not fancy your good looks. Watch out!";
+}
+
+unsigned int Troll::getBaseAttackPower() const {
+    return rand(300, 500);
 }

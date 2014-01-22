@@ -469,16 +469,16 @@ void Player::interact(Character * other) {
         if(actual.health == 0) {
             std::cout << "The " << desc << " " << (actual.description.empty() ? "blocked" : actual.description) << " your " << attackDesc << "!" << std::endl;
         } else {
-            std::cout << "You " << attackDesc << " " << desc << " for " << std::to_string(actual.health) << " hp!" << std::endl;
+            std::cout << "You " << attackDesc << " " << desc << " for " << std::to_string(actual.health) << " hp! " << actual.description << std::endl;
         }
     };
     
-    actions["kick"] = [&attack]() {
-        attack("kick", 3);
+    actions["kick"] = [this, &attack]() {
+        attack("kick", getAttackPower());
         return true;
     };
     
-    actions["hit"] = [self, &other, &attack]() {
+    actions["hit"] = [self, &other, &attack]() { //TODO remove this or kick
         attack("hit", other->getHealth());
         return true;
     };
@@ -524,26 +524,22 @@ void Player::interact(Character * other) {
 }
 
 Player::Attack Player::attack(const Character * attacker, const Attack & attack) {
-    static const unsigned int dodgeProb = 10;
+    Attack actual = Character::attack(attacker, attack);
+
     
-    Attack actual(attack.health);
-    
-    if(happen(dodgeProb)) {
+    if(actual.health == 0) {
         auto printAvoid = [&actual](const std::string & desc){
-            std::cout << "You avoided getting " + desc + " by dodging the attack!" << std::endl;
+            std::cout << "You " + actual.description + " the attack and thus avoided the " + desc + "!" << std::endl;
         };
         
         printAvoid(attack.description.empty() ? "hit" : attack.description);
-        actual.health = 0;
     } else {
         auto printAttack = [&actual](const std::string & desc){
-            std::cout << "You got " + desc + " and lost " + std::to_string(actual.health) + " health!" << std::endl;
+            std::cout << "You got " + desc + " and lost " + std::to_string(actual.health) + " health! " + actual.description << std::endl;
         };
         
         printAttack(attack.description.empty() ? "hit" : attack.description);
     }
-    
-    decHealth(actual.health);
     
     return actual;
 }
