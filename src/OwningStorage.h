@@ -24,11 +24,7 @@ namespace game {
         bool exist(const T * element) const {
             return index(element) != -1;
         }
-        
-        virtual std::unique_ptr<T> push_back(T * element) { //TODO Is this really good? Seems open for bugs
-            return push_back(std::unique_ptr<T>(element));
-        }
-        
+    
         virtual std::unique_ptr<T> push_back(std::unique_ptr<T> element) {
             if(exist(element.get())) {
                 //This means there are two unique_ptr to the same object. Releaase this ptr and throw exception.

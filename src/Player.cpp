@@ -123,7 +123,7 @@ void Player::initCommands() {
         std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
         std::cout << HELP_TEXT << std::endl;
         std::cout << TEXT_DIVIDER << " HELP END " << TEXT_DIVIDER << std::endl;
-        return true;
+        return false;
     };
     
     commands["inventory"] = [this](const std::vector<std::string> &) -> bool {
@@ -269,9 +269,18 @@ void Player::initCommands() {
             return false;
         }
         
+        if(!character->startInteraction(this)) {
+            std::cout << "The " << character->getName() << " busy fighting already." << std::endl;
+            return false;
+        }
+        
         std::cout << std::endl << "You are initiating a fight with " << character->getName() << "!" << std::endl;
         
         interact(character);
+        
+        character->endInteraction(this);
+        endInteraction(character);
+        
         
         return true;
     };
@@ -312,7 +321,7 @@ void Player::initCommands() {
         }
         if(lock == NULL) {
             std::cout << "Found no lockable object named: " << lockString << containerString << std::endl;
-        return false;
+            return false;
         }
         Key * key = inv->find<Key>(OBJECT_TYPE_ITEM, ITEM_TYPE_KEY, keyString);
         if(key == NULL) {
@@ -327,7 +336,7 @@ void Player::initCommands() {
         std::string lockName = test->getName();
         if(lock->unlock(key, *inv)) {
             std::cout << "You unlocked: " << lockName << containerString << " using key: " << keyName << std::endl;
-            return true;
+            return false;
         } else {
             std::cout << "You can't unlock: " << lockName << containerString << " using key: " << keyName << std::endl;
             return false;
@@ -351,7 +360,7 @@ void Player::initCommands() {
         if(eatFood(food)) {
             unsigned int change = getHealth() - before;
             std::cout << "You ate some " << foodName  << " and gained " << change << " HP" << std::endl;
-            return true;
+            return false;
         } else {
             std::cout << "You are unable to eat " << foodName << std::endl;
             return false;
@@ -427,7 +436,23 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     return command(input);
 }
 
-void Player::interact(game::Character * other) {
+bool Player::startInteraction(Character * other) {
+    auto res = Character::startInteraction(other);
+
+    if(res) {
+        std::cout << std::endl << "You are being attacked by " << other->getName() << "!" << std::endl;
+    }
+    
+    return res;
+}
+
+void Player::endInteraction(Character * other) {
+    Character::endInteraction(other);
+    //TODO: Want this?
+    //std::cout << other->getName() + " leaves the fight." << std::endl;
+}
+
+void Player::interact(Character * other) {
     if(!isAlive()) {
         return;
     }

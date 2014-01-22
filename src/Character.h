@@ -19,6 +19,7 @@ namespace game {
         Backpack * inventory;
         Equipment * equipment;
         unsigned int rottenness;
+        bool interacting;
         
     public:
         struct Attack {
@@ -55,7 +56,7 @@ namespace game {
         unsigned int getMaxHealth() const;
         unsigned int getHealth() const;
         
-        bool eatFood(Food * food);
+        bool isInteracting() const;
         
         bool isAlive() const;
         virtual void kill();
@@ -64,10 +65,15 @@ namespace game {
         
         virtual void update();
         
+        virtual bool startInteraction(Character * other);
+        virtual void endInteraction(Character * other);
         virtual void interact(Character * other) = 0;
+        
         Attack attack(const Character * attacker, unsigned int health);
         Attack attack(const Character * attacker, unsigned int health, std::string description);
         virtual Attack attack(const Character * attacker, const Attack & attack) = 0;
+
+        bool eatFood(Food * food);
         
     protected:
         void setHealth(unsigned int health);

@@ -23,6 +23,7 @@ namespace game {
 //        virtual void interact();
 //        virtual unsigned int attack(unsigned int hp);
         //virtual void update();
+        
         virtual void interact(Character * other);
         virtual Attack attack(const Character * attacker, const Attack & attack);
         
