@@ -95,6 +95,8 @@ namespace game {
         virtual unsigned int blockMod(const unsigned int originalDmg) const;
         virtual unsigned int armorMod(const unsigned int originalDmg) const;
         
+        virtual void affectDurability(BreakableItem * bi, unsigned int power) const = 0;
+        
         virtual std::string getPersonalDescription() const;
         virtual std::string getStatisticalDescription() const;
         

@@ -525,11 +525,12 @@ void Player::interact(Character * other) {
 
 Player::Attack Player::attack(const Character * attacker, const Attack & attack) {
     Attack actual = Character::attack(attacker, attack);
-
+    
+    decHealth(actual.health);
     
     if(actual.health == 0) {
         auto printAvoid = [&actual](const std::string & desc){
-            std::cout << "You " + actual.description + " the attack and thus avoided the " + desc + "!" << std::endl;
+            std::cout << "You " + actual.description + " the attack and thus avoided getting " + desc + "!" << std::endl;
         };
         
         printAvoid(attack.description.empty() ? "hit" : attack.description);
@@ -557,5 +558,13 @@ bool Player::isCommandInventory(std::string command) const {
         return true;
     } else {
         return false;
+    }
+}
+
+void Player::affectDurability(BreakableItem * bi, unsigned int power) const {
+    if(bi != NULL) {
+        if(bi->affectDurability(power)) {
+            std::cout << bi->getName() << " broke!" << std::endl;
+        }
     }
 }

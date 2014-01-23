@@ -19,6 +19,16 @@ namespace game {
         std::transform(word.begin(), word.end(), word.begin(), ::tolower);
         return word;
     }
+    
+    inline float incByPercent(float percent, unsigned int incPercent) {
+        if(percent < 0.0 || percent > 1.0 || incPercent > 100) {
+            throw std::invalid_argument("Bad percentage: " + std::to_string(percent) + " or incPercent: " + std::to_string(incPercent));
+        }
+        float inversePercent = 1.0 - percent;
+        float inverseIncPercent = 1.0 - incPercent / 100.0;
+        float newPercent = 1.0 - inversePercent * inverseIncPercent;
+        return newPercent;
+    }
 }
 
 #endif

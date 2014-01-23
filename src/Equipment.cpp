@@ -34,11 +34,11 @@ unsigned int Equipment::getAttackPower() const {
 }
 
 
-unsigned int Equipment::getDodgeProb() const {
-    unsigned int dodgeProb = 0;
+float Equipment::getDodgeProb() const {
+    float dodgeProb = 0;
     
     for_each_armor([&dodgeProb](const Armor * armor){
-        dodgeProb += armor->getDodgeRating();
+        dodgeProb = incByPercent(dodgeProb, armor->getDodgeRating());
         return true;
     });
     return dodgeProb;
@@ -54,11 +54,11 @@ unsigned int Equipment::getArmorRating() const {
     return armorRating;
 }
 
-unsigned int Equipment::getBlockProb() const {
-    unsigned int blockProb = 0;
+float Equipment::getBlockProb() const {
+    float blockProb = 0;
     Shield * shield = findItemWithSubType<Shield>(ARMOR_TYPE_SHIELD);
     if(shield != NULL) {
-        blockProb += shield->getBlockProb();
+        blockProb = incByPercent(blockProb, shield->getBlockProb());
     }
     return blockProb;
 }
@@ -70,4 +70,23 @@ void Equipment::for_each_armor(const std::function<bool (Armor*)> operation) con
         }
         return true;
     });
+}
+
+bool Equipment::affectArmorDurability(unsigned int power) const {
+    bool itemBroke = false;
+    for_each_armor([&itemBroke, power](Armor * armor){
+        if(armor->decDurability(power)) {
+            itemBroke = true;
+        }
+        return true;
+    });
+    return itemBroke;
+}
+
+bool Equipment::affectDurability(const std::string &subType, unsigned int power) const {
+    BreakableItem * bi = findItemWithSubType(subType);
+    if(bi != NULL) {
+        return(bi->decDurability(power));
+    }
+    return false;
 }

@@ -53,7 +53,7 @@ void Engine::initEnvironments() {
     new Troll(home);
     home->push_back(std::unique_ptr<PhysicalObject>(new Food("Pie")));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon("Axe", 25, 35, 3)));
-    home->push_back(std::unique_ptr<PhysicalObject>(new Shield(100, 200, 3)));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Shield(50, 300, 10)));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
     std::unique_ptr<Key>  key(new Key());
     home->push_back(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));

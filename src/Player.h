@@ -26,6 +26,8 @@ namespace game {
         
         void kill();
         
+        void affectDurability(BreakableItem * bi, unsigned int power) const;
+        
     private:
         void update();
         void initCommands();

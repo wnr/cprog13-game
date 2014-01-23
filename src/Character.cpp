@@ -6,6 +6,7 @@
 #include "Food.h"
 #include "Equipment.h"
 #include "BreakableItem.h"
+#include "Armor.h"
 
 using namespace game;
 
@@ -213,7 +214,7 @@ unsigned int Character::getArmorRating() const {
 }
 
 unsigned int Character::getDodgeProb() const {
-    return equipment->getDodgeProb() + getBaseDodgeProb();
+    return (100.0 * incByPercent(equipment->getDodgeProb(), getBaseDodgeProb())) + 0.5;
 }
 
 unsigned int Character::getAttackPower() const {
@@ -221,7 +222,7 @@ unsigned int Character::getAttackPower() const {
 }
 
 unsigned int Character::getBlockProb() const {
-    return equipment->getBlockProb() + getBaseBlockProb();
+    return (100.0 * incByPercent(equipment->getBlockProb(), getBaseBlockProb())) + 0.5;
 }
 
 unsigned int Character::getBaseArmorRating() const {
@@ -257,13 +258,21 @@ unsigned int Character::armorMod(const unsigned int originalDmg) const {
     }
 }
 
+
+
 Character::Attack Character::attack(const Character * attacker, const Attack & attack) {
-    static const unsigned int dodgeProb = getDodgeProb();
-    static const unsigned int blockProb = getBlockProb();
+    unsigned int dodgeProb = getDodgeProb();
+    unsigned int blockProb = getBlockProb();
     
     Attack actual(attack.health);
     
     actual.health = armorMod(actual.health);
+    
+    equipment->for_each_armor([this, actual, attack](Armor * armor){
+        affectDurability(armor, attack.health - actual.health);
+        return true;
+    });
+ 
     if(actual.health == 0){
         actual.description = ATTACK_ABSORBED;
     } else if(happen(dodgeProb)) {
@@ -275,9 +284,12 @@ Character::Attack Character::attack(const Character * attacker, const Attack & a
         unsigned int blocked = preHP - actual.health;
         actual.description = ATTACK_BLOCKED;
         actual.description = actual.description + "(" + unsignedValToString(blocked) + ")";
+        affectDurability(equipment->findItemWithSubType(ARMOR_TYPE_SHIELD), blocked);
     }
     
-    decHealth(actual.health);
+    if(actual.description != ATTACK_DODGED) {
+        attacker->affectDurability(attacker->getEquipment()->findItemWithSubType(ITEM_TYPE_WEAPON), attack.health);
+    }
     
     return actual;
 }

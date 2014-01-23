@@ -114,4 +114,12 @@ void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
 }
 
+Monster::Attack Monster::attack(const Character * attacker, const Attack & attack) {
+    Attack actual = Character::attack(attacker, attack);
+    decHealth(actual.health);
+    return actual;
+}
+
+void Monster::affectDurability(BreakableItem * bi, unsigned int power) const {}
+
 

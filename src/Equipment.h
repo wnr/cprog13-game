@@ -22,12 +22,15 @@ namespace game {
         }
         
         unsigned int getAttackPower() const;
-        unsigned int getDodgeProb() const;
-        unsigned int getBlockProb() const;
+        float getDodgeProb() const;
+        float getBlockProb() const;
         unsigned int getArmorRating() const;
         
-    private:
+        bool affectDurability(const std::string & subType, unsigned int power) const;
+        bool affectArmorDurability(unsigned int power) const;
+        
         void for_each_armor(const std::function<bool (Armor*)>) const;
+
     };
 }
 
