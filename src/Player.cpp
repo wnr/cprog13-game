@@ -451,7 +451,6 @@ void Player::initCommands() {
     };
     
     commands["uneq"] = commands["unequip"];
-    
 }
 
 bool Player::performCommand(const std::vector<std::string> & input) {
