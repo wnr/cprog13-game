@@ -52,6 +52,7 @@ void Engine::initEnvironments() {
     home->setNeightbor("Outside", outside);
     new Troll(home);
     home->push_back(std::unique_ptr<PhysicalObject>(new Food("Pie")));
+    home->push_back(std::unique_ptr<PhysicalObject>(new Potion("Bear_Piss")));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon("Axe", 10, 25, 3, 10, 50)));
     home->push_back(std::unique_ptr<PhysicalObject>(new Shield(50, 300, 10)));
     home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));

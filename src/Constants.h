@@ -18,7 +18,7 @@
 
 #define ITEM_TYPE_WEAPON                    "Weapon"
 #define ITEM_TYPE_KEY                       "Key"
-#define ITEM_TYPE_FOOD                      "Food"
+#define ITEM_TYPE_CONSUMABLE                "Consumable"
 #define ITEM_DURABILITY                     100
 
 #define CONTAINER_TYPE_BACKPACK             "Backpack"
@@ -46,8 +46,10 @@
 #define SHIELD_DODGE_RATING                 2
 #define SHIELD_WEIGHT                       10
 
-#define FOOD_STRENGTH                       10
+#define FOOD_POTENCY                        10
 #define FOOD_WEIGHT                         3
+#define POTION_POTENCY                      100
+#define POTEION_WEIGHT                      3
 
 #define ATTACK_DODGED                       "dodged"
 #define ATTACK_BLOCKED                      "blocked"

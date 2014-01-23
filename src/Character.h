@@ -2,6 +2,8 @@
 #define __cprog13_game__Character__
 
 #include "PhysicalObject.h"
+#include "Food.h"
+#include "Potion.h"
 
 namespace game {
     class Item;
@@ -13,7 +15,7 @@ namespace game {
     
     class Character : public PhysicalObject {
         unsigned int health;
-        const unsigned int maxHealth;
+        unsigned int maxHealth;
         bool alive;
         Environment * env;
         Backpack * inventory;
@@ -29,6 +31,9 @@ namespace game {
             explicit Attack(unsigned int health);
             Attack(unsigned int health, std::string description);
         };
+        
+        friend void Food::addHealth(int health, Character * character) const;
+        friend void Potion::addMaxHealth(int health, Character * character) const;
         
         //When a Character is constructed, it will add itself to the given environment.
         Character(Environment * env, std::string subType, unsigned int maxHealth);
@@ -72,14 +77,14 @@ namespace game {
         Attack attack(const Character * attacker, unsigned int health);
         Attack attack(const Character * attacker, unsigned int health, std::string description);
         virtual Attack attack(const Character * attacker, const Attack & attack);
-
-        bool eatFood(Food * food);
         
     protected:
         void setHealth(unsigned int health);
         void incHealth(unsigned int health);
         void decHealth(unsigned int health);
         void addHealth(int health);
+        void addMaxHealth(int health);
+        void setMaxHealth(unsigned int health);
         
         unsigned int getAttackPower() const;
         unsigned int getMinDmg() const;
