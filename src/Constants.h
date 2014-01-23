@@ -26,8 +26,8 @@
 #define KEY_STANDARD_IDENTIFIER             "Standard_key"
 #define KEY_STANDARD_LEVEL                  3
 
-#define WEAPON_CRIT_PROB                    2
-#define WEAPON_CRIT_MOD                     1.5
+#define WEAPON_CRIT_PROB                    0
+#define WEAPON_CRIT_MOD                     0
 
 #define ARMOR_TYPE_HELMET                   "Helmet"
 #define ARMOR_TYPE_CHEST                    "Chest"

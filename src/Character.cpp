@@ -7,6 +7,7 @@
 #include "Equipment.h"
 #include "BreakableItem.h"
 #include "Armor.h"
+#include "Weapon.h"
 
 using namespace game;
 
@@ -241,6 +242,30 @@ unsigned int Character::getBaseBlockProb() const {
     return 0;
 }
 
+unsigned int Character::getBaseCritProb() const {
+    return 5;
+}
+
+unsigned int Character::getBaseCritMod() const {
+    return 50;
+}
+
+bool Character::isCriticalHit(unsigned int &attackPower) const {
+    float critProb = incByPercent(0, getBaseCritProb());
+    float critMod = getBaseCritMod();
+    Weapon * weapon = equipment->findItemWithSubType<Weapon>(ITEM_TYPE_WEAPON);
+    if(weapon != NULL) {
+        critProb = incByPercent(critProb, weapon->getCritProb());
+        critMod += weapon->getCritModifier();
+    }
+    if(happen(convertPercent(critProb))) {
+        attackPower = (((critMod / 100.0) + 1.0) * (float)(attackPower));
+        return true;
+    } else {
+        return false;
+    }
+}
+
 unsigned int Character::blockMod(const unsigned int originalDmg) const {
     int blockPercent = rand(0, 3, true) * 25;
     return (originalDmg * blockPercent) / 100;
@@ -257,8 +282,6 @@ unsigned int Character::armorMod(const unsigned int originalDmg) const {
         return originalDmg - getArmorRating();
     }
 }
-
-
 
 Character::Attack Character::attack(const Character * attacker, const Attack & attack) {
     unsigned int dodgeProb = getDodgeProb();

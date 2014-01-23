@@ -474,7 +474,12 @@ void Player::interact(Character * other) {
     };
     
     actions["kick"] = [this, &attack]() {
-        attack("kick", getAttackPower());
+        unsigned int attackPower = getAttackPower();
+        if(isCriticalHit(attackPower)) {
+            attack("critical kick", attackPower);
+        } else {
+            attack("kick", attackPower);
+        }
         return true;
     };
     

@@ -29,6 +29,10 @@ namespace game {
         float newPercent = 1.0 - inversePercent * inverseIncPercent;
         return newPercent;
     }
+    
+    inline unsigned int convertPercent(float percent) {
+        return ((percent*100.0) + 0.5);
+    }
 }
 
 #endif

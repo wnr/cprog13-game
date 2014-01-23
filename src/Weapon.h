@@ -14,21 +14,21 @@ namespace game {
         unsigned int minDmg;
         unsigned int maxDmg;
         unsigned int critProb;
-        float critModifier;
+        unsigned int critModifier;
         
     public:
         Weapon(unsigned int dmg, unsigned int weight);
         Weapon(std::string name, unsigned int dmg, unsigned int weight);
         Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int weight);
-        Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int critProb, float critModifier, unsigned int weight);
+        Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsigned int weight, unsigned int critProb, unsigned int critMod);
         Weapon(const Weapon & weapon);
         Weapon(Weapon && weapon);
         virtual ~Weapon();
         
-        int getMinDmg() const;
-        int getMaxDmg() const;
-        int getCritProb() const;
-        float getCritModifier() const;
+        unsigned int getMinDmg() const;
+        unsigned int getMaxDmg() const;
+        unsigned int getCritProb() const;
+        unsigned int getCritModifier() const;
         unsigned int getAttackPower() const;
         
     protected:

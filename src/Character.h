@@ -90,10 +90,14 @@ namespace game {
         virtual unsigned int getBaseAttackPower() const;
         virtual unsigned int getBaseDodgeProb() const;
         virtual unsigned int getBaseBlockProb() const;
+        virtual unsigned int getBaseCritProb() const;
+        virtual unsigned int getBaseCritMod() const;
         
         virtual unsigned int dodgeMod(const unsigned int originalDmg) const;
         virtual unsigned int blockMod(const unsigned int originalDmg) const;
         virtual unsigned int armorMod(const unsigned int originalDmg) const;
+        
+        virtual bool isCriticalHit(unsigned int & attackPower) const;
         
         virtual void affectDurability(BreakableItem * bi, unsigned int power) const = 0;
         
