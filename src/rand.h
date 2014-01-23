@@ -6,8 +6,11 @@ namespace game {
     // Seed the random generator.
     void seed();
     
-    // Returns random value beteen 0 and 100 (inclusive).
-    unsigned int rand(unsigned int min = 0, unsigned int max = 100, bool includeMax = false);
+    //Goes from 0 to 99 (default).
+    unsigned int rand(unsigned int max = 100, bool includeMax = false);
+    
+    // Choose the fuck yourself.
+    unsigned int rand(unsigned int min, unsigned int max, bool includeMax = false);
     
     // Function that returns true if rand between 1 to 100 is <= the given limit.
     // Limit of 0 will always return false.

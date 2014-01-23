@@ -19,7 +19,8 @@ namespace game {
         
     protected:
         virtual std::string getPersonalDescription() const;
-        virtual unsigned int getBaseAttackPower() const;
+        virtual unsigned int getBaseMinDmg() const;
+        virtual unsigned int getBaseMaxDmg() const;
     };
 }
 

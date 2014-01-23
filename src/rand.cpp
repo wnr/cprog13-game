@@ -9,6 +9,10 @@ void game::seed() {
     srand((unsigned int)time(NULL));
 }
 
+unsigned int game::rand(unsigned int max, bool includeMax) {
+    return rand(0, 1, includeMax);
+}
+
 unsigned int game::rand(unsigned int min, unsigned int max, bool includeMax) {
     if(max < min) {
         throw std::invalid_argument("max cannot be lower than min");
@@ -28,5 +32,5 @@ unsigned int game::rand(unsigned int min, unsigned int max, bool includeMax) {
 }
 
 bool game::happen(unsigned int limit, unsigned int max) {
-    return game::rand(1, max) <= limit;
+    return game::rand(1, max, true) <= limit;
 }

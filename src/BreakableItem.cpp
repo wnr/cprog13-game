@@ -84,7 +84,7 @@ bool BreakableItem::affectDurability(unsigned int power) {
     if(!isWorking() || power < getDurability()) {
         return false;
     } else {
-        unsigned int random = rand(0, power);
+        unsigned int random = rand(power);
         if(random > getDurability()) {
             decDurability(1);
         }
