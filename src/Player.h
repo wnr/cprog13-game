@@ -35,6 +35,10 @@ namespace game {
         void printUpdateInfo() const;
         bool performCommand(const std::vector<std::string> & inputs);
         bool isCommandInventory(std::string command ) const;
+        bool isCommandEquipment(std::string command ) const;
+        
+        std::string getPersonalDescription() const;
+        std::string getStatisticalDescription() const;
     };
 }
 

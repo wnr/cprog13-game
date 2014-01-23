@@ -32,17 +32,9 @@ std::string Armor::getStatisticalDescription() const {
 }
 
 unsigned int Armor::getArmorRating() const {
-    if(isWorking()){
-        return armorRating;
-    } else {
-        return 0;
-    }
+    return armorRating;
 }
 
 unsigned int Armor::getDodgeRating() const {
-    if(isWorking()) {
-        return dodgeRating;
-    } else {
-        return 0;
-    }
+    return dodgeRating;
 }

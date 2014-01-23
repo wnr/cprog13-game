@@ -215,15 +215,31 @@ unsigned int Character::getArmorRating() const {
 }
 
 unsigned int Character::getDodgeProb() const {
-    return (100.0 * incByPercent(equipment->getDodgeProb(), getBaseDodgeProb())) + 0.5;
+    return convertPercent(incByPercent(equipment->getDodgeProb(), getBaseDodgeProb()));
 }
 
 unsigned int Character::getAttackPower() const {
-    return equipment->getAttackPower() + getBaseAttackPower();
+    return rand(getMinDmg(), getMaxDmg(), true);
+}
+
+unsigned int Character::getMinDmg() const {
+    return equipment->getMinDmg() + getBaseMinDmg();
+}
+
+unsigned int Character::getMaxDmg() const {
+    return equipment->getMaxDmg() + getBaseMaxDmg();
 }
 
 unsigned int Character::getBlockProb() const {
-    return (100.0 * incByPercent(equipment->getBlockProb(), getBaseBlockProb())) + 0.5;
+    return convertPercent(incByPercent(equipment->getBlockProb(), getBaseBlockProb()));
+}
+
+unsigned int Character::getCritProb() const {
+    return convertPercent(incByPercent(equipment->getCritProb(), getBaseCritProb()));
+}
+
+unsigned int Character::getCritMod() const {
+    return equipment->getCritMod() + getBaseCritMod();
 }
 
 unsigned int Character::getBaseArmorRating() const {
@@ -234,8 +250,12 @@ unsigned int Character::getBaseDodgeProb() const {
     return 5;
 }
 
-unsigned int Character::getBaseAttackPower() const {
-    return rand(1, 5, true);
+unsigned int Character::getBaseMinDmg() const {
+    return 1;
+}
+
+unsigned int Character::getBaseMaxDmg() const {
+    return 5;
 }
 
 unsigned int Character::getBaseBlockProb() const {
@@ -251,14 +271,9 @@ unsigned int Character::getBaseCritMod() const {
 }
 
 bool Character::isCriticalHit(unsigned int &attackPower) const {
-    float critProb = incByPercent(0, getBaseCritProb());
-    float critMod = getBaseCritMod();
-    Weapon * weapon = equipment->findItemWithSubType<Weapon>(ITEM_TYPE_WEAPON);
-    if(weapon != NULL) {
-        critProb = incByPercent(critProb, weapon->getCritProb());
-        critMod += weapon->getCritModifier();
-    }
-    if(happen(convertPercent(critProb))) {
+    unsigned int critProb = getCritProb();
+    unsigned int critMod = getCritMod();
+    if(happen(critProb)) {
         attackPower = (((critMod / 100.0) + 1.0) * (float)(attackPower));
         return true;
     } else {

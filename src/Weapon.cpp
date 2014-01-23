@@ -46,11 +46,3 @@ std::string Weapon::getStatisticalDescription() const {
     desc += "\nCrit mod: " + unsignedValToString(getCritModifier());
     return desc;
 }
-
-unsigned int Weapon::getAttackPower() const {
-    if(isWorking()) {
-        return rand(getMinDmg(), getMaxDmg(), true);
-    } else {
-        return 0;
-    }
-}

@@ -82,12 +82,17 @@ namespace game {
         void addHealth(int health);
         
         unsigned int getAttackPower() const;
+        unsigned int getMinDmg() const;
+        unsigned int getMaxDmg() const;
         unsigned int getArmorRating() const;
         unsigned int getDodgeProb() const;
         unsigned int getBlockProb() const;
+        unsigned int getCritProb() const;
+        unsigned int getCritMod() const;
         
         virtual unsigned int getBaseArmorRating() const;
-        virtual unsigned int getBaseAttackPower() const;
+        virtual unsigned int getBaseMinDmg() const;
+        virtual unsigned int getBaseMaxDmg() const;
         virtual unsigned int getBaseDodgeProb() const;
         virtual unsigned int getBaseBlockProb() const;
         virtual unsigned int getBaseCritProb() const;

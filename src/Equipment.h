@@ -7,7 +7,7 @@
 
 namespace game {
     class Armor;
-    class Equipment : public GameStorage<BreakableItem> {
+    class Equipment : public PhysicalObject, public GameStorage<BreakableItem> {
     public:
         Equipment();
         ~Equipment();
@@ -21,16 +21,24 @@ namespace game {
             return item;
         }
         
-        unsigned int getAttackPower() const;
+        unsigned int getMinDmg() const;
+        unsigned int getMaxDmg() const;
         float getDodgeProb() const;
         float getBlockProb() const;
+        float getCritProb() const;
+        unsigned int getCritMod() const;
         unsigned int getArmorRating() const;
         
         bool affectDurability(const std::string & subType, unsigned int power) const;
         bool affectArmorDurability(unsigned int power) const;
         
         void for_each_armor(const std::function<bool (Armor*)>) const;
+        
+        std::string getDescription() const;
 
+    private:
+        std::string getPersonalDescription() const;
+        std::string getStatisticalDescription() const;
     };
 }
 

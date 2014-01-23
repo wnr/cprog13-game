@@ -10,6 +10,7 @@
 #define OBJECT_TYPE_CONTAINER               "Container"
 #define OBJECT_TYPE_ITEM                    "Item"
 #define OBJECT_TYPE_CHARACTER               "Character"
+#define OBJECT_TYPE_OTHER                   "Other"
 
 #define CHARACTER_TYPE_PLAYER               "Player"
 #define CHARACTER_TYPE_MONSTER              "Monster"
@@ -22,6 +23,8 @@
 
 #define CONTAINER_TYPE_BACKPACK             "Backpack"
 #define CONTAINER_TYPE_CHEST                "Chest"
+
+#define OTHER_TYPE_EQUIPMENT                "Equipment"
 
 #define KEY_STANDARD_IDENTIFIER             "Standard_key"
 #define KEY_STANDARD_LEVEL                  3

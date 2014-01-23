@@ -53,6 +53,11 @@ void Player::printUpdateInfo() const {
 }
 
 void Player::initCommands() {
+    commands["stats"] = [this](const std::vector<std::string> & commands) -> bool {
+        std::cout << getDescription() << std::endl;
+        return false;
+    };
+    
     commands["look"] = [this](const std::vector<std::string> & commands) -> bool {
         Environment * env = getEnvironment();
         if(commands.size() == 1) {
@@ -62,12 +67,18 @@ void Player::initCommands() {
                 std::cout << getInventory()->getDescription() << std::endl;
                 return false;
             }
+            if(isCommandEquipment(commands[1])) {
+                std::cout << getEquipment()->getDescription() << std::endl;
+                return false;
+            }
             PhysicalObject * physicalObject = env->find(commands[1]);
             if(physicalObject == NULL) {
                 std::cout << "Found no item named: " << commands[1] << std::endl;
             } else {
                 std::cout << physicalObject->getDescription() << std::endl;
             }
+            
+            
         } else if(commands.size() == 3) {
             Item * item = NULL;
             if(isCommandInventory(commands[1])) {
@@ -75,6 +86,13 @@ void Player::initCommands() {
                 item = inv->find(commands[2]);
                 if(item == NULL) {
                     std::cout << "Found no item named: " << commands[2] << " in your inventory." << std::endl;
+                    return false;
+                }
+            } else if(isCommandEquipment(commands[1])) {
+                Equipment * eq = getEquipment();
+                item = eq->find(commands[2]);
+                if(item == NULL) {
+                    std::cout << "Found no item named: " << commands[2] << " in your equipment." << std::endl;
                     return false;
                 }
             } else {
@@ -133,6 +151,18 @@ void Player::initCommands() {
     };
     commands["backpack"] = commands["inventory"];
     commands["inv"] = commands["inventory"];
+    
+    commands["equipment"] = [this](const std::vector<std::string> &) -> bool {
+        Equipment * eq = getEquipment();
+        std::cout << eq->getDescription() << std::endl;
+        return false;
+    };
+    
+    commands["equipment"] = [this](const std::vector<std::string> &) -> bool {
+        Equipment * eq = getEquipment();
+        std::cout << eq->getDescription() << std::endl;
+        return false;
+    };
     
     commands["pick"] = [this](const std::vector<std::string> & commands) -> bool {
         if(commands.size() < 2) {
@@ -285,6 +315,8 @@ void Player::initCommands() {
         return true;
     };
     
+    commands["att"] = commands["attack"];
+    
     commands["unlock"] = [this](const std::vector<std::string> & commands) -> bool {
         Environment * env = getEnvironment();
         Backpack * inv = getInventory();
@@ -395,6 +427,8 @@ void Player::initCommands() {
         }
     };
     
+    commands["eq"] = commands["equip"];
+    
     commands["unequip"] = [this](const std::vector<std::string> & commands) -> bool {
         if(commands.size() != 2) {
             std::cout << "Invalid command syntax. Usage: equip ITEM" << std::endl;
@@ -415,6 +449,8 @@ void Player::initCommands() {
             return false;
         }
     };
+    
+    commands["uneq"] = commands["unequip"];
     
 }
 
@@ -566,10 +602,34 @@ bool Player::isCommandInventory(std::string command) const {
     }
 }
 
+bool Player::isCommandEquipment(std::string command) const {
+    command = toLowerCase(command);
+    if(command == "eq" || command == "equip" || command == "equipment") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void Player::affectDurability(BreakableItem * bi, unsigned int power) const {
     if(bi != NULL) {
         if(bi->affectDurability(power)) {
             std::cout << bi->getName() << " broke!" << std::endl;
         }
     }
+}
+
+std::string Player::getPersonalDescription() const {
+    return "This is you (" + getName() + ")";
+}
+
+std::string Player::getStatisticalDescription() const {
+    std::string desc = Character::getStatisticalDescription();
+    desc += "\nArmor rating: " + std::to_string(getArmorRating());
+    desc += "\nDodge prob: " + std::to_string(getDodgeProb());
+    desc += "\nBlock prob: " + std::to_string(getBlockProb());
+    desc += "\nDmg: " + std::to_string(getMinDmg()) + "-" + std::to_string(getMaxDmg());
+    desc += "\nCrit prob: " + std::to_string(getCritProb());
+    desc += "\nCrit mod: " + std::to_string(getCritMod());
+    return desc;
 }

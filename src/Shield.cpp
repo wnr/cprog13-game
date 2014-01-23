@@ -23,11 +23,7 @@ Shield::Shield(Shield && shield) : Armor(shield), blockProb(shield.blockProb ) {
 Shield::~Shield() {}
 
 int Shield::getBlockProb() const {
-    if(isWorking()) {
-        return blockProb;
-    } else {
-        return 0;
-    }
+    return blockProb;
 }
 
 std::string Shield::getStatisticalDescription() const {
