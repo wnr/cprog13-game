@@ -326,7 +326,12 @@ Character::Attack Character::attack(const Character * attacker, const Attack & a
     }
     
     if(actual.description != ATTACK_DODGED) {
-        attacker->affectDurability(attacker->getEquipment()->findItemWithSubType(ITEM_TYPE_WEAPON), attack.health);
+        unsigned int durAffectedAttackPower = attack.health;
+        if(getHealth() < attack.health) {
+            // Attackpower affected durability of the weapon can never be higher than someones health.
+            durAffectedAttackPower = getHealth();
+        }
+        attacker->affectDurability(attacker->getEquipment()->findItemWithSubType(ITEM_TYPE_WEAPON), durAffectedAttackPower);
     }
     
     return actual;

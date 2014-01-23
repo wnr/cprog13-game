@@ -25,7 +25,7 @@ namespace game {
         bool isWorking() const;
         int getDurability() const;
         int getMaxDurability() const;
-        bool affectDurability(unsigned int power);
+        virtual bool affectDurability(unsigned int power) = 0;
         
         bool isArmor() const;
         bool isWeapon() const;

@@ -25,6 +25,8 @@ namespace game {
         
         unsigned int getDodgeRating() const;
         
+        virtual bool affectDurability(unsigned int power);
+        
     protected:
         virtual std::string getStatisticalDescription() const;
     
