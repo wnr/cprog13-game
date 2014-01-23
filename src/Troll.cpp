@@ -30,6 +30,10 @@ std::string Troll::getPersonalDescription() const {
     return "A ugly " + getName() + " who does not fancy your good looks. Watch out!";
 }
 
-unsigned int Troll::getBaseAttackPower() const {
-    return rand(300, 500);
+unsigned int Troll::getBaseMinDmg() const {
+    return 300;
+}
+
+unsigned int Troll::getBaseMaxDmg() const {
+    return 500;
 }

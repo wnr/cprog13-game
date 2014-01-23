@@ -80,6 +80,18 @@ bool BreakableItem::isArmor() const {
     }
 }
 
+bool BreakableItem::affectDurability(unsigned int power) {
+    if(!isWorking() || power < getDurability()) {
+        return false;
+    } else {
+        unsigned int random = rand(power);
+        if(random > getDurability()) {
+            decDurability(1);
+        }
+        return !isWorking();
+    }
+}
+
 std::string BreakableItem::getStatisticalDescription() const {
     std::string desc = Item::getStatisticalDescription();
     desc += "\nDurability: (" + unsignedValToString(getDurability()) + "/" + unsignedValToString(getMaxDurability()) + ")";
