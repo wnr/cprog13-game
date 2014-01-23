@@ -171,15 +171,6 @@ bool Character::startInteraction(Character * other) {
 void Character::endInteraction(Character * other) {
     interacting = false;
 }
-    
-bool Character::eatFood(Food * food) {
-    addHealth(food->getStrength());
-    if(inventory->remove(food) != nullptr) {
-        return true;
-    } else {
-        return true;
-    }
-}
 
 Character::Attack Character::attack(const Character * attacker, unsigned int health) {
     return attack(attacker, Character::Attack(health));
@@ -326,8 +317,33 @@ Character::Attack Character::attack(const Character * attacker, const Attack & a
     }
     
     if(actual.description != ATTACK_DODGED) {
-        attacker->affectDurability(attacker->getEquipment()->findItemWithSubType(ITEM_TYPE_WEAPON), attack.health);
+        unsigned int durAffectedAttackPower = attack.health;
+        if(getHealth() < attack.health) {
+            // Attackpower affected durability of the weapon can never be higher than someones health.
+            durAffectedAttackPower = getHealth();
+        }
+        attacker->affectDurability(attacker->getEquipment()->findItemWithSubType(ITEM_TYPE_WEAPON), durAffectedAttackPower);
     }
     
     return actual;
+}
+
+void Character::addMaxHealth(int amount) {
+    int newMaxHealth = getMaxHealth() + amount;
+    if(newMaxHealth < 1) {
+        setMaxHealth(1);
+    } else {
+        setMaxHealth(newMaxHealth);
+    }
+}
+
+void Character::setMaxHealth(unsigned int health) {
+    if(health == 0) {
+        throw std::invalid_argument("Max health can not be set to 0.");
+    }
+    
+    maxHealth = health;
+    if(getHealth() > maxHealth) {
+        setHealth(maxHealth);
+    }
 }

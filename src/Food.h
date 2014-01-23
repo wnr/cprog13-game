@@ -2,15 +2,12 @@
 #define __cprog13_game__Food__
 
 #include <string>
-#include <vector>
-#include "Item.h"
+#include "Consumable.h"
 
 namespace game {
-    class Food : public Item {
-        unsigned int strength;
+    class Food : public Consumable {
         
-        public:
-        Food();
+    public:
         Food(std::string name);
         Food(std::string name, unsigned int strength);
         Food(std::string name, unsigned int strength, unsigned int weight);
@@ -18,8 +15,10 @@ namespace game {
         Food(Food && food);
         virtual ~Food();
         
-        unsigned int getStrength() const;
+        virtual std::string consume(Character *) const;
+        void addHealth(int amount, Character * character) const;
     };
+    
 }
 
 #endif

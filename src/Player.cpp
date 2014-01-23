@@ -381,22 +381,17 @@ void Player::initCommands() {
             return false;
         }
         
-        Food * food = getInventory()->find<Food>(OBJECT_TYPE_ITEM, ITEM_TYPE_FOOD, commands[1]);
-        if(food == NULL) {
-            std::cout << "Found no food named: " << commands[1]  << " in your inventory."<< std::endl;
+        Consumable * cItem = getInventory()->find<Consumable>(OBJECT_TYPE_ITEM, ITEM_TYPE_CONSUMABLE, commands[1]);
+        if(cItem == NULL) {
+            std::cout << "Found no consumable item named: " << commands[1]  << " in your inventory."<< std::endl;
             return false;
         }
         
-        std::string foodName = food->getName();
-        unsigned int before = getHealth();
-        if(eatFood(food)) {
-            unsigned int change = getHealth() - before;
-            std::cout << "You ate some " << foodName  << " and gained " << change << " HP" << std::endl;
-            return false;
-        } else {
-            std::cout << "You are unable to eat " << foodName << std::endl;
-            return false;
-        }
+        std::string consumableName = cItem->getName();
+        std::string response = cItem->consume(this);
+        std::cout << "You digested " << consumableName  << " and " << response << std::endl;
+        return false;
+        
     };
     
     commands["equip"] = [this](const std::vector<std::string> & commands) -> bool {

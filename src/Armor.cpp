@@ -38,3 +38,14 @@ unsigned int Armor::getArmorRating() const {
 unsigned int Armor::getDodgeRating() const {
     return dodgeRating;
 }
+
+bool Armor::affectDurability(unsigned int power) {
+    if(!isWorking() || power < getArmorRating()) {
+        return false;
+    } else {
+        if(happen(5)){
+            decDurability(1);
+        }
+        return !isWorking();
+    }
+}

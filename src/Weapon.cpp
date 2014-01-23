@@ -39,6 +39,17 @@ unsigned int Weapon::getCritModifier() const {
     return critModifier;
 }
 
+bool Weapon::affectDurability(unsigned int power) {
+    if(!isWorking() || power < getMinDmg()) {
+        return false;
+    } else {
+        if(happen(5)){
+            decDurability(1);
+        }
+        return !isWorking();
+    }
+}
+
 std::string Weapon::getStatisticalDescription() const {
     std::string desc = BreakableItem::getStatisticalDescription();
     desc += "\nDmg: " + unsignedValToString(getMinDmg()) + "-" + unsignedValToString(getMaxDmg());

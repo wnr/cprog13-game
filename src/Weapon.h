@@ -25,6 +25,8 @@ namespace game {
         Weapon(Weapon && weapon);
         virtual ~Weapon();
         
+        virtual bool affectDurability(unsigned int power);
+        
         unsigned int getMinDmg() const;
         unsigned int getMaxDmg() const;
         unsigned int getCritProb() const;
