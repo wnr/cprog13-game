@@ -20,7 +20,7 @@ namespace game {
         GameStorage() {}
         virtual ~GameStorage() {}
         
-        virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+        virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<const T*> & skips = {}, bool caseinsens = true) const {
             
             T * result = NULL;
             
@@ -51,26 +51,26 @@ namespace game {
             return result;
         }
         
-        T * find(const std::string & mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+        T * find(const std::string & mainType, std::string searchString, const std::vector<const T*> & skips = {}, bool caseinsens = true) const {
             return find(mainType, "", searchString, skips, caseinsens);
         }
         
-        T * find(std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+        T * find(std::string searchString, const std::vector<const T*> & skips = {}, bool caseinsens = true) const {
             return find("", searchString, skips, caseinsens);
         }
         
         template<class E>
-        E * find(const std::string mainType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+        E * find(const std::string mainType, std::string searchString, const std::vector<const T*> & skips = {}, bool caseinsens = true) const {
             return (E*) find<E>(mainType, "", searchString, skips, caseinsens);
         }
         
         template<class E>
-        E * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<T*> & skips = {}, bool caseinsens = true) const {
+        E * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<const T*> & skips = {}, bool caseinsens = true) const {
             return (E*) find(mainType, subType, searchString, skips, caseinsens);
         }
         
         template<class E>
-        E * random(const std::string & mainType = "", const std::vector<T*> & skips = {}, const std::set<std::string> & skipSubTypes = std::set<std::string>()) const {
+        E * random(const std::string & mainType = "", const std::vector<const T*> & skips = {}, const std::set<std::string> & skipSubTypes = std::set<std::string>()) const {
             std::vector<T*> candidates;
             
             this->for_each([&candidates, &mainType, &skipSubTypes](T * element){
@@ -118,7 +118,7 @@ namespace game {
 
         }
         
-        void for_each_count(const std::function<bool(T *, int)> operation, const std::vector<T*> & skips = {}) const {
+        void for_each_count(const std::function<bool(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
             std::map<std::string, int> map;
             this->for_each([&operation, &map](T * element){
                 std::string objectName = element->getName();

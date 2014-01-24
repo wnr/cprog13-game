@@ -350,3 +350,7 @@ void Character::setMaxHealth(unsigned int health) {
         setHealth(maxHealth);
     }
 }
+
+Character * Character::getRandomTarget() const {
+    return getEnvironment()->random<Character>("Character", {this});
+}

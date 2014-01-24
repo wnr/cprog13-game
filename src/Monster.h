@@ -33,6 +33,8 @@ namespace game {
         void affectDurability(BreakableItem * bi, unsigned int power) const;
         
         virtual void update();
+    protected:
+        Character * getRandomTarget() const;
     };
 }
 

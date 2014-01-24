@@ -27,7 +27,7 @@ void Monster::update() {
     if(happen(getAttackProb())) {
         //Pick random from env.
         
-        Character * target = getEnvironment()->random<Character>("Character", {this});
+        Character * target = getRandomTarget();
         
         if(target != NULL && target->startInteraction(this)) {
             startInteraction(target);
@@ -123,5 +123,9 @@ Monster::Attack Monster::attack(const Character * attacker, const Attack & attac
 }
 
 void Monster::affectDurability(BreakableItem * bi, unsigned int power) const {}
+
+Character * Monster::getRandomTarget() const {
+    return getEnvironment()->random<Character>(OBJECT_TYPE_CHARACTER, {this}, std::set<std::string>({getSubType()}));
+}
 
 
