@@ -81,3 +81,11 @@ std::unique_ptr<Item> LockableContainer::remove(const Item * element) {
 std::string LockableContainer::getStatisticalDescription() const {
     return Container::getStatisticalDescription() + "\n" + KeyLock::getStatisticalDescription();
 }
+
+LockableContainer * LockableContainer::clone() const {
+    LockableContainer * c = new LockableContainer(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

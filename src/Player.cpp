@@ -668,3 +668,7 @@ std::string Player::getStatisticalDescription() const {
 std::vector<std::string> & Player::getUniqueCommands() {
     return uniqueCommands;
 }
+
+Player* Player::clone() const {
+    throw std::runtime_error("Player should not be cloned. What are you doing!?");
+}

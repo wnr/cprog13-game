@@ -32,5 +32,13 @@ std::string Food::consume(Character * character) const {
 void Food::addHealth(int amount, Character * character) const {
     character->addHealth(amount);
 }
-    
+
+Food * Food::clone() const {
+    Food * c = new Food(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}
+
     

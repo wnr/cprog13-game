@@ -11,6 +11,8 @@
 #include "Demon.h"
 #include "Food.h"
 #include "Shield.h"
+#include "SpawnArea.h"
+#include "Potion.h"
 
 #include "Constants.h"
 

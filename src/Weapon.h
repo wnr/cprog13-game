@@ -32,6 +32,8 @@ namespace game {
         unsigned int getCritProb() const;
         unsigned int getCritModifier() const;
         
+        virtual Weapon* clone() const;
+        
     protected:
         virtual std::string getStatisticalDescription() const;
     };

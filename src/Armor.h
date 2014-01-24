@@ -27,6 +27,8 @@ namespace game {
         
         virtual bool affectDurability(unsigned int power);
         
+        virtual Armor* clone() const;
+        
     protected:
         virtual std::string getStatisticalDescription() const;
     

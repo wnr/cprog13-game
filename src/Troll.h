@@ -17,6 +17,8 @@ namespace game {
         
         virtual void interact(Character * other);
         
+        virtual Troll* clone() const;
+        
     protected:
         virtual std::string getPersonalDescription() const;
         virtual unsigned int getBaseMinDmg() const;

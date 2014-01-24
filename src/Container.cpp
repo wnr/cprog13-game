@@ -62,3 +62,11 @@ std::string Container::getPersonalDescription() const {
 std::string Container::getStatisticalDescription() const {
     return "Taken space/Max space: (" + unsignedValToString(getTakenSpace()) + "/" + unsignedValToString(getMaxSize()) + ")";
 }
+
+Container * Container::clone() const {
+    Container * c = new Container(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

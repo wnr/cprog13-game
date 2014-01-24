@@ -41,3 +41,11 @@ Ghost::Attack Ghost::attack(const Character * attacker, const Attack & attack) {
 std::string Ghost::getPersonalDescription() const {
     return "It looks like a " + getName() + ". You don't believe in ghosts do ya?";
 }
+
+Ghost * Ghost::clone() const {
+    Ghost * c = new Ghost(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

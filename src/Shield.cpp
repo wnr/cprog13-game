@@ -32,3 +32,11 @@ std::string Shield::getStatisticalDescription() const {
     return desc;
 }
 
+Shield * Shield::clone() const {
+    Shield * c = new Shield(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}
+

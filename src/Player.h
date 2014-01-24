@@ -29,6 +29,9 @@ namespace game {
         
         void affectDurability(BreakableItem * bi, unsigned int power) const;
         
+        virtual Player* clone() const;
+        
+        
     private:
         void update();
         void initCommands();

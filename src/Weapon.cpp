@@ -57,3 +57,11 @@ std::string Weapon::getStatisticalDescription() const {
     desc += "\nCrit mod: " + unsignedValToString(getCritModifier());
     return desc;
 }
+
+Weapon * Weapon::clone() const {
+    Weapon * c = new Weapon(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

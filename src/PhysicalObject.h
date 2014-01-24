@@ -28,11 +28,11 @@ namespace game {
         bool isItem() const;
         
         virtual std::string getDescription() const;
+        virtual PhysicalObject* clone() const = 0;
         
     protected:
         virtual std::string getPersonalDescription() const;
         virtual std::string getStatisticalDescription() const = 0;
-        
     };
 }
 

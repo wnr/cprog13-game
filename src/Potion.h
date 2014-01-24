@@ -8,7 +8,7 @@
 namespace game {
     class Potion : public Consumable {
         
-        public:
+    public:
         Potion(std::string name);
         Potion(std::string name, unsigned int potency);
         Potion(std::string name, unsigned int potency, unsigned int weight);
@@ -18,6 +18,8 @@ namespace game {
         
         virtual std::string consume(Character *) const;
         void addMaxHealth(int amount, Character * character) const;
+        
+        virtual Potion* clone() const;
     };
 }
 

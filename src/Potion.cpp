@@ -32,3 +32,11 @@ void Potion::addMaxHealth(int amount, Character * character) const {
     character->addMaxHealth(amount);
 }
 
+Potion * Potion::clone() const {
+    Potion * c = new Potion(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}
+

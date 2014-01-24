@@ -32,6 +32,8 @@ namespace game {
         
         virtual std::string getDescription() const;
         
+        virtual LockableContainer* clone() const;
+        
     protected:
         virtual std::string getStatisticalDescription() const;
     };

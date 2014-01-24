@@ -39,3 +39,11 @@ std::string Item::getPersonalDescription() const {
 std::string Item::getStatisticalDescription() const {
     return "Weight: " + unsignedValToString(getWeight());
 }
+
+Item * Item::clone() const {
+    Item * c = new Item(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

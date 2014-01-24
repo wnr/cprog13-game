@@ -10,6 +10,7 @@ namespace game {
     class Equipment : public PhysicalObject, public GameStorage<BreakableItem> {
     public:
         Equipment();
+        
         ~Equipment();
         virtual std::unique_ptr<BreakableItem> push_back(std::unique_ptr<BreakableItem> element);
         
@@ -35,6 +36,8 @@ namespace game {
         void for_each_armor(const std::function<bool (Armor*)>) const;
         
         std::string getDescription() const;
+        
+        virtual Equipment * clone() const;
 
     private:
         std::string getPersonalDescription() const;

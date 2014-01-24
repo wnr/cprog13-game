@@ -28,6 +28,8 @@ namespace game {
         virtual Attack attack(const Character * attacker, const Attack & attack);
         
         virtual std::string getPersonalDescription() const;
+        
+        virtual Ghost* clone() const;
     };
 }
 

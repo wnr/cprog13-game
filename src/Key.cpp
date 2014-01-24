@@ -52,3 +52,11 @@ std::string Key::getIdentifier() const {
 std::string Key::getPersonalDescription() const {
     return "A " + getName() + ". You know... to unlock stuff.";
 }
+
+Key * Key::clone() const {
+    Key * c = new Key(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

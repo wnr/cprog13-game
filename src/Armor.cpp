@@ -49,3 +49,11 @@ bool Armor::affectDurability(unsigned int power) {
         return !isWorking();
     }
 }
+
+Armor * Armor::clone() const {
+    Armor * c = new Armor(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

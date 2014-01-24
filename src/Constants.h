@@ -24,6 +24,8 @@
 #define CONTAINER_TYPE_BACKPACK             "Backpack"
 #define CONTAINER_TYPE_CHEST                "Chest"
 
+#define ENVIRONMENT_TYPE_SPAWNER            "Spawner"
+
 #define OTHER_TYPE_EQUIPMENT                "Equipment"
 
 #define KEY_STANDARD_IDENTIFIER             "Standard_key"
@@ -54,6 +56,8 @@
 #define ATTACK_DODGED                       "dodged"
 #define ATTACK_BLOCKED                      "blocked"
 #define ATTACK_ABSORBED                     "absorbed"
+
+#define INVALID_CLONE                       "The element you are trying to clone does not have the function clone() implemented: "
 
 #define LIST_ITEM_PREFIX                    "* "
 #define INPUT_WORD_DELIMETER                " "

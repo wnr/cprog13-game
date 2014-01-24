@@ -1,5 +1,5 @@
-#ifndef __cprog13_game__HealthEnvironment__
-#define __cprog13_game__HealthEnvironment__
+#ifndef __cprog13_game__Graveyard__
+#define __cprog13_game__Graveyard__
 
 #include "Environment.h"
 

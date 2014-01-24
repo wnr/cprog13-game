@@ -48,3 +48,11 @@ Demon::Attack Demon::attack(const Character * attacker, const Attack & attack) {
 std::string Demon::getPersonalDescription() const {
     return "A powerful " + getName() + " from the world below. Gear up!";
 }
+
+Demon * Demon::clone() const {
+    Demon * c = new Demon(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

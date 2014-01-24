@@ -37,3 +37,11 @@ unsigned int Troll::getBaseMinDmg() const {
 unsigned int Troll::getBaseMaxDmg() const {
     return 500;
 }
+
+Troll * Troll::clone() const {
+    Troll * c = new Troll(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

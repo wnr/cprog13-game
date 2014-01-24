@@ -17,6 +17,8 @@ namespace game {
         
         virtual std::string consume(Character *) const;
         void addHealth(int amount, Character * character) const;
+        
+        virtual Food* clone() const;
     };
     
 }

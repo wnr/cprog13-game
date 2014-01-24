@@ -139,3 +139,7 @@ std::string Equipment::getStatisticalDescription() const {
     desc += "\nCrit mod: " + std::to_string(getCritMod());
     return desc;
 }
+
+Equipment * Equipment::clone() const {
+    throw std::runtime_error("Equipment is not cloneable.");
+}

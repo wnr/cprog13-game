@@ -23,6 +23,8 @@ namespace game {
         
         int getBlockProb() const;
         
+        virtual Shield* clone() const;
+        
     protected:
         virtual std::string getStatisticalDescription() const;
     };

@@ -39,6 +39,9 @@ namespace game {
             }
             return true;
         }
+        
+        
+        virtual Item* clone() const;
     protected:
         virtual std::string getPersonalDescription() const;
         virtual std::string getStatisticalDescription() const;

@@ -77,7 +77,6 @@ namespace game {
         Attack attack(const Character * attacker, unsigned int health);
         Attack attack(const Character * attacker, unsigned int health, std::string description);
         virtual Attack attack(const Character * attacker, const Attack & attack);
-        
     protected:
         void setHealth(unsigned int health);
         void incHealth(unsigned int health);
