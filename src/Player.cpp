@@ -90,7 +90,12 @@ void Player::initCommands() {
             return false;
         }
         
-        return this->move(commands[1]);
+        if(!this->move(commands[1])) {
+            std::cout << "You cannot go '" + commands[1] + "'." << std::endl;
+            return false;
+        }
+        
+        return true;
     });
     
     addCommands({"look"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
