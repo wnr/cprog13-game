@@ -12,6 +12,7 @@ namespace game {
         Ghost(Environment * env, std::string subType, unsigned int maxHealth);
         Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
         Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb);
+        Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod);
         Ghost(const Ghost & ghost);
         Ghost(Ghost && ghost);
         virtual ~Ghost();

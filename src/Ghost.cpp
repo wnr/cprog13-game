@@ -7,7 +7,9 @@ using namespace game;
 Ghost::Ghost(Environment * env) : Ghost(env, CHARACTER_TYPE_GHOST, GHOST_HEALTH) {}
 Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth) : Ghost(env, subType, maxHealth, subType) {}
 Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Ghost(env, subType, maxHealth, name, GHOST_MOVE_PROB, GHOST_ATTACK_PROB) {}
-Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Monster(env, subType, maxHealth, name, moveProb, attackProb) {}
+Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Ghost(env, subType, maxHealth, name, moveProb, attackProb, GHOST_BASE_ARMOR, GHOST_BASE_DODGE, GHOST_BASE_BLOCK, GHOST_BASE_MIN_DMG, GHOST_BASE_MAX_DMG, GHOST_BASE_CRIT_PROB, GHOST_BASE_CRIT_MOD) {}
+
+Ghost::Ghost(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : Monster(env, subType, maxHealth, name, moveProb, attackProb) {}
 
 Ghost::Ghost(const Ghost & ghost)   : Monster(ghost) {}
 Ghost::Ghost(Ghost && ghost)        : Monster(ghost) {}
