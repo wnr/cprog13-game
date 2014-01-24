@@ -40,7 +40,7 @@ void Player::printUpdateInfo() const {
     
     std::cout << std::endl << "Location: " << env->getFullInfo() << std::endl;
     
-    std::cout << "You can go to:" << std::endl;
+    std::cout << "You can go:" << std::endl;
     
     for(auto dir : env->getDirections()) {
         std::cout << LIST_ITEM_PREFIX << dir << std::endl;
