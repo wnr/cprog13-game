@@ -12,6 +12,7 @@ namespace game {
         Monster(Environment * env, std::string subType, unsigned int maxHealth);
         Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
         Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb);
+        Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod);
         Monster(const Monster & monster);
         Monster(Monster && monster);
         virtual ~Monster();

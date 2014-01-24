@@ -11,6 +11,7 @@ namespace game {
         Troll(Environment * env, std::string subType, unsigned int maxHealth);
         Troll(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
         Troll(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb);
+        Troll(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod);
         Troll(const Troll & troll);
         Troll(Troll && troll);
         virtual ~Troll();
@@ -21,8 +22,6 @@ namespace game {
         
     protected:
         virtual std::string getPersonalDescription() const;
-        virtual unsigned int getBaseMinDmg() const;
-        virtual unsigned int getBaseMaxDmg() const;
     };
 }
 

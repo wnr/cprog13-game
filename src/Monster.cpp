@@ -6,7 +6,9 @@ using namespace game;
 
 Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth) : Monster(env, subType, maxHealth, subType) {}
 Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Monster(env, subType, maxHealth, name, 0.0f, 0.0f) {}
-Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Character(env, subType, maxHealth, name), moveProb(moveProb), attackProb(attackProb) {}
+Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Monster(env, subType, maxHealth, name, moveProb, attackProb, MONSTER_BASE_ARMOR, MONSTER_BASE_DODGE, MONSTER_BASE_BLOCK, MONSTER_BASE_MIN_DMG, MONSTER_BASE_MAX_DMG, MONSTER_BASE_CRIT_PROB, MONSTER_BASE_CRIT_MOD) {}
+
+Monster::Monster(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : Character(env, subType, maxHealth, name, CHARACTER_INVENTORY_SIZE, baseArmorRating, baseDodgeProb, baseBlockProb, baseMinDmg, baseMaxDmg, baseCritProb, baseCritMod), moveProb(moveProb), attackProb(attackProb) {}
 
 Monster::Monster(const Monster & monster)   : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}
 Monster::Monster(Monster && monster)        : Character(monster), moveProb(monster.moveProb), attackProb(monster.attackProb) {}

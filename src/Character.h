@@ -16,6 +16,13 @@ namespace game {
     class Character : public PhysicalObject {
         unsigned int health;
         unsigned int maxHealth;
+        unsigned int baseArmorRating;
+        unsigned int baseDodgeProb;
+        unsigned int baseBlockProb;
+        unsigned int baseMinDmg;
+        unsigned int baseMaxDmg;
+        unsigned int baseCritProb;
+        unsigned int baseCritMod;
         bool alive;
         Environment * env;
         Backpack * inventory;
@@ -36,9 +43,11 @@ namespace game {
         friend void Potion::addMaxHealth(int health, Character * character) const;
         
         //When a Character is constructed, it will add itself to the given environment.
+        Character(Environment * env, std::string subType);
         Character(Environment * env, std::string subType, unsigned int maxHealth);
         Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name);
         Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize);
+        Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod);
         Character(const Character & character);
         Character(Character && character);
         virtual ~Character();

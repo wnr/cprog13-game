@@ -14,7 +14,6 @@
 
 #define CHARACTER_TYPE_PLAYER               "Player"
 #define CHARACTER_TYPE_MONSTER              "Monster"
-#define CHARACTER_INVENTORY_SIZE            50
 
 #define ITEM_TYPE_WEAPON                    "Weapon"
 #define ITEM_TYPE_KEY                       "Key"
@@ -69,12 +68,6 @@
 #define GAME_OUTRO                          ""
 
 #define TEXT_DIVIDER                        "----------"
-
-//---- Player ----
-
-#define PLAYER_INITIAL_LIFE                 100
-#define PLAYER_NAME                         "McLovin'"
-
 
 //---- Environments ----
 
@@ -246,20 +239,105 @@
 #define ENVCON_FOREST_EAST_WITH_FOREST_ENTRANCE             "west"
 
 
+//---- Player and Character----
+
+#define PLAYER_NAME                         "McLovin'"
+#define PLAYER_HEALTH                       300
+#define PLAYER_BASE_ARMOR                   0
+#define PLAYER_BASE_DODGE                   5
+#define PLAYER_BASE_BLOCK                   0
+#define PLAYER_BASE_MIN_DMG                 1
+#define PLAYER_BASE_MAX_DMG                 5
+#define PLAYER_BASE_CRIT_PROB               5
+#define PLAYER_BASE_CRIT_MOD                50
+
+#define CHARACTER_HEALTH                    300
+#define CHARACTER_BASE_ARMOR                50
+#define CHARACTER_BASE_DODGE                5
+#define CHARACTER_BASE_BLOCK                0
+#define CHARACTER_BASE_MIN_DMG              15
+#define CHARACTER_BASE_MAX_DMG              25
+#define CHARACTER_BASE_CRIT_PROB            5
+#define CHARACTER_BASE_CRIT_MOD             50
+#define CHARACTER_INVENTORY_SIZE            50
+
 //---- Monsters ----
 
-#define CHARACTER_TYPE_GHOST                "Ghost"
-#define GHOST_HEALTH                        500
-#define GHOST_MOVE_PROB                     35
-#define GHOST_ATTACK_PROB                   60
+#define MONSTER_BASE_ARMOR                  0
+#define MONSTER_BASE_DODGE                  5
+#define MONSTER_BASE_BLOCK                  0
+#define MONSTER_BASE_MIN_DMG                25
+#define MONSTER_BASE_MAX_DMG                50
+#define MONSTER_BASE_CRIT_PROB              10
+#define MONSTER_BASE_CRIT_MOD               50
+
+#define CHARACTER_TYPE_RAT                  "Rat"
+#define RAT_HEALTH                          50
+#define RAT_BASE_ARMOR                      0
+#define RAT_BASE_DODGE                      25
+#define RAT_BASE_BLOCK                      0
+#define RAT_BASE_MIN_DMG                    1
+#define RAT_BASE_MAX_DMG                    25
+#define RAT_BASE_CRIT_PROB                  15
+#define RAT_BASE_CRIT_MOD                   100
 
 #define CHARACTER_TYPE_TROLL                "Troll"
-#define TROLL_HEALTH                        100
+#define TROLL_HEALTH                        500
+#define TROLL_BASE_ARMOR                    50
+#define TROLL_BASE_DODGE                    5
+#define TROLL_BASE_BLOCK                    15
+#define TROLL_BASE_MIN_DMG                  50
+#define TROLL_BASE_MAX_DMG                  150
+#define TROLL_BASE_CRIT_PROB                25
+#define TROLL_BASE_CRIT_MOD                 150
 #define TROLL_MOVE_PROB                     50
-#define TROLL_ATTACK_PROB                   70
+#define TROLL_ATTACK_PROB                   50
+
+#define CHARACTER_TYPE_ENT                  "Ogre"
+#define OGRE_HEALTH                         650
+#define OGRE_BASE_ARMOR                     100
+#define OGRE_BASE_DODGE                     0
+#define OGRE_BASE_BLOCK                     20
+#define OGRE_BASE_MIN_DMG                   100
+#define OGRE_BASE_MAX_DMG                   250
+#define OGRE_BASE_CRIT_PROB                 25
+#define OGRE_BASE_CRIT_MOD                  150
+#define OGRE_MOVE_PROB                      10
+#define OGRE_ATTACK_PROB                    90
+
+#define CHARACTER_TYPE_GHOST                "Ghost"
+#define GHOST_HEALTH                        100
+#define GHOST_BASE_ARMOR                    250
+#define GHOST_BASE_DODGE                    50
+#define GHOST_BASE_BLOCK                    0
+#define GHOST_BASE_MIN_DMG                  1
+#define GHOST_BASE_MAX_DMG                  500
+#define GHOST_BASE_CRIT_PROB                5
+#define GHOST_BASE_CRIT_MOD                 50
+#define GHOST_MOVE_PROB                     25
+#define GHOST_ATTACK_PROB                   80
+
+#define CHARACTER_TYPE_VAMPIRE              "Vampire"
+#define VAMPIRE_HEALTH                      100
+#define VAMPIRE_BASE_ARMOR                  250
+#define VAMPIRE_BASE_DODGE                  50
+#define VAMPIRE_BASE_BLOCK                  0
+#define VAMPIRE_BASE_MIN_DMG                1
+#define VAMPIRE_BASE_MAX_DMG                500
+#define VAMPIRE_BASE_CRIT_PROB              5
+#define VAMPIRE_BASE_CRIT_MOD               50
+#define VAMPIRE_MOVE_PROB                   25
+#define VAMPIRE_ATTACK_PROB                 80
 
 #define CHARACTER_TYPE_DEMON                "Demon"
-#define DEMON_HEALTH                        10000
+#define DEMON_HEALTH                        2500
+#define DEMON_BASE_ARMOR                    700
+#define DEMON_BASE_DODGE                    5
+#define DEMON_BASE_BLOCK                    30
+#define DEMON_BASE_MIN_DMG                  1000
+#define DEMON_BASE_MAX_DMG                  2000
+#define DEMON_BASE_CRIT_PROB                10
+#define DEMON_BASE_CRIT_MOD                 50
 #define DEMON_MOVE_PROB                     0
 #define DEMON_ATTACK_PROB                   100
 

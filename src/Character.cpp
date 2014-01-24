@@ -14,10 +14,13 @@ using namespace game;
 Character::Attack::Attack(unsigned int health) : Character::Attack::Attack(health, "") {}
 Character::Attack::Attack(unsigned int health, std::string description) : health(health), description(description) {}
 
+Character::Character(Environment * env, std::string subType) : Character(env, subType, CHARACTER_HEALTH) {}
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth) : Character(env, subType, maxHealth, subType) {}
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Character(env, subType, maxHealth, name, CHARACTER_INVENTORY_SIZE) {}
 
-Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false) {
+Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : Character(env, subType, maxHealth, name, inventorySize, CHARACTER_BASE_ARMOR, CHARACTER_BASE_DODGE, CHARACTER_BASE_BLOCK, CHARACTER_BASE_MIN_DMG, CHARACTER_BASE_MAX_DMG, CHARACTER_BASE_CRIT_PROB, CHARACTER_BASE_CRIT_MOD) {}
+
+Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false) {
     setTickSync(env->getTickSync());
     env->push_back(std::unique_ptr<PhysicalObject>(this));
 }
@@ -234,31 +237,31 @@ unsigned int Character::getCritMod() const {
 }
 
 unsigned int Character::getBaseArmorRating() const {
-    return 0;
+    return baseArmorRating;
 }
 
 unsigned int Character::getBaseDodgeProb() const {
-    return 5;
+    return baseDodgeProb;
 }
 
 unsigned int Character::getBaseMinDmg() const {
-    return 1;
+    return baseMinDmg;
 }
 
 unsigned int Character::getBaseMaxDmg() const {
-    return 5;
+    return baseMaxDmg;
 }
 
 unsigned int Character::getBaseBlockProb() const {
-    return 0;
+    return baseBlockProb;
 }
 
 unsigned int Character::getBaseCritProb() const {
-    return 5;
+    return baseCritProb;
 }
 
 unsigned int Character::getBaseCritMod() const {
-    return 50;
+    return baseCritMod;
 }
 
 bool Character::isCriticalHit(unsigned int &attackPower) const {

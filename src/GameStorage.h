@@ -9,6 +9,7 @@
 #include "rand.h"
 #include <map>
 #include <vector>
+#include <set>
 
 namespace game {
     
@@ -69,12 +70,14 @@ namespace game {
         }
         
         template<class E>
-        E * random(const std::string & mainType, const std::vector<T*> skips = {}) const {
+        E * random(const std::string & mainType = "", const std::vector<T*> & skips = {}, const std::set<std::string> & skipSubTypes = std::set<std::string>()) const {
             std::vector<T*> candidates;
             
-            this->for_each([&candidates, &mainType](T * element){
-                if(element->getMainType() == mainType) {
-                    candidates.push_back(element);
+            this->for_each([&candidates, &mainType, &skipSubTypes](T * element){
+                if(mainType == "" || element->getMainType() == mainType) {
+                    if(skipSubTypes.find(element->getSubType()) == skipSubTypes.end()) {
+                        candidates.push_back(element);
+                    }
                 }
                 
                 return true;

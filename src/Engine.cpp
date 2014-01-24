@@ -47,6 +47,7 @@ void Engine::initEnvironments() {
         env2->setNeightbor(desc2, env1);
     };
     
+    
     //places
     Environment * home = createEnv(new Environment(ENV_HOME_NAME, ENV_HOME_DESC));
     Environment * neighHall = createEnv(new Environment(ENV_NEIGH_HALL_NAME, ENV_NEIGH_HALL_DESC));
@@ -130,7 +131,7 @@ void Engine::initEnvironments() {
     connectEnvs(cathHall, cathBoss, ENVCON_CATH_HALL_WITH_CATH_BOSS_ROOM, ENVCON_CATH_BOSS_ROOM_WITH_CATH_HALL);
     
     //Characters.
-    new Player(home, PLAYER_INITIAL_LIFE, PLAYER_NAME);
+    new Player(home, PLAYER_HEALTH, PLAYER_NAME);
 
     
 //    Environment * home = createEnv(new Environment("Home", "a big house with walls"));
