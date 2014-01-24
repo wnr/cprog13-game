@@ -9,6 +9,7 @@
 namespace game {
     class Player : public Character {
         std::map<std::string, std::function<bool(const std::vector<std::string> &)>> commands;
+        std::vector<std::string> uniqueCommands;
         
     public:
         Player(Environment * env, unsigned int maxHealth, std::string name);
@@ -36,6 +37,7 @@ namespace game {
         bool performCommand(const std::vector<std::string> & inputs);
         bool isCommandInventory(std::string command ) const;
         bool isCommandEquipment(std::string command ) const;
+        std::vector<std::string> & getUniqueCommands();
         
         std::string getPersonalDescription() const;
         std::string getStatisticalDescription() const;

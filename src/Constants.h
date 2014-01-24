@@ -65,8 +65,6 @@
 #define GAME_OUTRO                          ""
 
 #define TEXT_DIVIDER                        "----------"
-#define HELP_TEXT                           "To move somewhere, type 'goto' or 'go' or 'move' followed by a direction. Example: 'go outside'\nTo quit the time, type 'exit'"
-
 
 #define CHARACTER_TYPE_GHOST                "Ghost"
 #define GHOST_HEALTH                        500

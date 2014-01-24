@@ -11,7 +11,10 @@
 #include "Constants.h"
 #include "rand.h"
 
+#include <set>
+#include <map>
 #include <iostream>
+#include <vector>
 
 using namespace game;
 
@@ -53,12 +56,45 @@ void Player::printUpdateInfo() const {
 }
 
 void Player::initCommands() {
-    commands["stats"] = [this](const std::vector<std::string> & commands) -> bool {
-        std::cout << getDescription() << std::endl;
-        return false;
+    std::function<void (std::vector<std::string> commandWords, std::function<bool(const std::vector<std::string> &)>)> addCommands = [this](std::vector<std::string> commandWords, std::function<bool(const std::vector<std::string> &)> operation){
+        if(commandWords.size() < 1) {
+            throw std::invalid_argument("You must at least have one word associated with the command");
+        }
+        uniqueCommands.push_back(commandWords.front());
+        for(std::string word: commandWords){
+            if(commands.find(word) != commands.end()) {
+                throw std::invalid_argument("The word: " + word + " is associated with more than one command");
+            }
+            commands[word] = operation;
+        }
+        
     };
     
-    commands["look"] = [this](const std::vector<std::string> & commands) -> bool {
+    std::function<bool (const std::vector<std::string> & commands, const std::string & helpText, const std::string & usageCommands)> isHelp = [](const std::vector<std::string> & commands, const std::string & helpText, const std::string & usageCommands){
+        if(commands.size() != 2){ return false; };
+        if(commands[1] != "help"){ return false; };
+        
+        std::cout << TEXT_DIVIDER << " HELP: " << commands[0] << " " << TEXT_DIVIDER << std::endl;
+        if(helpText != "") {
+            std::cout << helpText << std::endl;
+        }
+        std::cout << "Usage: " << commands[0] << " " << usageCommands << std::endl;
+        return true;
+    };
+    
+    addCommands({"go", "move", "goto"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Used for navigating through the world.", "LOCATION")) { return false;}
+            
+        if(commands.size() != 2) {
+            std::cout << "You forgot to write where you wanna go." << std::endl;
+            return false;
+        }
+        
+        return this->move(commands[1]);
+    });
+    
+    addCommands({"look"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Look for example at different characters or on items to get more information. You can look at almost anything in the world.", "[CONTAINER] [OBJECT]")) { return false;}
         Environment * env = getEnvironment();
         if(commands.size() == 1) {
             printUpdateInfo();
@@ -112,59 +148,30 @@ void Player::initCommands() {
         }
         
         return false;
-    };
+    });
     
-    commands["exit"] = [this](const std::vector<std::string> &) -> bool {
-        this->getEngine()->kill();
-        return true;
-    };
-    
-    commands["go"] = [this](const std::vector<std::string> & commands) -> bool {
-        if(commands.size() != 2) {
-            std::cout << "You forgot to write where you wanna go." << std::endl;
-            return false;
-        }
-        
-        return this->move(commands[1]);
-    };
-    commands["move"] = commands["go"];
-    commands["goto"] = commands["go"];
-    
-    commands["pass"] = [](const std::vector<std::string> &) -> bool {
-        return true;
-    };
-    commands["wait"] = commands["pass"];
-    commands["skip"] = commands["pass"];
-    
-    commands["help"] = [](const std::vector<std::string> &) -> bool {
-        std::cout << std::endl;
-        std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
-        std::cout << HELP_TEXT << std::endl;
-        std::cout << TEXT_DIVIDER << " HELP END " << TEXT_DIVIDER << std::endl;
+    addCommands({"stats"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Get information about you.",  "")) { return false;}
+        std::cout << getDescription() << std::endl;
         return false;
-    };
+    });
     
-    commands["inventory"] = [this](const std::vector<std::string> &) -> bool {
+    addCommands({"inventory", "backpack", "inv"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Get information about your inventory that contains items.", "")) { return false;}
         Backpack * inv = getInventory();
         std::cout << inv->getDescription() << std::endl;
         return false;
-    };
-    commands["backpack"] = commands["inventory"];
-    commands["inv"] = commands["inventory"];
+    });
     
-    commands["equipment"] = [this](const std::vector<std::string> &) -> bool {
+    addCommands({"equipment"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Get information about your current equipment.", "")) { return false;}
         Equipment * eq = getEquipment();
         std::cout << eq->getDescription() << std::endl;
         return false;
-    };
+    });
     
-    commands["equipment"] = [this](const std::vector<std::string> &) -> bool {
-        Equipment * eq = getEquipment();
-        std::cout << eq->getDescription() << std::endl;
-        return false;
-    };
-    
-    commands["pick"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"pick"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Pick up items from the ground or from containers like for example Chests.", "[CONTAINER] ITEM")) { return false;}
         if(commands.size() < 2) {
             std::cout << "You forgot to write what you wanted to pick up." << std::endl;
             return false;
@@ -211,9 +218,10 @@ void Player::initCommands() {
         
         std::cout << "Invalid command syntax. Usage: pick [CONTAINER] ITEM" << std::endl;
         return false;
-    };
+    });
     
-    commands["drop"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"drop", "put"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Drop items on the ground or drop them into containers.", "[CONTAINER] ITEM")) { return false;}
         if(commands.size() < 2) {
             std::cout << "You forgot to write what you wanted to drop." << std::endl;
             return false;
@@ -261,11 +269,10 @@ void Player::initCommands() {
         
         std::cout << "Invalid command syntax. Usage: drop [CONTAINER] ITEM" << std::endl;
         return false;
-    };
+    });
     
-    commands["put"] = commands["drop"];
-        
-    commands["open"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"open"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"The same as 'look CONTAINER'.", "CONTAINER")) { return false;}
         if(commands.size() != 2) {
             std::cout << "You forgot to write what you wanted to open." << std::endl;
             return false;
@@ -284,40 +291,10 @@ void Player::initCommands() {
         std::cout << container->getDescription() << std::endl;
         
         return false;
-    };
+    });
     
-    commands["attack"] = [this](const std::vector<std::string> & commands) -> bool {
-        if(commands.size() != 2) {
-            std::cout << "You forgot to write what you wanted to attack." << std::endl;
-            return false;
-        }
-        
-        Character * character = getEnvironment()->find<Character>(OBJECT_TYPE_CHARACTER, commands[1], {this});
-        
-        if(character == NULL) {
-            std::cout << "There is no " + commands[1] << " in the area." << std::endl;
-            return false;
-        }
-        
-        if(!character->startInteraction(this)) {
-            std::cout << "The " << character->getName() << " busy fighting already." << std::endl;
-            return false;
-        }
-        
-        std::cout << std::endl << "You are initiating a fight with " << character->getName() << "!" << std::endl;
-        
-        interact(character);
-        
-        character->endInteraction(this);
-        endInteraction(character);
-        
-        
-        return true;
-    };
-    
-    commands["att"] = commands["attack"];
-    
-    commands["unlock"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"unlock"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Unlock containers or items using this command.", "[CONTAINER] LOCKED_OBJECT KEY")) { return false;}
         Environment * env = getEnvironment();
         Backpack * inv = getInventory();
         if(commands.size() < 3 || commands.size() > 4) {
@@ -373,9 +350,10 @@ void Player::initCommands() {
             std::cout << "You can't unlock: " << lockName << containerString << " using key: " << keyName << std::endl;
             return false;
         }
-    };
+    });
     
-    commands["eat"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"eat", "drink"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Use this command to consume items. Tip: Write 'drink' so you don't accidentally chew liquids.", "ITEM")) { return false;}
         if(commands.size() != 2) {
             std::cout << "Invalid command syntax. Usage: eat FOOD" << std::endl;
             return false;
@@ -391,10 +369,10 @@ void Player::initCommands() {
         std::string response = cItem->consume(this);
         std::cout << "You digested " << consumableName  << " and " << response << std::endl;
         return false;
-        
-    };
+    });
     
-    commands["equip"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"equip", "eq"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "Used for equipping items. You can only equip one of each type of equippable item.", "[ITEM]")) { return false;}
         if(commands.size() != 2) {
             std::cout << "Invalid command syntax. Usage: equip ITEM" << std::endl;
             return false;
@@ -420,11 +398,10 @@ void Player::initCommands() {
             std::cout << "You failed to equip: " << bItem->getName() << std::endl;
             return false;
         }
-    };
+    });
     
-    commands["eq"] = commands["equip"];
-    
-    commands["unequip"] = [this](const std::vector<std::string> & commands) -> bool {
+    addCommands({"unequip", "uneq", "ueq"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Used for removing equipped items and putting them back to your inventory, if you have enough space.", "ITEM")) { return false;}
         if(commands.size() != 2) {
             std::cout << "Invalid command syntax. Usage: equip ITEM" << std::endl;
             return false;
@@ -443,10 +420,64 @@ void Player::initCommands() {
             std::cout << "You failed to unequip: " << bItem->getName() << std::endl;
             return false;
         }
-    };
+    });
     
-    commands["uneq"] = commands["unequip"];
+    addCommands({"attack", "att"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands, "KILL!", "CHARACTER")) { return false;}
+        if(commands.size() != 2) {
+            std::cout << "You forgot to write what you wanted to attack." << std::endl;
+            return false;
+        }
+        
+        Character * character = getEnvironment()->find<Character>(OBJECT_TYPE_CHARACTER, commands[1], {this});
+        
+        if(character == NULL) {
+            std::cout << "There is no " + commands[1] << " in the area." << std::endl;
+            return false;
+        }
+        
+        if(!character->startInteraction(this)) {
+            std::cout << "The " << character->getName() << " busy fighting already." << std::endl;
+            return false;
+        }
+        
+        std::cout << std::endl << "You are initiating a fight with " << character->getName() << "!" << std::endl;
+        
+        interact(character);
+        
+        character->endInteraction(this);
+        endInteraction(character);
+        
+        
+        return true;
+    });
     
+    addCommands({"pass", "wait", "skip"}, [isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Wait a moment and let others take their turn.", "")) { return false;}
+        return true;
+    });
+    
+    addCommands({"exit"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Exit the game. No turning back after this.", "")) { return false;}
+        this->getEngine()->kill();
+        return true;
+    });
+    
+    addCommands({"help"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
+        if(isHelp(commands,"Helpception?", "")) { return false;}
+        std::cout << std::endl;
+        std::cout << TEXT_DIVIDER << " HELP START " << TEXT_DIVIDER << std::endl;
+        std::cout << "For more help on individual commands, write: COMMAND help" << std::endl;
+        std::cout << "COMMANDS" << std::endl;
+        std::cout << TEXT_DIVIDER << std::endl;
+        
+        for(auto command : getUniqueCommands()) {
+            std::cout << command << std::endl;
+        }
+        
+        std::cout << TEXT_DIVIDER << " HELP END " << TEXT_DIVIDER << std::endl;
+        return false;
+    });
 }
 
 bool Player::performCommand(const std::vector<std::string> & input) {
@@ -458,7 +489,7 @@ bool Player::performCommand(const std::vector<std::string> & input) {
     key = toLowerCase(key);
 
     if(commands.count(key) == 0) {
-        std::cout << "Invalid command '" + input[0] + "'." << std::endl;
+        std::cout << "Invalid command '" + input[0] + "'. Type 'help' for assistance." << std::endl;
         return false;
     }
     
@@ -627,4 +658,8 @@ std::string Player::getStatisticalDescription() const {
     desc += "\nCrit prob: " + std::to_string(getCritProb());
     desc += "\nCrit mod: " + std::to_string(getCritMod());
     return desc;
+}
+
+std::vector<std::string> & Player::getUniqueCommands() {
+    return uniqueCommands;
 }
