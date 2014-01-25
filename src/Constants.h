@@ -242,8 +242,8 @@
 //---- Player and Character----
 
 #define PLAYER_NAME                         "McLovin'"
-#define PLAYER_HEALTH                       300
-#define PLAYER_BASE_ARMOR                   10000
+#define PLAYER_HEALTH                       30000
+#define PLAYER_BASE_ARMOR                   0
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
 #define PLAYER_BASE_MIN_DMG                 1
@@ -322,7 +322,7 @@
 #define VAMPIRE_BASE_ARMOR                  250
 #define VAMPIRE_BASE_DODGE                  50
 #define VAMPIRE_BASE_BLOCK                  0
-#define VAMPIRE_BASE_MIN_DMG                1
+#define VAMPIRE_BASE_MIN_DMG                250
 #define VAMPIRE_BASE_MAX_DMG                500
 #define VAMPIRE_BASE_CRIT_PROB              5
 #define VAMPIRE_BASE_CRIT_MOD               50

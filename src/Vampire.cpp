@@ -17,24 +17,8 @@ Vampire::Vampire(Vampire && vampire)        : Monster(vampire) {}
 
 Vampire::~Vampire() {}
 
-void Vampire::interact(Character * other) {
-    if(!isAlive()) {
-        return;
-    }
-    
-    other->attack(this, Attack(50, "scared"));
-    
-    if(other->isAlive()) {
-        other->interact(this);
-    }
-}
-
-Vampire::Attack Vampire::attack(const Character * attacker, const Attack & attack) {
-    return Attack(0, "absorbed");
-}
-
 std::string Vampire::getPersonalDescription() const {
-    return "It looks like a " + getName() + ". You don't believe in Vampires do ya?";
+    return "Dracula´s gonna fuck you up!";
 }
 
 Vampire * Vampire::clone() const {
@@ -43,4 +27,19 @@ Vampire * Vampire::clone() const {
         throw std::invalid_argument(INVALID_CLONE);
     }
     return c;
+}
+
+Vampire::Attack Vampire::performAttack(Character * defender, std::string attackType) {
+    Attack result = Monster::performAttack(defender,attackType);
+    if(result.health > 0) {
+        unsigned int before = getHealth();
+        unsigned int stolenHealth = result.health/10;
+        if (stolenHealth < 1) {stolenHealth = 1;}
+        incHealth(stolenHealth);
+        unsigned int healthChange =  getHealth() - before;
+        if(healthChange > 0 && defender->getSubType() == CHARACTER_TYPE_PLAYER) {
+            std::cout << getName() << " life stole " << healthChange << " HP.";
+        }
+    }
+    return result;
 }
