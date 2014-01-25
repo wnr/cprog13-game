@@ -246,8 +246,8 @@
 #define PLAYER_BASE_ARMOR                   0
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
-#define PLAYER_BASE_MIN_DMG                 1
-#define PLAYER_BASE_MAX_DMG                 5
+#define PLAYER_BASE_MIN_DMG                 500
+#define PLAYER_BASE_MAX_DMG                 1000
 #define PLAYER_BASE_CRIT_PROB               5
 #define PLAYER_BASE_CRIT_MOD                50
 
@@ -280,12 +280,14 @@
 #define RAT_BASE_MAX_DMG                    25
 #define RAT_BASE_CRIT_PROB                  15
 #define RAT_BASE_CRIT_MOD                   100
+#define RAT_MOVE_PROB                       0
+#define RAT_ATTACK_PROB                     100
 
 #define CHARACTER_TYPE_TROLL                "Troll"
 #define TROLL_HEALTH                        500
 #define TROLL_BASE_ARMOR                    25
 #define TROLL_BASE_DODGE                    5
-#define TROLL_BASE_BLOCK                    15
+#define TROLL_BASE_BLOCK                    20
 #define TROLL_BASE_MIN_DMG                  50
 #define TROLL_BASE_MAX_DMG                  150
 #define TROLL_BASE_CRIT_PROB                25
@@ -293,11 +295,11 @@
 #define TROLL_MOVE_PROB                     0
 #define TROLL_ATTACK_PROB                   100
 
-#define CHARACTER_TYPE_ENT                  "Ogre"
+#define CHARACTER_TYPE_OGRE                  "Ogre"
 #define OGRE_HEALTH                         650
 #define OGRE_BASE_ARMOR                     50
 #define OGRE_BASE_DODGE                     0
-#define OGRE_BASE_BLOCK                     20
+#define OGRE_BASE_BLOCK                     30
 #define OGRE_BASE_MIN_DMG                   100
 #define OGRE_BASE_MAX_DMG                   250
 #define OGRE_BASE_CRIT_PROB                 25
@@ -318,16 +320,16 @@
 #define GHOST_ATTACK_PROB                   100
 
 #define CHARACTER_TYPE_VAMPIRE              "Vampire"
-#define VAMPIRE_HEALTH                      100
-#define VAMPIRE_BASE_ARMOR                  250
-#define VAMPIRE_BASE_DODGE                  50
+#define VAMPIRE_HEALTH                      1000
+#define VAMPIRE_BASE_ARMOR                  0
+#define VAMPIRE_BASE_DODGE                  10
 #define VAMPIRE_BASE_BLOCK                  0
 #define VAMPIRE_BASE_MIN_DMG                250
-#define VAMPIRE_BASE_MAX_DMG                500
+#define VAMPIRE_BASE_MAX_DMG                400
 #define VAMPIRE_BASE_CRIT_PROB              5
-#define VAMPIRE_BASE_CRIT_MOD               50
-#define VAMPIRE_MOVE_PROB                   25
-#define VAMPIRE_ATTACK_PROB                 80
+#define VAMPIRE_BASE_CRIT_MOD               100
+#define VAMPIRE_MOVE_PROB                   0
+#define VAMPIRE_ATTACK_PROB                 100
 
 #define CHARACTER_TYPE_DEMON                "Demon"
 #define DEMON_HEALTH                        2500
