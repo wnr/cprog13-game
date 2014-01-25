@@ -1,6 +1,6 @@
 #include "Potion.h"
 #include "Character.h"
-#include "Backpack.h"
+#include "Inventory.h"
 
 using namespace game;
 
@@ -10,9 +10,8 @@ Potion::Potion(std::string name, unsigned int potency) : Potion(name, potency, P
 
 Potion::Potion(std::string name, unsigned int potency, unsigned int weight) : Consumable(name, potency, weight) {}
 
-Potion::Potion(const Potion & potion) : Consumable(potion) {}
-
-Potion::Potion(Potion && potion) : Consumable(potion) {}
+Potion::Potion(const Potion & potion)   : Consumable(potion) {}
+Potion::Potion(Potion && potion)        : Consumable(potion) {}
 
 Potion::~Potion() {}
 

@@ -8,9 +8,8 @@ PhysicalObject::PhysicalObject(std::string mainType, std::string subType) : Phys
 
 PhysicalObject::PhysicalObject(std::string mainType, std::string subType, std::string name) : BaseObject(mainType, subType, name) {}
 
-PhysicalObject::PhysicalObject(const PhysicalObject & pObject) : BaseObject(pObject) {}
-
-PhysicalObject::PhysicalObject(PhysicalObject && pObject) : BaseObject(pObject) {}
+PhysicalObject::PhysicalObject(const PhysicalObject & obj)  : BaseObject(obj) {}
+PhysicalObject::PhysicalObject(PhysicalObject && obj)       : BaseObject(obj) {}
 
 PhysicalObject::~PhysicalObject() {}
 

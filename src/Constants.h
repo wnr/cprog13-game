@@ -20,7 +20,7 @@
 #define ITEM_TYPE_CONSUMABLE                "Consumable"
 #define ITEM_DURABILITY                     100
 
-#define CONTAINER_TYPE_BACKPACK             "Backpack"
+#define CONTAINER_TYPE_INVENTORY            "Inventory"
 #define CONTAINER_TYPE_CHEST                "Chest"
 
 #define ENVIRONMENT_TYPE_SPAWNER            "Spawner"

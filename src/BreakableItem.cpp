@@ -8,9 +8,8 @@ BreakableItem::BreakableItem(std::string subType, unsigned int weight, std::stri
 
 BreakableItem::BreakableItem(std::string subType, unsigned int weight, std::string name, unsigned int durability) : Item(subType, weight, name), durability(durability), maxDurability(durability) {}
 
-BreakableItem::BreakableItem(const BreakableItem & bi) : Item(bi), durability(bi.durability), maxDurability(bi.maxDurability) {}
-
-BreakableItem::BreakableItem(BreakableItem && bi) : Item(bi), durability(bi.durability), maxDurability(bi.maxDurability) {}
+BreakableItem::BreakableItem(const BreakableItem & bi)  : Item(bi), durability(bi.durability), maxDurability(bi.maxDurability) {}
+BreakableItem::BreakableItem(BreakableItem && bi)       : Item(bi), durability(bi.durability), maxDurability(bi.maxDurability) {}
 
 BreakableItem::~BreakableItem() {}
 

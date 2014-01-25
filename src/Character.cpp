@@ -1,6 +1,6 @@
 #include "Character.h"
 #include "Constants.h"
-#include "Backpack.h"
+#include "Inventory.h"
 #include "Container.h"
 #include "Environment.h"
 #include "Food.h"
@@ -21,14 +21,13 @@ Character::Character(Environment * env, std::string subType, unsigned int maxHea
 
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : Character(env, subType, maxHealth, name, inventorySize, CHARACTER_BASE_ARMOR, CHARACTER_BASE_DODGE, CHARACTER_BASE_BLOCK, CHARACTER_BASE_MIN_DMG, CHARACTER_BASE_MAX_DMG, CHARACTER_BASE_CRIT_PROB, CHARACTER_BASE_CRIT_MOD) {}
 
-Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false), baseArmorRating(baseArmorRating), baseDodgeProb(baseDodgeProb), baseBlockProb(baseBlockProb), baseMinDmg(baseMinDmg), baseMaxDmg(baseMaxDmg), baseCritProb(baseCritProb), baseCritMod(baseCritMod) {
+Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Inventory(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false), baseArmorRating(baseArmorRating), baseDodgeProb(baseDodgeProb), baseBlockProb(baseBlockProb), baseMinDmg(baseMinDmg), baseMaxDmg(baseMaxDmg), baseCritProb(baseCritProb), baseCritMod(baseCritMod) {
     setTickSync(env->getTickSync());
     env->push_back(std::unique_ptr<PhysicalObject>(this));
 }
 
-//TODO: When characters are copied, shouldn't they add themselves to the env again since we now have 2 characters?
-Character::Character(const Character & character)   : PhysicalObject(character), alive(character.alive), env(character.env), inventory(character.inventory), rottenness(character.rottenness), maxHealth(character.maxHealth), health(character.health), interacting(character.interacting) {}
-Character::Character(Character && character)        : PhysicalObject(character), alive(character.alive), env(character.env), inventory(character.inventory), rottenness(character.rottenness), maxHealth(character.maxHealth), health(character.health), interacting(character.interacting) {}
+Character::Character(const Character & c)       : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(c.inventory), equipment(c.equipment), rottenness(c.rottenness), interacting(c.interacting) {}
+Character::Character(Character && c)    : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(c.inventory), equipment(c.equipment), rottenness(c.rottenness), interacting(c.interacting) {}
 
 Character::~Character() {}
 
@@ -36,7 +35,7 @@ Environment * Character::getEnvironment() const {
     return env;
 }
 
-Backpack * Character::getInventory() const {
+Inventory * Character::getInventory() const {
     return inventory;
 }
 

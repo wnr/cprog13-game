@@ -17,7 +17,10 @@ namespace game {
         LockableContainer(std::string subType, int maxSize);
         LockableContainer(std::string subType, int maxSize, Key * matchingKey);
         LockableContainer(std::string subType, int maxSize, Key * matchingKey, std::string name);
-        ~LockableContainer();
+        LockableContainer(const LockableContainer & lc);
+        LockableContainer(LockableContainer && lc);
+        
+        virtual ~LockableContainer();
         
         bool addItem(std::unique_ptr<Item> & item);
         std::unique_ptr<Item> removeItem(const Item * item);

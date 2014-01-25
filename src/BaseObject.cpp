@@ -8,9 +8,8 @@ BaseObject::BaseObject(std::string mainType, std::string subType) : BaseObject(m
 
 BaseObject::BaseObject(std::string mainType, std::string subType, std::string name) : mainType(mainType), subType(subType), name(name), tickSync(false) {}
 
-BaseObject::BaseObject(const BaseObject & baseObject) : mainType(baseObject.mainType), subType(baseObject.subType), tickSync(baseObject.tickSync), name(baseObject.name) {}
-
-BaseObject::BaseObject(BaseObject && baseObject) : mainType(baseObject.mainType), subType(baseObject.subType), tickSync(baseObject.tickSync), name(baseObject.name) {}
+BaseObject::BaseObject(const BaseObject & obj)   : mainType(obj.mainType), subType(obj.subType), tickSync(obj.tickSync), name(obj.name) {}
+BaseObject::BaseObject(BaseObject && obj)        : mainType(obj.mainType), subType(obj.subType), tickSync(obj.tickSync), name(obj.name) {}
 
 BaseObject::~BaseObject() {}
 

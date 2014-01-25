@@ -7,11 +7,14 @@
 
 namespace game {
     class Armor;
+    
     class Equipment : public PhysicalObject, public GameStorage<BreakableItem> {
     public:
         Equipment();
+        Equipment(const Equipment & eq);
+        Equipment(Equipment && eq);
+        virtual ~Equipment();
         
-        ~Equipment();
         virtual std::unique_ptr<BreakableItem> push_back(std::unique_ptr<BreakableItem> element);
         
         BreakableItem * findItemWithSubType(const std::string subType) const;
@@ -38,7 +41,7 @@ namespace game {
         std::string getDescription() const;
         
         virtual Equipment * clone() const;
-
+        
     private:
         std::string getPersonalDescription() const;
         std::string getStatisticalDescription() const;

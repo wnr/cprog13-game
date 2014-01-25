@@ -10,6 +10,9 @@ using namespace game;
 
 Equipment::Equipment() : PhysicalObject(OBJECT_TYPE_OTHER, OTHER_TYPE_EQUIPMENT){}
 
+Equipment::Equipment(const Equipment & eq)  : PhysicalObject(eq), GameStorage(eq) {}
+Equipment::Equipment(Equipment && eq)       : PhysicalObject(eq), GameStorage(eq) {}
+
 Equipment::~Equipment() {}
 
 std::unique_ptr<BreakableItem> Equipment::push_back(std::unique_ptr<BreakableItem> element) {

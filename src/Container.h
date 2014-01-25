@@ -19,7 +19,7 @@ namespace game {
         Container(std::string subType, unsigned int maxSize, std::string name);
         Container(const Container & container);
         Container(Container && container);
-        ~Container();
+        virtual ~Container();
 
         unsigned int getMaxSize() const;
         virtual int getRemainingSpace() const;

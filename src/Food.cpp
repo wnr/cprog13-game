@@ -1,7 +1,7 @@
 #include "Food.h"
 #include "Consumable.h"
 #include "Character.h"
-#include "Backpack.h"
+#include "Inventory.h"
 
 using namespace game;
 
@@ -11,9 +11,8 @@ Food::Food(std::string name, unsigned int potency) : Food(name, potency, FOOD_WE
 
 Food::Food(std::string name, unsigned int potency, unsigned int weight) : Consumable(name, potency, weight) {}
 
-Food::Food(const Food & food) : Consumable(food) {}
-
-Food::Food(Food && food) : Consumable(food) {}
+Food::Food(const Food & food)   : Consumable(food) {}
+Food::Food(Food && food)        : Consumable(food) {}
 
 Food::~Food() {}
 

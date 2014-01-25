@@ -13,8 +13,7 @@ SpawnArea::SpawnArea(std::string name, std::string desc, SpawnEntry * spawnEntry
 SpawnArea::SpawnArea(std::string name, std::string desc, std::vector<std::shared_ptr<SpawnEntry>> spawnEntries) : Environment(ENVIRONMENT_TYPE_SPAWNER, name, desc), spawnEntries(spawnEntries) {}
 
 SpawnArea::SpawnArea(const SpawnArea & env) : Environment(env), spawnEntries(env.spawnEntries) {}
-
-SpawnArea::SpawnArea(SpawnArea && env) : Environment(env), spawnEntries(env.spawnEntries) {}
+SpawnArea::SpawnArea(SpawnArea && env)      : Environment(env), spawnEntries(env.spawnEntries) {}
 
 SpawnArea::~SpawnArea() {}
 

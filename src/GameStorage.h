@@ -21,7 +21,13 @@ namespace game {
         GameStorage() {}
         GameStorage(const GameStorage & storage) {
             storage.for_each([this](const T * element){
-                this->push_back(std::unique_ptr<T>(element->clone()));
+                this->push_back(std::unique_ptr<T>((T*)element->clone()));
+            });
+        }
+        
+        GameStorage(GameStorage && storage) {
+            storage.for_each([this](const T * element) {
+                this->push_back(remove(element));
             });
         }
         

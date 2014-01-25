@@ -8,9 +8,8 @@ Container::Container(std::string subType, unsigned int maxSize) : Container(subT
 
 Container::Container(std::string subType, unsigned int maxSize, std::string name) : PhysicalObject(OBJECT_TYPE_CONTAINER, subType, name), maxSize(maxSize) {}
 
-Container::Container(const Container & container) : PhysicalObject(container), maxSize(container.maxSize) {}
-
-Container::Container(Container && container) : PhysicalObject(container), maxSize(container.maxSize) {}
+Container::Container(const Container & container)   : PhysicalObject(container), GameStorage(container), maxSize(container.maxSize) {}
+Container::Container(Container && container)        : PhysicalObject(container), GameStorage(container), maxSize(container.maxSize) {}
 
 Container::~Container() {}
 

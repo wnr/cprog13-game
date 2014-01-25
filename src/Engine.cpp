@@ -6,7 +6,7 @@
 #include "Weapon.h"
 #include "Chest.h"
 #include "Key.h"
-#include "Backpack.h"
+#include "Inventory.h"
 #include "Graveyard.h"
 #include "Demon.h"
 #include "Food.h"

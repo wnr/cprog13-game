@@ -13,9 +13,8 @@ KeyLock::KeyLock(Key * matchingKey, bool destroysKey) : matchingKey(matchingKey)
     }
 }
 
-KeyLock::KeyLock(const KeyLock & kh) : locked(kh.locked), matchingKey(kh.matchingKey), destroysKey(kh.destroysKey) {}
-
-KeyLock::KeyLock(KeyLock && kh) : locked(kh.locked), matchingKey(kh.matchingKey), destroysKey(kh.destroysKey) {}
+KeyLock::KeyLock(const KeyLock & kh)    : locked(kh.locked), matchingKey(kh.matchingKey), destroysKey(kh.destroysKey) {}
+KeyLock::KeyLock(KeyLock && kh)         : locked(kh.locked), matchingKey(kh.matchingKey), destroysKey(kh.destroysKey) {}
 
 KeyLock::~KeyLock() {}
 
