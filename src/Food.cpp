@@ -19,7 +19,7 @@ Food::~Food() {}
 
 std::string Food::consume(Character * character) const {
     unsigned int before = character->getHealth();
-    addHealth(getPotency(), character);
+    incHealth(getPotency(), character);
     unsigned int diff = character->getHealth() - before;
     
     if(character->getInventory()->remove(this) == nullptr){
@@ -29,8 +29,8 @@ std::string Food::consume(Character * character) const {
     return "healed " + std::to_string(diff) + " HP!";
 }
 
-void Food::addHealth(int amount, Character * character) const {
-    character->addHealth(amount);
+void Food::incHealth(unsigned int amount, Character * character) const {
+    character->incHealth(amount);
 }
 
 Food * Food::clone() const {

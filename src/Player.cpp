@@ -18,7 +18,9 @@
 
 using namespace game;
 
-Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Character(env, CHARACTER_TYPE_PLAYER, maxHealth, name) {
+Player::Player(Environment * env, unsigned int maxHealth, std::string name) : Player(env, CHARACTER_TYPE_PLAYER, maxHealth, name, PLAYER_BASE_ARMOR, PLAYER_BASE_DODGE, PLAYER_BASE_BLOCK, PLAYER_BASE_MIN_DMG, PLAYER_BASE_MAX_DMG, PLAYER_BASE_CRIT_PROB, PLAYER_BASE_CRIT_MOD) {}
+
+Player::Player(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : Character(env, subType, maxHealth, name, CHARACTER_INVENTORY_SIZE, baseArmorRating, baseDodgeProb, baseBlockProb, baseMinDmg, baseMaxDmg, baseCritProb, baseCritMod) {
     initCommands();
 }
 
@@ -526,32 +528,16 @@ void Player::interact(Character * other) {
     
     bool flee = false;
     const std::string desc = other->getName();
-    const auto self = this;
     
     std::map<std::string, std::function<bool()>> actions;
     
-    auto attack = [self, &desc, other](const std::string & attackDesc, unsigned int health) {
-        Attack actual = other->attack(self, health);
-        
-        if(actual.health == 0) {
-            std::cout << "The " << desc << " " << (actual.description.empty() ? "blocked" : actual.description) << " your " << attackDesc << "!" << std::endl;
-        } else {
-            std::cout << "You " << attackDesc << " " << desc << " for " << std::to_string(actual.health) << " hp! " << actual.description << std::endl;
-        }
-    };
-    
-    actions["kick"] = [this, &attack]() {
-        unsigned int attackPower = getAttackPower();
-        if(isCriticalHit(attackPower)) {
-            attack("critical kick", attackPower);
-        } else {
-            attack("kick", attackPower);
-        }
+    actions["kick"] = [this, &other]() {
+        performAttack(other, "kick");
         return true;
     };
     
-    actions["hit"] = [self, &other, &attack]() { //TODO remove this or kick
-        attack("hit", other->getHealth());
+    actions["hit"] = [this, &other]() { //TODO remove this or kick
+        performAttack(other, "hit");
         return true;
     };
     
@@ -595,26 +581,37 @@ void Player::interact(Character * other) {
     }
 }
 
-Player::Attack Player::attack(const Character * attacker, const Attack & attack) {
-    Attack actual = Character::attack(attacker, attack);
-    
-    decHealth(actual.health);
-    
-    if(actual.health == 0) {
-        auto printAvoid = [&actual](const std::string & desc){
-            std::cout << "You " + actual.description + " the attack and thus avoided getting " + desc + "!" << std::endl;
-        };
-        
-        printAvoid(attack.description.empty() ? "hit" : attack.description);
+Player::Attack Player::performAttack(Character * defender, std::string attackType) {
+    const std::string defenderName = defender->getName();
+    Attack result = Character::performAttack(defender, attackType);
+    if(result.health == 0) {
+        std::cout << "The " << defenderName << " " << (result.mainDescription.empty() ? "somehow avoided" : result.mainDescription) << " your " << attackType << "!"  << (result.extraDescription.empty() ? "" :  " " + result.extraDescription) << std::endl;
     } else {
-        auto printAttack = [&actual](const std::string & desc){
-            std::cout << "You got " + desc + " and lost " + std::to_string(actual.health) + " health! " + actual.description << std::endl;
+        std::cout << "You " << attackType << " " << defenderName << " for " << std::to_string(result.health) << " hp!" << (result.mainDescription.empty() ? "" : " " + result.mainDescription) << (result.extraDescription.empty() ? "" : " " + result.extraDescription) << std::endl;
+    }
+    return result;
+}
+
+Player::Attack Player::attack(Character * attacker, const Attack & attack) {
+    Attack result = Character::attack(attacker, attack);
+    
+    decHealth(result.health);
+    
+    if(result.health == 0) {
+        auto printAvoid = [&result, attacker](const std::string & desc){
+            std::cout << "You " + result.mainDescription + " the attack and thus avoided getting " + desc + " by the " + attacker->getName() + "!" << std::endl;
         };
         
-        printAttack(attack.description.empty() ? "hit" : attack.description);
+        printAvoid(attack.mainDescription.empty() ? "hit" : attack.mainDescription);
+    } else {
+        auto printAttack = [&result](const std::string & desc){
+            std::cout << "You got " + desc + " and lost " + std::to_string(result.health) + " health!" + (result.mainDescription.empty() ? "" : " " + result.mainDescription) << (result.extraDescription.empty() ? "" : " " + result.extraDescription) << std::endl;
+        };
+        
+        printAttack(attack.mainDescription.empty() ? "hit" : attack.mainDescription);
     }
     
-    return actual;
+    return result;
 }
 
 void Player::kill() {

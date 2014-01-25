@@ -12,7 +12,8 @@
 using namespace game;
 
 Character::Attack::Attack(unsigned int health) : Character::Attack::Attack(health, "") {}
-Character::Attack::Attack(unsigned int health, std::string description) : health(health), description(description) {}
+Character::Attack::Attack(unsigned int health, std::string mainDescription) :Character::Attack::Attack(health, mainDescription, "") {}
+Character::Attack::Attack(unsigned int health, std::string mainDescription, std::string extraDescription) : health(health), mainDescription(mainDescription), extraDescription(extraDescription) {}
 
 Character::Character(Environment * env, std::string subType) : Character(env, subType, CHARACTER_HEALTH) {}
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth) : Character(env, subType, maxHealth, subType) {}
@@ -20,7 +21,7 @@ Character::Character(Environment * env, std::string subType, unsigned int maxHea
 
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : Character(env, subType, maxHealth, name, inventorySize, CHARACTER_BASE_ARMOR, CHARACTER_BASE_DODGE, CHARACTER_BASE_BLOCK, CHARACTER_BASE_MIN_DMG, CHARACTER_BASE_MAX_DMG, CHARACTER_BASE_CRIT_PROB, CHARACTER_BASE_CRIT_MOD) {}
 
-Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false) {
+Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Backpack(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false), baseArmorRating(baseArmorRating), baseDodgeProb(baseDodgeProb), baseBlockProb(baseBlockProb), baseMinDmg(baseMinDmg), baseMaxDmg(baseMaxDmg), baseCritProb(baseCritProb), baseCritMod(baseCritMod) {
     setTickSync(env->getTickSync());
     env->push_back(std::unique_ptr<PhysicalObject>(this));
 }
@@ -175,11 +176,11 @@ void Character::endInteraction(Character * other) {
     interacting = false;
 }
 
-Character::Attack Character::attack(const Character * attacker, unsigned int health) {
+Character::Attack Character::attack(Character * attacker, unsigned int health) {
     return attack(attacker, Character::Attack(health));
 }
 
-Character::Attack Character::attack(const Character * attacker, unsigned int health, std::string description) {
+Character::Attack Character::attack(Character * attacker, unsigned int health, std::string description) {
     return attack(attacker, Character::Attack(health, description));
 }
 
@@ -292,7 +293,19 @@ unsigned int Character::armorMod(const unsigned int originalDmg) const {
     }
 }
 
-Character::Attack Character::attack(const Character * attacker, const Attack & attack) {
+Character::Attack Character::generateAttack(std::string attackType) const {
+    unsigned int attackPower = getAttackPower();
+    if(isCriticalHit(attackPower)) {
+        attackType = "critical " + attackType;
+    }
+    return Character::Attack(attackPower, attackType);
+}
+
+Character::Attack Character::performAttack(Character * defender, std::string attackType) {
+    return defender->attack(this, generateAttack(attackType));
+}
+
+Character::Attack Character::attack(Character * attacker, const Attack & attack) {
     unsigned int dodgeProb = getDodgeProb();
     unsigned int blockProb = getBlockProb();
     
@@ -306,20 +319,20 @@ Character::Attack Character::attack(const Character * attacker, const Attack & a
     });
  
     if(actual.health == 0){
-        actual.description = ATTACK_ABSORBED;
+        actual.mainDescription = ATTACK_ABSORBED;
     } else if(happen(dodgeProb)) {
         actual.health = dodgeMod(actual.health);
-        actual.description = ATTACK_DODGED;
+        actual.mainDescription = ATTACK_DODGED;
     } else if(happen(blockProb)) {
         unsigned int preHP = actual.health;
         actual.health = blockMod(actual.health);
         unsigned int blocked = preHP - actual.health;
-        actual.description = ATTACK_BLOCKED;
-        actual.description = actual.description + "(" + unsignedValToString(blocked) + ")";
+        actual.mainDescription = ATTACK_BLOCKED;
+        actual.mainDescription = actual.mainDescription + "(" + unsignedValToString(blocked) + ")";
         affectDurability(equipment->findItemWithSubType(ARMOR_TYPE_SHIELD), blocked);
     }
     
-    if(actual.description != ATTACK_DODGED) {
+    if(actual.mainDescription != ATTACK_DODGED) {
         unsigned int durAffectedAttackPower = attack.health;
         if(getHealth() < attack.health) {
             // Attackpower affected durability of the weapon can never be higher than someones health.

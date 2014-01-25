@@ -243,7 +243,7 @@
 
 #define PLAYER_NAME                         "McLovin'"
 #define PLAYER_HEALTH                       300
-#define PLAYER_BASE_ARMOR                   0
+#define PLAYER_BASE_ARMOR                   10000
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
 #define PLAYER_BASE_MIN_DMG                 1
@@ -283,39 +283,39 @@
 
 #define CHARACTER_TYPE_TROLL                "Troll"
 #define TROLL_HEALTH                        500
-#define TROLL_BASE_ARMOR                    50
+#define TROLL_BASE_ARMOR                    25
 #define TROLL_BASE_DODGE                    5
 #define TROLL_BASE_BLOCK                    15
 #define TROLL_BASE_MIN_DMG                  50
 #define TROLL_BASE_MAX_DMG                  150
 #define TROLL_BASE_CRIT_PROB                25
 #define TROLL_BASE_CRIT_MOD                 150
-#define TROLL_MOVE_PROB                     50
-#define TROLL_ATTACK_PROB                   50
+#define TROLL_MOVE_PROB                     0
+#define TROLL_ATTACK_PROB                   100
 
 #define CHARACTER_TYPE_ENT                  "Ogre"
 #define OGRE_HEALTH                         650
-#define OGRE_BASE_ARMOR                     100
+#define OGRE_BASE_ARMOR                     50
 #define OGRE_BASE_DODGE                     0
 #define OGRE_BASE_BLOCK                     20
 #define OGRE_BASE_MIN_DMG                   100
 #define OGRE_BASE_MAX_DMG                   250
 #define OGRE_BASE_CRIT_PROB                 25
 #define OGRE_BASE_CRIT_MOD                  150
-#define OGRE_MOVE_PROB                      10
-#define OGRE_ATTACK_PROB                    90
+#define OGRE_MOVE_PROB                      0
+#define OGRE_ATTACK_PROB                    100
 
 #define CHARACTER_TYPE_GHOST                "Ghost"
 #define GHOST_HEALTH                        100
-#define GHOST_BASE_ARMOR                    250
+#define GHOST_BASE_ARMOR                    100
 #define GHOST_BASE_DODGE                    50
 #define GHOST_BASE_BLOCK                    0
 #define GHOST_BASE_MIN_DMG                  1
-#define GHOST_BASE_MAX_DMG                  500
+#define GHOST_BASE_MAX_DMG                  250
 #define GHOST_BASE_CRIT_PROB                5
 #define GHOST_BASE_CRIT_MOD                 50
-#define GHOST_MOVE_PROB                     25
-#define GHOST_ATTACK_PROB                   80
+#define GHOST_MOVE_PROB                     0
+#define GHOST_ATTACK_PROB                   100
 
 #define CHARACTER_TYPE_VAMPIRE              "Vampire"
 #define VAMPIRE_HEALTH                      100

@@ -33,13 +33,14 @@ namespace game {
     public:
         struct Attack {
             unsigned int health;
-            std::string description;
+            std::string mainDescription;
+            std::string extraDescription;
             
             explicit Attack(unsigned int health);
-            Attack(unsigned int health, std::string description);
+            Attack(unsigned int health, std::string mainDescription);
+            Attack(unsigned int health, std::string mainDescription, std::string extraDescription);
+            
         };
-        
-        friend void Food::addHealth(int health, Character * character) const;
         friend void Potion::addMaxHealth(int health, Character * character) const;
         
         //When a Character is constructed, it will add itself to the given environment.
@@ -83,15 +84,18 @@ namespace game {
         virtual void endInteraction(Character * other);
         virtual void interact(Character * other) = 0;
         
-        Attack attack(const Character * attacker, unsigned int health);
-        Attack attack(const Character * attacker, unsigned int health, std::string description);
-        virtual Attack attack(const Character * attacker, const Attack & attack);
+        Attack attack(Character * attacker, unsigned int health);
+        Attack attack(Character * attacker, unsigned int health, std::string description);
+        virtual Attack attack(Character * attacker, const Attack & attack);
+        
+        void incHealth(unsigned int health);
+        void decHealth(unsigned int health);
     protected:
+        Attack generateAttack(std::string attackType) const;
+        virtual Attack performAttack(Character * defender, std::string attackType);
         Character * getRandomTarget() const;
         
         void setHealth(unsigned int health);
-        void incHealth(unsigned int health);
-        void decHealth(unsigned int health);
         void addHealth(int health);
         void addMaxHealth(int health);
         void setMaxHealth(unsigned int health);

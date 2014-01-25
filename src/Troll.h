@@ -16,11 +16,10 @@ namespace game {
         Troll(Troll && troll);
         virtual ~Troll();
         
-        virtual void interact(Character * other);
-        
         virtual Troll* clone() const;
         
     protected:
+        virtual std::string getAttackType() const;
         virtual std::string getPersonalDescription() const;
     };
 }

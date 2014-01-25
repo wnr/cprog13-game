@@ -13,6 +13,7 @@ namespace game {
         
     public:
         Player(Environment * env, unsigned int maxHealth, std::string name);
+        Player(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod);
         Player(const Player & player);
         Player(Player && player);
         ~Player();
@@ -23,7 +24,8 @@ namespace game {
         void endInteraction(Character * other);
         void interact(Character * other);
         
-        Attack attack(const Character * attacker, const Attack & attack);
+        Attack attack(Character * attacker, const Attack & attack);
+        Attack performAttack(Character * defender, std::string attackType);
         
         void kill();
         

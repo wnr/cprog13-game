@@ -29,12 +29,15 @@ namespace game {
         void incAttackProb(float prob);
         void decAttackProb(float prob);
         
-        Attack attack(const Character * attacker, const Attack & attack);
+        Attack attack(Character * attacker, const Attack & attack);
         void affectDurability(BreakableItem * bi, unsigned int power) const;
+        virtual void interact(Character * other);
         
         virtual void update();
     protected:
-        Character * getRandomTarget() const;
+        virtual Character * getRandomTarget() const;
+        
+        virtual std::string getAttackType() const;
     };
 }
 

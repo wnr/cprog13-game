@@ -13,6 +13,7 @@
 #include "Shield.h"
 #include "SpawnArea.h"
 #include "Potion.h"
+#include "Ghost.h"
 
 #include "Constants.h"
 
@@ -131,7 +132,25 @@ void Engine::initEnvironments() {
     connectEnvs(cathHall, cathBoss, ENVCON_CATH_HALL_WITH_CATH_BOSS_ROOM, ENVCON_CATH_BOSS_ROOM_WITH_CATH_HALL);
     
     //Characters.
-    new Player(home, PLAYER_HEALTH, PLAYER_NAME);
+    new Player(homePath, PLAYER_HEALTH, PLAYER_NAME);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+//    new Troll(home);
+//    new Troll(home);
+//    new Troll(home);
+//    new Troll(home);
+//    new Troll(home);
+//    new Troll(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+//    new Ghost(home);
+//    new Ghost(home);
+//    new Ghost(home);
+//    new Ghost(home);
+//    new Ghost(home);
+//    new Ghost(home);
 
     
 //    Environment * home = createEnv(new Environment("Home", "a big house with walls"));

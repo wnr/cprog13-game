@@ -116,7 +116,7 @@ void Monster::decAttackProb(float prob) {
     addAttackProb(-prob);
 }
 
-Monster::Attack Monster::attack(const Character * attacker, const Attack & attack) {
+Monster::Attack Monster::attack(Character * attacker, const Attack & attack) {
     Attack actual = Character::attack(attacker, attack);
     decHealth(actual.health);
     return actual;
@@ -126,6 +126,22 @@ void Monster::affectDurability(BreakableItem * bi, unsigned int power) const {}
 
 Character * Monster::getRandomTarget() const {
     return getEnvironment()->random<Character>(OBJECT_TYPE_CHARACTER, {this}, std::set<std::string>({getSubType()}));
+}
+
+void Monster::interact(Character * other) {
+    if(!isAlive()) {
+        return;
+    }
+    
+    performAttack(other, getAttackType());
+    
+    if(other->isAlive()) {
+        other->interact(this);
+    }
+}
+
+std::string Monster::getAttackType() const {
+    return "hit";
 }
 
 
