@@ -70,13 +70,13 @@ namespace game {
         }
         
         template<class E>
-        E * random(const std::string & mainType = "", const std::vector<const T*> & skips = {}, const std::set<std::string> & skipSubTypes = std::set<std::string>()) const {
-            std::vector<T*> candidates;
+        E* random(const std::string & mainType = "", const std::vector<const T*> & skips = {}, std::function<bool (E*)> operation = [](){return true;}) const {
+            std::vector<E*> candidates;
             
-            this->for_each([&candidates, &mainType, &skipSubTypes](T * element){
+            this->for_each([&candidates, &mainType, operation](T * element){
                 if(mainType == "" || element->getMainType() == mainType) {
-                    if(skipSubTypes.find(element->getSubType()) == skipSubTypes.end()) {
-                        candidates.push_back(element);
+                    if(operation((E*)element)) {
+                        candidates.push_back((E*)element);
                     }
                 }
                 
@@ -89,7 +89,7 @@ namespace game {
             
             auto picked = rand((unsigned int)candidates.size());
             
-            return (E*)candidates[picked];
+            return candidates[picked];
         }
         
         virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {

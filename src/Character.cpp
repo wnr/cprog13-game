@@ -369,5 +369,10 @@ void Character::setMaxHealth(unsigned int health) {
 }
 
 Character * Character::getRandomTarget() const {
-    return getEnvironment()->random<Character>("Character", {this});
+    return getEnvironment()->random<Character>("Character", {this}, [](Character * c){
+        if(c->isAlive() && !c->isInteracting()){
+            return true;
+        }
+        return false;
+    });
 }
