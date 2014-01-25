@@ -10,6 +10,9 @@ using namespace game;
 
 Equipment::Equipment() : PhysicalObject(OBJECT_TYPE_OTHER, OTHER_TYPE_EQUIPMENT){}
 
+Equipment::Equipment(const Equipment & eq)  : PhysicalObject(eq), GameStorage(eq) {}
+Equipment::Equipment(Equipment && eq)       : PhysicalObject(eq), GameStorage(eq) {}
+
 Equipment::~Equipment() {}
 
 std::unique_ptr<BreakableItem> Equipment::push_back(std::unique_ptr<BreakableItem> element) {
@@ -68,7 +71,6 @@ float Equipment::getDodgeProb() const {
         if(armor->isWorking()){
             dodgeProb = incByPercent(dodgeProb, armor->getDodgeRating());
         }
-        return true;
     });
     return dodgeProb;
 }
@@ -80,7 +82,6 @@ unsigned int Equipment::getArmorRating() const {
         if(armor->isWorking()) {
             armorRating += armor->getArmorRating();
         }
-        return true;
     });
     return armorRating;
 }
@@ -94,12 +95,11 @@ float Equipment::getBlockProb() const {
     return blockProb;
 }
 
-void Equipment::for_each_armor(const std::function<bool (Armor*)> operation) const{
+void Equipment::for_each_armor(const std::function<void (Armor*)> operation) const{
     for_each([operation](BreakableItem * bItem){
         if(bItem->isArmor()) {
             operation((Armor*) bItem);
         }
-        return true;
     });
 }
 
@@ -109,7 +109,6 @@ bool Equipment::affectArmorDurability(unsigned int power) const {
         if(armor->decDurability(power)) {
             itemBroke = true;
         }
-        return true;
     });
     return itemBroke;
 }

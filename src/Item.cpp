@@ -6,9 +6,8 @@ Item::Item(std::string subType, unsigned int weight) : Item(subType, weight, sub
 
 Item::Item(std::string subType, unsigned int weight, std::string name) : PhysicalObject(OBJECT_TYPE_ITEM, subType, name), weight(weight){}
 
-Item::Item(const Item & item) : PhysicalObject(item), weight(item.weight) {}
-
-Item::Item(Item && item) : PhysicalObject(item), weight(item.weight) {}
+Item::Item(const Item & item)   : PhysicalObject(item), weight(item.weight) {}
+Item::Item(Item && item)        : PhysicalObject(item), weight(item.weight) {}
 
 Item::~Item() {}
 

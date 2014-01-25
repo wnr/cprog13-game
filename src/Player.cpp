@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Environment.h"
 #include "Engine.h"
-#include "Backpack.h"
+#include "Inventory.h"
 #include "KeyLock.h"
 #include "Container.h"
 #include "Food.h"
@@ -24,8 +24,8 @@ Player::Player(Environment * env, std::string subType, unsigned int maxHealth, s
     initCommands();
 }
 
-Player::Player(const Player & player)   : Character(player), commands(player.commands) {}
-Player::Player(Player && player)        : Character(player), commands(player.commands) {}
+Player::Player(const Player & player)   : Character(player), commands(player.commands), uniqueCommands(player.uniqueCommands) {}
+Player::Player(Player && player)        : Character(player), commands(player.commands), uniqueCommands(player.uniqueCommands) {}
 
 Player::~Player() {}
 
@@ -132,7 +132,7 @@ void Player::initCommands() {
         } else if(commands.size() == 3) {
             Item * item = NULL;
             if(isCommandInventory(commands[1])) {
-                Backpack * inv = getInventory();
+                Inventory * inv = getInventory();
                 item = inv->find(commands[2]);
                 if(item == NULL) {
                     std::cout << "Found no item named: " << commands[2] << " in your inventory." << std::endl;
@@ -172,7 +172,7 @@ void Player::initCommands() {
     
     addCommands({"inventory", "backpack", "inv"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
         if(isHelp(commands, "Get information about your inventory that contains items.", "")) { return false;}
-        Backpack * inv = getInventory();
+        Inventory * inv = getInventory();
         std::cout << inv->getDescription() << std::endl;
         return false;
     });
@@ -241,7 +241,7 @@ void Player::initCommands() {
             return false;
         }
         
-        Backpack * inv = getInventory();
+        Inventory * inv = getInventory();
         if(commands.size() == 2) {
             Item * item = inv->find(commands[1]);
             if(item == NULL) {
@@ -310,7 +310,7 @@ void Player::initCommands() {
     addCommands({"unlock"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
         if(isHelp(commands, "Unlock containers or items using this command.", "[CONTAINER] LOCKED_OBJECT KEY")) { return false;}
         Environment * env = getEnvironment();
-        Backpack * inv = getInventory();
+        Inventory * inv = getInventory();
         if(commands.size() < 3 || commands.size() > 4) {
             std::cout << "Invalid command syntax. Usage: unlock [CONTAINER] LOCKED_OBJECT KEY" << std::endl;
             return false;
@@ -392,7 +392,7 @@ void Player::initCommands() {
             return false;
         }
         
-        Backpack * inv = getInventory();
+        Inventory * inv = getInventory();
         Item * item = inv->find(commands[1]);
         if(item == NULL) {
             std::cout << "Found no equipable item named: " << commands[1] << std::endl;

@@ -7,11 +7,14 @@
 
 namespace game {
     class Armor;
+    
     class Equipment : public PhysicalObject, public GameStorage<BreakableItem> {
     public:
         Equipment();
+        Equipment(const Equipment & eq);
+        Equipment(Equipment && eq);
+        virtual ~Equipment();
         
-        ~Equipment();
         virtual std::unique_ptr<BreakableItem> push_back(std::unique_ptr<BreakableItem> element);
         
         BreakableItem * findItemWithSubType(const std::string subType) const;
@@ -33,12 +36,12 @@ namespace game {
         bool affectDurability(const std::string & subType, unsigned int power) const;
         bool affectArmorDurability(unsigned int power) const;
         
-        void for_each_armor(const std::function<bool (Armor*)>) const;
+        void for_each_armor(const std::function<void (Armor*)>) const;
         
         std::string getDescription() const;
         
         virtual Equipment * clone() const;
-
+        
     private:
         std::string getPersonalDescription() const;
         std::string getStatisticalDescription() const;

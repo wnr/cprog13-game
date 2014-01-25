@@ -6,7 +6,7 @@
 #include "Weapon.h"
 #include "Chest.h"
 #include "Key.h"
-#include "Backpack.h"
+#include "Inventory.h"
 #include "Graveyard.h"
 #include "Demon.h"
 #include "Food.h"
@@ -73,9 +73,7 @@ void Engine::initEnvironments() {
     //Streets
     Environment * homePath = createEnv(new Environment(ENV_HOME_PATH_NAME, ENV_HOME_PATH_DESC));
     Environment * homeNeighPath = createEnv(new Environment(ENV_NEIGH_HOME_PATH_NAME, ENV_NEIGH_HOME_PATH_DESC));
-    Environment * neighOutsidePath = createEnv(new Environment(ENV_NEIGH_OUTSIDE_PATH_NAME, ENV_NEIGH_OUTSIDE_PATH_DESC));
     Environment * neighMarketPath = createEnv(new Environment(ENV_NEIGH_MARKET_PATH_NAME, ENV_NEIGH_MARKET_PATH_DESC));
-    Environment * marketOutside = createEnv(new Environment(ENV_MARKET_OUTSIDE_PATH_NAME, ENV_MARKET_OUTSIDE_PATH_DESC));
     Environment * marketAwayPath = createEnv(new Environment(ENV_MARKET_AWAY_PATH_NAME, ENV_MARKET_AWAY_PATH_DESC));
     Environment * marketStoragePath = createEnv(new Environment(ENV_MARKET_STORAGE_PATH_NAME, ENV_MARKET_STORAGE_PATH_DESC));
     Environment * homeAwayPath = createEnv(new Environment(ENV_HOME_AWAY_PATH_NAME, ENV_HOME_AWAY_PATH_DESC));
@@ -93,18 +91,16 @@ void Engine::initEnvironments() {
     connectEnvs(home, homePath, ENVCON_HOME_WITH_HOME_PATH, ENVCON_HOME_PATH_WITH_HOME);
     connectEnvs(homePath, homeAwayPath, ENVCON_HOME_PATH_WITH_HOME_AWAY_PATH, ENVCON_HOME_AWAY_PATH_WITH_HOME_PATH);
     connectEnvs(homePath, homeNeighPath, ENVCON_HOME_PATH_WITH_NEIGH_HOME_PATH, ENVCON_NEIGH_HOME_PATH_WITH_HOME_PATH);
-    connectEnvs(homeNeighPath, neighOutsidePath, ENVCON_NEIGH_HOME_PATH_WITH_NEIGH_OUTSIDE_PATH, ENVCON_NEIGH_OUTSIDE_PATH_WITH_NEIGH_HOME_PATH);
+    connectEnvs(homeNeighPath, neighHall, "", "");
     connectEnvs(homeNeighPath, neighMarketPath, ENVCON_NEIGH_HOME_PATH_WITH_NEIGH_MARKET_PATH, ENVCON_NEIGH_MARKET_PATH_WITH_NEIGH_HOME_PATH);
-    connectEnvs(neighOutsidePath, neighHall, ENVCON_NEIGH_OUTSIDE_PATH_WITH_NEIGH_HALL, ENVCON_NEIGH_HALL_WITH_NEIGH_OUTSIDE_PATH);
-    connectEnvs(neighOutsidePath, neighMarketPath, ENVCON_NEIGH_OUTSIDE_PATH_WITH_NEIGH_MARKET_PATH, ENVCON_NEIGH_MARKET_PATH_WITH_OUTSIDE_PATH);
+    connectEnvs(neighHall, neighMarketPath, ENVCON_NEIGH_HALL_WITH_NEIGH_MARKET_PATH, ENVCON_NEIGH_MARKET_PATH_WITH_NEIGH_HALL);
     connectEnvs(neighHall, neighKitchen, ENVCON_NEIGH_HALL_WITH_NEIGH_KITCHEN, ENVCON_NEIGH_KITCHEN_WITH_NEIGH_HALL);
     connectEnvs(neighKitchen, neighGarden, ENVCON_NEIGH_KITCHEN_WITH_NEIGH_GARDEN, ENVCON_NEIGH_GARDEN_WITH_NEIGH_KITCHEN);
-    connectEnvs(neighMarketPath, marketOutside, ENVCON_NEIGH_MARKET_PATH_WITH_MARKET_OUTSIDE_PATH, ENVCON_MARKET_OUTSIDE_PATH_WITH_NEIGH_MARKET_PATH);
-    connectEnvs(marketOutside, market, ENVCON_MARKET_OUTSIDE_PATH_WITH_MARKET, ENVCON_MARKET_WITH_MARKET_OUTSIDE_PATH);
+    connectEnvs(neighMarketPath, market, ENVCON_NEIGH_MARKET_PATH_WITH_MARKET, ENVCON_MARKET_WITH_NEIGH_MARKET_PATH);
     connectEnvs(market, marketStoragePath, ENVCON_MARKET_WITH_MARKET_STORAGE_PATH, ENVCON_STORAGE_PATH_WITH_MARKET);
     connectEnvs(marketStoragePath, marketStorage, ENVCON_STORAGE_PATH_WITH_STORAGE, ENVCON_STORAGE_WITH_STORAGE_PATH);
     connectEnvs(neighMarketPath, marketAwayPath, ENVCON_NEIGH_MARKET_PATH_WITH_MARKET_AWAY_PATH, ENVCON_MARKET_AWAY_PATH_WITH_NEIGH_MARKET_PATH);
-    connectEnvs(marketOutside, marketAwayPath, ENVCON_MARKET_OUTSIDE_PATH_WITH_MARKET_AWAY_PATH, ENVCON_MARKET_AWAY_PATH_WITH_MARKET_OUTSIDE_PATH);
+    connectEnvs(market, marketAwayPath, ENVCON_MARKET_WITH_MARKET_AWAY_PATH, ENVCON_MARKET_AWAY_PATH_WITH_MARKET);
     connectEnvs(marketAwayPath, away1Path, ENVCON_MARKET_AWAY_PATH_WITH_AWAY_PATH_1, ENVCON_AWAY_PATH_1_WITH_MARKET_PATH);
     connectEnvs(marketAwayPath, homeAwayPath, ENVCON_MARKET_AWAY_PATH_WITH_HOME_AWAY_PATH, ENVCON_HOME_AWAY_PATH_WITH_MARKET_AWAY_PATH);
     connectEnvs(homeAwayPath, away1Path, ENVCON_HOME_AWAY_PATH_WITH_AWAY_PATH_1, ENVCON_AWAY_PATH_1_WITH_HOME_AWAY_PATH);
@@ -113,8 +109,9 @@ void Engine::initEnvironments() {
     connectEnvs(away3Path, awayForestPath, ENVCON_AWAY_PATH_3_WITH_FOREST_PATH_1, ENVCON_FOREST_PATH_1_WITH_AWAY_PATH_3);
     connectEnvs(away3Path, awayCathPath, ENVCON_AWAY_PATH_3_WITH_AWAY_CATH_PATH, ENVCON_AWAY_CATH_PATH_WITH_AWAY_PATH_3);
     connectEnvs(awayForestPath, awayCathPath, ENVCON_FOREST_PATH_1_WITH_AWAY_CATH_PATH, ENVCON_AWAY_CATH_PATH_WITH_FOREST_PATH_1);
-    connectEnvs(awayForestPath, graveyard, ENVCON_FOREST_PATH_1_WITH_GRAVEYARD_PATH, ENVCON_GRAVEYARD_PATH_WITH_FOREST_PATH_1);
+    connectEnvs(awayForestPath, graveyardPath, ENVCON_FOREST_PATH_1_WITH_GRAVEYARD_PATH, ENVCON_GRAVEYARD_PATH_WITH_FOREST_PATH_1);
     connectEnvs(awayForestPath, forestPath, ENVCON_FOREST_PATH_1_WITH_FOREST_PATH_2, ENVCON_FOREST_PATH_2_WITH_FOREST_PATH_1);
+    connectEnvs(graveyardPath, graveyard, "", "");
     connectEnvs(forestPath, forestEntrance, ENVCON_FOREST_PATH_2_WITH_FOREST_ENTRANCE, ENVCON_FOREST_ENTRANCE_WITH_FOREST_PATH_2);
     connectEnvs(forestEntrance, forestWest, ENVCON_FOREST_ENTRANCE_WITH_FOREST_WEST, ENVCON_FOREST_WEST_WITH_FOREST_ENTRANCE);
     connectEnvs(forestEntrance, forestNorth, ENVCON_FOREST_ENTRANCE_WITH_FOREST_NORTH, ENVCON_FOREST_NORTH_WITH_FOREST_ENTRANCE);
@@ -226,7 +223,6 @@ void Engine::run() {
     while(running) {
         for_each([] (Environment * env) {
             env->update();
-            return true;
         });
     }
     

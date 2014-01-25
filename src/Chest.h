@@ -15,7 +15,10 @@ namespace game {
         Chest(int maxSize);
         Chest(int maxSize, Key * keyLock);
         Chest(int maxSize, Key * keyLock, std::string name);
-        ~Chest();
+        Chest(const Chest & chest);
+        Chest(Chest && chest);
+        
+        virtual ~Chest();
         
         virtual Chest* clone() const;
     };

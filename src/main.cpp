@@ -9,22 +9,6 @@
 
 using namespace game;
 
-bool testRand() {
-    auto res = rand(0, 1, false);
-    
-    if(res != 0) {
-        return false;
-    }
-    
-    res = rand(50, 51, false);
-    
-    if(res != 50) {
-        return false;
-    }
-    
-    return true;
-}
-
 bool testOwningStorage() {
     OwningStorage<std::string> vector;
     
@@ -66,8 +50,6 @@ bool testOwningStorage() {
         if(*str == "9") {
             vector.remove(p9);
         }
-        
-        return true;
     });
     
     p9 = add("9");
@@ -95,8 +77,6 @@ bool testOwningStorage() {
         if(*str == "8") {
             vector.remove(p9);
         }
-        
-        return true;
     });
     
     vector.clear();
@@ -128,8 +108,6 @@ bool testOwningStorage() {
             vector.remove(p8);
             vector.remove(p9);
         }
-    
-        return true;
     });
     
     //3,4,5,6,7
@@ -148,8 +126,6 @@ bool testOwningStorage() {
             vector.remove(p6);
             vector.remove(p7);
         }
-        
-        return true;
     });
     
     p0 = add("0");
@@ -166,8 +142,6 @@ bool testOwningStorage() {
         if(*str == "2") {
             vector.clear();
         }
-        
-        return true;
     });
     
     vector.clear();
@@ -187,19 +161,18 @@ bool testOwningStorage() {
             vector.remove(p1);
             vector.remove(p4);
         }
-        
-        return true;
     });
     
     std::string expected = "0 1 2 3 4 5 6 7 8 9 1 3 4 5 6 8 0 1 2 3 4 5 6 7 3 4 5 0 1 2 0 2 3 5 ";
     std::string actual = ss.str();
     if(expected != actual) {
         std::cout << "Failed Owning Storage test!\n\nExpected: \t" + expected + "\nActual: \t" + actual + "\n\n";
-        return false;
     }
     
     return true;
 }
+
+#include "Item.h"
 
 int main(int argc, const char * argv[])
 {
@@ -207,12 +180,6 @@ int main(int argc, const char * argv[])
         std::cout << "\n\nFailed Owning Storage test\n\n";
         return 1;
     }
-    
-//    if(!testRand()) {
-//        std::cout << "\n\nFailed rand test\n\n";
-//        return 1;
-//    }
-
     
     try
     {

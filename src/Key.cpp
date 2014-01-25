@@ -11,9 +11,8 @@ Key::Key(std::string identfier) : Key(KEY_STANDARD_LEVEL, identifier, ITEM_TYPE_
 
 Key::Key(int level, std::string identifier, std::string name) : Item(ITEM_TYPE_KEY, 0, name), level(level), identifier(identifier){}
 
-Key::Key(const Key & key) : Item(key), level(key.level), identifier(key.identifier) {}
-
-Key::Key(Key && key) : Item(key), level(key.level), identifier(key.identifier) {}
+Key::Key(const Key & key)   : Item(key), level(key.level), identifier(key.identifier) {}
+Key::Key(Key && key)        : Item(key), level(key.level), identifier(key.identifier) {}
 
 Key::~Key() {}
 

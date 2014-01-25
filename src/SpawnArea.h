@@ -9,7 +9,7 @@ namespace game {
         const std::shared_ptr<PhysicalObject> element;
         const unsigned int spawnProb;
         
-    public:
+    private:
         SpawnEntry(std::shared_ptr<PhysicalObject> element, unsigned int spawnProb);
     };
     

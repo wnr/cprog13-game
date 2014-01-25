@@ -7,7 +7,7 @@
 
 namespace game {
     class Item;
-    class Backpack;
+    class Inventory;
     class Container;
     class Food;
     class Equipment;
@@ -25,7 +25,7 @@ namespace game {
         unsigned int baseCritMod;
         bool alive;
         Environment * env;
-        Backpack * inventory;
+        Inventory * inventory;
         Equipment * equipment;
         unsigned int rottenness;
         bool interacting;
@@ -55,7 +55,7 @@ namespace game {
         
         Environment * getEnvironment() const;
         Equipment * getEquipment() const;
-        Backpack * getInventory() const;
+        Inventory * getInventory() const;
         
         std::string getName() const;
         

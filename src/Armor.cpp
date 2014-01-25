@@ -18,9 +18,8 @@ Armor::Armor(std::string subType, unsigned int armorRating, unsigned int dodgeRa
     }
 }
 
-Armor::Armor(const Armor & armor) :  BreakableItem(armor), armorRating(armor.armorRating) {}
-
-Armor::Armor(Armor && armor) : BreakableItem(armor), armorRating(armor.armorRating) {}
+Armor::Armor(const Armor & armor)   : BreakableItem(armor), armorRating(armor.armorRating), dodgeRating(armor.dodgeRating) {}
+Armor::Armor(Armor && armor)        : BreakableItem(armor), armorRating(armor.armorRating), dodgeRating(armor.dodgeRating) {}
 
 Armor::~Armor() {}
 

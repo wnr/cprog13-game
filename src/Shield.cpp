@@ -16,9 +16,8 @@ Shield::Shield(unsigned int blockProb, unsigned int armorRating, unsigned int do
 
 Shield::Shield(unsigned int blockProb, unsigned int armorRating, unsigned int dodgeRating, unsigned int weight, std::string name) : Armor(ARMOR_TYPE_SHIELD, armorRating, dodgeRating, weight, name), blockProb(blockProb) {}
 
-Shield::Shield(const Shield & shield) : Armor(shield), blockProb(shield.blockProb) {}
-
-Shield::Shield(Shield && shield) : Armor(shield), blockProb(shield.blockProb ) {}
+Shield::Shield(const Shield & shield)   : Armor(shield), blockProb(shield.blockProb) {}
+Shield::Shield(Shield && shield)        : Armor(shield), blockProb(shield.blockProb ) {}
 
 Shield::~Shield() {}
 

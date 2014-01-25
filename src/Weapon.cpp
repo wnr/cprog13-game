@@ -17,9 +17,8 @@ Weapon::Weapon(std::string name, unsigned int minDmg, unsigned int maxDmg, unsig
     }
 }
 
-Weapon::Weapon(const Weapon & weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critProb(weapon.critProb), critModifier(weapon.critModifier) {}
-
-Weapon::Weapon(Weapon && weapon) : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critProb(weapon.critProb), critModifier(weapon.critModifier) {}
+Weapon::Weapon(const Weapon & weapon)   : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critProb(weapon.critProb), critModifier(weapon.critModifier) {}
+Weapon::Weapon(Weapon && weapon)        : BreakableItem(weapon), minDmg(weapon.minDmg), maxDmg(weapon.maxDmg), critProb(weapon.critProb), critModifier(weapon.critModifier) {}
 
 Weapon::~Weapon() {}
 

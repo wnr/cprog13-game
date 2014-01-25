@@ -4,9 +4,8 @@ using namespace game;
 
 Consumable::Consumable(std::string name, unsigned int potency, unsigned int weight) : Item(ITEM_TYPE_CONSUMABLE, weight, name), potency(potency) {}
 
-Consumable::Consumable(const Consumable & consumable) : Item(consumable), potency(consumable.potency) {}
-
-Consumable::Consumable(Consumable && consumable) : Item(consumable), potency(consumable.potency) {}
+Consumable::Consumable(const Consumable & consumable)   : Item(consumable), potency(consumable.potency) {}
+Consumable::Consumable(Consumable && consumable)        : Item(consumable), potency(consumable.potency) {}
 
 Consumable::~Consumable() {}
 

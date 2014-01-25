@@ -8,6 +8,9 @@ LockableContainer::LockableContainer(std::string subType, int maxSize, Key * mat
 
 LockableContainer::LockableContainer(std::string subType, int maxSize, Key * matchingKey, std::string name) : Container(subType, maxSize, name), KeyLock(matchingKey) {}
 
+LockableContainer::LockableContainer(const LockableContainer & lc)  : Container(lc), KeyLock(lc) {}
+LockableContainer::LockableContainer(LockableContainer && lc)       : Container(lc), KeyLock(lc) {}
+
 LockableContainer::~LockableContainer() {}
 
 bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) const {

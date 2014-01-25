@@ -20,7 +20,7 @@
 #define ITEM_TYPE_CONSUMABLE                "Consumable"
 #define ITEM_DURABILITY                     100
 
-#define CONTAINER_TYPE_BACKPACK             "Backpack"
+#define CONTAINER_TYPE_INVENTORY            "Inventory"
 #define CONTAINER_TYPE_CHEST                "Chest"
 
 #define ENVIRONMENT_TYPE_SPAWNER            "Spawner"
@@ -72,16 +72,16 @@
 //---- Environments ----
 
 //Places
-#define ENV_HOME_NAME                       "Home"
-#define ENV_HOME_DESC                       "your beloved cozy home."
+#define ENV_HOME_NAME                       "Inside home"
+#define ENV_HOME_DESC                       "your beloved cozy house."
 #define ENV_NEIGH_HALL_NAME                 "Neighbor hall"
-#define ENV_NEIGH_HALL_DESC                 "the hallway of your neighbor's house. They don't seem to be home right now..."
+#define ENV_NEIGH_HALL_DESC                 "the hallway of your neighbor's house."
 #define ENV_NEIGH_KITCHEN_NAME              "Kitchen"
-#define ENV_NEIGH_KITCHEN_DESC              "nothing fancy going on here. The kitchen looks a bit rusty for your taste."
+#define ENV_NEIGH_KITCHEN_DESC              ", which looks a bit rusty for your taste."
 #define ENV_NEIGH_BACKSIDE_NAME             "Garden"
 #define ENV_NEIGH_BACKSIDE_DESC             "a beautiful garden with flowers and shit."
 #define ENV_MARKET_NAME                     "Market"
-#define ENV_MARKET_DESC                     "the local marketplace where you always did the groceries with your mother before she passed away. Too bad the market is not open now."
+#define ENV_MARKET_DESC                     "the local marketplace where you always did the groceries with your mother before she passed away."
 #define ENV_MARKET_STORAGE_NAME             "Storage room"
 #define ENV_MARKET_STORAGE_DESC             "the place where the sellers kept their stock back in the days when the market still was active."
 #define ENV_GRAVEYARD_NAME                  "Graveyard"
@@ -111,13 +111,9 @@
 
 //Paths
 #define ENV_HOME_PATH_NAME                  "Dirt path"
-#define ENV_HOME_PATH_DESC                  "the path to your house."
-#define ENV_NEIGH_OUTSIDE_PATH_NAME         "In front of the neighbor's house"
-#define ENV_NEIGH_OUTSIDE_PATH_DESC         "they have removed the welcome carpet."
+#define ENV_HOME_PATH_DESC                  "the path connecting your house with the bigger streets."
 #define ENV_NEIGH_HOME_PATH_NAME            "Neighome street"
 #define ENV_NEIGH_HOME_PATH_DESC            "the long street you used to play on when you were a child."
-#define ENV_MARKET_OUTSIDE_PATH_NAME        "Outside the market"
-#define ENV_MARKET_OUTSIDE_PATH_DESC        "this place used to be filled with buzzing people."
 #define ENV_NEIGH_MARKET_PATH_NAME          "Stobor path"
 #define ENV_NEIGH_MARKET_PATH_DESC          "a nice and happy walk."
 #define ENV_MARKET_AWAY_PATH_NAME           "Markaway road"
@@ -147,6 +143,7 @@
 
 //---- Env Connections ----
 
+//TODO: Do we want to keep these?
 #define ENVCON_HOME_WITH_HOME_PATH                          "outside"
 #define ENVCON_HOME_PATH_WITH_HOME                          "inside"
 #define ENVCON_HOME_PATH_WITH_HOME_AWAY_PATH                "north-east"

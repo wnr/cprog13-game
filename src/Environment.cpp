@@ -14,9 +14,8 @@ Environment::Environment(std::string name, std::string desc) : Environment("", n
 
 Environment::Environment(std::string subType, std::string name, std::string desc) : BaseObject(OBJECT_TYPE_ENVIRONMENT, subType, name), description(desc) {}
 
-Environment::Environment(const Environment & env) : BaseObject(env), description(env.description) {}
-
-Environment::Environment(Environment && env) : BaseObject(env), description(env.description) {}
+Environment::Environment(const Environment & env)   : BaseObject(env), GameStorage(env), description(env.description), neighbors(env.neighbors) {}
+Environment::Environment(Environment && env)        : BaseObject(env), GameStorage(env), description(env.description), neighbors(env.neighbors) {}
 
 Environment::~Environment() {}
 
@@ -74,7 +73,6 @@ void Environment::updateObjects() {
         if(tickSync == obj->getTickSync()) {
             obj->update();
         }
-        return true;
     });
 }
 
