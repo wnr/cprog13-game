@@ -14,6 +14,7 @@
 #include "SpawnArea.h"
 #include "Potion.h"
 #include "Ghost.h"
+#include "Vampire.h"
 
 #include "Constants.h"
 
@@ -133,7 +134,7 @@ void Engine::initEnvironments() {
     
     //Characters.
     new Player(home, PLAYER_HEALTH, PLAYER_NAME);
-//    new Troll(home);
+    new Vampire(home);
 //    new Troll(home);
 //    new Troll(home);
 //    new Troll(home);

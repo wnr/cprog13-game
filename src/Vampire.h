@@ -17,12 +17,12 @@ namespace game {
         Vampire(Vampire && vampire);
         virtual ~Vampire();
         
-        virtual void interact(Character * other);
-        virtual Attack attack(const Character * attacker, const Attack & attack);
-        
         virtual std::string getPersonalDescription() const;
         
         virtual Vampire* clone() const;
+        
+    protected:
+        virtual Attack performAttack(Character * defender, std::string attackType);
     };
 }
 
