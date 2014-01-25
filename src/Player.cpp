@@ -44,8 +44,10 @@ void Player::printUpdateInfo() const {
     
     std::cout << "You can go:" << std::endl;
     
+    int count = 1;
+    
     for(auto dir : env->getDirections()) {
-        std::cout << LIST_ITEM_PREFIX << dir << std::endl;
+        std::cout << std::to_string(count++) << ": " << env->getNeighbor(dir)->getFullInfo() << std::endl;
     }
 
     //If only 1 thing in environment then it is the player itself, so skip then.
@@ -85,15 +87,20 @@ void Player::initCommands() {
     };
     
     addCommands({"go", "move", "goto"}, [this, isHelp](const std::vector<std::string> & commands) -> bool {
-        if(isHelp(commands, "Used for navigating through the world.", "LOCATION")) { return false;}
+        if(isHelp(commands, "Used for navigating through the world.", "LOCATION")) { return false; }
             
         if(commands.size() != 2) {
             std::cout << "You forgot to write where you wanna go." << std::endl;
             return false;
         }
         
-        if(!this->move(commands[1])) {
-            std::cout << "You cannot go '" + commands[1] + "'." << std::endl;
+        try {
+            
+            if(!this->move(getEnvironment()->getDirections()[atoi(commands[1].c_str()) - 1])) {
+                std::cout << "That is not an option. Write one of the numbers given as option." << std::endl;
+                return false;
+            }
+        } catch(int) {
             return false;
         }
         
