@@ -47,3 +47,13 @@ Vampire::Attack Vampire::performAttack(Character * defender, std::string attackT
 std::string Vampire::getAttackType() const {
     return "bitten";
 }
+
+Character * Vampire::getRandomTarget(std::function<bool(Character*)> operation) const {
+    return Monster::getRandomTarget([&operation](Character * c){
+        if(c->getSubType() != CHARACTER_TYPE_GHOST) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+}

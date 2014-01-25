@@ -52,3 +52,13 @@ void Ghost::decAttackersHealth(unsigned int health, Character * attacker) const 
 std::string Ghost::getAttackType() const {
     return "swooshed";
 }
+
+Character * Ghost::getRandomTarget(std::function<bool(Character*)> operation) const {
+    return Monster::getRandomTarget([&operation](Character * c){
+        if(c->getSubType() != CHARACTER_TYPE_VAMPIRE) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+}

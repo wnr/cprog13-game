@@ -136,15 +136,15 @@ void Engine::initEnvironments() {
     new Player(home, PLAYER_HEALTH, PLAYER_NAME);
 
     
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
+    new Ghost(home);
     new Vampire(home);
     new Vampire(home);
     new Vampire(home);
@@ -163,15 +163,15 @@ void Engine::initEnvironments() {
     new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
     new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
     new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
+    new Troll(home);
 
 
     
