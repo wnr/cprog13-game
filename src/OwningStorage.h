@@ -113,6 +113,13 @@ namespace game {
             }
         }
         
+        virtual void for_each(const std::function<void(T * element)> & operation, const std::vector<const T*> skips = {}) const {
+            for_each([&operation](T * element){
+                operation(element);
+                return true;
+            });
+        }
+        
         size_t size() const {
             return data.size();
         }

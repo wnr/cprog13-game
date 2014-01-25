@@ -2,9 +2,10 @@
 #define __cprog13_game__GameStorage__
 
 //A class that extends the generic class OwningStorage to have more game-specific storage related methods.
+//This class can only be used with BaseObject's or derived.
+
 #include "OwningStorage.h"
 #include "utils.h"
-#include "BaseObject.h"
 #include "Constants.h"
 #include "rand.h"
 #include <map>
@@ -18,6 +19,12 @@ namespace game {
         
     public:
         GameStorage() {}
+        GameStorage(const GameStorage & storage) {
+            storage.for_each([this](const T * element){
+                this->push_back(std::unique_ptr<T>(element->clone()));
+            });
+        }
+        
         virtual ~GameStorage() {}
         
         virtual T * find(const std::string & mainType, const std::string & subType, std::string searchString, const std::vector<const T*> & skips = {}, bool caseinsens = true) const {
@@ -79,8 +86,6 @@ namespace game {
                         candidates.push_back(element);
                     }
                 }
-                
-                return true;
             }, skips);
             
             if(candidates.empty()) {
@@ -97,13 +102,12 @@ namespace game {
             for_each_count([itemPrefix, result, this, &skips](T * element, int val){
                 if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
                     //Found in skips list. So skip element.
-                    return true;;
+                    return;
                 }
                 
                 result->append(itemPrefix);
                 result->append(getModName(element, val));
                 result->append("\n");
-                return true;
             });
             return *result;
         }
@@ -129,6 +133,13 @@ namespace game {
                 }
                 map[objectName] = elementNameFoundAmount + 1;
                 return operation(element, elementNameFoundAmount);
+            }, skips);
+        }
+        
+        void for_each_count(const std::function<void(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
+            for_each_count([&operation](T * element, int val){
+                operation(element, val);
+                return true;
             }, skips);
         }
     };

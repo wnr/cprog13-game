@@ -74,7 +74,6 @@ void Environment::updateObjects() {
         if(tickSync == obj->getTickSync()) {
             obj->update();
         }
-        return true;
     });
 }
 

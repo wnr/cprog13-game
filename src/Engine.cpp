@@ -205,7 +205,6 @@ void Engine::run() {
     while(running) {
         for_each([] (Environment * env) {
             env->update();
-            return true;
         });
     }
     

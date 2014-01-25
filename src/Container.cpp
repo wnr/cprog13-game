@@ -32,7 +32,6 @@ int Container::getTakenSpace() const {
     
     for_each([&takenSpace] (const Item * item) {
         takenSpace += *item;
-        return true;
     });
     
     return takenSpace;
@@ -45,9 +44,8 @@ unsigned int Container::getMaxSize() const {
 void Container::update() {
     PhysicalObject::update();
     
-    for_each([](Item * item) -> bool {
+    for_each([](Item * item) {
         item->update();
-        return true;
     });
 }
 

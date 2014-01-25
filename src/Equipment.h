@@ -33,7 +33,7 @@ namespace game {
         bool affectDurability(const std::string & subType, unsigned int power) const;
         bool affectArmorDurability(unsigned int power) const;
         
-        void for_each_armor(const std::function<bool (Armor*)>) const;
+        void for_each_armor(const std::function<void (Armor*)>) const;
         
         std::string getDescription() const;
         

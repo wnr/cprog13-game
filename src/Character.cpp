@@ -71,7 +71,6 @@ bool Character::move(const std::string &direction) {
 void Character::dropInventory() {
     inventory->for_each([this](Item * item){
         dropItem(item);
-        return true;
     });
 }
 
@@ -319,7 +318,6 @@ Character::Attack Character::attack(Character * attacker, const Attack & attack)
     
     equipment->for_each_armor([this, actual, attack](Armor * armor){
         affectDurability(armor, attack.health - actual.health);
-        return true;
     });
  
     if(actual.health == 0){
