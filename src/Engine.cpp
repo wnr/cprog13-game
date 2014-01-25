@@ -146,6 +146,10 @@ void Engine::initEnvironments() {
     addRat(market);
     addRat(marketStorage);
     addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
 
     addRat(forestEntrance);
     addRat(forestEntrance);

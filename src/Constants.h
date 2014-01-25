@@ -239,12 +239,12 @@
 //---- Player and Character----
 
 #define PLAYER_NAME                         "McLovin'"
-#define PLAYER_HEALTH                       30000
+#define PLAYER_HEALTH                       100
 #define PLAYER_BASE_ARMOR                   0
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
-#define PLAYER_BASE_MIN_DMG                 500
-#define PLAYER_BASE_MAX_DMG                 1000
+#define PLAYER_BASE_MIN_DMG                 20
+#define PLAYER_BASE_MAX_DMG                 60
 #define PLAYER_BASE_CRIT_PROB               5
 #define PLAYER_BASE_CRIT_MOD                50
 
