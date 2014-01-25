@@ -124,10 +124,12 @@ Monster::Attack Monster::attack(Character * attacker, const Attack & attack) {
 
 void Monster::affectDurability(BreakableItem * bi, unsigned int power) const {}
 
-Character * Monster::getRandomTarget() const {
-    return getEnvironment()->random<Character>(OBJECT_TYPE_CHARACTER, {this}, [this](Character *c){
-        if(c->isAlive() && !c->isInteracting() && c->getSubType() != getSubType()) {
-            return true;
+Character * Monster::getRandomTarget(std::function<bool(Character *c)> operation ) const {
+    return Character::getRandomTarget([this, &operation](Character * c){
+        if(c->getSubType() != getSubType()) {
+            if(operation(c)){
+                return true;
+            }
         }
         return false;
     });

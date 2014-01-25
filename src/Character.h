@@ -94,7 +94,7 @@ namespace game {
     protected:
         Attack generateAttack(std::string attackType) const;
         virtual Attack performAttack(Character * defender, std::string attackType);
-        Character * getRandomTarget() const;
+        virtual Character * getRandomTarget(std::function<bool(Character*)> = [](Character *){return true;}) const;
         
         void setHealth(unsigned int health);
         void addHealth(int health);

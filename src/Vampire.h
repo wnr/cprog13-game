@@ -22,6 +22,7 @@ namespace game {
         virtual Vampire* clone() const;
         
     protected:
+        virtual Character * getRandomTarget(std::function<bool(Character*)> = [](Character *){return true;}) const;
         virtual Attack performAttack(Character * defender, std::string attackType);
         std::string getAttackType() const;
     };
