@@ -10,7 +10,7 @@ Vampire::Vampire(Environment * env, std::string subType, unsigned int maxHealth)
 Vampire::Vampire(Environment * env, std::string subType, unsigned int maxHealth, std::string name) : Vampire(env, subType, maxHealth, name, VAMPIRE_MOVE_PROB, VAMPIRE_ATTACK_PROB) {}
 Vampire::Vampire(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb) : Vampire(env, subType, maxHealth, name, moveProb, attackProb, VAMPIRE_BASE_ARMOR, VAMPIRE_BASE_DODGE, VAMPIRE_BASE_BLOCK, VAMPIRE_BASE_MIN_DMG, VAMPIRE_BASE_MAX_DMG, VAMPIRE_BASE_CRIT_PROB, VAMPIRE_BASE_CRIT_MOD) {}
 
-Vampire::Vampire(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : Monster(env, subType, maxHealth, name, moveProb, attackProb) {}
+Vampire::Vampire(Environment * env, std::string subType, unsigned int maxHealth, std::string name, float moveProb, float attackProb, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : Monster(env, subType, maxHealth, name, moveProb, attackProb, baseArmorRating, baseDodgeProb, baseBlockProb, baseMinDmg, baseMaxDmg, baseCritProb, baseCritMod) {}
 
 Vampire::Vampire(const Vampire & vampire)   : Monster(vampire) {}
 Vampire::Vampire(Vampire && vampire)        : Monster(vampire) {}
@@ -42,4 +42,8 @@ Vampire::Attack Vampire::performAttack(Character * defender, std::string attackT
         }
     }
     return result;
+}
+
+std::string Vampire::getAttackType() const {
+    return "bitten";
 }

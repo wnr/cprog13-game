@@ -10,7 +10,7 @@ void game::seed() {
 }
 
 unsigned int game::rand(unsigned int max, bool includeMax) {
-    return rand(0, 1, includeMax);
+    return rand(0, max, includeMax);
 }
 
 unsigned int game::rand(unsigned int min, unsigned int max, bool includeMax) {

@@ -23,6 +23,7 @@ namespace game {
         
     protected:
         virtual Attack performAttack(Character * defender, std::string attackType);
+        std::string getAttackType() const;
     };
 }
 
