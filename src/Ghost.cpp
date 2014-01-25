@@ -18,7 +18,7 @@ Ghost::~Ghost() {}
 
 void Ghost::kill() {
     Monster::kill();
-    getEnvironment()->remove(this);
+    setRottenness(MAXIMUM_ROTTENNESS);
 }
 
 Ghost::Attack Ghost::attack(Character * attacker, const Attack & attack) {

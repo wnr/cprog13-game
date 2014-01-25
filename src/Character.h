@@ -77,6 +77,7 @@ namespace game {
         virtual void kill();
         
         unsigned int getRottenness() const;
+        void setRottenness(unsigned int rottenness);
         
         virtual void update();
         

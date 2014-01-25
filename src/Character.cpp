@@ -108,6 +108,10 @@ unsigned int Character::getRottenness() const {
     return rottenness;
 }
 
+void Character::setRottenness(unsigned int rottenness) {
+    this->rottenness = rottenness;
+}
+
 void Character::update() {
     PhysicalObject::update();
     

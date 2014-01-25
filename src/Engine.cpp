@@ -132,19 +132,19 @@ void Engine::initEnvironments() {
     connectEnvs(cathHall, cathBoss, ENVCON_CATH_HALL_WITH_CATH_BOSS_ROOM, ENVCON_CATH_BOSS_ROOM_WITH_CATH_HALL);
     
     //Characters.
-    new Player(homePath, PLAYER_HEALTH, PLAYER_NAME);
-    new Troll(home);
-    new Troll(home);
-    new Troll(home);
+    new Player(home, PLAYER_HEALTH, PLAYER_NAME);
 //    new Troll(home);
 //    new Troll(home);
 //    new Troll(home);
 //    new Troll(home);
 //    new Troll(home);
 //    new Troll(home);
-    new Ghost(home);
-    new Ghost(home);
-    new Ghost(home);
+//    new Troll(home);
+//    new Troll(home);
+//    new Troll(home);
+//    new Ghost(home);
+//    new Ghost(home);
+//    new Ghost(home);
 //    new Ghost(home);
 //    new Ghost(home);
 //    new Ghost(home);
