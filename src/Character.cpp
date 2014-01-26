@@ -12,8 +12,8 @@
 using namespace game;
 
 Character::Attack::Attack(unsigned int health) : Character::Attack::Attack(health, "") {}
-Character::Attack::Attack(unsigned int health, std::string mainDescription) :Character::Attack::Attack(health, mainDescription, "") {}
-Character::Attack::Attack(unsigned int health, std::string mainDescription, std::string extraDescription) : health(health), mainDescription(mainDescription), extraDescription(extraDescription) {}
+Character::Attack::Attack(unsigned int health, std::string type) :Character::Attack::Attack(health, type, [](unsigned int health){ return "";}) {}
+Character::Attack::Attack(unsigned int health, std::string type, std::function<std::string (unsigned int health)> specialDescription) : health(health), type(type), specialDescription(specialDescription) {}
 
 Character::Character(Environment * env, std::string subType) : Character(env, subType, CHARACTER_HEALTH) {}
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth) : Character(env, subType, maxHealth, subType) {}
@@ -320,20 +320,20 @@ Character::Attack Character::attack(Character * attacker, const Attack & attack)
     });
  
     if(actual.health == 0){
-        actual.mainDescription = ATTACK_ABSORBED;
+        actual.type = ATTACK_ABSORBED;
     } else if(happen(dodgeProb)) {
         actual.health = dodgeMod(actual.health);
-        actual.mainDescription = ATTACK_DODGED;
+        actual.type = ATTACK_DODGED;
     } else if(happen(blockProb)) {
         unsigned int preHP = actual.health;
         actual.health = blockMod(actual.health);
         unsigned int blocked = preHP - actual.health;
-        actual.mainDescription = ATTACK_BLOCKED;
-        actual.mainDescription = actual.mainDescription + "(" + unsignedValToString(blocked) + ")";
+        actual.type = ATTACK_BLOCKED;
+        actual.type = actual.type + "(" + unsignedValToString(blocked) + ")";
         affectDurability(equipment->findItemWithSubType(ARMOR_TYPE_SHIELD), blocked);
     }
     
-    if(actual.mainDescription != ATTACK_DODGED) {
+    if(actual.type != ATTACK_DODGED) {
         unsigned int durAffectedAttackPower = attack.health;
         if(getHealth() < attack.health) {
             // Attackpower affected durability of the weapon can never be higher than someones health.
@@ -343,6 +343,16 @@ Character::Attack Character::attack(Character * attacker, const Attack & attack)
     }
     
     return actual;
+}
+
+Character::Attack Character::afterDefence(Character * defender, const Attack & effect) {
+    //Standard is that the the defender action takes extra life from the attacker
+    decHealth(effect.health);
+    return effect;
+}
+Character::Attack Character::afterOffence(Character * attacker, const Attack & effect) {
+    //Standard is that the offense action affects the attacker
+    return effect;
 }
 
 void Character::addMaxHealth(int amount) {

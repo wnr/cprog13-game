@@ -41,7 +41,7 @@ Demon::Attack Demon::attack(const Character * attacker, const Attack & attack) {
     decHealth(actual.health);
     
     if(actual.health == 0) {
-        actual.mainDescription = "laughed at";
+        actual.type = "laughed at";
     }
     
     return actual;

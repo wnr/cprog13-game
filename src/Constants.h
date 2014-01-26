@@ -56,6 +56,11 @@
 #define ATTACK_BLOCKED                      "blocked"
 #define ATTACK_ABSORBED                     "absorbed"
 
+#define OFFENCE_LIFE_STEAL                  "life stole"
+
+#define DEFEND_REFLECT                      "reflected"
+
+
 #define INVALID_CLONE                       "The element you are trying to clone does not have the function clone() implemented: "
 
 #define LIST_ITEM_PREFIX                    "* "

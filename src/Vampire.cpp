@@ -32,14 +32,10 @@ Vampire * Vampire::clone() const {
 Vampire::Attack Vampire::performAttack(Character * defender, std::string attackType) {
     Attack result = Monster::performAttack(defender,attackType);
     if(result.health > 0) {
-        unsigned int before = getHealth();
-        unsigned int stolenHealth = result.health/10;
-        if (stolenHealth < 1) {stolenHealth = 1;}
-        incHealth(stolenHealth);
-        unsigned int healthChange =  getHealth() - before;
-        if(healthChange > 0 && defender->getSubType() == CHARACTER_TYPE_PLAYER) {
-            std::cout << getName() << " life stole " << healthChange << " HP.";
-        }
+        unsigned int stealHealth = result.health/10;
+        if (stealHealth < 1) {stealHealth = 1;}
+        Attack afterOffenceResult = defender->afterOffence(this, Attack(stealHealth, OFFENCE_LIFE_STEAL));
+        incHealth(afterOffenceResult.health);
     }
     return result;
 }

@@ -17,7 +17,7 @@ namespace game {
         virtual ~Potion();
         
         virtual std::string consume(Character *) const;
-        void addMaxHealth(int amount, Character * character) const;
+        void addMaxHealth(unsigned int amount, Character * character) const;
         
         virtual Potion* clone() const;
     };

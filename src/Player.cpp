@@ -591,10 +591,11 @@ void Player::interact(Character * other) {
 Player::Attack Player::performAttack(Character * defender, std::string attackType) {
     const std::string defenderName = defender->getName();
     Attack result = Character::performAttack(defender, attackType);
+    std::string extraInfo = (result.specialDescription(result.health).empty() ? "" :  " " + result.specialDescription(result.health));
     if(result.health == 0) {
-        std::cout << "The " << defenderName << " " << (result.mainDescription.empty() ? "somehow avoided" : result.mainDescription) << " your " << attackType << "!"  << (result.extraDescription.empty() ? "" :  " " + result.extraDescription) << std::endl;
+        std::cout << "The " << defenderName << " " << (result.type.empty() ? "somehow avoided" : result.type) << " your " << attackType << "!"  << extraInfo << std::endl;
     } else {
-        std::cout << "You " << attackType << " " << defenderName << " for " << std::to_string(result.health) << " hp!" << (result.mainDescription.empty() ? "" : " " + result.mainDescription) << (result.extraDescription.empty() ? "" : " " + result.extraDescription) << std::endl;
+        std::cout << "You " << attackType << " " << defenderName << " for " << std::to_string(result.health) << " hp!" << extraInfo << std::endl;
     }
     return result;
 }
@@ -604,20 +605,49 @@ Player::Attack Player::attack(Character * attacker, const Attack & attack) {
     
     decHealth(result.health);
     
+    std::string extraInfo = (result.specialDescription(result.health).empty() ? "" :  " " + result.specialDescription(result.health));
+    
     if(result.health == 0) {
-        auto printAvoid = [&result, attacker](const std::string & desc){
-            std::cout << "You " + result.mainDescription + " the attack and thus avoided getting " + desc + " by the " + attacker->getName() + "!" << std::endl;
+        auto printAvoid = [&result, attacker, extraInfo](const std::string & desc){
+            std::cout << "You " << result.type << " the attack and thus avoided getting " << desc << " by the " << attacker->getName() << "!" << extraInfo << std::endl;
         };
         
-        printAvoid(attack.mainDescription.empty() ? "hit" : attack.mainDescription);
+        printAvoid(attack.type.empty() ? "hit" : attack.type);
     } else {
-        auto printAttack = [&result](const std::string & desc){
-            std::cout << "You got " + desc + " and lost " + std::to_string(result.health) + " health!" + (result.mainDescription.empty() ? "" : " " + result.mainDescription) << (result.extraDescription.empty() ? "" : " " + result.extraDescription) << std::endl;
+        auto printAttack = [&result, extraInfo](const std::string & desc){
+            std::cout << "You got " + desc + " and lost " + std::to_string(result.health) + " health!" + (result.type.empty() ? "" : " " + result.type) << extraInfo << std::endl;
         };
         
-        printAttack(attack.mainDescription.empty() ? "hit" : attack.mainDescription);
+        printAttack(attack.type.empty() ? "hit" : attack.type);
     }
     
+    return result;
+}
+
+Player::Attack Player::afterDefence(game::Character *defender, const game::Character::Attack &effect) {
+    Attack result = Character::afterDefence(defender, effect);
+    if(result.specialDescription(result.health) != "") {
+        std::cout << result.specialDescription(result.health) << std::endl;
+    } else if(result.health == 0) {
+        std::cout << "The " + defender->getName() << " tried to use " << effect.type << " but you " << (result.type.empty() ? "avoided" : result.type) + " it!" << std::endl;
+        
+    } else {
+        std::cout << "The " + defender->getName() << " used " << effect.type << " and you lost " << result.health << "HP!"  << std::endl;
+    }
+    return result;
+}
+
+Player::Attack Player::afterOffence(game::Character *attacker, const game::Character::Attack &effect) {
+    Attack result = Character::afterOffence(attacker, effect);
+    
+    if(result.specialDescription(result.health) != "") {
+        std::cout << result.specialDescription(result.health) << std::endl;
+    } else if(result.health == 0) {
+        std::cout << "The " + attacker->getName() << " tried to use " << effect.type << " but you " << (result.type.empty() ? "neutrulized" : result.type) + " it!" << std::endl;
+        
+    } else {
+        std::cout << "The " + attacker->getName() << " used " << effect.type << " and healed " << result.health << "HP!"  << std::endl;
+    }
     return result;
 }
 

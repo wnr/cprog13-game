@@ -33,15 +33,16 @@ namespace game {
     public:
         struct Attack {
             unsigned int health;
-            std::string mainDescription;
-            std::string extraDescription;
+            std::string type;
+            std::function<std::string (unsigned int health)> specialDescription;
             
             explicit Attack(unsigned int health);
-            Attack(unsigned int health, std::string mainDescription);
-            Attack(unsigned int health, std::string mainDescription, std::string extraDescription);
+            Attack(unsigned int health, std::string type);
+            Attack(unsigned int health, std::string type, std::function<std::string (unsigned int health)> specialDescription);
             
         };
-        friend void Potion::addMaxHealth(int health, Character * character) const;
+        friend void Food::incHealth(unsigned int health, Character * character) const;
+        friend void Potion::addMaxHealth(unsigned int health, Character * character) const;
         
         //When a Character is constructed, it will add itself to the given environment.
         Character(Environment * env, std::string subType);
@@ -88,14 +89,16 @@ namespace game {
         Attack attack(Character * attacker, unsigned int health);
         Attack attack(Character * attacker, unsigned int health, std::string description);
         virtual Attack attack(Character * attacker, const Attack & attack);
+        virtual Attack afterDefence(Character * defender, const Attack & effect);
+        virtual Attack afterOffence(Character * attacker, const Attack & effect);
         
-        void incHealth(unsigned int health);
-        void decHealth(unsigned int health);
     protected:
         Attack generateAttack(std::string attackType) const;
         virtual Attack performAttack(Character * defender, std::string attackType);
         virtual Character * getRandomTarget(std::function<bool(Character*)> = [](Character *){return true;}) const;
         
+        void incHealth(unsigned int health);
+        void decHealth(unsigned int health);
         void setHealth(unsigned int health);
         void addHealth(int health);
         void addMaxHealth(int health);

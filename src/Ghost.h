@@ -25,8 +25,6 @@ namespace game {
         virtual std::string getPersonalDescription() const;
         
         virtual Ghost* clone() const;
-        
-        void decAttackersHealth(unsigned int health, Character * attacker) const;
     protected:
         virtual Character * getRandomTarget(std::function<bool(Character*)> = [](Character *){return true;}) const;
         virtual std::string getAttackType() const;

@@ -23,11 +23,12 @@ void Ghost::kill() {
 
 Ghost::Attack Ghost::attack(Character * attacker, const Attack & attack) {
     Attack result = Monster::attack(attacker, attack);
-    if(result.mainDescription == ATTACK_DODGED || result.mainDescription == ATTACK_ABSORBED) {
-        if(happen(100)) {
-            unsigned int healthReduction = attack.health/rand(4, 10, true);
-            decAttackersHealth(healthReduction, attacker);
-            result.extraDescription = "You went trough the " + getName() + " and hit yourself for " + std::to_string(healthReduction) + " HP";
+    if(result.type == ATTACK_DODGED || result.type == ATTACK_ABSORBED) {
+        if(happen(35)) {
+            unsigned int healthReduction = attack.health/rand(5, 15, true);
+            attacker->afterDefence(this, Attack(healthReduction, DEFEND_REFLECT, [this](unsigned int health){
+             return "You went trough the " + getName() + " and hit yourself for " + std::to_string(health) + "HP!";
+            }));
         }
     }
     return result;
@@ -43,10 +44,6 @@ Ghost * Ghost::clone() const {
         throw std::invalid_argument(INVALID_CLONE);
     }
     return c;
-}
-
-void Ghost::decAttackersHealth(unsigned int health, Character * attacker) const {
-    attacker->decHealth(health);
 }
 
 std::string Ghost::getAttackType() const {

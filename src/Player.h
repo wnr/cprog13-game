@@ -26,6 +26,8 @@ namespace game {
         
         Attack attack(Character * attacker, const Attack & attack);
         Attack performAttack(Character * defender, std::string attackType);
+        virtual Attack afterDefence(Character * defender, const Attack & effect);
+        virtual Attack afterOffence(Character * attacker, const Attack & effect);
         
         void kill();
         

@@ -27,7 +27,7 @@ std::string Potion::consume(Character * character) const {
     return "increased max HP by " + std::to_string(diff) + " points!";
 }
 
-void Potion::addMaxHealth(int amount, Character * character) const {
+void Potion::addMaxHealth(unsigned int amount, Character * character) const {
     character->addMaxHealth(amount);
 }
 
