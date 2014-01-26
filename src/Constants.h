@@ -82,7 +82,7 @@
 #define ENV_NEIGH_HALL_NAME                 "Neighbor hall"
 #define ENV_NEIGH_HALL_DESC                 "the hallway of your neighbor's house."
 #define ENV_NEIGH_KITCHEN_NAME              "Kitchen"
-#define ENV_NEIGH_KITCHEN_DESC              ", which looks a bit rusty for your taste."
+#define ENV_NEIGH_KITCHEN_DESC              "which looks a bit rusty for your taste."
 #define ENV_NEIGH_BACKSIDE_NAME             "Garden"
 #define ENV_NEIGH_BACKSIDE_DESC             "a beautiful garden with flowers and shit."
 #define ENV_MARKET_NAME                     "Market"
@@ -244,12 +244,12 @@
 //---- Player and Character----
 
 #define PLAYER_NAME                         "McLovin'"
-#define PLAYER_HEALTH                       30000
+#define PLAYER_HEALTH                       100
 #define PLAYER_BASE_ARMOR                   0
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
-#define PLAYER_BASE_MIN_DMG                 500
-#define PLAYER_BASE_MAX_DMG                 1000
+#define PLAYER_BASE_MIN_DMG                 20
+#define PLAYER_BASE_MAX_DMG                 60
 #define PLAYER_BASE_CRIT_PROB               5
 #define PLAYER_BASE_CRIT_MOD                50
 
@@ -282,8 +282,8 @@
 #define RAT_BASE_MAX_DMG                    25
 #define RAT_BASE_CRIT_PROB                  15
 #define RAT_BASE_CRIT_MOD                   100
-#define RAT_MOVE_PROB                       0
-#define RAT_ATTACK_PROB                     100
+#define RAT_MOVE_PROB                       40
+#define RAT_ATTACK_PROB                     20
 
 #define CHARACTER_TYPE_TROLL                "Troll"
 #define TROLL_HEALTH                        500

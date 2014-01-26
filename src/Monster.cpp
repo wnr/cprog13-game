@@ -152,4 +152,10 @@ std::string Monster::getAttackType() const {
     return "hit";
 }
 
-
+Monster * Monster::clone() const {
+    Monster * c = new Monster(*this);
+    if(typeid(*c) != typeid(*this)) {
+        throw std::invalid_argument(INVALID_CLONE);
+    }
+    return c;
+}

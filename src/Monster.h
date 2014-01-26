@@ -34,6 +34,8 @@ namespace game {
         virtual void interact(Character * other);
         
         virtual void update();
+        
+        virtual Monster * clone() const;
     protected:
         virtual Character * getRandomTarget(std::function<bool(Character*)> = [](Character *){return true;}) const;
         

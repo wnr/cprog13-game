@@ -132,6 +132,9 @@ void Engine::initEnvironments() {
     //Characters.
     new Player(home, PLAYER_HEALTH, PLAYER_NAME);
 
+    auto addRat = [](Environment * env){
+        new Monster(env, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
+    };
     
 //    new Vampire(home);
 //    new Vampire(home);
@@ -209,6 +212,31 @@ void Engine::initEnvironments() {
 //    church->setNeightbor("street", street54);
 //    church->setNeightbor("graveyard", graveyard);
 //    graveyard->setNeightbor("church", church);
+
+    //Monsters.
+    addRat(homeNeighPath);
+    addRat(neighHall);
+    addRat(neighKitchen);
+    
+    addRat(market);
+    addRat(market);
+    addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
+    addRat(marketStorage);
+
+    addRat(forestEntrance);
+    addRat(forestEntrance);
+    addRat(forestEntrance);
+    addRat(forestEntrance);
+    addRat(forestEntrance);
+    
+    addRat(bishHouse);
+    addRat(bishHouse);
+    addRat(bishHouse);
+    addRat(bishHouse);
 }
 
 void Engine::run() {
