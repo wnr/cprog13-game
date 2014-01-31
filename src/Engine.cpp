@@ -88,7 +88,7 @@ void Engine::initEnvironments() {
         new Food("Cheese", 100),
         new Food("Meat", 150),
         new Food("Pizza", 200),
-        new Food("Suger", 10),
+        new Food("Suger", 50),
         new Food("Hamburger", 300),
         getEmptyRat()}, {
             4,
@@ -229,6 +229,14 @@ void Engine::initEnvironments() {
     addRat(bishHouse);
     addRat(bishHouse);
     addRat(bishHouse);
+    
+    addRat(away3Path);
+    addRat(away3Path);
+    addRat(away3Path);
+    addObject(away3Path, new Shield(30, 10, 0, 4, "Shield"));
+    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 50, 5, 4, "Shoes"));
+    addObject(awayForestPath, new Weapon("Spike_club", 100, 200, 4, 10, 100));
+    
     
     new Troll(forestEntrance);
     addOgre(forestNorthEast);
