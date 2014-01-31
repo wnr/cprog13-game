@@ -170,7 +170,7 @@ void Engine::initEnvironments() {
     connectEnvs(cathHall, cathBoss, ENVCON_CATH_HALL_WITH_CATH_BOSS_ROOM, ENVCON_CATH_BOSS_ROOM_WITH_CATH_HALL);
     
     //Characters.
-    new Player(marketStorage, PLAYER_HEALTH, PLAYER_NAME);
+    new Player(home, PLAYER_HEALTH, PLAYER_NAME);
 
     auto addRat = [](Environment * env){
         new Monster(env, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
