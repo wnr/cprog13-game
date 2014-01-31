@@ -69,7 +69,7 @@
 #define INPUT_INVALID_COMMAND               "Invalid command. Type 'help' for command instructions."
 #define INFORMATION_UNKNOWN                 "?"
 
-#define GAME_INTRO                          "This is a magical game with magic and stuff. Type 'exit' to exit, otherwise just follow the instructions."
+#define GAME_INTRO                          "You wake up at home and you put on the local news. A demon lord has entered the living realm and has taken the cathedral as his own! You have to do something! You also hear about the local forrest beeing invaded by trolls and ogres and that something strange is lurking in the graveyard. The apocalypse is truly upon us! Wait... could this be dream? No time to find out, time to go to battle! But you don't have any weapons. Your japanease neighbour might have a katana or something, better check there first. \n\nType 'exit' to exit, 'help' for commands and COMMAND 'help' for help with a specific command. Otherwise just follow the instructions."
 #define GAME_OUTRO                          ""
 
 #define TEXT_DIVIDER                        "----------"
