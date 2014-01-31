@@ -74,6 +74,10 @@ void Engine::initEnvironments() {
         return new Monster(NULL, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
     };
     
+    auto getEmptyOgre = []() {
+        return new Troll(NULL, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
+    };
+    
     //places
     Environment * home = createEnv(new Environment(ENV_HOME_NAME, ENV_HOME_DESC));
     Environment * neighHall = createEnv(new Environment(ENV_NEIGH_HALL_NAME, ENV_NEIGH_HALL_DESC));
@@ -95,10 +99,10 @@ void Engine::initEnvironments() {
             5,});
     Environment * graveyard = createEnv(new Environment(ENV_GRAVEYARD_NAME, ENV_GRAVEYARD_DESC));
     Environment * forestEntrance = createEnv(new Environment(ENV_FOREST_ENTRANCE_NAME, ENV_FOREST_ENTRANCE_DESC));
-    Environment * forestWest = createEnv(new Environment(ENV_FOREST_WEST_NAME, ENV_FOREST_WEST_DESC));
-    Environment * forestNorth = createEnv(new Environment(ENV_FOREST_NORTH_NAME, ENV_FOREST_NORTH_DESC));
-    Environment * forestNorthEast = createEnv(new Environment(ENV_FOREST_NORTH_EAST_NAME, ENV_FOREST_NORTH_EAST_DESC));
-    Environment * forestEast = createEnv(new Environment(ENV_FOREST_EAST_NAME, ENV_FOREST_EAST_DESC));
+    Environment * forestWest = createSpawnEnv(ENV_FOREST_WEST_NAME, ENV_FOREST_WEST_DESC, {new Troll(NULL)}, {1});
+    Environment * forestNorth = createSpawnEnv(ENV_FOREST_NORTH_NAME, ENV_FOREST_NORTH_DESC, {new Troll(NULL)}, {1});
+    Environment * forestNorthEast = createSpawnEnv(ENV_FOREST_NORTH_EAST_NAME, ENV_FOREST_NORTH_EAST_DESC, {new Troll(NULL), getEmptyOgre()}, {1, 1});
+    Environment * forestEast = createSpawnEnv(ENV_FOREST_EAST_NAME, ENV_FOREST_EAST_DESC, {new Troll(NULL)}, {1});
     Environment * bishHouse = createEnv(new Environment(ENV_BISH_HOUSE_NAME, ENV_BISH_HOUSE_DESC));
     Environment * bishSecret = createEnv(new Environment(ENV_BISH_HOUSE_SECRET_ROOM_NAME, ENV_BISH_HOUSE_SECRET_ROOM_DESC));
     Environment * cathHall = createEnv(new Environment(ENV_CATH_HALL_NAME, ENV_CATH_HALL_DESC));
@@ -172,6 +176,9 @@ void Engine::initEnvironments() {
         new Monster(env, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
     };
     
+    auto addOgre = [](Environment * env) {
+        return new Troll(env, CHARACTER_TYPE_OGRE, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
+    };
     
     auto addObject = [](Environment * env, PhysicalObject * physicalObject) {
         env->push_back(std::unique_ptr<PhysicalObject>(physicalObject));
@@ -189,83 +196,6 @@ void Engine::initEnvironments() {
         }
         env->push_back(std::unique_ptr<PhysicalObject>(con));
     };
-    
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Vampire(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Ghost(home);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home, CHARACTER_TYPE_TROLL, OGRE_HEALTH, CHARACTER_TYPE_OGRE, OGRE_MOVE_PROB, OGRE_ATTACK_PROB, OGRE_BASE_ARMOR, OGRE_BASE_DODGE, OGRE_BASE_BLOCK, OGRE_BASE_MIN_DMG, OGRE_BASE_MAX_DMG, OGRE_BASE_CRIT_PROB, OGRE_BASE_CRIT_MOD);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-//    new Troll(home);
-
-
-    
-//    Environment * home = createEnv(new Environment("Home", "a big house with walls"));
-//    Environment * outside = createEnv(new Environment("Outside home", "an outside place with big sun."));
-//    Environment * street54 = createEnv(new Environment("Street 54","an street just outside your home."));
-//    Environment * statoil = createEnv(new Environment("Statoil","your favorite gas station."));
-//    Environment * flanders = createEnv(new Environment("Flanders","awful neighbours."));
-//    Environment * mcDonalds = createEnv(new Environment("MC","mmm burgers."));
-//    Environment * church = createEnv(new Environment("Church","god is watching."));
-//    Environment * graveyard = createEnv(new Graveyard("Graveyard", "Ghastly place with a creepy big moon.", 10));
-//    
-//    home->setNeightbor("Outside", outside);
-//    new Troll(home);
-//    home->push_back(std::unique_ptr<PhysicalObject>(new Food("Pie")));
-//    home->push_back(std::unique_ptr<PhysicalObject>(new Weapon("Axe", 10, 25, 3, 10, 50)));
-//    home->push_back(std::unique_ptr<PhysicalObject>(new Shield(50, 300, 10)));
-//    home->push_back(std::unique_ptr<PhysicalObject>(new Weapon(2,20)));
-//    std::unique_ptr<Key>  key(new Key());
-//    home->push_back(std::unique_ptr<PhysicalObject>(new Chest(10, key.get())));
-//    new Player(home, 1337, "Lucas");
-//    new Demon(home);
-//    
-//    
-//    outside->setNeightbor("inside", home);
-//    outside->setNeightbor("street", street54);
-//    new Troll(outside);
-//    outside->push_back(std::move(key));
-//    street54->setNeightbor("outside_home", outside);
-//    street54->setNeightbor("statoil", statoil);
-//    street54->setNeightbor("flanders", flanders);
-//    street54->setNeightbor("mcDonalds", mcDonalds);
-//    street54->setNeightbor("church", church);
-//    statoil->setNeightbor("street", street54);
-//    flanders->setNeightbor("street", street54);
-//    mcDonalds->setNeightbor("street", street54);
-//    mcDonalds->push_back(std::unique_ptr<PhysicalObject>(new Chest(10)));
-//    church->setNeightbor("street", street54);
-//    church->setNeightbor("graveyard", graveyard);
-//    graveyard->setNeightbor("church", church);
 
     //Monsters and items
     addRat(homeNeighPath);
@@ -284,7 +214,7 @@ void Engine::initEnvironments() {
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
-    addObject(marketStorage, new Potion("Pig_blood", 50));
+    addObject(marketStorage, new Potion("Pig_blood", 150));
     addObject(marketStorage, new Armor(ARMOR_TYPE_CHEST, 25, 0, 4, "Leather_chest"));
     
 
@@ -299,6 +229,28 @@ void Engine::initEnvironments() {
     addRat(bishHouse);
     addRat(bishHouse);
     
+    new Troll(forestEntrance);
+    addOgre(forestNorthEast);
+    new Troll(forestNorthEast);
+    Troll * chiefOgre = new Troll(forestNorthEast, CHARACTER_TYPE_OGRE, CHIEF_OGRE_HEALTH, CHARACTER_CHIEF_OGRE_NAME, CHIEF_OGRE_MOVE_PROB, CHIEF_OGRE_ATTACK_PROB, CHIEF_OGRE_BASE_ARMOR, CHIEF_OGRE_BASE_DODGE, CHIEF_OGRE_BASE_BLOCK, CHIEF_OGRE_BASE_MIN_DMG, CHIEF_OGRE_BASE_MAX_DMG, CHIEF_OGRE_BASE_CRIT_PROB, CHIEF_OGRE_BASE_CRIT_MOD);
+    Key * armorKey = new Key(1, "ghost_chest", "Ghostly_key");
+    addItemsContainer(chiefOgre->getInventory(), {armorKey});
+    
+    
+    Chest * graveyardChest = new Chest(CHEST_SIZE, armorKey);
+//    addItemsContainer(graveyardChest, {
+//        new Weapon("Dragon_blade", 400, 600, 4, 15, 200),
+//        new Shield(50, 50, 0, 4, "Dragon_shield"),
+//        new Armor(ARMOR_TYPE_CHEST, )
+//        new Armor(ARMOR_TYPE_HELMET)
+//        new Armor(ARMOR_TYPE_PANTS)
+//        new Armor(ARMOR_TYPE_GLOVES)
+//        new Armor(ARMOR_TYPE_SHOE)
+//    });
+    
+    addObject(graveyard, graveyardChest);
+    new Vampire(graveyard);
+    new Ghost(graveyard);
     
     
     new Demon(bishHouse);
