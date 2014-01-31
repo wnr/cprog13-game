@@ -169,8 +169,6 @@ void Engine::initEnvironments() {
     connectEnvs(cathHall, cathEast, ENVCON_CATH_HALL_WITH_CATH_EAST_WING, ENVCON_CATH_EAST_WING_WITH_CATH_HALL);
     connectEnvs(cathHall, cathBoss, ENVCON_CATH_HALL_WITH_CATH_BOSS_ROOM, ENVCON_CATH_BOSS_ROOM_WITH_CATH_HALL);
     
-    //Characters.
-    new Player(marketStorage, PLAYER_HEALTH, PLAYER_NAME);
 
     auto addRat = [](Environment * env){
         new Monster(env, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
@@ -196,13 +194,17 @@ void Engine::initEnvironments() {
         }
         env->push_back(std::unique_ptr<PhysicalObject>(con));
     };
+    
+    //Characters.
+    new Player(home, PLAYER_HEALTH, PLAYER_NAME);
+    addObject(home, new Food("Cookie", 150));
 
     //Monsters and items
     addRat(homeNeighPath);
     addRat(neighHall);
     addObject(neighHall, new Weapon("Katana", 50, 75, 3));
     addRat(neighKitchen);
-    addConWithItems(neighKitchen, new Chest("Drawer"), {new Armor(ARMOR_TYPE_GLOVES, 5, 0, 1, "Mittens"), new Shield(25, 20, 5, 4, "Cooking_lid")});
+    addConWithItems(neighKitchen, new Chest("Drawer"), {new Armor(ARMOR_TYPE_GLOVES, 5, 0, 1, "Mittens"), new Shield(25, 5, 5, 4, "Cooking_lid")});
     
     addRat(market);
     addRat(market);
@@ -238,15 +240,15 @@ void Engine::initEnvironments() {
     
     
     Chest * graveyardChest = new Chest(CHEST_SIZE, armorKey);
-//    addItemsContainer(graveyardChest, {
-//        new Weapon("Dragon_blade", 400, 600, 4, 15, 200),
-//        new Shield(50, 50, 0, 4, "Dragon_shield"),
-//        new Armor(ARMOR_TYPE_CHEST, )
-//        new Armor(ARMOR_TYPE_HELMET)
-//        new Armor(ARMOR_TYPE_PANTS)
-//        new Armor(ARMOR_TYPE_GLOVES)
-//        new Armor(ARMOR_TYPE_SHOE)
-//    });
+    addItemsContainer(graveyardChest, {
+        new Weapon("Dragon_blade", 1000, 2000, 4, 15, 200),
+        new Shield(75, 50, 0, 4, "Dragon_shield"),
+        new Armor(ARMOR_TYPE_CHEST, 500, 0, 4, "Dragon_chest"),
+        new Armor(ARMOR_TYPE_HELMET, 300, 5, 4, "Dragon_helmet"),
+        new Armor(ARMOR_TYPE_PANTS, 250, 0, 4, "Dragon_pants"),
+        new Armor(ARMOR_TYPE_GLOVES, 150, 5, 4, "Dragon_gloves"),
+        new Armor(ARMOR_TYPE_SHOE, 200, 10, 4, "Dragon_shoes")
+    });
     
     addObject(graveyard, graveyardChest);
     new Vampire(graveyard);

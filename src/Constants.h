@@ -282,7 +282,7 @@
 #define RAT_BASE_ARMOR                      0
 #define RAT_BASE_DODGE                      25
 #define RAT_BASE_BLOCK                      0
-#define RAT_BASE_MIN_DMG                    1
+#define RAT_BASE_MIN_DMG                    5
 #define RAT_BASE_MAX_DMG                    25
 #define RAT_BASE_CRIT_PROB                  15
 #define RAT_BASE_CRIT_MOD                   100
