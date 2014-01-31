@@ -313,6 +313,18 @@
 #define OGRE_MOVE_PROB                      10
 #define OGRE_ATTACK_PROB                    90
 
+#define CHARACTER_CHIEF_OGRE_NAME           "Chief_ogre"
+#define CHIEF_OGRE_HEALTH                   800
+#define CHIEF_OGRE_BASE_ARMOR               60
+#define CHIEF_OGRE_BASE_DODGE               5
+#define CHIEF_OGRE_BASE_BLOCK               30
+#define CHIEF_OGRE_BASE_MIN_DMG             125
+#define CHIEF_OGRE_BASE_MAX_DMG             300
+#define CHIEF_OGRE_BASE_CRIT_PROB           25
+#define CHIEF_OGRE_BASE_CRIT_MOD            170
+#define CHIEF_OGRE_MOVE_PROB                0
+#define CHIEF_OGRE_ATTACK_PROB              50
+
 #define CHARACTER_TYPE_GHOST                "Ghost"
 #define GHOST_HEALTH                        100
 #define GHOST_BASE_ARMOR                    100
@@ -351,7 +363,7 @@
 
 #define CHARACTER_TYPE_BOSS                 "Boss"
 #define DEMON_BOSS_NAME                     "Malphas"
-#define DEMON_BOSS_HEALTH                   5000
+#define DEMON_BOSS_HEALTH                   10000
 #define DEMON_BOSS_BASE_ARMOR               1000
 #define DEMON_BOSS_BASE_DODGE               5
 #define DEMON_BOSS_BASE_BLOCK               15
