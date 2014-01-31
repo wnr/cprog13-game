@@ -27,6 +27,8 @@
 
 #define OTHER_TYPE_EQUIPMENT                "Equipment"
 
+#define CHEST_SIZE                          50
+
 #define KEY_STANDARD_IDENTIFIER             "Standard_key"
 #define KEY_STANDARD_LEVEL                  3
 
@@ -38,6 +40,7 @@
 #define ARMOR_TYPE_PANTS                    "Pants"
 #define ARMOR_TYPE_SHIELD                   "Shield"
 #define ARMOR_TYPE_SHOE                     "Shoe"
+#define ARMOR_TYPE_GLOVES                   "Gloves"
 #define ARMOR_RATING                        5
 #define ARMOR_WEIGHT                        7
 #define ARMOR_DODGE_RATING                  4
@@ -245,12 +248,12 @@
 //---- Player and Character----
 
 #define PLAYER_NAME                         "McLovin'"
-#define PLAYER_HEALTH                       100000
+#define PLAYER_HEALTH                       30000
 #define PLAYER_BASE_ARMOR                   0
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
-#define PLAYER_BASE_MIN_DMG                 20
-#define PLAYER_BASE_MAX_DMG                 60000
+#define PLAYER_BASE_MIN_DMG                 10
+#define PLAYER_BASE_MAX_DMG                 15000
 #define PLAYER_BASE_CRIT_PROB               5
 #define PLAYER_BASE_CRIT_MOD                50
 
@@ -275,7 +278,7 @@
 #define MONSTER_BASE_CRIT_MOD               50
 
 #define CHARACTER_TYPE_RAT                  "Rat"
-#define RAT_HEALTH                          50
+#define RAT_HEALTH                          80
 #define RAT_BASE_ARMOR                      0
 #define RAT_BASE_DODGE                      25
 #define RAT_BASE_BLOCK                      0
@@ -357,7 +360,7 @@
 #define DEMON_BOSS_BASE_CRIT_PROB           10
 #define DEMON_BOSS_BASE_CRIT_MOD            100
 #define DEMON_BOSS_MOVE_PROB                0
-#define DEMON_BOSS_ATTACK_PROB              10
+#define DEMON_BOSS_ATTACK_PROB              5
 
 
 #endif

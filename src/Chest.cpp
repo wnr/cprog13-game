@@ -3,6 +3,10 @@
 
 using namespace game;
 
+Chest::Chest() : Chest(CHEST_SIZE) {}
+
+Chest::Chest(std::string name) : Chest(CHEST_SIZE, nullptr, name) {}
+
 Chest::Chest(int maxSize) : Chest(maxSize, nullptr) {}
 
 Chest::Chest(int maxSize, Key * keyLock) : Chest(maxSize, keyLock, CONTAINER_TYPE_CHEST) {}

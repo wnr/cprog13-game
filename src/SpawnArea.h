@@ -6,11 +6,9 @@
 namespace game {
     class SpawnEntry {
     public:
+        SpawnEntry(std::shared_ptr<PhysicalObject> element, unsigned int spawnProb);
         const std::shared_ptr<PhysicalObject> element;
         const unsigned int spawnProb;
-        
-    private:
-        SpawnEntry(std::shared_ptr<PhysicalObject> element, unsigned int spawnProb);
     };
     
     class SpawnArea: public Environment {

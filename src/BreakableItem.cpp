@@ -72,7 +72,8 @@ bool BreakableItem::isArmor() const {
        subType != ARMOR_TYPE_HELMET &&
        subType != ARMOR_TYPE_PANTS  &&
        subType != ARMOR_TYPE_SHIELD &&
-       subType != ARMOR_TYPE_SHOE) {
+       subType != ARMOR_TYPE_SHOE &&
+       subType != ARMOR_TYPE_GLOVES) {
         return false;
     } else {
         return true;

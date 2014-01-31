@@ -12,6 +12,8 @@ namespace game {
     class Chest : public LockableContainer {
         
     public:
+        Chest();
+        Chest(std::string name);
         Chest(int maxSize);
         Chest(int maxSize, Key * keyLock);
         Chest(int maxSize, Key * keyLock, std::string name);

@@ -45,6 +45,25 @@ void Engine::initEnvironments() {
         return env;
     };
     
+    auto createSpawnEnv = [this](std::string name, std::string desc, std::vector<PhysicalObject *> physicalObjects, std::vector<int> spawnChances) -> Environment * {
+        
+        if(spawnChances.size() != physicalObjects.size()) {
+            throw new std::invalid_argument("Spawnchans vector and pbject vector must be same size!");
+        }
+        std::vector<std::shared_ptr<SpawnEntry>> vector;
+        
+        for(int i = 0; i < physicalObjects.size(); i++) {
+            auto object = std::shared_ptr<PhysicalObject>(physicalObjects[i]);
+            auto spawnEntry = std::shared_ptr<SpawnEntry>(new SpawnEntry(object, spawnChances[i]));
+            vector.push_back(spawnEntry);
+        }
+
+        SpawnArea * env = new SpawnArea(name, desc, vector);
+        
+        this->push_back(std::unique_ptr<Environment>(env));
+        return env;
+    };
+    
     auto connectEnvs = [](Environment * env1, Environment * env2, std::string desc1, std::string desc2) {
         env1->setNeightbor(desc1, env2);
         env2->setNeightbor(desc2, env1);
@@ -57,7 +76,18 @@ void Engine::initEnvironments() {
     Environment * neighKitchen = createEnv(new Environment(ENV_NEIGH_KITCHEN_NAME, ENV_NEIGH_KITCHEN_DESC));
     Environment * neighGarden = createEnv(new Environment(ENV_NEIGH_BACKSIDE_NAME, ENV_NEIGH_BACKSIDE_DESC));
     Environment * market = createEnv(new Environment(ENV_MARKET_NAME, ENV_MARKET_DESC));
-    Environment * marketStorage = createEnv(new Environment(ENV_MARKET_STORAGE_NAME, ENV_MARKET_STORAGE_DESC));
+    Environment * marketStorage = createSpawnEnv(ENV_MARKET_STORAGE_NAME, ENV_MARKET_STORAGE_DESC, {
+        new Food("Cheese", 20),
+        new Food("Meat", 30),
+        new Food("Pizza", 100),
+        new Food("Suger", 10),
+        new Food("Hamburger", 200),
+        }, {
+            4,
+            4,
+            2,
+            5,
+            1,});
     Environment * graveyard = createEnv(new Environment(ENV_GRAVEYARD_NAME, ENV_GRAVEYARD_DESC));
     Environment * forestEntrance = createEnv(new Environment(ENV_FOREST_ENTRANCE_NAME, ENV_FOREST_ENTRANCE_DESC));
     Environment * forestWest = createEnv(new Environment(ENV_FOREST_WEST_NAME, ENV_FOREST_WEST_DESC));
@@ -131,10 +161,31 @@ void Engine::initEnvironments() {
     connectEnvs(cathHall, cathBoss, ENVCON_CATH_HALL_WITH_CATH_BOSS_ROOM, ENVCON_CATH_BOSS_ROOM_WITH_CATH_HALL);
     
     //Characters.
-    new Player(cathBoss, PLAYER_HEALTH, PLAYER_NAME);
+    new Player(marketStorage, PLAYER_HEALTH, PLAYER_NAME);
 
     auto addRat = [](Environment * env){
         new Monster(env, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
+    };
+    
+    auto getRat = []() {
+        return new Monster(NULL, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
+    };
+    
+    auto addObject = [](Environment * env, PhysicalObject * physicalObject) {
+        env->push_back(std::unique_ptr<PhysicalObject>(physicalObject));
+    };
+    
+    auto addItemsContainer = [](Container * con, std::vector<Item *> itemList) {
+        for(Item * item : itemList) {
+            con->push_back(std::unique_ptr<Item>(item));
+        }
+    };
+    
+    auto addConWithItems = [](Environment * env, Container * con, std::vector<Item *> itemList) {
+        for(Item * item : itemList) {
+            con->push_back(std::unique_ptr<Item>(item));
+        }
+        env->push_back(std::unique_ptr<PhysicalObject>(con));
     };
     
 //    new Vampire(home);
@@ -214,19 +265,26 @@ void Engine::initEnvironments() {
 //    church->setNeightbor("graveyard", graveyard);
 //    graveyard->setNeightbor("church", church);
 
-    //Monsters.
+    //Monsters and items
     addRat(homeNeighPath);
     addRat(neighHall);
+    addObject(neighHall, new Weapon("Katana", 50, 75, 3));
     addRat(neighKitchen);
+    addConWithItems(neighKitchen, new Chest("Drawer"), {new Armor(ARMOR_TYPE_GLOVES, 5, 0, 1, "Mittens"), new Shield(25, 20, 5, 4, "Cooking_lid")});
     
     addRat(market);
     addRat(market);
+    addObject(market, new Food("Cheese", 10));
+    addObject(market, new Food("Meat", 15));
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
+    addObject(marketStorage, new Food("Cheese", 10));
+    addObject(market, new Food("Meat", 15));
+    
 
     addRat(forestEntrance);
     addRat(forestEntrance);
@@ -239,7 +297,22 @@ void Engine::initEnvironments() {
     addRat(bishHouse);
     addRat(bishHouse);
     
+    
+    
+    new Demon(bishHouse);
+    
+    new Demon(bishSecret);
+    new Demon(bishSecret);
+    Chest * secretChest = new Chest();
+    addItemsContainer(secretChest, {}); // TODO
+    addObject(bishSecret, new Chest());
+    
+    
+    new Demon(cathHall);
+    
     new DemonBoss(cathBoss);
+    new Demon(cathBoss);
+    new Demon(cathBoss);
 }
 
 void Engine::run() {

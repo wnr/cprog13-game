@@ -23,7 +23,9 @@ Character::Character(Environment * env, std::string subType, unsigned int maxHea
 
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Inventory(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false), baseArmorRating(baseArmorRating), baseDodgeProb(baseDodgeProb), baseBlockProb(baseBlockProb), baseMinDmg(baseMinDmg), baseMaxDmg(baseMaxDmg), baseCritProb(baseCritProb), baseCritMod(baseCritMod) {
     setTickSync(env->getTickSync());
-    env->push_back(std::unique_ptr<PhysicalObject>(this));
+    if(env != NULL) {
+        env->push_back(std::unique_ptr<PhysicalObject>(this));
+    }
 }
 
 Character::Character(const Character & c)       : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(c.inventory), equipment(c.equipment), rottenness(c.rottenness), interacting(c.interacting) {}
