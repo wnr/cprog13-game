@@ -538,12 +538,7 @@ void Player::interact(Character * other) {
     
     std::map<std::string, std::function<bool()>> actions;
     
-    actions["kick"] = [this, &other]() {
-        performAttack(other, "kick");
-        return true;
-    };
-    
-    actions["hit"] = [this, &other]() { //TODO remove this or kick
+    actions["hit"] = [this, &other]() {
         performAttack(other, "hit");
         return true;
     };
