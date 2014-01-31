@@ -305,8 +305,8 @@ void Engine::initEnvironments() {
     
     new Demon(bishSecret);
     new Demon(bishSecret);
-    Chest * secretChest = new Chest();
-    addItemsContainer(secretChest, {}); // TODO
+   /* Chest * secretChest = new Chest();
+    addItemsContainer(secretChest, {});*/ // TODO
     addObject(bishSecret, new Chest());
     
     
