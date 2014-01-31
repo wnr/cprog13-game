@@ -69,8 +69,9 @@
 #define INPUT_INVALID_COMMAND               "Invalid command. Type 'help' for command instructions."
 #define INFORMATION_UNKNOWN                 "?"
 
-#define GAME_INTRO                          "You wake up at home and you put on the local news. A demon lord has entered the living realm and has taken the cathedral as his own! You have to do something! You also hear about the local forrest beeing invaded by trolls and ogres and that something strange is lurking in the graveyard. The apocalypse is truly upon us! Wait... could this be dream? No time to find out, time to go to battle! But you don't have any weapons. Your japanease neighbour might have a katana or something, better check there first. \n\nType 'exit' to exit, 'help' for commands and COMMAND 'help' for help with a specific command. Otherwise just follow the instructions."
+#define GAME_INTRO                          "You wake up at home and you put on the local news. A demon lord named Malphas has entered the living realm and has taken the cathedral as his own! You have to do something! You also hear about the local forrest beeing invaded by trolls and ogres and that something strange is lurking in the graveyard. The apocalypse is truly upon us! Wait... could this be dream? No time to find out, time to go to battle! But you don't have any weapons. Your japanease neighbour might have a katana or something, better check there first. \n\nType 'exit' to exit, 'help' for commands and COMMAND 'help' for help with a specific command. Otherwise just follow the instructions."
 #define GAME_OUTRO                          ""
+#define WINNING_TEXT                        "You have vanquised the demon lord! The world can now rebuild and and push back the rest of the evil scum. The human race have you to thank and the world leaders are preparing a celebration in your hon... and you wake up."
 
 #define TEXT_DIVIDER                        "----------"
 
@@ -244,12 +245,12 @@
 //---- Player and Character----
 
 #define PLAYER_NAME                         "McLovin'"
-#define PLAYER_HEALTH                       100
+#define PLAYER_HEALTH                       100000
 #define PLAYER_BASE_ARMOR                   0
 #define PLAYER_BASE_DODGE                   5
 #define PLAYER_BASE_BLOCK                   0
 #define PLAYER_BASE_MIN_DMG                 20
-#define PLAYER_BASE_MAX_DMG                 60
+#define PLAYER_BASE_MAX_DMG                 60000
 #define PLAYER_BASE_CRIT_PROB               5
 #define PLAYER_BASE_CRIT_MOD                50
 
@@ -282,8 +283,8 @@
 #define RAT_BASE_MAX_DMG                    25
 #define RAT_BASE_CRIT_PROB                  15
 #define RAT_BASE_CRIT_MOD                   100
-#define RAT_MOVE_PROB                       40
-#define RAT_ATTACK_PROB                     20
+#define RAT_MOVE_PROB                       80
+#define RAT_ATTACK_PROB                     50
 
 #define CHARACTER_TYPE_TROLL                "Troll"
 #define TROLL_HEALTH                        500
@@ -294,10 +295,10 @@
 #define TROLL_BASE_MAX_DMG                  150
 #define TROLL_BASE_CRIT_PROB                25
 #define TROLL_BASE_CRIT_MOD                 150
-#define TROLL_MOVE_PROB                     0
-#define TROLL_ATTACK_PROB                   100
+#define TROLL_MOVE_PROB                     30
+#define TROLL_ATTACK_PROB                   80
 
-#define CHARACTER_TYPE_OGRE                  "Ogre"
+#define CHARACTER_TYPE_OGRE                 "Ogre"
 #define OGRE_HEALTH                         650
 #define OGRE_BASE_ARMOR                     50
 #define OGRE_BASE_DODGE                     0
@@ -306,8 +307,8 @@
 #define OGRE_BASE_MAX_DMG                   250
 #define OGRE_BASE_CRIT_PROB                 25
 #define OGRE_BASE_CRIT_MOD                  150
-#define OGRE_MOVE_PROB                      0
-#define OGRE_ATTACK_PROB                    100
+#define OGRE_MOVE_PROB                      10
+#define OGRE_ATTACK_PROB                    90
 
 #define CHARACTER_TYPE_GHOST                "Ghost"
 #define GHOST_HEALTH                        100
@@ -318,7 +319,7 @@
 #define GHOST_BASE_MAX_DMG                  250
 #define GHOST_BASE_CRIT_PROB                5
 #define GHOST_BASE_CRIT_MOD                 50
-#define GHOST_MOVE_PROB                     0
+#define GHOST_MOVE_PROB                     40
 #define GHOST_ATTACK_PROB                   100
 
 #define CHARACTER_TYPE_VAMPIRE              "Vampire"
@@ -330,7 +331,7 @@
 #define VAMPIRE_BASE_MAX_DMG                400
 #define VAMPIRE_BASE_CRIT_PROB              5
 #define VAMPIRE_BASE_CRIT_MOD               100
-#define VAMPIRE_MOVE_PROB                   0
+#define VAMPIRE_MOVE_PROB                   5
 #define VAMPIRE_ATTACK_PROB                 100
 
 #define CHARACTER_TYPE_DEMON                "Demon"
@@ -344,6 +345,19 @@
 #define DEMON_BASE_CRIT_MOD                 50
 #define DEMON_MOVE_PROB                     0
 #define DEMON_ATTACK_PROB                   100
+
+#define CHARACTER_TYPE_BOSS                 "Boss"
+#define DEMON_BOSS_NAME                     "Malphas"
+#define DEMON_BOSS_HEALTH                   5000
+#define DEMON_BOSS_BASE_ARMOR               1000
+#define DEMON_BOSS_BASE_DODGE               5
+#define DEMON_BOSS_BASE_BLOCK               15
+#define DEMON_BOSS_BASE_MIN_DMG             2000
+#define DEMON_BOSS_BASE_MAX_DMG             4000
+#define DEMON_BOSS_BASE_CRIT_PROB           10
+#define DEMON_BOSS_BASE_CRIT_MOD            100
+#define DEMON_BOSS_MOVE_PROB                0
+#define DEMON_BOSS_ATTACK_PROB              10
 
 
 #endif

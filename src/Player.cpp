@@ -534,7 +534,7 @@ void Player::interact(Character * other) {
     }
     
     bool flee = false;
-    const std::string desc = other->getName();
+    const std::string name = other->getName();
     
     std::map<std::string, std::function<bool()>> actions;
     
@@ -579,7 +579,11 @@ void Player::interact(Character * other) {
     do { std::cout << INPUT_INDICATOR; } while(!performAttackCommand(getEngine()->getInput()));
     
     if(!other->isAlive()) {
-        std::cout << "You killed " << desc << "!" << std::endl;
+        std::cout << "You killed " << name << "!" << std::endl;
+        if(name == DEMON_BOSS_NAME) {
+            std::cout << WINNING_TEXT << std::endl;
+            getEngine()->kill();
+        }
         return;
     }
     
