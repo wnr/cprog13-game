@@ -16,39 +16,20 @@ Demon::Demon(Demon && demon)        : Monster(demon) {}
 
 Demon::~Demon() {}
 
-void Demon::interact(Character * other) {
-    if(!isAlive()) {
-        return;
+Demon::Attack Demon::attack(Character * attacker, const Attack & attack) {
+    Attack result = Monster::attack(attacker, attack);
+    if(result.health == 0) {
+        result.type = "laughed at";
     }
-    
-    other->attack(this, Attack(6666, "soul eaten"));
-    
-    if(other->isAlive()) {
-        other->interact(this);
-    }
-}
-
-Demon::Attack Demon::attack(const Character * attacker, const Attack & attack) {
-    static const unsigned int dodgeProb = 25;
-    static const float reduction = 0.8f;
-    
-    Attack actual((1.0f - reduction) * attack.health);
-    
-    if(happen(dodgeProb)) {
-        actual.health = 0;
-    }
-    
-    decHealth(actual.health);
-    
-    if(actual.health == 0) {
-        actual.type = "laughed at";
-    }
-    
-    return actual;
+    return result;
 }
 
 std::string Demon::getPersonalDescription() const {
     return "A powerful " + getName() + " from the world below. Gear up!";
+}
+
+std::string Demon::getAttackType() const {
+    return "soul eaten";
 }
 
 Demon * Demon::clone() const {

@@ -15,12 +15,12 @@ namespace game {
         Demon(Demon && demon);
         virtual ~Demon();
         
-        virtual void interact(Character * other);
-        virtual Attack attack(const Character * attacker, const Attack & attack);
+        virtual Attack attack(Character * attacker, const Attack & attack);
         
         virtual Demon* clone() const;
         
     protected:
+        virtual std::string getAttackType() const;
         virtual std::string getPersonalDescription() const;
     };
 }
