@@ -215,7 +215,7 @@ void Engine::initEnvironments() {
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
-    addObject(marketStorage, new Potion("Pig_blood", 150));
+    addObject(marketStorage, new Potion("Pig_blood", 400));
     addObject(marketStorage, new Armor(ARMOR_TYPE_CHEST, 25, 0, 4, "Leather_chest"));
     
 
@@ -233,10 +233,10 @@ void Engine::initEnvironments() {
     addRat(away3Path);
     addRat(away3Path);
     addRat(away3Path);
-    addObject(away3Path, new Shield(30, 10, 0, 4, "Shield"));
-    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 30, 5, 4, "Shoes"));
-    addObject(awayForestPath, new Weapon("Spike_club", 100, 200, 4, 10, 100));
-    addObject(forestPath, new Armor(ARMOR_TYPE_PANTS, 45, 0, 4, "Pants"));
+    addObject(away3Path, new Shield(40, 20, 0, 4, "Shield"));
+    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 30, 10, 4, "Shoes"));
+    addObject(awayForestPath, new Weapon("Spike_club", 150, 300, 4, 10, 100));
+    addObject(forestPath, new Armor(ARMOR_TYPE_PANTS, 55, 0, 4, "Pants"));
     
     
     new Troll(forestEntrance);
@@ -267,7 +267,7 @@ void Engine::initEnvironments() {
     new Demon(bishSecret);
     new Demon(bishSecret);
     Chest * secretChest = new Chest();
-    addItemsContainer(secretChest, {new Potion("Bear_piss", 500), new Food("Protein_shake", 1000)});
+    addItemsContainer(secretChest, {new Potion("Bear_piss", 600), new Food("Protein_shake", 1000), new Food("Protein_shake", 1000), new Food("Protein_shake", 1000)});
     addObject(bishSecret, secretChest);
     
     new Demon(cathHall);

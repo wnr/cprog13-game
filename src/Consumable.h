@@ -18,6 +18,9 @@ namespace game {
         unsigned int getPotency() const;
         
         virtual std::string consume(Character *) const = 0;
+        
+    protected:
+        virtual std::string getStatisticalDescription() const;
     };
 }
 

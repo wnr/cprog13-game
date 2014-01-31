@@ -361,9 +361,8 @@
 #define DEMON_MOVE_PROB                     0
 #define DEMON_ATTACK_PROB                   100
 
-#define CHARACTER_TYPE_BOSS                 "Boss"
 #define DEMON_BOSS_NAME                     "Malphas"
-#define DEMON_BOSS_HEALTH                   10000
+#define DEMON_BOSS_HEALTH                   5000
 #define DEMON_BOSS_BASE_ARMOR               1000
 #define DEMON_BOSS_BASE_DODGE               5
 #define DEMON_BOSS_BASE_BLOCK               15
