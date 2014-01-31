@@ -10,16 +10,8 @@
 using namespace game;
 
 int main(int argc, const char * argv[])
-{    
-    try
-    {
-        Engine::getInstance()->run();
-    }
-    catch(std::exception & ex)
-    {
-        std::cout << std::endl << std::endl << "EXCEPTION: " << ex.what() << std::endl;
-        return 1;
-    }
+{
+    Engine::getInstance()->run();
     
     return 0;
 }
