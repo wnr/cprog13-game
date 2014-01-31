@@ -26,6 +26,9 @@ void SpawnArea::update() {
                 // Sanity check
                 throw std::runtime_error("Clone is not the same type as element, prob missing the clone() function somewehere.");
             } else {
+                if(clone->getMainType() == OBJECT_TYPE_CHARACTER) {
+                    ((Character*)clone.get())->setEnvironment(this);
+                }
                 push_back(std::move(clone));
             }
             

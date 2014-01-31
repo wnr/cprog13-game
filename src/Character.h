@@ -92,6 +92,8 @@ namespace game {
         virtual Attack afterDefence(Character * defender, const Attack & effect);
         virtual Attack afterOffence(Character * attacker, const Attack & effect);
         
+        virtual void setEnvironment(Environment*);
+        
     protected:
         Attack generateAttack(std::string attackType) const;
         virtual Attack performAttack(Character * defender, std::string attackType);

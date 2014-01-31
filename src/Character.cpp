@@ -22,8 +22,8 @@ Character::Character(Environment * env, std::string subType, unsigned int maxHea
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize) : Character(env, subType, maxHealth, name, inventorySize, CHARACTER_BASE_ARMOR, CHARACTER_BASE_DODGE, CHARACTER_BASE_BLOCK, CHARACTER_BASE_MIN_DMG, CHARACTER_BASE_MAX_DMG, CHARACTER_BASE_CRIT_PROB, CHARACTER_BASE_CRIT_MOD) {}
 
 Character::Character(Environment * env, std::string subType, unsigned int maxHealth, std::string name, unsigned int inventorySize, unsigned int baseArmorRating, unsigned int baseDodgeProb, unsigned int baseBlockProb, unsigned int baseMinDmg, unsigned int baseMaxDmg, unsigned int baseCritProb, unsigned int baseCritMod) : PhysicalObject(OBJECT_TYPE_CHARACTER, subType, name), alive(true), env(env), inventory(new Inventory(inventorySize)), equipment(new Equipment()), rottenness(0), maxHealth(maxHealth), health(maxHealth), interacting(false), baseArmorRating(baseArmorRating), baseDodgeProb(baseDodgeProb), baseBlockProb(baseBlockProb), baseMinDmg(baseMinDmg), baseMaxDmg(baseMaxDmg), baseCritProb(baseCritProb), baseCritMod(baseCritMod) {
-    setTickSync(env->getTickSync());
     if(env != NULL) {
+        setTickSync(env->getTickSync());
         env->push_back(std::unique_ptr<PhysicalObject>(this));
     }
 }
@@ -386,4 +386,9 @@ Character * Character::getRandomTarget(std::function<bool(Character*)> operation
         }
         return false;
     });
+}
+
+void Character::setEnvironment(Environment * env) {
+    this->env = env;
+    setTickSync(env->getTickSync());
 }

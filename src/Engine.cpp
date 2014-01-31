@@ -70,6 +70,10 @@ void Engine::initEnvironments() {
     };
     
     
+    auto getEmptyRat = []() {
+        return new Monster(NULL, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
+    };
+    
     //places
     Environment * home = createEnv(new Environment(ENV_HOME_NAME, ENV_HOME_DESC));
     Environment * neighHall = createEnv(new Environment(ENV_NEIGH_HALL_NAME, ENV_NEIGH_HALL_DESC));
@@ -82,12 +86,13 @@ void Engine::initEnvironments() {
         new Food("Pizza", 100),
         new Food("Suger", 10),
         new Food("Hamburger", 200),
-        }, {
+        getEmptyRat()}, {
             4,
             4,
             2,
             5,
-            1,});
+            1,
+            5,});
     Environment * graveyard = createEnv(new Environment(ENV_GRAVEYARD_NAME, ENV_GRAVEYARD_DESC));
     Environment * forestEntrance = createEnv(new Environment(ENV_FOREST_ENTRANCE_NAME, ENV_FOREST_ENTRANCE_DESC));
     Environment * forestWest = createEnv(new Environment(ENV_FOREST_WEST_NAME, ENV_FOREST_WEST_DESC));
@@ -167,9 +172,6 @@ void Engine::initEnvironments() {
         new Monster(env, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
     };
     
-    auto getRat = []() {
-        return new Monster(NULL, CHARACTER_TYPE_RAT, RAT_HEALTH, CHARACTER_TYPE_RAT, RAT_MOVE_PROB, RAT_ATTACK_PROB, RAT_BASE_ARMOR, RAT_BASE_DODGE, RAT_BASE_BLOCK, RAT_BASE_MIN_DMG, RAT_BASE_MAX_DMG, RAT_BASE_CRIT_PROB, RAT_BASE_CRIT_MOD);
-    };
     
     auto addObject = [](Environment * env, PhysicalObject * physicalObject) {
         env->push_back(std::unique_ptr<PhysicalObject>(physicalObject));
