@@ -262,15 +262,13 @@ void Engine::initEnvironments() {
     new Vampire(graveyard);
     new Ghost(graveyard);
     
-    
     new Demon(bishHouse);
     
     new Demon(bishSecret);
     new Demon(bishSecret);
-   /* Chest * secretChest = new Chest();
-    addItemsContainer(secretChest, {});*/ // TODO
-    addObject(bishSecret, new Chest());
-    
+    Chest * secretChest = new Chest();
+    addItemsContainer(secretChest, {new Potion("Bear_piss", 500), new Food("Protein_shake", 1000)});
+    addObject(bishSecret, secretChest);
     
     new Demon(cathHall);
     
