@@ -15,9 +15,6 @@ namespace game {
         DemonBoss(DemonBoss && demonBoss);
         virtual ~DemonBoss();
         
-        virtual void interact(Character * other);
-        virtual Attack attack(const Character * attacker, const Attack & attack);
-        
         virtual DemonBoss* clone() const;
         
     protected:

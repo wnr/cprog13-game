@@ -580,7 +580,7 @@ void Player::interact(Character * other) {
     
     if(!other->isAlive()) {
         std::cout << "You killed " << name << "!" << std::endl;
-        if(other->getName() == DEMON_BOSS_NAME) {
+        if(name == DEMON_BOSS_NAME) {
             std::cout << WINNING_TEXT << std::endl;
             getEngine()->kill();
         }
