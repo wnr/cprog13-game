@@ -13,3 +13,11 @@ unsigned int Consumable::getPotency() const {
     return potency;
 }
 
+std::string Consumable::getStatisticalDescription() const {
+    std::string desc = Item::getStatisticalDescription();
+    desc += "\nPotency: " + std::to_string(potency);
+    return desc;
+}
+
+
+
