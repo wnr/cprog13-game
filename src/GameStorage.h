@@ -41,7 +41,7 @@ namespace game {
                 searchString = toLowerCase(searchString);
             }
             
-            for_each_count([caseinsens, &result, searchString, mainType, subType, this](T * element, int val) {
+            for_each_count_break([caseinsens, &result, searchString, mainType, subType, this](T * element, int val) {
                 if(mainType != "" && element->getMainType() != mainType) {
                     return true; //Continue searching
                 }
@@ -135,7 +135,7 @@ namespace game {
         
         void for_each_count_break(const std::function<bool(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
             std::map<std::string, int> map;
-            this->for_each([&operation, &map](T * element){
+            this->for_each_break([&operation, &map](T * element){
                 std::string objectName = element->getName();
                 std::map<std::string, int>::iterator mapIt = map.find(objectName);
                 int elementNameFoundAmount = 0;

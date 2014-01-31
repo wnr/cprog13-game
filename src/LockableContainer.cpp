@@ -18,7 +18,7 @@ bool LockableContainer::for_each(std::function<bool (Item * item)> & operation) 
         return false;
     }
     
-    Container::for_each(operation);
+    Container::for_each_break(operation);
     
     return true;
 }

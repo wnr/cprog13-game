@@ -135,7 +135,7 @@ namespace game {
         unsigned int index(const T * element) const {
             unsigned int index = 0;
             
-            for_each([&index, element] (const T * e) {
+            for_each_break([&index, element] (const T * e) {
                 if(e == element) {
                     return false; //stop the for_each loop.
                 }
