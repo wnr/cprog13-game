@@ -26,8 +26,8 @@ Character::Character(Environment * env, std::string subType, unsigned int maxHea
     env->push_back(std::unique_ptr<PhysicalObject>(this));
 }
 
-Character::Character(const Character & c)       : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(c.inventory), equipment(c.equipment), rottenness(c.rottenness), interacting(c.interacting) {}
-Character::Character(Character && c)    : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(c.inventory), equipment(c.equipment), rottenness(c.rottenness), interacting(c.interacting) {}
+Character::Character(const Character & c)       : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(new Inventory(*c.inventory.get())), equipment(new Equipment(*c.equipment.get())), rottenness(c.rottenness), interacting(c.interacting) {}
+Character::Character(Character && c)    : PhysicalObject(c), health(c.health), maxHealth(c.maxHealth), baseArmorRating(c.baseArmorRating), baseDodgeProb(c.baseDodgeProb), baseBlockProb(c.baseBlockProb), baseMinDmg(c.baseMinDmg), baseMaxDmg(c.baseMaxDmg), baseCritProb(c.baseCritProb), baseCritMod(c.baseCritMod), alive(c.alive), env(c.env), inventory(std::move(c.inventory)), equipment(std::move(c.equipment)), rottenness(c.rottenness), interacting(c.interacting) {}
 
 Character::~Character() {}
 
@@ -36,7 +36,7 @@ Environment * Character::getEnvironment() const {
 }
 
 Inventory * Character::getInventory() const {
-    return inventory;
+    return inventory.get();
 }
 
 std::string Character::getName() const {
@@ -74,19 +74,19 @@ void Character::dropInventory() {
 }
 
 bool Character::pickItem(const Item * item) {
-    return item->move(env, inventory);
+    return item->move(env, inventory.get());
 }
 
 bool Character::pickItem(const Item * item, Container * con) {
-    return item->move(con, inventory);
+    return item->move(con, inventory.get());
 }
 
 bool Character::dropItem(const Item * item) {
-    return item->move(inventory, env);
+    return item->move(inventory.get(), env);
 }
 
 bool Character::putItem(const Item * item, Container * con) {
-    return item->move(inventory, con);
+    return item->move(inventory.get(), con);
 }
 
 bool Character::isInteracting() const {
@@ -196,15 +196,15 @@ std::string Character::getStatisticalDescription() const {
 }
 
 bool Character::equip(const BreakableItem * bItem) {
-    return bItem->move(inventory, equipment);
+    return bItem->move(inventory.get(), equipment.get());
 }
 
 bool Character::unEquip(const BreakableItem * bItem) {
-    return bItem->move(equipment, inventory);
+    return bItem->move(equipment.get(), inventory.get());
 }
 
 Equipment * Character::getEquipment() const {
-    return equipment;
+    return equipment.get();
 }
 
 unsigned int Character::getArmorRating() const {

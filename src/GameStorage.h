@@ -109,18 +109,19 @@ namespace game {
         }
         
         virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {
-            std::string * result = new std::string("");
-            for_each_count([itemPrefix, result, this, &skips](T * element, int val){
+            std::string result;
+            for_each_count([itemPrefix, &result, this, &skips](T * element, int val){
                 if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
                     //Found in skips list. So skip element.
                     return;
                 }
                 
-                result->append(itemPrefix);
-                result->append(getModName(element, val));
-                result->append("\n");
+                result.append(itemPrefix);
+                result.append(getModName(element, val));
+                result.append("\n");
             });
-            return *result;
+            
+            return result;
         }
         
     private:

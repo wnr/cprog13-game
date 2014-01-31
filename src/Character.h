@@ -25,8 +25,8 @@ namespace game {
         unsigned int baseCritMod;
         bool alive;
         Environment * env;
-        Inventory * inventory;
-        Equipment * equipment;
+        std::unique_ptr<Inventory> inventory;
+        std::unique_ptr<Equipment> equipment;
         unsigned int rottenness;
         bool interacting;
         
