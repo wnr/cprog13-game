@@ -1,5 +1,5 @@
 CC = g++
-CCFLAGS = -g -std=c++0x
+CCFLAGS = -O3 -std=c++0x
 
 SRC_PATH = src
 
