@@ -94,15 +94,26 @@ void Player::initCommands() {
             return false;
         }
         
+        
+        int num = -1; 
         try {
-            
-            if(!this->move(getEnvironment()->getDirections()[atoi(commands[1].c_str()) - 1])) {
+            num = atoi(commands[1].c_str()) - 1;
+        } catch(int) {
+            std::cout << "That is not an option. Write one of the numbers given as option." << std::endl;
+            return false;
+        }
+        
+        auto dirs = getEnvironment()->getDirections();
+        
+        if(num >= dirs.size()) {
+            std::cout << "That is not an option. Write one of the numbers given as option." << std::endl;
+            return false;
+        }
+        
+        if(!this->move(dirs[num])) {
                 std::cout << "That is not an option. Write one of the numbers given as option." << std::endl;
                 return false;
             }
-        } catch(int) {
-            return false;
-        }
         
         return true;
     });
