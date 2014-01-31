@@ -14,6 +14,10 @@ OBJECTS = $(SOURCES:%.cpp=%.o)
 all: $(OBJECTS)
 	$(CC) $(CCFLAGS) $(OBJECTS) -o game
 	
+compress:
+	jar cvf source.zip $(SRC_PATH)/*.cpp $(SRC_PATH)/*.h Makefile
+
 clean:
 	rm -f $(OBJECTS)
 	rm -f game
+	rm -f source.zip
