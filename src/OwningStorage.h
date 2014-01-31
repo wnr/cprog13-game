@@ -10,6 +10,8 @@
 #include <stdexcept>
 #include <list>
 #include <vector>
+#include <algorithm>
+#include <memory>
 
 namespace game {
     
@@ -57,7 +59,7 @@ namespace game {
         }
         
         //Will keep iterating through storage and performing operation on every element until operation function returns false.
-        virtual void for_each(const std::function<bool(T * element)> & operation, const std::vector<const T*> skips = {}) const {
+        virtual void for_each_break(const std::function<bool(T * element)> & operation, const std::vector<const T*> skips = {}) const {
             std::list<T *> processed;
             
             //Finds the last element of the processed list in the data list, and returns an iterator to the next element.
@@ -114,7 +116,7 @@ namespace game {
         }
         
         virtual void for_each(const std::function<void(T * element)> & operation, const std::vector<const T*> skips = {}) const {
-            for_each([&operation](T * element){
+            for_each_break([&operation](T * element){
                 operation(element);
                 return true;
             });

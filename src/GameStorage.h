@@ -83,7 +83,12 @@ namespace game {
         }
         
         template<class E>
-        E* random(const std::string & mainType = "", const std::vector<const T*> & skips = {}, std::function<bool (E*)> operation = [](){return true;}) const {
+        E* random(const std::string & mainType = "", const std::vector<const T*> & skips = {}) const {
+            return random(mainType, skips, [](){return true;});
+        }
+        
+        template<class E>
+        E* random(const std::string & mainType, const std::vector<const T*> & skips, std::function<bool (E*)> operation) const {
             std::vector<E*> candidates;
             
             this->for_each([&candidates, &mainType, operation](T * element){
@@ -128,7 +133,7 @@ namespace game {
 
         }
         
-        void for_each_count(const std::function<bool(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
+        void for_each_count_break(const std::function<bool(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
             std::map<std::string, int> map;
             this->for_each([&operation, &map](T * element){
                 std::string objectName = element->getName();
@@ -143,7 +148,7 @@ namespace game {
         }
         
         void for_each_count(const std::function<void(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
-            for_each_count([&operation](T * element, int val){
+            for_each_count_break([&operation](T * element, int val){
                 operation(element, val);
                 return true;
             }, skips);
