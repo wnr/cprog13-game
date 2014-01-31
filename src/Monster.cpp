@@ -17,11 +17,12 @@ Monster::~Monster() {}
 
 void Monster::update() {
     Character::update();
-    normalLifeRegen();
     
     if(!isAlive()) {
         return;
     }
+    
+    normalLifeRegen();
     
     bool tickConsumed = false;
     
