@@ -41,7 +41,7 @@ namespace game {
                 searchString = toLowerCase(searchString);
             }
             
-            for_each_count([caseinsens, &result, searchString, mainType, subType, this](T * element, int val) {
+            for_each_count_break([caseinsens, &result, searchString, mainType, subType, this](T * element, int val) {
                 if(mainType != "" && element->getMainType() != mainType) {
                     return true; //Continue searching
                 }
@@ -83,7 +83,12 @@ namespace game {
         }
         
         template<class E>
-        E* random(const std::string & mainType = "", const std::vector<const T*> & skips = {}, std::function<bool (E*)> operation = [](){return true;}) const {
+        E* random(const std::string & mainType = "", const std::vector<const T*> & skips = {}) const {
+            return random(mainType, skips, [](){return true;});
+        }
+        
+        template<class E>
+        E* random(const std::string & mainType, const std::vector<const T*> & skips, std::function<bool (E*)> operation) const {
             std::vector<E*> candidates;
             
             this->for_each([&candidates, &mainType, operation](T * element){
@@ -104,18 +109,19 @@ namespace game {
         }
         
         virtual std::string getStorageListAsString(const std::vector<const T*> skips = {}, const std::string & itemPrefix = LIST_ITEM_PREFIX) const {
-            std::string * result = new std::string("");
-            for_each_count([itemPrefix, result, this, &skips](T * element, int val){
+            std::string result;
+            for_each_count([itemPrefix, &result, this, &skips](T * element, int val){
                 if(std::find(skips.begin(), skips.end(), element) != skips.end()) {
                     //Found in skips list. So skip element.
                     return;
                 }
                 
-                result->append(itemPrefix);
-                result->append(getModName(element, val));
-                result->append("\n");
+                result.append(itemPrefix);
+                result.append(getModName(element, val));
+                result.append("\n");
             });
-            return *result;
+            
+            return result;
         }
         
     private:
@@ -128,9 +134,9 @@ namespace game {
 
         }
         
-        void for_each_count(const std::function<bool(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
+        void for_each_count_break(const std::function<bool(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
             std::map<std::string, int> map;
-            this->for_each([&operation, &map](T * element){
+            this->for_each_break([&operation, &map](T * element){
                 std::string objectName = element->getName();
                 std::map<std::string, int>::iterator mapIt = map.find(objectName);
                 int elementNameFoundAmount = 0;
@@ -143,7 +149,7 @@ namespace game {
         }
         
         void for_each_count(const std::function<void(T *, int)> operation, const std::vector<const T*> & skips = {}) const {
-            for_each_count([&operation](T * element, int val){
+            for_each_count_break([&operation](T * element, int val){
                 operation(element, val);
                 return true;
             }, skips);
