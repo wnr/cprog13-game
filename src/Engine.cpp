@@ -85,11 +85,11 @@ void Engine::initEnvironments() {
     Environment * neighGarden = createEnv(new Environment(ENV_NEIGH_BACKSIDE_NAME, ENV_NEIGH_BACKSIDE_DESC));
     Environment * market = createSpawnEnv(ENV_MARKET_NAME, ENV_MARKET_DESC, {getEmptyRat()}, {5});
     Environment * marketStorage = createSpawnEnv(ENV_MARKET_STORAGE_NAME, ENV_MARKET_STORAGE_DESC, {
-        new Food("Cheese", 100),
-        new Food("Meat", 150),
-        new Food("Pizza", 200),
-        new Food("Suger", 50),
-        new Food("Hamburger", 300),
+        new Food("Cheese", 200),
+        new Food("Meat", 400),
+        new Food("Pizza", 300),
+        new Food("Suger", 100),
+        new Food("Hamburger", 500),
         getEmptyRat()}, {
             4,
             4,
@@ -215,8 +215,8 @@ void Engine::initEnvironments() {
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
-    addObject(marketStorage, new Potion("Pig_blood", 400));
-    addObject(marketStorage, new Armor(ARMOR_TYPE_CHEST, 25, 0, 4, "Leather_chest"));
+    addObject(marketStorage, new Potion("Pig_blood", 700));
+    addObject(marketStorage, new Armor(ARMOR_TYPE_CHEST, 80, 0, 4, "Leather_chest"));
     
 
     addRat(forestEntrance);
@@ -233,10 +233,10 @@ void Engine::initEnvironments() {
     addRat(away3Path);
     addRat(away3Path);
     addRat(away3Path);
-    addObject(away3Path, new Shield(40, 20, 0, 4, "Shield"));
-    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 30, 10, 4, "Shoes"));
+    addObject(away3Path, new Shield(40, 40, 0, 4, "Shield"));
+    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 30, 20, 4, "Shoes"));
     addObject(awayForestPath, new Weapon("Spike_club", 150, 300, 4, 10, 100));
-    addObject(forestPath, new Armor(ARMOR_TYPE_PANTS, 55, 0, 4, "Pants"));
+    addObject(forestPath, new Armor(ARMOR_TYPE_PANTS, 70, 0, 4, "Pants"));
     
     
     new Troll(forestEntrance);

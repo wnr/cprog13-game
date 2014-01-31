@@ -37,6 +37,7 @@ namespace game {
         
         virtual Monster * clone() const;
     protected:
+        virtual void normalLifeRegen();
         virtual Character * getRandomTarget(std::function<bool(Character*)> = [](Character *){return true;}) const;
         
         virtual std::string getAttackType() const;

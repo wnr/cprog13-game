@@ -17,6 +17,7 @@ Monster::~Monster() {}
 
 void Monster::update() {
     Character::update();
+    normalLifeRegen();
     
     if(!isAlive()) {
         return;
@@ -158,4 +159,8 @@ Monster * Monster::clone() const {
         throw std::invalid_argument(INVALID_CLONE);
     }
     return c;
+}
+
+void Monster::normalLifeRegen() {
+    addHealth(getMaxHealth()/20);
 }

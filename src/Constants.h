@@ -298,7 +298,7 @@
 #define TROLL_BASE_MAX_DMG                  150
 #define TROLL_BASE_CRIT_PROB                25
 #define TROLL_BASE_CRIT_MOD                 150
-#define TROLL_MOVE_PROB                     30
+#define TROLL_MOVE_PROB                     15
 #define TROLL_ATTACK_PROB                   80
 
 #define CHARACTER_TYPE_OGRE                 "Ogre"
@@ -334,7 +334,7 @@
 #define GHOST_BASE_MAX_DMG                  250
 #define GHOST_BASE_CRIT_PROB                5
 #define GHOST_BASE_CRIT_MOD                 50
-#define GHOST_MOVE_PROB                     40
+#define GHOST_MOVE_PROB                     25
 #define GHOST_ATTACK_PROB                   100
 
 #define CHARACTER_TYPE_VAMPIRE              "Vampire"
