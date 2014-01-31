@@ -234,8 +234,9 @@ void Engine::initEnvironments() {
     addRat(away3Path);
     addRat(away3Path);
     addObject(away3Path, new Shield(30, 10, 0, 4, "Shield"));
-    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 50, 5, 4, "Shoes"));
+    addObject(away3Path, new Armor(ARMOR_TYPE_SHOE, 30, 5, 4, "Shoes"));
     addObject(awayForestPath, new Weapon("Spike_club", 100, 200, 4, 10, 100));
+    addObject(forestPath, new Armor(ARMOR_TYPE_PANTS, 45, 0, 4, "Pants"));
     
     
     new Troll(forestEntrance);
