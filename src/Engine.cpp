@@ -99,10 +99,10 @@ void Engine::initEnvironments() {
             5,});
     Environment * graveyard = createEnv(new Environment(ENV_GRAVEYARD_NAME, ENV_GRAVEYARD_DESC));
     Environment * forestEntrance = createEnv(new Environment(ENV_FOREST_ENTRANCE_NAME, ENV_FOREST_ENTRANCE_DESC));
-    Environment * forestWest = createSpawnEnv(ENV_FOREST_WEST_NAME, ENV_FOREST_WEST_DESC, {new Troll(NULL)}, {1});
-    Environment * forestNorth = createSpawnEnv(ENV_FOREST_NORTH_NAME, ENV_FOREST_NORTH_DESC, {new Troll(NULL)}, {1});
-    Environment * forestNorthEast = createSpawnEnv(ENV_FOREST_NORTH_EAST_NAME, ENV_FOREST_NORTH_EAST_DESC, {new Troll(NULL), getEmptyOgre()}, {1, 1});
-    Environment * forestEast = createSpawnEnv(ENV_FOREST_EAST_NAME, ENV_FOREST_EAST_DESC, {new Troll(NULL)}, {1});
+    Environment * forestWest = createSpawnEnv(ENV_FOREST_WEST_NAME, ENV_FOREST_WEST_DESC, {new Troll(NULL), new Food("Muchroom", 400)}, {1, 3});
+    Environment * forestNorth = createSpawnEnv(ENV_FOREST_NORTH_NAME, ENV_FOREST_NORTH_DESC, {new Troll(NULL), new Food("Muchroom", 400)}, {1, 3});
+    Environment * forestNorthEast = createSpawnEnv(ENV_FOREST_NORTH_EAST_NAME, ENV_FOREST_NORTH_EAST_DESC, {new Troll(NULL), getEmptyOgre(), new Food("Muchroom", 400)}, {1, 1, 3});
+    Environment * forestEast = createSpawnEnv(ENV_FOREST_EAST_NAME, ENV_FOREST_EAST_DESC, {new Troll(NULL), new Food("Muchroom", 400)}, {1, 3});
     Environment * bishHouse = createEnv(new Environment(ENV_BISH_HOUSE_NAME, ENV_BISH_HOUSE_DESC));
     Environment * bishSecret = createEnv(new Environment(ENV_BISH_HOUSE_SECRET_ROOM_NAME, ENV_BISH_HOUSE_SECRET_ROOM_DESC));
     Environment * cathHall = createEnv(new Environment(ENV_CATH_HALL_NAME, ENV_CATH_HALL_DESC));

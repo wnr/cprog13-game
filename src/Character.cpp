@@ -102,6 +102,7 @@ bool Character::isAlive() const {
 void Character::kill() {
     alive = false;
     setHealth(0);
+    dropInventory();
 }
 
 unsigned int Character::getRottenness() const {
