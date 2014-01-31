@@ -283,8 +283,8 @@
 #define RAT_BASE_MAX_DMG                    25
 #define RAT_BASE_CRIT_PROB                  15
 #define RAT_BASE_CRIT_MOD                   100
-#define RAT_MOVE_PROB                       40
-#define RAT_ATTACK_PROB                     20
+#define RAT_MOVE_PROB                       80
+#define RAT_ATTACK_PROB                     50
 
 #define CHARACTER_TYPE_TROLL                "Troll"
 #define TROLL_HEALTH                        500
@@ -295,8 +295,8 @@
 #define TROLL_BASE_MAX_DMG                  150
 #define TROLL_BASE_CRIT_PROB                25
 #define TROLL_BASE_CRIT_MOD                 150
-#define TROLL_MOVE_PROB                     0
-#define TROLL_ATTACK_PROB                   100
+#define TROLL_MOVE_PROB                     30
+#define TROLL_ATTACK_PROB                   80
 
 #define CHARACTER_TYPE_OGRE                 "Ogre"
 #define OGRE_HEALTH                         650
@@ -307,8 +307,8 @@
 #define OGRE_BASE_MAX_DMG                   250
 #define OGRE_BASE_CRIT_PROB                 25
 #define OGRE_BASE_CRIT_MOD                  150
-#define OGRE_MOVE_PROB                      0
-#define OGRE_ATTACK_PROB                    100
+#define OGRE_MOVE_PROB                      10
+#define OGRE_ATTACK_PROB                    90
 
 #define CHARACTER_TYPE_GHOST                "Ghost"
 #define GHOST_HEALTH                        100
@@ -319,7 +319,7 @@
 #define GHOST_BASE_MAX_DMG                  250
 #define GHOST_BASE_CRIT_PROB                5
 #define GHOST_BASE_CRIT_MOD                 50
-#define GHOST_MOVE_PROB                     0
+#define GHOST_MOVE_PROB                     40
 #define GHOST_ATTACK_PROB                   100
 
 #define CHARACTER_TYPE_VAMPIRE              "Vampire"
@@ -331,7 +331,7 @@
 #define VAMPIRE_BASE_MAX_DMG                400
 #define VAMPIRE_BASE_CRIT_PROB              5
 #define VAMPIRE_BASE_CRIT_MOD               100
-#define VAMPIRE_MOVE_PROB                   0
+#define VAMPIRE_MOVE_PROB                   5
 #define VAMPIRE_ATTACK_PROB                 100
 
 #define CHARACTER_TYPE_DEMON                "Demon"
