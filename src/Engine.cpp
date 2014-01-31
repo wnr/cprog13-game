@@ -85,11 +85,11 @@ void Engine::initEnvironments() {
     Environment * neighGarden = createEnv(new Environment(ENV_NEIGH_BACKSIDE_NAME, ENV_NEIGH_BACKSIDE_DESC));
     Environment * market = createSpawnEnv(ENV_MARKET_NAME, ENV_MARKET_DESC, {getEmptyRat()}, {5});
     Environment * marketStorage = createSpawnEnv(ENV_MARKET_STORAGE_NAME, ENV_MARKET_STORAGE_DESC, {
-        new Food("Cheese", 20),
-        new Food("Meat", 30),
-        new Food("Pizza", 100),
+        new Food("Cheese", 100),
+        new Food("Meat", 150),
+        new Food("Pizza", 200),
         new Food("Suger", 10),
-        new Food("Hamburger", 200),
+        new Food("Hamburger", 300),
         getEmptyRat()}, {
             4,
             4,
