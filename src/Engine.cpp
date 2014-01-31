@@ -79,7 +79,7 @@ void Engine::initEnvironments() {
     Environment * neighHall = createEnv(new Environment(ENV_NEIGH_HALL_NAME, ENV_NEIGH_HALL_DESC));
     Environment * neighKitchen = createEnv(new Environment(ENV_NEIGH_KITCHEN_NAME, ENV_NEIGH_KITCHEN_DESC));
     Environment * neighGarden = createEnv(new Environment(ENV_NEIGH_BACKSIDE_NAME, ENV_NEIGH_BACKSIDE_DESC));
-    Environment * market = createEnv(new Environment(ENV_MARKET_NAME, ENV_MARKET_DESC));
+    Environment * market = createSpawnEnv(ENV_MARKET_NAME, ENV_MARKET_DESC, {getEmptyRat()}, {5});
     Environment * marketStorage = createSpawnEnv(ENV_MARKET_STORAGE_NAME, ENV_MARKET_STORAGE_DESC, {
         new Food("Cheese", 20),
         new Food("Meat", 30),
@@ -284,8 +284,8 @@ void Engine::initEnvironments() {
     addRat(marketStorage);
     addRat(marketStorage);
     addRat(marketStorage);
-    addObject(marketStorage, new Food("Cheese", 10));
-    addObject(market, new Food("Meat", 15));
+    addObject(marketStorage, new Potion("Pig_blood", 50));
+    addObject(marketStorage, new Armor(ARMOR_TYPE_CHEST, 25, 0, 4, "Leather_chest"));
     
 
     addRat(forestEntrance);
